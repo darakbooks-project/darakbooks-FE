@@ -1,8 +1,8 @@
 import React from 'react';
 
-const DetailPage = () => {
+const BookDetailPage = () => {
   return (
-    <div className='h-screen p-5'>
+    <div className='h-screen p-5 border-2 border-red-500'>
       <div className='h-full flex flex-col gap-5'>
         <div className='min-h-[10rem] flex'>
           <div className='w-[30%] border-basic'>이미지</div>
@@ -49,4 +49,4 @@ const DetailPage = () => {
   );
 };
 
-export default DetailPage;
+export default BookDetailPage;
