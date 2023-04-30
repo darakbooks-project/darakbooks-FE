@@ -39,9 +39,9 @@ const FeedImage = ({
   const imgRef = useRef<HTMLImageElement>(null);
 
   const imageSize: imageSizeType = {
-    1: 'w-[100%] h-[100%]',
-    2: 'w-[50%] h-[50%]',
-    3: 'w-[33%] h-[33%]',
+    1: 'w-[100%] pb-[100%]',
+    2: 'w-[50%] pb-[50%]',
+    3: 'w-[33%] pb-[33%]',
   };
 
   useEffect(() => {
@@ -71,10 +71,13 @@ const FeedImage = ({
   }, [lazy, threshold]);
 
   return (
-    <div onClick={onFeedImageClick}>
+    <div
+      onClick={onFeedImageClick}
+      className={`${imageSize[type]} h-0 relative overflow-hidden`}
+    >
       <img
+        className='absolute t-0 l-0 w-[100%] h-[100%]'
         ref={imgRef}
-        className={imageSize[type]}
         src={loaded ? src : placeholder}
         alt={alt}
       />
