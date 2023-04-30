@@ -15,12 +15,13 @@ const Avatar = ({
   threshold,
   src,
   placeholder,
+  shape,
   alt,
   onAvatarClick,
 }: Props) => {
   return (
     <div
-      className='relative inline-block border-1 border-solid border-stone-200 bg-white overflow-hidden w-[40px] h-[40px] flex justify-center items-center'
+      className={`${avatarShape[shape]} relative inline-block border-1 border-solid border-stone-200 bg-white overflow-hidden w-[40px] h-[40px] flex justify-center items-center`}
       onClick={onAvatarClick}
     >
       <ImageComponent
@@ -35,3 +36,13 @@ const Avatar = ({
 };
 
 export default Avatar;
+
+interface avatarShapeType {
+  [key: string]: string;
+}
+
+const avatarShape: avatarShapeType = {
+  circle: 'rounded-[50%]',
+  round: 'rounded',
+  square: 'rounded-none',
+};
