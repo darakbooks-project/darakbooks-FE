@@ -38,12 +38,6 @@ const FeedImage = ({
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
-  const imageSize: imageSizeType = {
-    1: 'w-[100%] pb-[100%]',
-    2: 'w-[50%] pb-[50%]',
-    3: 'w-[33%] pb-[33%]',
-  };
-
   useEffect(() => {
     if (!lazy) {
       setLoaded(true);
@@ -73,7 +67,9 @@ const FeedImage = ({
   return (
     <div
       onClick={onFeedImageClick}
-      className={`${imageSize[type]} h-0 relative overflow-hidden`}
+      className={`${`w-[${Math.round(100 / type)}%] pb-[${Math.round(
+        100 / type,
+      )}%]`} h-0 relative overflow-hidden`}
     >
       <img
         className='absolute t-0 l-0 w-[100%] h-[100%]'
