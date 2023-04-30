@@ -22,10 +22,6 @@ interface Props {
   onFeedImageClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
-interface imageSizeType {
-  [key: number]: string;
-}
-
 const FeedImage = ({
   lazy,
   threshold,
