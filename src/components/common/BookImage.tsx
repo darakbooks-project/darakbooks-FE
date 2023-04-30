@@ -17,19 +17,23 @@ interface Props {
   threshold: number;
   placeholder: string;
   src: string;
-  type: number;
+  feed?: string;
   alt: string;
-  onFeedImageClick: React.MouseEventHandler<HTMLDivElement>;
+  onImageClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const FeedImage = ({
+interface imageSizeType {
+  [key: string]: string;
+}
+
+const BookImage = ({
   lazy,
   threshold,
   placeholder,
   src,
-  type,
+  feed,
   alt,
-  onFeedImageClick,
+  onImageClick,
 }: Props) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -60,12 +64,19 @@ const FeedImage = ({
     imgRef.current && observer.observe(imgRef.current);
   }, [lazy, threshold]);
 
+  const imageSize: imageSizeType = {
+    'type-1': 'w-[100%] pb-[100%] overflow-hidden',
+    'type-2': 'w-[50%] pb-[50%] overflow-hidden',
+    'type-3': 'w-[33%] pb-[33%] overflow-hidden',
+    'not-feed': `w-[90px] pb-[120px]`,
+  };
+
   return (
     <div
-      onClick={onFeedImageClick}
-      className={`${`w-[${Math.round(100 / type)}%] pb-[${Math.round(
-        100 / type,
-      )}%]`} h-0 relative overflow-hidden`}
+      onClick={feed ? onImageClick : undefined}
+      className={`${
+        feed ? imageSize[feed] : imageSize['not-feed']
+      } h-0 relative`}
     >
       <img
         className='absolute t-0 l-0 w-[100%] h-[100%]'
@@ -77,4 +88,4 @@ const FeedImage = ({
   );
 };
 
-export default FeedImage;
+export default BookImage;
