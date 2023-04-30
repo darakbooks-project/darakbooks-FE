@@ -14,7 +14,7 @@ const onIntersection: IntersectionObserverCallback = (entries, io) => {
 
 interface Props {
   lazy: boolean;
-  threshold: number;
+  threshold?: number;
   placeholder: string;
   src: string;
   feed?: string;
@@ -28,7 +28,7 @@ interface imageSizeType {
 
 const BookImage = ({
   lazy,
-  threshold,
+  threshold = 0.5,
   placeholder,
   src,
   feed,
