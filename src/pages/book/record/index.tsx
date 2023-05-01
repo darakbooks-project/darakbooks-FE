@@ -1,6 +1,9 @@
+import 'react-datepicker/dist/react-datepicker.css';
+
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
 
 import { MAX_FILE_SIZE } from '@/constants/file';
 
@@ -10,6 +13,7 @@ interface postImageProps {
 }
 
 const BookRecordPage = () => {
+  const [startDate, setStartDate] = useState(new Date());
   const [postImage, setPostImage] = useState<postImageProps>();
 
   const {
@@ -42,11 +46,15 @@ const BookRecordPage = () => {
     <div className='h-screen p-5 border-2 border-red-500'>
       <div className='h-1/5 border-basic flex flex-row '>
         <div className='w-1/3 border-basic'>IMAGE</div>
-        <div className='flex flex-col justify-around pl-5'>
+        <div className='flex flex-col pl-5'>
           <button className='border-basic' disabled={bid !== undefined}>
             책 선택
           </button>
-          <div className='border-basic'>읽은날짜</div>
+          <DatePicker
+            className='border-basic'
+            selected={startDate}
+            onChange={(date) => setStartDate(date!)}
+          />
         </div>
       </div>
       <form className='h-4/5 border-basic flex flex-col items-center space-y-5'>
