@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const BookDetailPage = () => {
+  const router = useRouter();
   return (
     <div className='h-screen p-5 border-2 border-red-500'>
       <div className='h-full flex flex-col gap-5'>
@@ -22,7 +24,17 @@ const BookDetailPage = () => {
           </div>
         </div>
         <div className='border-basic flex justify-end'>
-          <button className='border-basic'>독서기록</button>
+          <button
+            className='border-basic'
+            onClick={() => {
+              router.push({
+                pathname: 'record',
+                query: { bid: '도서아이디' },
+              });
+            }}
+          >
+            독서기록
+          </button>
         </div>
         <div className='border-basic'>
           <div>태그들</div>

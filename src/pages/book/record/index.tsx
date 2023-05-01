@@ -1,12 +1,19 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const BookRecordPage = () => {
+  const {
+    query: { bid },
+  } = useRouter();
+
   return (
     <div className='h-screen p-5 border-2 border-red-500'>
       <div className='h-1/5 border-basic flex flex-row '>
         <div className='w-1/3 border-basic'>IMAGE</div>
         <div className='flex flex-col justify-around pl-5'>
-          <button className='border-basic'>책 선택</button>
+          <button className='border-basic' disabled={bid !== undefined}>
+            책 선택
+          </button>
           <div className='border-basic'>읽은날짜</div>
         </div>
       </div>
