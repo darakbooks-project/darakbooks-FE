@@ -15,10 +15,33 @@ interface postImageProps {
 const BookRecordPage = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [postImage, setPostImage] = useState<postImageProps>();
+  const [description, setDescription] = useState('');
+  const [privateMode, setPrivateMode] = useState(false);
 
   const {
     query: { bid },
   } = useRouter();
+
+  const postBookRedcord = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formattedDate = startDate.toISOString().substring(0, 10);
+
+    {
+      /*
+    1. react-query mutate
+    */
+    }
+
+    console.log(postImage, description, formattedDate, privateMode);
+  };
+
+  const togglePrivateMode = () => {
+    setPrivateMode((prev) => !prev);
+  };
+
+  const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(event.currentTarget.value);
+  };
 
   const postBookRecordImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.currentTarget;
@@ -53,11 +76,15 @@ const BookRecordPage = () => {
           <DatePicker
             className='border-basic'
             selected={startDate}
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             onChange={(date) => setStartDate(date!)}
           />
         </div>
       </div>
-      <form className='h-4/5 border-basic flex flex-col items-center space-y-5'>
+      <form
+        onSubmit={postBookRedcord}
+        className='h-4/5 border-basic flex flex-col items-center space-y-5'
+      >
         {postImage ? (
           <Image
             src={postImage.url}
@@ -83,10 +110,17 @@ const BookRecordPage = () => {
           </>
         )}
 
-        <textarea className='border-basic w-full resize-none h-2/4'></textarea>
+        <textarea
+          value={description}
+          onChange={changeDescription}
+          className='border-basic w-full resize-none h-2/4'
+        ></textarea>
         <div className='border-basic w-full'>태그들</div>
         <div className='flex justify-end w-full'>
-          <button className='border-basic'>비공개</button>
+          <div className='border-basic' onClick={togglePrivateMode}>
+            {privateMode ? '공개' : '비공개'}
+          </div>
+          <button className='border-basic'>완료</button>
         </div>
       </form>
     </div>
