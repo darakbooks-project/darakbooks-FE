@@ -1,6 +1,10 @@
 import Image from 'next/image';
 
-const Header = ({ title }) => {
+interface Props {
+  title: string;
+}
+
+const Header = ({ title }: Props) => {
   return (
     <div className='flex my-[20px]'>
       <Image
