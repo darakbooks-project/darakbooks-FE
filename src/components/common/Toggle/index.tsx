@@ -1,8 +1,14 @@
-const Toggle = () => {
+interface ToggleProps {
+  name: string;
+  disabled: true;
+  onChange(): void;
+}
+
+const Toggle = ({ name, disabled, onChange }) => {
   return (
     <>
       <label className='inline-block cursor-pointer select-none'>
-        <input type='checkbox' />
+        <input type='checkbox' name={name} disabled={disabled} />
         <div className='w-[64px] h-[30px] p-[2px] rounded-[15px] box-border	bg-gray-300 ease-out duration-200' />
       </label>
       <style jsx>
