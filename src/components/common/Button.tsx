@@ -1,17 +1,17 @@
-interface Props {
-  text: string;
+interface ButtonProps {
+  children: React.ReactNode;
   size: 'small' | 'medium' | 'large';
   color: 'blue' | 'gray';
   onButtonClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const Button = ({ text, size, color, onButtonClick }: Props) => {
+const Button = ({ children, size, color, onButtonClick }: ButtonProps) => {
   return (
     <div className={`${buttonSize[size]}`} onClick={onButtonClick}>
       <button
         className={`${buttonColor[color]} w-full h-full px-[6px] py-[8px] rounded border-0 outline-0 box-border cursor-pointer ease-in duration-300`}
       >
-        {text}
+        {children}
       </button>
     </div>
   );
