@@ -12,12 +12,12 @@ const onIntersection: IntersectionObserverCallback = (entries, io) => {
   });
 };
 
-interface Props {
+interface BookImageProps {
   lazy: boolean;
   threshold?: number;
   placeholder: string;
   src: string;
-  feed?: string;
+  feed: string;
   alt: string;
   onImageClick?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -34,7 +34,7 @@ const BookImage = ({
   feed,
   alt,
   onImageClick,
-}: Props) => {
+}: BookImageProps) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -65,21 +65,21 @@ const BookImage = ({
   }, [lazy, threshold]);
 
   const imageSize: imageSizeType = {
-    'type-1': 'w-[100%] pb-[100%] overflow-hidden',
-    'type-2': 'w-[50%] pb-[50%] overflow-hidden',
-    'type-3': 'w-[33%] pb-[33%] overflow-hidden',
-    'not-feed': `w-[90px] pb-[120px]`,
+    'feed-large': 'aspect-square w-[100%]',
+    'feed-medium': 'aspect-square w-[50%]',
+    'feed-small': 'aspect-square w-[33%]',
+    'not-feed-large': `w-[240px] h-[320px]`,
+    'not-feed-medium': `w-[120px] h-[160px]`,
+    'not-feed-small': `w-[72px] h-[96px]`,
   };
 
   return (
     <div
       onClick={feed ? onImageClick : undefined}
-      className={`${
-        feed ? imageSize[feed] : imageSize['not-feed']
-      } h-0 relative`}
+      className={`${imageSize[feed]}`}
     >
       <img
-        className='absolute t-0 l-0 w-[100%] h-[100%]'
+        className='w-[100%] h-[100%]'
         ref={imgRef}
         src={loaded ? src : placeholder}
         alt={alt}
