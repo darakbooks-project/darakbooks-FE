@@ -8,7 +8,7 @@ interface shelfSizeType {
   [key: string]: string;
 }
 
-const BookShelf = ({ size }) => {
+const BookShelf = ({ size }: Props) => {
   const shelfSize: shelfSizeType = {
     'shelf-large': 'aspect-square w-[100%]',
     'shelf-medium': 'aspect-square w-[50%]',
@@ -17,7 +17,9 @@ const BookShelf = ({ size }) => {
 
   return (
     <div
-      className={`${shelfSize['shelf-large']} bg-gray-400 flex justify-center items-center`}
+      className={`${
+        shelfSize[`shelf-${size}`]
+      } bg-gray-400 flex justify-center items-center`}
     >
       <BookImage
         lazy={true}
@@ -25,7 +27,7 @@ const BookShelf = ({ size }) => {
         src='https://image.yes24.com/momo/TopCate1261/MidCate008/70353017.jpg'
         alt='책장 속의 책입니다!'
         onImageClick={() => console.log('hi')}
-        feed='not-feed-large'
+        feed={`not-feed-${size}`}
       />
     </div>
   );
