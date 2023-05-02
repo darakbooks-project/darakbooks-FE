@@ -4,17 +4,7 @@ interface Props {
   size: 'small' | 'medium' | 'large';
 }
 
-interface shelfSizeType {
-  [key: string]: string;
-}
-
 const BookShelf = ({ size }: Props) => {
-  const shelfSize: shelfSizeType = {
-    'shelf-large': 'aspect-square w-[100%]',
-    'shelf-medium': 'aspect-square w-[50%]',
-    'shelf-small': 'aspect-square w-[33%]',
-  };
-
   return (
     <div
       className={`${
@@ -34,3 +24,13 @@ const BookShelf = ({ size }: Props) => {
 };
 
 export default BookShelf;
+
+interface shelfSizeType {
+  [key: string]: string;
+}
+
+const shelfSize: shelfSizeType = {
+  'shelf-large': 'aspect-square w-[100%]',
+  'shelf-medium': 'aspect-square w-[50%]',
+  'shelf-small': 'aspect-square w-[33%]',
+};
