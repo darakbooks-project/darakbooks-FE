@@ -1,34 +1,31 @@
-import { useState } from 'react';
-
 import TabItem from './TabItem';
 
 interface Props {
   lefttext: string;
   righttext: string;
+  leftNavigatePath: string;
+  rightNavigatePath: string;
+  position: 'left' | 'right';
 }
 
-const Tab = ({ lefttext, righttext }: Props) => {
-  const [tabPosition, setTabPosition] = useState('left');
-
-  const clickLeftTap = () => {
-    setTabPosition('left');
-  };
-
-  const clickRightTab = () => {
-    setTabPosition('right');
-  };
-
+const Tab = ({
+  lefttext,
+  righttext,
+  leftNavigatePath,
+  rightNavigatePath,
+  position,
+}: Props) => {
   return (
     <div className='w-[100%] flex justify-center'>
       <TabItem
         title={lefttext}
-        active={tabPosition === 'left' && true}
-        clickTab={clickLeftTap}
+        active={position === 'left'}
+        navigatePath={leftNavigatePath}
       />
       <TabItem
         title={righttext}
-        active={tabPosition === 'right' && true}
-        clickTab={clickRightTab}
+        active={position === 'right'}
+        navigatePath={rightNavigatePath}
       />
     </div>
   );
