@@ -2,12 +2,12 @@ import Link from 'next/link';
 
 import BookImage from './BookImage';
 
-interface Props {
+interface BookShelfPreviewProps {
   imageSrcArr: string[];
   memberId: string;
 }
 
-const BookShelfPreview = ({ imageSrcArr, memberId }: Props) => {
+const BookShelfPreview = ({ imageSrcArr, memberId }: BookShelfPreviewProps) => {
   return (
     <Link
       href={`bookshelf?memberId=${memberId}`}

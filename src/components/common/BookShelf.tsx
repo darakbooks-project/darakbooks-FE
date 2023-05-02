@@ -2,12 +2,12 @@ import Link from 'next/link';
 
 import BookImage from './BookImage';
 
-interface Props {
+interface BookShelfProps {
   size: 'small' | 'medium' | 'large';
   bookId: number;
 }
 
-const BookShelf = ({ size, bookId }: Props) => {
+const BookShelf = ({ size, bookId }: BookShelfProps) => {
   return (
     <Link
       href={`book/detail?bookId=${bookId}`}

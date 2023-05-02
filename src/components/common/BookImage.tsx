@@ -12,7 +12,7 @@ const onIntersection: IntersectionObserverCallback = (entries, io) => {
   });
 };
 
-interface Props {
+interface BookImageProps {
   lazy: boolean;
   threshold?: number;
   placeholder: string;
@@ -34,7 +34,7 @@ const BookImage = ({
   feed,
   alt,
   onImageClick,
-}: Props) => {
+}: BookImageProps) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
