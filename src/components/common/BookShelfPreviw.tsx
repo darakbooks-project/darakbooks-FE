@@ -1,13 +1,19 @@
+import Link from 'next/link';
+
 import BookImage from './BookImage';
 
 interface Props {
-  srcArr: string[];
+  imageSrcArr: string[];
+  memberId: string;
 }
 
-const BookShelfPreview = ({ srcArr }: Props) => {
+const BookShelfPreview = ({ imageSrcArr, memberId }: Props) => {
   return (
-    <div className='w-[100%] h-[130px] flex justify-evenly items-center bg-gray-400 cursor-pointer'>
-      {srcArr.map((src: string) => {
+    <Link
+      href={`bookshelf?memberId=${memberId}`}
+      className='w-[100%] h-[130px] flex justify-evenly items-center bg-gray-400 cursor-pointer'
+    >
+      {imageSrcArr.map((src: string) => {
         return (
           <>
             <BookImage
@@ -20,7 +26,7 @@ const BookShelfPreview = ({ srcArr }: Props) => {
           </>
         );
       })}
-    </div>
+    </Link>
   );
 };
 
