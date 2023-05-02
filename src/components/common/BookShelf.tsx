@@ -6,14 +6,14 @@ interface shelfSizeType {
 
 const BookShelf = () => {
   const shelfSize: shelfSizeType = {
-    'type-1': 'aspect-square w-[100%]',
-    'type-2': 'aspect-square w-[50%]',
-    'type-3': 'aspect-square w-[33%]',
+    'shelf-large': 'aspect-square w-[100%]',
+    'shelf-medium': 'aspect-square w-[50%]',
+    'shelf-small': 'aspect-square w-[33%]',
   };
 
   return (
     <div
-      className={`${shelfSize['type-2']} bg-gray-400 flex justify-center items-center`}
+      className={`${shelfSize['shelf-large']} bg-gray-400 flex justify-center items-center`}
     >
       <BookImage
         lazy={true}
@@ -21,6 +21,7 @@ const BookShelf = () => {
         src='https://image.yes24.com/momo/TopCate1261/MidCate008/70353017.jpg'
         alt='책장 속의 책입니다!'
         onImageClick={() => console.log('hi')}
+        feed='not-feed-large'
       />
     </div>
   );
