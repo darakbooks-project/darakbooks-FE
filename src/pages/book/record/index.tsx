@@ -70,7 +70,7 @@ const BookRecordPage = () => {
       <div className='h-1/5 border-basic flex flex-row '>
         <div className='w-1/3 border-basic'>IMAGE</div>
         <div className='flex flex-col pl-5'>
-          <button className='border-basic' disabled={bid !== undefined}>
+          <button className='border-basic' disabled={!!bid}>
             책 선택
           </button>
           <DatePicker
