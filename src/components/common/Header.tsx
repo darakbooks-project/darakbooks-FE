@@ -1,14 +1,18 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 interface Props {
   title: string;
 }
 
 const Header = ({ title }: Props) => {
+  const router = useRouter();
+
   return (
-    <div className='flex my-[20px]'>
+    <div className='flex my-[20px] items-center'>
       <Image
-        className='mr-[15px]'
+        onClick={() => router.back()}
+        className='mr-[15px] cursor-pointer'
         src='./images/back-button.svg'
         width={20}
         height={20}
