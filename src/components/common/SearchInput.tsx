@@ -17,7 +17,10 @@ const SearchInput = ({ getSearchData }: Props) => {
   };
 
   return (
-    <div className='flex w-[100%] h-[50px] flex-row-reverse'>
+    <form
+      className='flex w-[100%] h-[50px] flex-row-reverse'
+      onSubmit={(e) => e.preventDefault()}
+    >
       <input
         className='w-[85%] border border-solid border-black rounded-r-xl outline-none pl-2'
         type='text'
@@ -25,6 +28,7 @@ const SearchInput = ({ getSearchData }: Props) => {
         onChange={updateInputData}
       />
       <button
+        type='submit'
         className='w-[15%] border border-solid border-black bg-gray-300 flex justify-center items-center rounded-l-xl border-r-0'
         onClick={onClickSearchButton}
       >
@@ -35,7 +39,7 @@ const SearchInput = ({ getSearchData }: Props) => {
           alt='검색 아이콘'
         />
       </button>
-    </div>
+    </form>
   );
 };
 
