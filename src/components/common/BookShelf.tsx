@@ -1,10 +1,14 @@
 import BookImage from './BookImage';
 
+interface Props {
+  size: 'small' | 'medium' | 'large';
+}
+
 interface shelfSizeType {
   [key: string]: string;
 }
 
-const BookShelf = () => {
+const BookShelf = ({ size }) => {
   const shelfSize: shelfSizeType = {
     'shelf-large': 'aspect-square w-[100%]',
     'shelf-medium': 'aspect-square w-[50%]',
