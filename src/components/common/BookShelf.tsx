@@ -1,15 +1,19 @@
+import Link from 'next/link';
+
 import BookImage from './BookImage';
 
 interface Props {
   size: 'small' | 'medium' | 'large';
+  bookId: number;
 }
 
-const BookShelf = ({ size }: Props) => {
+const BookShelf = ({ size, bookId }: Props) => {
   return (
-    <div
+    <Link
+      href={`book/detail?bookId=${bookId}`}
       className={`${
         shelfSize[`shelf-${size}`]
-      } bg-gray-400 flex justify-center items-center`}
+      } bg-gray-400 flex justify-center items-center cursor-pointer`}
     >
       <BookImage
         lazy={true}
@@ -19,7 +23,7 @@ const BookShelf = ({ size }: Props) => {
         onImageClick={() => console.log('hi')}
         feed={`not-feed-${size}`}
       />
-    </div>
+    </Link>
   );
 };
 
