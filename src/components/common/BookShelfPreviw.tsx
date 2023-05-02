@@ -11,7 +11,6 @@ const BookShelfPreview = ({ srcArr }) => {
               placeholder=''
               src={src}
               alt='책장 미리보기 속의 책입니다!'
-              onImageClick={() => console.log('hi')}
               feed='not-feed-small'
             />
           </>
