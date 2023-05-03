@@ -1,9 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import BookImage from '../BookImage';
 
 interface GruopProps {
+  id: number;
   name: string;
   deadline: string;
   type: '온라인' | '오프라인';
@@ -16,7 +18,7 @@ interface GruopProps {
 interface ReadingGroupRecruitmentProps {
   src: string;
   group: GruopProps;
-  onClickDeleteButton(): void;
+  onClickDeleteButton(id: number): void;
 }
 
 const ReadingGroupRecruitment = ({
@@ -28,6 +30,10 @@ const ReadingGroupRecruitment = ({
 
   const clickSettingButton = () => {
     setIsSettingButtonOpen((prev) => !prev);
+  };
+
+  const deleteRecruitmentListItem = () => {
+    onClickDeleteButton(group.id);
   };
 
   return (
@@ -65,10 +71,14 @@ const ReadingGroupRecruitment = ({
           isSettingButtonOpen ? 'block' : 'hidden'
         }`}
       >
-        <div className='px-[20px] py-[10px] cursor-pointer hover:bg-sky-700'>
-          수정
+        <div className='px-[20px] py-[10px] cursor-pointer hover:bg-sky-700 border-b border-black'>
+          {/* by 민형, 현재 update 페이지가 없어서 wirte 페이지로 이동(update 페이지 필요)_230503 */}
+          <Link href='/recruit/write'>수정</Link>
         </div>
-        <div className='px-[20px] py-[10px] cursor-pointer hover:bg-sky-700'>
+        <div
+          onClick={deleteRecruitmentListItem}
+          className='px-[20px] py-[10px] cursor-pointer hover:bg-sky-700'
+        >
           삭제
         </div>
       </div>
