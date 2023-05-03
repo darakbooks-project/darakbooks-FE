@@ -1,7 +1,19 @@
 import BookImage from '../BookImage';
 import Button from '../Button';
 
-const BookSelection = ({ src, text, imageSize, buttonSize }) => {
+interface BookSelectionProps {
+  src: string;
+  text: string;
+  imageSize: string;
+  buttonSize: 'small' | 'medium' | 'large';
+}
+
+const BookSelection = ({
+  src,
+  text,
+  imageSize,
+  buttonSize,
+}: BookSelectionProps) => {
   return (
     <div className='w-[100%] flex justify-between items-center bg-yellow-600 px-[20px] py-[10px]'>
       <div className='flex items-center'>
