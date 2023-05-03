@@ -37,7 +37,7 @@ const ReadingGroupRecruitment = ({
   };
 
   return (
-    <div className='w-[100%] flex items-center bg-yellow-600 px-[20px] py-[15px] relative'>
+    <div className='w-[100%] flex items-center bg-yellow-600 px-[20px] py-[15px] relative cursor-pointer'>
       <BookImage
         lazy={true}
         src={src}

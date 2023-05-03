@@ -15,7 +15,7 @@ const BookSelection = ({
   buttonSize,
 }: BookSelectionProps) => {
   return (
-    <div className='w-[100%] flex justify-between items-center bg-yellow-600 px-[20px] py-[10px]'>
+    <div className='w-[100%] flex justify-between items-center bg-yellow-400 px-[20px] py-[15px]'>
       <div className='flex items-center'>
         <BookImage
           lazy={true}

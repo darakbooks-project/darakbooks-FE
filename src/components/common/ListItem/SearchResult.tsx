@@ -16,7 +16,7 @@ const SearchResult = ({
   publisher,
 }: SearchResultProps) => {
   return (
-    <div className='w-[100%] flex items-center bg-yellow-600 px-[20px] py-[10px]'>
+    <div className='w-[100%] flex items-center bg-yellow-500 px-[20px] py-[15px] cursor-pointer'>
       <div className='w-[50%]'>
         <BookImage
           lazy={true}
