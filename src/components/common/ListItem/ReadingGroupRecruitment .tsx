@@ -32,6 +32,10 @@ const ReadingGroupRecruitment = () => {
         height={30}
         alt='설정 아이콘'
       />
+      <div className='absolute bg-white top-[35px] right-[20px] rounded'>
+        <div className='px-[20px] py-[10px]'>수정</div>
+        <div className='px-[20px] py-[10px]'>삭제</div>
+      </div>
     </div>
   );
 };
