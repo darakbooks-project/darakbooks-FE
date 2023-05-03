@@ -30,6 +30,7 @@ const Avatar = ({
         src={src}
         placeholder={placeholder}
         alt={alt}
+        feed='not-feed-small'
       />
     </div>
   );
