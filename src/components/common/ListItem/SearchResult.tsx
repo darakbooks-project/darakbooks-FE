@@ -1,6 +1,20 @@
 import BookImage from '../BookImage';
 
-const SearchResult = ({ src, imageSize, title, author, publisher }) => {
+interface SearchResultProps {
+  src: string;
+  imageSize: string;
+  title: string;
+  author: string;
+  publisher: string;
+}
+
+const SearchResult = ({
+  src,
+  imageSize,
+  title,
+  author,
+  publisher,
+}: SearchResultProps) => {
   return (
     <div className='w-[100%] flex items-center bg-yellow-600 px-[20px] py-[10px]'>
       <div className='w-[50%]'>
