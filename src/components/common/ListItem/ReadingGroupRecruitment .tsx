@@ -1,8 +1,15 @@
 import Image from 'next/image';
+import { useState } from 'react';
 
 import BookImage from '../BookImage';
 
 const ReadingGroupRecruitment = () => {
+  const [isSettingButtonOpen, setIsSettingButtonOpen] = useState(false);
+
+  const clickSettingButton = () => {
+    setIsSettingButtonOpen((prev) => !prev);
+  };
+
   return (
     <div className='w-[100%] flex items-center bg-yellow-600 px-[20px] py-[15px] relative'>
       <BookImage
@@ -26,15 +33,24 @@ const ReadingGroupRecruitment = () => {
         </div>
       </div>
       <Image
+        onClick={clickSettingButton}
         className='absolute top-[5px] right-[20px] cursor-pointer'
         src='./images/setting.svg'
         width={30}
         height={30}
         alt='설정 아이콘'
       />
-      <div className='absolute bg-white top-[35px] right-[20px] rounded'>
-        <div className='px-[20px] py-[10px]'>수정</div>
-        <div className='px-[20px] py-[10px]'>삭제</div>
+      <div
+        className={`absolute bg-white top-[35px] right-[20px] rounded ${
+          isSettingButtonOpen ? 'block' : 'hidden'
+        }`}
+      >
+        <div className='px-[20px] py-[10px] cursor-pointer hover:bg-sky-700'>
+          수정
+        </div>
+        <div className='px-[20px] py-[10px] cursor-pointer hover:bg-sky-700'>
+          삭제
+        </div>
       </div>
     </div>
   );
