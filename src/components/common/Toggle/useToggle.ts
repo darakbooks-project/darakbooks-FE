@@ -5,8 +5,8 @@ interface useToggleHookType {
   toggle: () => void;
 }
 
-const useToggle = (iniitialState: boolean): useToggleHookType => {
-  const [isCheck, setIsCheck] = useState(iniitialState);
+const useToggle = (initialState: boolean): useToggleHookType => {
+  const [isCheck, setIsCheck] = useState(initialState);
   const toggle = useCallback(() => setIsCheck((isCheck) => !isCheck), []);
 
   return { isCheck, toggle };
