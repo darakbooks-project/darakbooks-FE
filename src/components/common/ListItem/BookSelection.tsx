@@ -3,14 +3,14 @@ import Button from '../Button';
 
 interface BookSelectionProps {
   src: string;
-  text: string;
+  title: string;
   imageSize: string;
   buttonSize: 'small' | 'medium' | 'large';
 }
 
 const BookSelection = ({
   src,
-  text,
+  title,
   imageSize,
   buttonSize,
 }: BookSelectionProps) => {
@@ -24,7 +24,7 @@ const BookSelection = ({
           alt='책 선택 리스트 아이템의 사진 입니다.'
           feed={imageSize}
         />
-        <div className='ml-[15px] font-bold'>{text}</div>
+        <div className='ml-[15px] font-bold'>{title}</div>
       </div>
       <Button size={buttonSize} color='gray'>
         선택
