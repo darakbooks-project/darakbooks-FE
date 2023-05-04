@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const BottomNav = () => {
@@ -25,7 +26,7 @@ const BottomNav = () => {
       src: '',
     },
     {
-      path: '/recruit’',
+      path: '/recruit',
       text: '모집',
       src: '',
     },
@@ -42,14 +43,15 @@ const BottomNav = () => {
           const isClicked = path === pathname;
 
           return (
-            <div
+            <Link
+              href={path}
               key={index}
               className={`cursor-pointer w-14 text-center ${
                 isClicked ? 'bg-blue-300' : 'bg-red-300'
               }`}
             >
               {text}
-            </div>
+            </Link>
           );
         })}
       </div>
