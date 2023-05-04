@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 const BottomNav = () => {
   const navItemPropertyArr = [
     {
@@ -29,14 +31,23 @@ const BottomNav = () => {
     },
   ];
 
+  const router = useRouter();
+  const { pathname } = router;
+
   return (
     <nav className='fixed left-[50%] bottom-0 translate-x-[-50%] w-full h-[4rem] bg-yellow-200 max-w-3xl flex items-centerr'>
       <div className='flex justify-around items-center w-full'>
         {navItemPropertyArr.map((button, index) => {
-          const { text } = button;
+          const { path, text } = button;
+          const isClicked = path === pathname;
 
           return (
-            <div key={index} className='cursor-pointer w-14 text-center'>
+            <div
+              key={index}
+              className={`cursor-pointer w-14 text-center ${
+                isClicked ? 'bg-blue-300' : 'bg-red-300'
+              }`}
+            >
               {text}
             </div>
           );
