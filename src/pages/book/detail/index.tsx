@@ -1,5 +1,23 @@
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
+
+import BookDetailList from '@/components/book/detail/BookDetailList';
+
+export interface BookListProps {
+  books: {
+    id: string;
+    title: string;
+  }[];
+}
+
+export interface BooksProps {
+  id: string;
+  title: string;
+  description: string;
+}
 
 const BookDetailPage = () => {
   const router = useRouter();
@@ -37,26 +55,35 @@ const BookDetailPage = () => {
         <section className='border-basic'>
           <div>태그들</div>
         </section>
-        <section className='grid grid-cols-3 4 gap-1 overflow-scroll'>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-        </section>
+        <BookDetailList />
       </main>
     </div>
   );
+};
+
+export const fetchDummy = async () => {
+  const resposne = await axios.get(
+    'https://dummy-cca81-default-rtdb.asia-southeast1.firebasedatabase.app/books.json',
+  );
+  const formatBooks: BooksProps[] = [];
+  for (const key in resposne.data) {
+    formatBooks.push({
+      id: key,
+      title: resposne.data[key].title,
+      description: resposne.data[key].description,
+    });
+  }
+  return formatBooks;
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(['bookList'], fetchDummy);
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default BookDetailPage;
