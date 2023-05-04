@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { DEFAULT_IMAGE } from '@/constants/image';
+
 let observer: IntersectionObserver | null = null;
 const LOAD_IMG_EVENT_TYPE = 'loadImage';
 
@@ -81,7 +83,7 @@ const BookImage = ({
       <img
         className='w-[100%] h-[100%]'
         ref={imgRef}
-        src={loaded ? src : placeholder}
+        src={loaded ? (src ? src : DEFAULT_IMAGE) : placeholder}
         alt={alt}
       />
     </div>
