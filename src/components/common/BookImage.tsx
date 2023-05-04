@@ -17,7 +17,7 @@ interface BookImageProps {
   threshold?: number;
   placeholder: string;
   src: string;
-  feed: string;
+  size: string;
   alt: string;
   onImageClick?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -31,7 +31,7 @@ const BookImage = ({
   threshold = 0.5,
   placeholder,
   src,
-  feed,
+  size,
   alt,
   onImageClick,
 }: BookImageProps) => {
@@ -75,8 +75,8 @@ const BookImage = ({
 
   return (
     <div
-      onClick={feed ? onImageClick : undefined}
-      className={`${imageSize[feed]}`}
+      onClick={size ? onImageClick : undefined}
+      className={`${imageSize[size]}`}
     >
       <img
         className='w-[100%] h-[100%]'

@@ -20,7 +20,7 @@ const BookShelf = ({ size, bookId }: BookShelfProps) => {
         placeholder=''
         src='https://image.yes24.com/momo/TopCate1261/MidCate008/70353017.jpg'
         alt='책장 속의 책입니다!'
-        feed={`not-feed-${size}`}
+        size='not-feed-${size}'
       />
     </Link>
   );

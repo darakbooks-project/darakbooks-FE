@@ -21,7 +21,7 @@ const BookShelfPreview = ({ imageSrcArr, memberId }: BookShelfPreviewProps) => {
               placeholder=''
               src={src}
               alt='책장 미리보기 속의 책입니다!'
-              feed='not-feed-small'
+              size='not-feed-small'
             />
           </>
         );
