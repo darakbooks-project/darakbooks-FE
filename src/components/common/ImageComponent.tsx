@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { DEFAULT_IMAGE } from '@/constants/image';
+
 let observer: IntersectionObserver | null = null;
 const LOAD_IMG_EVENT_TYPE = 'loadImage';
 
@@ -12,12 +14,12 @@ const onIntersection: IntersectionObserverCallback = (entries, io) => {
   });
 };
 
-interface BookImageProps {
+interface ImageComponentProps {
   lazy: boolean;
   threshold?: number;
   placeholder: string;
   src: string;
-  feed: string;
+  size: string;
   alt: string;
   onImageClick?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -26,15 +28,15 @@ interface imageSizeType {
   [key: string]: string;
 }
 
-const BookImage = ({
+const ImageComponent = ({
   lazy,
   threshold = 0.5,
   placeholder,
   src,
-  feed,
+  size,
   alt,
   onImageClick,
-}: BookImageProps) => {
+}: ImageComponentProps) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -75,17 +77,17 @@ const BookImage = ({
 
   return (
     <div
-      onClick={feed ? onImageClick : undefined}
-      className={`${imageSize[feed]}`}
+      onClick={size ? onImageClick : undefined}
+      className={`${imageSize[size]}`}
     >
       <img
         className='w-[100%] h-[100%]'
         ref={imgRef}
-        src={loaded ? src : placeholder}
+        src={loaded ? (src ? src : DEFAULT_IMAGE) : placeholder}
         alt={alt}
       />
     </div>
   );
 };
 
-export default BookImage;
+export default ImageComponent;
