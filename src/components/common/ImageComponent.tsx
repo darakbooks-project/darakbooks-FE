@@ -14,7 +14,7 @@ const onIntersection: IntersectionObserverCallback = (entries, io) => {
   });
 };
 
-interface BookImageProps {
+interface ImageComponentProps {
   lazy: boolean;
   threshold?: number;
   placeholder: string;
@@ -28,7 +28,7 @@ interface imageSizeType {
   [key: string]: string;
 }
 
-const BookImage = ({
+const ImageComponent = ({
   lazy,
   threshold = 0.5,
   placeholder,
@@ -36,7 +36,7 @@ const BookImage = ({
   size,
   alt,
   onImageClick,
-}: BookImageProps) => {
+}: ImageComponentProps) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -90,4 +90,4 @@ const BookImage = ({
   );
 };
 
-export default BookImage;
+export default ImageComponent;

@@ -1,4 +1,4 @@
-import ImageComponent from './BookImage';
+import ImageComponent from './ImageComponent';
 
 interface Props {
   lazy: boolean;

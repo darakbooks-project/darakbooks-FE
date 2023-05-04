@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import BookImage from './BookImage';
+import ImageComponent from './ImageComponent';
 
 interface BookShelfProps {
   size: 'small' | 'medium' | 'large';
@@ -15,7 +15,7 @@ const BookShelf = ({ size, bookId }: BookShelfProps) => {
         shelfSize[`shelf-${size}`]
       } bg-gray-400 flex justify-center items-center cursor-pointer`}
     >
-      <BookImage
+      <ImageComponent
         lazy={true}
         placeholder=''
         src='https://image.yes24.com/momo/TopCate1261/MidCate008/70353017.jpg'
