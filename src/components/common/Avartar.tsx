@@ -1,4 +1,4 @@
-import ImageComponent from './BookImage';
+import ImageComponent from './ImageComponent';
 
 interface Props {
   lazy: boolean;
@@ -30,6 +30,7 @@ const Avatar = ({
         src={src}
         placeholder={placeholder}
         alt={alt}
+        size='not-feed-small'
       />
     </div>
   );

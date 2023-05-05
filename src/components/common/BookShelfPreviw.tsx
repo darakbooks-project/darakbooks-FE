@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import BookImage from './BookImage';
+import ImageComponent from './ImageComponent';
 
 interface BookShelfPreviewProps {
   imageSrcArr: string[];
@@ -16,12 +16,12 @@ const BookShelfPreview = ({ imageSrcArr, memberId }: BookShelfPreviewProps) => {
       {imageSrcArr.map((src: string) => {
         return (
           <>
-            <BookImage
+            <ImageComponent
               lazy={true}
               placeholder=''
               src={src}
               alt='책장 미리보기 속의 책입니다!'
-              feed='not-feed-small'
+              size='not-feed-small'
             />
           </>
         );
