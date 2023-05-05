@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import BookImage from '../BookImage';
+import BookImage from '../ImageComponent';
 
 interface GruopProps {
   id: number;
@@ -43,7 +43,7 @@ const ReadingGroupRecruitment = ({
         src={src}
         placeholder='스켈레톤'
         alt='책 선택 리스트 아이템의 사진 입니다.'
-        feed='not-feed-small'
+        size='not-feed-small'
       />
       <div className='font-bold text-[15px] ml-[20px]'>
         <span className='text-xl'>{group.name}</span>
