@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-import { BooksProps, fetchDummy } from '@/pages/book/detail';
+import { BooksProps, fetchDummy } from '@/api/dummy';
 
 import BookItem from './BookItem';
 
