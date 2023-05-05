@@ -39,7 +39,6 @@ const BookRecordPage = () => {
     */
     }
 
-    console.log('hi');
     console.log(postImage, description, formattedDate, privateMode, tagList);
   };
 
@@ -140,11 +139,11 @@ const BookRecordPage = () => {
           onChange={changeDescription}
           className='border-basic w-full resize-none h-2/5'
         ></textarea>
-        <div className='border-basic w-full flex flex-wrap'>
+        <div className='border-4 border-red-500 w-full flex flex-wrap'>
           <div className='flex flex-wrap'>
             {tagList.map((tag) => (
               <div
-                className='flex items-center justify-between p-1 border-basic'
+                className='flex items-center justify-between p-1 border-basic rounded-md m-1'
                 key={tag.id}
               >
                 #{tag.data} ❌
@@ -152,7 +151,7 @@ const BookRecordPage = () => {
             ))}
           </div>
           <input
-            className='w-auto inline-flex outline-none cursor-text border-none'
+            className='w-auto inline-flex outline-none cursor-text border-none m-1'
             type='text'
             placeholder='#태그 입력'
             onChange={changeTag}
