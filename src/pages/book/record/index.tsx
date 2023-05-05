@@ -30,8 +30,7 @@ const BookRecordPage = () => {
     query: { bid },
   } = useRouter();
 
-  const postBookRedcord = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const postBookRedcord = () => {
     const formattedDate = startDate.toISOString().substring(0, 10);
 
     {
@@ -40,6 +39,7 @@ const BookRecordPage = () => {
     */
     }
 
+    console.log('hi');
     console.log(postImage, description, formattedDate, privateMode, tagList);
   };
 
@@ -109,10 +109,7 @@ const BookRecordPage = () => {
           />
         </div>
       </div>
-      <form
-        onSubmit={postBookRedcord}
-        className='h-4/5  flex flex-col   space-y-5'
-      >
+      <div className='h-4/5  flex flex-col   space-y-5'>
         {postImage ? (
           <Image
             src={postImage.url}
@@ -167,9 +164,11 @@ const BookRecordPage = () => {
           <div className='border-basic' onClick={togglePrivateMode}>
             {privateMode ? '공개' : '비공개'}
           </div>
-          <button className='border-basic'>완료</button>
+          <button className='border-basic' onClick={postBookRedcord}>
+            완료
+          </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
