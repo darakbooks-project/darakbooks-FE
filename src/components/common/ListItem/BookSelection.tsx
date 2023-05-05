@@ -1,5 +1,5 @@
-import BookImage from '../BookImage';
 import Button from '../Button';
+import BookImage from '../ImageComponent';
 
 interface BookSelectionProps {
   src: string;
@@ -22,7 +22,7 @@ const BookSelection = ({
           src={src}
           placeholder='스켈레톤'
           alt='책 선택 리스트 아이템의 사진 입니다.'
-          feed={imageSize}
+          size={imageSize}
         />
         <div className='ml-[15px] font-bold'>{title}</div>
       </div>

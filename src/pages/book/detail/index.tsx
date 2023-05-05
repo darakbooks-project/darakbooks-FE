@@ -1,64 +1,33 @@
-import { useRouter } from 'next/router';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { GetServerSideProps } from 'next';
 import React from 'react';
 
+import { fetchDummy } from '@/api/dummy';
+import BookDescription from '@/components/book/detail/BookDescription';
+import BookList from '@/components/book/detail/BookList';
+import Buttons from '@/components/book/detail/Buttons';
+
 const BookDetailPage = () => {
-  const router = useRouter();
   return (
     <div className='h-screen p-5 border-2 border-red-500'>
-      <div className='h-full flex flex-col gap-5'>
-        <div className='min-h-[10rem] flex'>
-          <div className='w-[30%] border-basic'>이미지</div>
-          <div className='w-[70%] flex flex-col pl-1'>
-            <div className='flex justify-between mb-2'>
-              <div className='flex'>
-                <h1 className='border-basic'>책명</h1>
-                <div className='border-basic'>저자</div>
-              </div>
-              <button className='border-basic'>책장에 담기</button>
-            </div>
-            <div className='h-full text-xs border-basic'>
-              책내용 사이즈보고 ... 잘라내기 책내용 사이즈보고 ... 잘라내기
-              책내용 사이즈보고 ... 잘라내기 책내용 사이즈보고 ... 잘라내기
-              책내용 사이즈보고 ... 잘라내기
-            </div>
-          </div>
-        </div>
-        <div className='border-basic flex justify-end'>
-          <button
-            className='border-basic'
-            onClick={() => {
-              router.push({
-                pathname: 'record',
-                query: { bid: '도서아이디' },
-              });
-            }}
-          >
-            독서기록
-          </button>
-        </div>
-        <div className='border-basic'>
-          <div>태그들</div>
-        </div>
-        <div className='grid grid-cols-3 4 gap-1 overflow-scroll'>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-          <div className='min-h-[8rem] border-basic'>1</div>
-        </div>
-      </div>
+      {/* 디자인이 나오면 정확한 수치로 Layout컴포넌트 만들어 _app.tsx에 감싸주기 */}
+      <main className='h-full flex flex-col gap-5'>
+        <BookDescription />
+        <Buttons />
+        <BookList />
+      </main>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(['bookList'], fetchDummy);
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default BookDetailPage;

@@ -1,4 +1,4 @@
-import BookImage from '../BookImage';
+import BookImage from '../ImageComponent';
 
 interface SearchResultProps {
   src: string;
@@ -23,7 +23,7 @@ const SearchResult = ({
           src={src}
           placeholder='스켈레톤'
           alt='책 선택 리스트 아이템의 사진 입니다.'
-          feed={imageSize}
+          size={imageSize}
         />
       </div>
       <div className='w-[50%] flex flex-col font-bold text-[15px]'>
