@@ -161,7 +161,7 @@ const BookRecordPage = () => {
             placeholder='#태그 입력'
             onChange={changeTag}
             value={tag}
-            onKeyPress={keyPress}
+            onKeyDown={keyPress}
           />
         </div>
         <div className='flex justify-end w-full'>
