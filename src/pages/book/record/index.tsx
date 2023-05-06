@@ -56,6 +56,10 @@ const BookRecordPage = () => {
     setTag(event.currentTarget.value);
   };
 
+  const deleteTage = (id: number) => {
+    setTagList(tagList.filter((tag) => tag.id !== id));
+  };
+
   const keyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.currentTarget.value.length !== 0 && event.key === 'Enter') {
       submitTag();
@@ -146,7 +150,8 @@ const BookRecordPage = () => {
                 className='flex items-center justify-between p-1 border-basic rounded-md m-1'
                 key={tag.id}
               >
-                #{tag.data} ❌
+                #{tag.data}
+                <span onClick={() => deleteTage(tag.id)}>❌</span>
               </div>
             ))}
           </div>
