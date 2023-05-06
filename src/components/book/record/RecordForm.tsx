@@ -51,7 +51,7 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
   };
 
   const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.currentTarget.value);
+    setDescription(event.target.value);
   };
 
   const postBookRecordImage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,9 +118,11 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
       <textarea
         value={description}
         onChange={changeDescription}
-        className='border-basic w-full resize-none h-2/5'
+        className='border-basic w-full resize-none h-2/5 p-1'
+        maxLength={2000}
+        placeholder='독서기록'
       ></textarea>
-      <div className='border-4 border-red-500 w-full flex flex-wrap'>
+      <div className='border-basic w-full flex flex-wrap'>
         <div className='flex flex-wrap'>
           {tagList.map((tag) => (
             <div

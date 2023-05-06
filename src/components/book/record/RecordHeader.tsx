@@ -3,17 +3,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 
-interface RecordPreparationProps {
+interface RecordHeaderProps {
   bid: string | string[] | undefined;
   startDate: Date;
   setStartDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-const RecordPreparation = ({
-  bid,
-  startDate,
-  setStartDate,
-}: RecordPreparationProps) => {
+const RecordHeader = ({ bid, startDate, setStartDate }: RecordHeaderProps) => {
   return (
     <div className='h-1/5  flex flex-row '>
       <div className='w-1/3 border-basic'>IMAGE</div>
@@ -32,4 +28,4 @@ const RecordPreparation = ({
   );
 };
 
-export default RecordPreparation;
+export default RecordHeader;
