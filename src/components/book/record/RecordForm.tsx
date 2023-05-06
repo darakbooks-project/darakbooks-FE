@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 
 import { MAX_FILE_SIZE } from '@/constants/file';
+import useInput from '@/hooks/useInput';
 
 interface postImageProps {
   id: string;
@@ -10,7 +11,7 @@ interface postImageProps {
 
 interface TagProps {
   id: number;
-  data: string;
+  data: string | number;
 }
 
 interface RecordFromProps {
@@ -21,13 +22,9 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
   const [postImage, setPostImage] = useState<postImageProps>();
   const [description, setDescription] = useState('');
   const [privateMode, setPrivateMode] = useState(false);
-  const [tag, setTag] = useState('');
+  const [tag, setTag, reset] = useInput('');
   const [tagList, setTagList] = useState<TagProps[]>([]);
   const id = useRef(0);
-
-  const changeTag = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTag(event.currentTarget.value);
-  };
 
   const deleteTage = (id: number) => {
     setTagList(tagList.filter((tag) => tag.id !== id));
@@ -39,7 +36,7 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
       data: tag,
     };
     setTagList([...tagList, newTag]);
-    setTag('');
+    reset();
     id.current++;
   };
 
@@ -139,7 +136,7 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
           className='w-auto inline-flex outline-none cursor-text border-none m-1'
           type='text'
           placeholder='#태그 입력'
-          onChange={changeTag}
+          onChange={setTag}
           value={tag}
           onKeyDown={keyPress}
         />
