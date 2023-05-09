@@ -21,6 +21,7 @@ const Kakao = () => {
     }
 
     setAccessToken(accessToken);
+    router.push('/');
   };
 
   if (code && typeof code === 'string') {
