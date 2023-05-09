@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 
+import { login } from '@/api/auth';
 import LoginButton from '@/components/auth/LoginButton';
 
 const Kakao = () => {
@@ -7,8 +8,20 @@ const Kakao = () => {
 
   const { code, error } = router.query;
 
-  if (code) {
-    console.log('인증 코드 받기 성공');
+  const loginKakao = async (code: string) => {
+    const accessToken = await login(code);
+
+    if (!accessToken) {
+      console.warn('토큰 발급 과정에서 예상치 못한 오류가 발생하였습니다.');
+      router.push('/login');
+      return;
+    }
+
+    console.log('토큰 발급 성공');
+  };
+
+  if (code && typeof code === 'string') {
+    loginKakao(code);
   } else if (error === 'access_denied') {
     // by 민형, 사용자가 로그인 페이지에서 취소한 경우_230509
     router.push('/');
