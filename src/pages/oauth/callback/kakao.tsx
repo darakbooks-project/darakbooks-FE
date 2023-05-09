@@ -1,11 +1,14 @@
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 
 import { login } from '@/api/auth';
 import LoginButton from '@/components/auth/LoginButton';
+import { accessTokenAtom } from '@/recoil/atom/auth';
 
 const Kakao = () => {
-  const router = useRouter();
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
 
+  const router = useRouter();
   const { code, error } = router.query;
 
   const loginKakao = async (code: string) => {
@@ -17,7 +20,7 @@ const Kakao = () => {
       return;
     }
 
-    console.log('토큰 발급 성공');
+    setAccessToken(accessToken);
   };
 
   if (code && typeof code === 'string') {
