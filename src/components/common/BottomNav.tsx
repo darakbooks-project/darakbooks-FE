@@ -11,7 +11,7 @@ interface ButtonType {
 }
 
 const BottomNav = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, openAuthRequiredModal } = useAuth();
 
   const router = useRouter();
   const { pathname } = router;
@@ -33,7 +33,7 @@ const BottomNav = () => {
       text: '기록',
       src: '',
       onClick: () => {
-        isLoggedIn || console.log('모달 render');
+        isLoggedIn || openAuthRequiredModal();
       },
     },
     {
