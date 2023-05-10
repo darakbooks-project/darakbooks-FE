@@ -9,6 +9,8 @@ import type { AppProps } from 'next/app';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 
+import LoginModal from '@/components/auth/LoginModal';
+
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(() => new QueryClient());
 
@@ -17,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <Component {...pageProps} />
+          <LoginModal />
         </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>
