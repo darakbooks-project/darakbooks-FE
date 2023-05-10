@@ -3,10 +3,10 @@ import { useSetRecoilState } from 'recoil';
 
 import { login } from '@/api/auth';
 import LoginButton from '@/components/auth/LoginButton';
-import { accessTokenAtom } from '@/recoil/atom/auth';
+import { isAuthorizedSelector } from '@/recoil/atom/auth';
 
 const Kakao = () => {
-  const setAccessToken = useSetRecoilState(accessTokenAtom);
+  const setIsAuthorAuthorized = useSetRecoilState(isAuthorizedSelector);
 
   const router = useRouter();
   const { code, error } = router.query;
@@ -20,7 +20,7 @@ const Kakao = () => {
       return;
     }
 
-    setAccessToken(accessToken);
+    setIsAuthorAuthorized(true);
     router.push('/');
   };
 
