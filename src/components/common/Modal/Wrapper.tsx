@@ -19,8 +19,8 @@ const ModalWrapper = ({ children, isOpen }: ModalWrapperProps) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 z-50 w-full min-h-screen bg-black bg-opacity-60 display: ${
-        isOpen ? 'block' : 'none'
+      className={`fixed top-0 left-0 z-50 w-full min-h-screen bg-black bg-opacity-60 ${
+        isOpen ? 'block' : 'hidden'
       }`}
     >
       {children}
