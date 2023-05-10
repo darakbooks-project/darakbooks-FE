@@ -6,7 +6,7 @@ import LoginButton from '@/components/auth/LoginButton';
 import { isAuthorizedSelector } from '@/recoil/atom/auth';
 
 const Kakao = () => {
-  const setIsAuthorAuthorized = useSetRecoilState(isAuthorizedSelector);
+  const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
 
   const router = useRouter();
   const { code, error } = router.query;
@@ -20,7 +20,7 @@ const Kakao = () => {
       return;
     }
 
-    setIsAuthorAuthorized(true);
+    setIsAuthorized(true);
     router.push('/');
   };
 
