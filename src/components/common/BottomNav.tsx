@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
+import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/atom/auth';
 
 interface ButtonType {
@@ -12,6 +13,7 @@ interface ButtonType {
 }
 
 const BottomNav = () => {
+  const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
 
   const router = useRouter();
@@ -34,7 +36,7 @@ const BottomNav = () => {
       text: '기록',
       src: '',
       onClick: () => {
-        isAuthorized || console.log('모달 render');
+        isAuthorized || openAuthRequiredModal();
       },
     },
     {
