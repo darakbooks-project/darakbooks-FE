@@ -1,6 +1,6 @@
 import Slider from 'react-slick';
 
-import BookShelfPreview from '@/components/common/BookShelfPreviw';
+import BookShelfPreview from '@/components/common/BookShelfPreview';
 import ImageComponent from '@/components/common/ImageComponent';
 
 const BOOKSHELFDUMMY = [
