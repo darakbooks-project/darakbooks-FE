@@ -1,7 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css';
 
 .border-basic {
   @apply border-2 border-black;
+}
+
+@layer base {
+  body {
+    @apply w-full h-full max-w-xl my-0 mx-auto;
+  }
+}
+
+.slick-prev::before,
+.slick-next::before {
+  @apply text-gray-400;
 }
