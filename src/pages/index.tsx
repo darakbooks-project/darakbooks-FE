@@ -6,7 +6,7 @@ import ImageComponent from '@/components/common/ImageComponent';
 const BOOKSHELFDUMMY = [
   {
     memberId: '1',
-    img: [
+    images: [
       'https://ifh.cc/g/2h1yGb.jpg',
       'https://ifh.cc/g/3yaCkO.jpg',
       'https://ifh.cc/g/HRw0xB.jpg',
@@ -15,7 +15,7 @@ const BOOKSHELFDUMMY = [
   },
   {
     memberId: '2',
-    img: [
+    images: [
       'https://ifh.cc/g/2h1yGb.jpg',
       'https://ifh.cc/g/3yaCkO.jpg',
       'https://ifh.cc/g/HRw0xB.jpg',
@@ -24,7 +24,7 @@ const BOOKSHELFDUMMY = [
   },
   {
     memberId: '3',
-    img: [
+    images: [
       'https://ifh.cc/g/2h1yGb.jpg',
       'https://ifh.cc/g/3yaCkO.jpg',
       'https://ifh.cc/g/HRw0xB.jpg',
@@ -33,7 +33,7 @@ const BOOKSHELFDUMMY = [
   },
   {
     memberId: '4',
-    img: [
+    images: [
       'https://ifh.cc/g/2h1yGb.jpg',
       'https://ifh.cc/g/3yaCkO.jpg',
       'https://ifh.cc/g/HRw0xB.jpg',
