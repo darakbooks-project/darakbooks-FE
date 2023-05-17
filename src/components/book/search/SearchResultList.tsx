@@ -13,7 +13,7 @@ const SearchResultList = ({ listData }: SearchResultListProps) => {
           src={thumbnail}
           imageSize='not-feed-small'
           title={title}
-          author={authors[0]}
+          author={authors.slice(0, 2)}
           publisher={publisher}
         />
       ))}

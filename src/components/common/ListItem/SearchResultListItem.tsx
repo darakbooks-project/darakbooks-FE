@@ -4,7 +4,7 @@ interface SearchResultListItemProps {
   src: string;
   imageSize: string;
   title: string;
-  author: string;
+  author: string[];
   publisher: string;
 }
 
@@ -28,7 +28,7 @@ const SearchResultListItem = ({
       </div>
       <div className='w-[50%] flex flex-col font-bold text-[15px]'>
         <span>{title}</span>
-        <span>{author}</span>
+        <span>{`${author[0]} ${author[1] ? `|  ${author[1]}` : ''}`}</span>
         <span>{publisher}</span>
       </div>
     </div>
