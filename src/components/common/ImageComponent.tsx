@@ -21,6 +21,7 @@ interface ImageComponentProps {
   src: string;
   size: string;
   alt: string;
+  imgStyle?: string;
   onImageClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
@@ -36,6 +37,7 @@ const ImageComponent = ({
   size,
   alt,
   onImageClick,
+  imgStyle,
 }: ImageComponentProps) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -78,7 +80,7 @@ const ImageComponent = ({
   return (
     <div
       onClick={size ? onImageClick : undefined}
-      className={`${imageSize[size]}`}
+      className={`${imageSize[size]} ${imgStyle}`}
     >
       <img
         className='w-[100%] h-[100%]'
