@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
 import { useAuth } from '@/hooks/useAuth';
-import { isAuthorizedSelector } from '@/recoil/atom/auth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 
 interface ButtonType {
   src: string; // by 민형, 디자인에서 이미지 아이콘 정해지면 클릭여부에 따라 아이콘 설정하는 함수 type으로 변경_230504
