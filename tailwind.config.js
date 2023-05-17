@@ -7,6 +7,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes : { 
+        slideDown : {
+          from: { opacity: "0", transform: "translateY(-3rem)"},
+          to: { opacity: "1", transform: "translateY(0)"},
+        },    
+      },
+      animation: {
+        slideDown: "slideDown 300ms ease-out forwards"
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -17,6 +26,7 @@ module.exports = {
       xs: { max: '390px' },
       xxs: { max: '280px' },
     },
+    
   },
   plugins: [],
 };
