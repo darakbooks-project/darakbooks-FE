@@ -1,7 +1,8 @@
 import SearchResultListItem from '@/components/common/ListItem/SearchResultListItem';
+import { BookSearchResulListItem } from '@/types/book';
 
 interface SearchResultListProps {
-  listData: any;
+  listData: BookSearchResulListItem[];
 }
 
 const SearchResultList = ({ listData }: SearchResultListProps) => {

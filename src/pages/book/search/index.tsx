@@ -26,7 +26,9 @@ const BookSearchPage = () => {
   return (
     <Container>
       <SearchInput onSubmit={onSubmit} />
-      {!isLoading && <SearchResultList listData={bookSearchResultList} />}
+      {!isLoading && bookSearchResultList && (
+        <SearchResultList listData={bookSearchResultList} />
+      )}
       <BottomNav />
     </Container>
   );
