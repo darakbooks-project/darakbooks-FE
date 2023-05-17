@@ -1,6 +1,6 @@
 import BookImage from '../ImageComponent';
 
-interface SearchResultProps {
+interface SearchResultListItemProps {
   src: string;
   imageSize: string;
   title: string;
@@ -8,13 +8,13 @@ interface SearchResultProps {
   publisher: string;
 }
 
-const SearchResult = ({
+const SearchResultListItem = ({
   src,
   imageSize,
   title,
   author,
   publisher,
-}: SearchResultProps) => {
+}: SearchResultListItemProps) => {
   return (
     <div className='w-[100%] flex items-center bg-yellow-500 px-[20px] py-[15px] cursor-pointer'>
       <div className='w-[50%]'>
@@ -35,4 +35,4 @@ const SearchResult = ({
   );
 };
 
-export default SearchResult;
+export default SearchResultListItem;
