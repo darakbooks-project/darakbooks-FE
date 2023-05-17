@@ -76,10 +76,10 @@ export default function Home() {
         <h1 className='text-xl m-3'>오늘의 책장</h1>
         <div className='mx-10'>
           <Slider {...settings}>
-            {BOOKSHELFDUMMY.map(({ img, memberId }) => (
+            {BOOKSHELFDUMMY.map(({ images, memberId }) => (
               <BookShelfPreview
                 key={memberId}
-                imageSrcArr={img}
+                imageSrcArr={images}
                 memberId={memberId}
               />
             ))}
