@@ -1,23 +1,22 @@
 import SearchResultListItem from '@/components/common/ListItem/SearchResultListItem';
 
-const SearchResultList = () => {
+interface SearchResultListProps {
+  listData: any;
+}
+
+const SearchResultList = ({ listData }: SearchResultListProps) => {
   return (
     <>
-      <SearchResultListItem
-        src='https://image.yes24.com/goods/15058512/XL'
-        imageSize='not-feed-small'
-        title='미움 받을 용기'
-        author='기시미 이치로'
-        publisher='이치로 출판사'
-      />
-
-      <SearchResultListItem
-        src='https://image.yes24.com/goods/15058512/XL'
-        imageSize='not-feed-small'
-        title='미움 받을 용기'
-        author='기시미 이치로'
-        publisher='이치로 출판사'
-      />
+      {listData.map(({ thumbnail, title, authors, publisher, isbn }) => (
+        <SearchResultListItem
+          key={isbn}
+          src={thumbnail}
+          imageSize='not-feed-small'
+          title={title}
+          author={authors[0]}
+          publisher={publisher}
+        />
+      ))}
     </>
   );
 };
