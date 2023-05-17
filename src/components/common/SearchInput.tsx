@@ -2,10 +2,10 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 interface Props {
-  getSearchData(text: string): Array<any>; // fetch한 데이터의 type이 정해지지 않은 관계로 any로 설정
+  onSubmit(keywrod: string): void;
 }
 
-const SearchInput = ({ getSearchData }: Props) => {
+const SearchInput = ({ onSubmit }: Props) => {
   const [inputData, setInputData] = useState('');
   const [isError, setIsError] = useState(false);
 
@@ -14,6 +14,8 @@ const SearchInput = ({ getSearchData }: Props) => {
   };
 
   const onClickSearchButton = () => {
+    onSubmit(inputData);
+
     if (!inputData) {
       setIsError(true);
       return;
@@ -22,7 +24,6 @@ const SearchInput = ({ getSearchData }: Props) => {
     if (isError) {
       setIsError(false);
     }
-    getSearchData(inputData);
   };
 
   return (
@@ -43,7 +44,7 @@ const SearchInput = ({ getSearchData }: Props) => {
           onClick={onClickSearchButton}
         >
           <Image
-            src='./images/search.svg'
+            src='../images/search.svg'
             width={35}
             height={35}
             alt='검색 아이콘'
