@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { isAuthorizedSelector } from '@/recoil/atom/auth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 
 interface AuthRequiredPageProps {
   children: React.ReactNode;

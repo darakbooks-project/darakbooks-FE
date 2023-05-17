@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { login } from '@/api/auth';
 import LoginButton from '@/components/auth/LoginButton';
-import { isAuthorizedSelector } from '@/recoil/atom/auth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 
 const Kakao = () => {
   const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
