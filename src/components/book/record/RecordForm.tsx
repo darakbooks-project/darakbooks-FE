@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { MAX_FILE_SIZE } from '@/constants/file';
 import useInput from '@/hooks/useInput';
 
-interface postImageProps {
+export interface postImageProps {
   id: string;
   url: string;
 }
@@ -61,7 +61,7 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
       return;
     }
     if (files[0].size > MAX_FILE_SIZE) {
-      alert('업로드 가능한 최대 용량은 3MB입니다.');
+      alert('업로드 가능한 최대 용량은 3MB 입니다.');
       return;
     } else {
       formData.append('image', files[0]);
@@ -70,6 +70,16 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
        1. react-query mutate를 이용 post
        2. 성공 시 이미지 id와 url return 받기
        3. url로 이미지 미리보기 구현
+
+       파일보내기api.mutate(formData, {
+        onSuccess: (data) => {
+          const newPostImage = {
+            id:data.id;
+            url:data.url
+          }
+          setPostImage(newPostImage)
+        }
+       })
        */
       }
       console.log(formData.get('image'));
