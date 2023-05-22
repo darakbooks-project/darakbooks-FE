@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { modalStateAtom } from '@/recoil/modal';
 
 const BackDrop = () => {
-  const setModal = useSetRecoilState(modalStateAtom);
+  const [modal, setModal] = useRecoilState(modalStateAtom);
   return (
     <div
       className='fixed w-full h-screen z-20 bg-[rgba(0,0,0,0.75)] left-0 top-0'
-      onClick={() => setModal(false)}
+      onClick={() => setModal({ ...modal, type: 'HIDDEN' })}
     />
   );
 };

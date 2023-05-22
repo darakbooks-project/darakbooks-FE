@@ -1,10 +1,13 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 import { postImageProps } from '@/components/book/record/RecordForm';
+import Modal from '@/components/common/Modal';
 import { MAX_FILE_SIZE } from '@/constants/file';
 import useInput from '@/hooks/useInput';
+import { modalStateAtom } from '@/recoil/modal';
 
 const DUMMY1 = Array.from({ length: 6 }, (_, idx) => `내 책장${idx}`);
 const DUMMY2 = Array.from({ length: 6 }, (_, idx) => `전체 피드${idx}`);
@@ -19,6 +22,7 @@ const ProfilePage = () => {
   });
   const [nickname, setNickname] = useInput('api에서 받아온 닉네임');
   const [bio, setBio] = useInput('api에서 받아온 bio');
+  const [modal, setModal] = useRecoilState(modalStateAtom);
 
   const postProfileImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.currentTarget;
@@ -143,6 +147,14 @@ const ProfilePage = () => {
           ))}
         </div>
       )}
+      <button onClick={() => setModal({ ...modal, type: 'BOOKS' })}>
+        책장 모달
+      </button>
+      <button onClick={() => setModal({ ...modal, type: 'SETTING' })}>
+        세팅 모달
+      </button>
+      {modal.type === 'BOOKS' && <Modal>Books</Modal>}
+      {modal.type === 'SETTING' && <Modal>Setting</Modal>}
     </div>
   );
 };

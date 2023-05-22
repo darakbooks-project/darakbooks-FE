@@ -1,6 +1,10 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
-export const modalStateAtom = atom<boolean>({
-    key:'modalState',
-    default:false,
-})
+interface ModalStateProps {
+  type: 'HIDDEN' | 'SETTING' | 'BOOKS';
+}
+
+export const modalStateAtom = atom<ModalStateProps>({
+  key: 'modalState',
+  default: { type: 'HIDDEN' },
+});
