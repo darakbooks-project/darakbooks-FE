@@ -9,6 +9,8 @@ import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { modalStateAtom } from '@/recoil/modal';
 
+import sample from '../../../public/images/setting.svg';
+
 const DUMMY1 = Array.from({ length: 6 }, (_, idx) => `내 책장${idx}`);
 const DUMMY2 = Array.from({ length: 6 }, (_, idx) => `전체 피드${idx}`);
 const DUMMY3 = Array.from({ length: 6 }, (_, idx) => `마이 독서 모임${idx}`);
@@ -17,7 +19,7 @@ const ProfilePage = () => {
   const [editing, setEditing] = useState(false);
   const [option, setOption] = useState('books');
   const [profileImage, setProfileImage] = useImage(
-    { id: '1', url: '' },
+    { id: '1', url: `${sample.src}` },
     'PROFILE',
   );
   const [nickname, setNickname] = useInput('api에서 받아온 닉네임');
@@ -38,7 +40,12 @@ const ProfilePage = () => {
           <div className='flex flex-col'>
             <label htmlFor='profile-image' className='border-basic'>
               {profileImage ? (
-                <Image alt='profile-image' src={profileImage.url} />
+                <Image
+                  alt='profile-image'
+                  src={profileImage.url}
+                  width={100}
+                  height={100}
+                />
               ) : (
                 <div>이미지를 선택해주세요</div>
               )}
@@ -64,7 +71,14 @@ const ProfilePage = () => {
           </div>
         ) : (
           <>
-            <div>프로필사진</div>
+            <div>
+              <Image
+                alt='profile-image'
+                src={profileImage.url}
+                width={100}
+                height={100}
+              />
+            </div>
             <div>닉네임</div>
             <div>소개글</div>
           </>
