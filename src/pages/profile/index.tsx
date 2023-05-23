@@ -1,11 +1,11 @@
 import { GetServerSideProps } from 'next';
+import Image from 'next/image';
 import React from 'react';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { postImageProps } from '@/components/book/record/RecordForm';
 import Modal from '@/components/common/Modal';
-import { MAX_FILE_SIZE } from '@/constants/file';
+import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { modalStateAtom } from '@/recoil/modal';
 
@@ -16,43 +16,13 @@ const DUMMY3 = Array.from({ length: 6 }, (_, idx) => `마이 독서 모임${idx}
 const ProfilePage = () => {
   const [editing, setEditing] = useState(false);
   const [option, setOption] = useState('books');
-  const [profileImage, setProfileImage] = useState<postImageProps>({
-    id: '기존의',
-    url: 'url',
-  });
+  const [profileImage, setProfileImage] = useImage(
+    { id: '1', url: '' },
+    'PROFILE',
+  );
   const [nickname, setNickname] = useInput('api에서 받아온 닉네임');
   const [bio, setBio] = useInput('api에서 받아온 bio');
   const [modal, setModal] = useRecoilState(modalStateAtom);
-
-  const postProfileImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.currentTarget;
-    const formData = new FormData();
-    if (!files) {
-      {
-        /* 기본의 이미지 url */
-      }
-      return;
-    }
-    if (files[0].size > MAX_FILE_SIZE) {
-      alert('업로드 가능한 최대 용량은 3MB 입니다.');
-      return;
-    } else {
-      formData.append('profile', files[0]);
-      {
-        /*
-        파일보내기api.mutate(formData, {
-        onSuccess: (data) => {
-          const newProfileImage = {
-            id:data.id;
-            url:data.url
-          }
-          setProfileImage(newProfileImage)
-        }
-         */
-      }
-      setProfileImage({ id: '1', url: files[0].name });
-    }
-  };
 
   const submitEditing = () => {
     {
@@ -67,14 +37,17 @@ const ProfilePage = () => {
         {editing ? (
           <div className='flex flex-col'>
             <label htmlFor='profile-image' className='border-basic'>
-              {/* <Image alt='profile-image' src={profileImage.url} /> */}
-              이미지 변경
+              {profileImage ? (
+                <Image alt='profile-image' src={profileImage.url} />
+              ) : (
+                <div>이미지를 선택해주세요</div>
+              )}
             </label>
             <input
               className='hidden'
               type='file'
               id='profile-image'
-              onChange={postProfileImage}
+              onChange={setProfileImage}
             />
             <input
               type='text'

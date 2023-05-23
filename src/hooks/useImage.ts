@@ -9,10 +9,10 @@ interface postImageProps {
 
 const useImage = (
   initialState: postImageProps,
-  type: 'IMAGE' | 'PROFILE', // 다른 곳에 쓰일 곳이 있다면 type 지정해서 사용
+  type: 'RECORD' | 'PROFILE', // 다른 곳에 쓰일 곳이 있다면 type 지정해서 사용
   // api: () => void, api 통신 시 사용할 함수
 ) => {
-  const [image, setImage] = useState<postImageProps>();
+  const [image, setImage] = useState<postImageProps>(initialState);
   const onChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { files } = event.currentTarget;
