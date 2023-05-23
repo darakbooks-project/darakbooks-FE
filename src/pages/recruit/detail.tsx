@@ -1,7 +1,9 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import Avatar from '@/components/common/Avartar';
+import Layout from '@/layout/Layout';
+import RecruitLayout from '@/layout/RecruitLayout';
 import { NextPageWithLayout } from '@/types/layout';
 
 const DUMMY = {
@@ -91,6 +93,14 @@ const RecruitDetailPage: NextPageWithLayout = () => {
         <button>가입</button>
       )}
     </main>
+  );
+};
+
+RecruitDetailPage.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout>
+      <RecruitLayout>{page}</RecruitLayout>
+    </Layout>
   );
 };
 
