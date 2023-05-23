@@ -80,7 +80,7 @@ const ImageComponent = ({
   return (
     <div
       onClick={size ? onImageClick : undefined}
-      className={`${imageSize[size]} ${imgStyle}`}
+      className={imgStyle && `${imageSize[size]} ${imgStyle}`}
     >
       <img
         className='w-[100%] h-[100%]'
