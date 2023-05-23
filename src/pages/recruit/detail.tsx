@@ -1,9 +1,7 @@
 import Image from 'next/image';
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 import Avatar from '@/components/common/Avartar';
-import Layout from '@/layout/Layout';
-import RecruitLayout from '@/layout/RecruitLayout';
 import { NextPageWithLayout } from '@/types/layout';
 
 const DUMMY = {
@@ -19,6 +17,7 @@ const DUMMY = {
     notice: '공지입니다',
     isAdmin: false,
     isMember: true,
+    recruiting: true,
     admin: {
       userId: 1,
       nickname: '일이삼',
@@ -58,7 +57,7 @@ const RecruitDetailPage: NextPageWithLayout = () => {
         alt='모임 설명 이미지'
         priority
       />
-      <p>{DUMMY.data.endDate}</p>
+      <p>{DUMMY.data.recruiting ? '모집중' : '모집완료'}</p>
       <p>{DUMMY.data.online ? '온라인' : '오프라인'}</p>
       <p>{!DUMMY.data.online && DUMMY.data.location}</p>
       <p>{DUMMY.data.description}</p>
