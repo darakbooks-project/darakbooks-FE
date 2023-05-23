@@ -4,12 +4,10 @@ import React, { useState } from 'react';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 
-import sample from '../../../public/images/setting.svg';
-
 const ProfileUser = () => {
   const [editing, setEditing] = useState(false);
   const [profileImage, setProfileImage] = useImage(
-    { id: '1', url: `${sample.src}` },
+    { id: '1', url: '' },
     'PROFILE',
   );
   const [nickname, setNickname] = useInput('api에서 받아온 닉네임');

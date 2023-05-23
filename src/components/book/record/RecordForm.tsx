@@ -4,8 +4,6 @@ import React, { useRef, useState } from 'react';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 
-import sample from '../../../../public/images/search.svg';
-
 interface TagProps {
   id: number;
   data: string | number;
@@ -19,7 +17,7 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
   const [postImage, setPostImage] = useImage(
     {
       id: '',
-      url: `${sample.src}`,
+      url: '',
     },
     'RECORD',
   );
