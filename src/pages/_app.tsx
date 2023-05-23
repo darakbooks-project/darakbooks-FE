@@ -6,19 +6,27 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { RecoilRoot } from 'recoil';
 
 import LoginModal from '@/components/auth/LoginModal';
+import Layout from '@/layout/Layout';
+import { NextPageWithLayout } from '@/types/layout';
 
-export default function App({ Component, pageProps }: AppProps) {
+interface AppPropsWithLayout extends AppProps {
+  Component: NextPageWithLayout;
+}
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [queryClient] = React.useState(() => new QueryClient());
+  const getLayout =
+    Component.getLayout || ((page: ReactElement) => <Layout>{page}</Layout>);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
-          <Component {...pageProps} />
+          {getLayout(<Component {...pageProps} />)}
           <LoginModal />
         </RecoilRoot>
       </Hydrate>
