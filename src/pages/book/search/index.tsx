@@ -11,7 +11,11 @@ import SearchInput from '@/components/common/SearchInput';
 const BookSearchPage = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
 
-  const { data: bookSearchResultList, isLoading } = useQuery(
+  const {
+    data: bookSearchResultList,
+    isLoading,
+    isError,
+  } = useQuery(
     ['book', 'search', 'result', 'list', searchKeyword],
     () => getBookSearchResultData(searchKeyword),
     {
@@ -23,12 +27,13 @@ const BookSearchPage = () => {
     setSearchKeyword(keyword);
   };
 
+  if (isLoading) return <h1>로딩 중 입니다.</h1>;
+  if (isError) return <h1>에러가 발생하였습니다.</h1>;
+
   return (
     <Container>
       <SearchInput onSubmit={onSubmit} />
-      {!isLoading && bookSearchResultList && (
-        <SearchResultList listData={bookSearchResultList} />
-      )}
+      <SearchResultList listData={bookSearchResultList} />
       <BottomNav />
     </Container>
   );
