@@ -1,20 +1,20 @@
 import BookImage from '../ImageComponent';
 
-interface SearchResultProps {
+interface SearchResultListItemProps {
   src: string;
   imageSize: string;
   title: string;
-  author: string;
+  author: string[];
   publisher: string;
 }
 
-const SearchResult = ({
+const SearchResultListItem = ({
   src,
   imageSize,
   title,
   author,
   publisher,
-}: SearchResultProps) => {
+}: SearchResultListItemProps) => {
   return (
     <div className='w-[100%] flex items-center bg-yellow-500 px-[20px] py-[15px] cursor-pointer'>
       <div className='w-[50%]'>
@@ -28,11 +28,11 @@ const SearchResult = ({
       </div>
       <div className='w-[50%] flex flex-col font-bold text-[15px]'>
         <span>{title}</span>
-        <span>{author}</span>
+        <span>{`${author[0]} ${author[1] ? `|  ${author[1]}` : ''}`}</span>
         <span>{publisher}</span>
       </div>
     </div>
   );
 };
 
-export default SearchResult;
+export default SearchResultListItem;
