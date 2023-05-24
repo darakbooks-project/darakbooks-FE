@@ -1,13 +1,8 @@
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 
-import { MAX_FILE_SIZE } from '@/constants/file';
+import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
-
-export interface postImageProps {
-  id: string;
-  url: string;
-}
 
 interface TagProps {
   id: number;
@@ -19,7 +14,14 @@ interface RecordFromProps {
 }
 
 const RecordForm = ({ startDate }: RecordFromProps) => {
-  const [postImage, setPostImage] = useState<postImageProps>();
+  const [postImage, setPostImage] = useImage(
+    {
+      id: '',
+      url: '',
+    },
+    'RECORD',
+  );
+
   const [description, setDescription] = useState('');
   const [privateMode, setPrivateMode] = useState(false);
   const [tag, setTag, reset] = useInput('');
@@ -54,38 +56,6 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
     setDescription(event.target.value);
   };
 
-  const postBookRecordImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.currentTarget;
-    const formData = new FormData();
-    if (!files) {
-      return;
-    }
-    if (files[0].size > MAX_FILE_SIZE) {
-      alert('업로드 가능한 최대 용량은 3MB 입니다.');
-      return;
-    } else {
-      formData.append('image', files[0]);
-      {
-        /*
-       1. react-query mutate를 이용 post
-       2. 성공 시 이미지 id와 url return 받기
-       3. url로 이미지 미리보기 구현
-
-       파일보내기api.mutate(formData, {
-        onSuccess: (data) => {
-          const newPostImage = {
-            id:data.id;
-            url:data.url
-          }
-          setPostImage(newPostImage)
-        }
-       })
-       */
-      }
-      console.log(formData.get('image'));
-    }
-  };
-
   const postBookRedcord = () => {
     const formattedDate = startDate.toISOString().substring(0, 10);
 
@@ -100,30 +70,27 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
 
   return (
     <div className='h-4/5  flex flex-col   space-y-5'>
-      {postImage ? (
-        <Image
-          src={postImage.url}
-          alt='image_preview'
-          width={150}
-          height={200}
-        />
-      ) : (
-        <>
-          <label
-            htmlFor='book-image'
-            className='flex border-basic w-full h-1/5 mt-5 justify-center items-center'
-          >
-            이미지를 선택해주세요 (기본으로 책표지 이미지 제공. 쿼리스트링 활용
-            postImage default 값에 url 넣어주면 될 듯)
-          </label>
-          <input
-            type='file'
-            id='book-image'
-            className='hidden'
-            onChange={postBookRecordImage}
+      <label
+        htmlFor='book-image'
+        className='flex border-basic w-full h-1/5 mt-5 justify-center items-center'
+      >
+        {postImage ? (
+          <Image
+            src={postImage.url}
+            alt='image_preview'
+            width={150}
+            height={200}
           />
-        </>
-      )}
+        ) : (
+          <div>이미지를 선택해주세요</div>
+        )}
+      </label>
+      <input
+        type='file'
+        id='book-image'
+        className='hidden'
+        onChange={setPostImage}
+      />
 
       <textarea
         value={description}
