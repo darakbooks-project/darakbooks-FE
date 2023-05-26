@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import SearchResultListItem from '@/components/common/ListItem/SearchResultListItem';
 import { BookSearchResulListItem } from '@/types/book';
 
@@ -6,6 +8,10 @@ interface SearchResultListProps {
 }
 
 const SearchResultList = ({ listData }: SearchResultListProps) => {
+  const { asPath } = useRouter();
+  const pathArr = asPath.split('/');
+  const shiftPath = pathArr[pathArr.length - 1];
+
   return (
     <>
       {listData.map(({ thumbnail, title, authors, publisher, isbn }) => (
@@ -16,6 +22,7 @@ const SearchResultList = ({ listData }: SearchResultListProps) => {
           title={title}
           author={authors.slice(0, 2)}
           publisher={publisher}
+          clickShiftPath={shiftPath}
         />
       ))}
     </>
