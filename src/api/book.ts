@@ -6,23 +6,34 @@ import { BookSearchResulListItem } from '@/types/book';
 const KAKAO_BOOK_SEARCH_API_URL =
   process.env.NEXT_PUBLIC_KAKAO_BOOK_SEARCH_API_URL;
 
-export const getBookSearchResultData = async (query: string) => {
+export interface BookSearchResultListProps {
+  is_end: boolean;
+  documents: BookSearchResulListItem[];
+}
+
+export const getBookSearchResultData = async (
+  query: string,
+  page: number,
+): Promise<BookSearchResultListProps> => {
   try {
     const {
-      data: { documents },
-    } = await axios.get<{ documents: BookSearchResulListItem[] }>(
-      `${KAKAO_BOOK_SEARCH_API_URL}?query=${query}&size=5`,
-      {
-        headers: {
-          Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`,
-        },
+      data: {
+        documents,
+        meta: { is_end },
       },
-    );
+    } = await axios.get<{
+      documents: BookSearchResulListItem[];
+      meta: { is_end: boolean };
+    }>(`${KAKAO_BOOK_SEARCH_API_URL}?query=${query}&size=7&page=${page}`, {
+      headers: {
+        Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`,
+      },
+    });
 
     if (documents.length > 0) {
-      return documents;
+      return { is_end, documents };
     } else {
-      return [];
+      return { is_end: true, documents: [] };
     }
   } catch {
     throw new Error('데이터 패치 실패');
