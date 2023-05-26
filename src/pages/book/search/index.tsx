@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import { useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import tw from 'tailwind-styled-components';
 
 import { getBookSearchResultData } from '@/api/book';
@@ -9,31 +9,53 @@ import BottomNav from '@/components/common/BottomNav';
 import SearchInput from '@/components/common/SearchInput';
 
 const BookSearchPage = () => {
+  const { ref, inView } = useInView();
+  const [page, setPage] = useState(0);
   const [searchKeyword, setSearchKeyword] = useState('');
-
-  const {
-    data: bookSearchResultList,
-    isLoading,
-    isError,
-  } = useQuery(
-    ['book', 'search', 'result', 'list', searchKeyword],
-    () => getBookSearchResultData(searchKeyword),
-    {
-      enabled: !!searchKeyword,
-    },
-  );
 
   const onSubmit = (keyword: string) => {
     setSearchKeyword(keyword);
   };
 
-  if (isLoading) return <h1>로딩 중 입니다.</h1>;
-  if (isError) return <h1>에러가 발생하였습니다.</h1>;
+  const {
+    data: bookSearchResultLists,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery(
+    ['book', 'search', 'result', 'list', searchKeyword],
+    ({ pageParam = page }) => getBookSearchResultData(searchKeyword, pageParam),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.is_end) return;
+
+        return page;
+      },
+      enabled: !!searchKeyword,
+    },
+  );
+
+  useEffect(() => {
+    if (inView) {
+      setPage((prev) => prev + 1);
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView]);
 
   return (
     <Container>
       <SearchInput onSubmit={onSubmit} />
-      <SearchResultList listData={bookSearchResultList} />
+      {status === 'success' &&
+        bookSearchResultLists.pages.map(({ documents }, index) => (
+          <SearchResultList key={documents[index].isbn} listData={documents} />
+        ))}
+      <div ref={ref}>
+        {isFetchingNextPage && hasNextPage
+          ? 'Loading...'
+          : '검색 결과가 없거나 다음 데이터가 없습니다.'}
+      </div>
       <BottomNav />
     </Container>
   );
