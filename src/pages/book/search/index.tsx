@@ -15,6 +15,7 @@ const BookSearchPage = () => {
 
   const onSubmit = (keyword: string) => {
     setSearchKeyword(keyword);
+    setPage(1);
   };
 
   const {
@@ -28,6 +29,7 @@ const BookSearchPage = () => {
     ['book', 'search', 'result', 'list', searchKeyword],
     ({ pageParam = page }) => getBookSearchResultData(searchKeyword, pageParam),
     {
+      onSuccess: () => setPage((prev) => prev + 1),
       getNextPageParam: (lastPage) => {
         if (lastPage.is_end) return;
 
@@ -38,10 +40,7 @@ const BookSearchPage = () => {
   );
 
   useEffect(() => {
-    if (inView) {
-      setPage((prev) => prev + 1);
-      fetchNextPage();
-    }
+    if (inView) fetchNextPage();
   }, [fetchNextPage, inView]);
 
   return (
@@ -49,7 +48,7 @@ const BookSearchPage = () => {
       <SearchInput onSubmit={onSubmit} />
       {status === 'success' &&
         bookSearchResultLists.pages.map(({ documents }, index) =>
-          documents.length > 0 ? (
+          documents.length > 0 && documents[index] ? (
             <SearchResultList
               key={documents[index].isbn}
               listData={documents}
