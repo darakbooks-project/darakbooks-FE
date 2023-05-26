@@ -48,14 +48,19 @@ const BookSearchPage = () => {
     <Container>
       <SearchInput onSubmit={onSubmit} />
       {status === 'success' &&
-        bookSearchResultLists.pages.map(({ documents }, index) => (
-          <SearchResultList key={documents[index].isbn} listData={documents} />
-        ))}
-      <div ref={ref}>
-        {isFetchingNextPage && hasNextPage
-          ? 'Loading...'
-          : '검색 결과가 없거나 다음 데이터가 없습니다.'}
-      </div>
+        bookSearchResultLists.pages.map(({ documents }, index) =>
+          documents.length > 0 ? (
+            <SearchResultList
+              key={documents[index].isbn}
+              listData={documents}
+            />
+          ) : (
+            <div key='not search result'>검색 결과가 없습니다.</div>
+          ),
+        )}
+
+      <div ref={ref}>{isFetchingNextPage && hasNextPage && 'Loading...'}</div>
+      {!isFetchingNextPage}
       <BottomNav />
     </Container>
   );
