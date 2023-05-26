@@ -17,7 +17,6 @@ const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
 
   const {
     data: bookSearchResultLists,
-    error,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -27,6 +26,7 @@ const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
     ({ pageParam = 1 }) => getBookSearchResultData(searchKeyword, pageParam),
     {
       onSuccess: () => setPage((prev) => prev + 1),
+      onError: (error) => console.error(error),
       getNextPageParam: (lastPage) => {
         if (lastPage.is_end) return;
 
