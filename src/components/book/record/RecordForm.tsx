@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { registerImageApi } from '@/api/image';
 import useImage from '@/hooks/useImage';
@@ -25,6 +25,10 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
     },
     registerImage,
   );
+
+  useEffect(() => {
+    console.log(postImage);
+  }, [postImage]);
 
   const [description, setDescription] = useState('');
   const [privateMode, setPrivateMode] = useState(false);
@@ -93,6 +97,7 @@ const RecordForm = ({ startDate }: RecordFromProps) => {
         type='file'
         id='book-image'
         className='hidden'
+        accept='image/*'
         onChange={setPostImage}
       />
 
