@@ -1,6 +1,8 @@
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 
+import { registerImageApi } from '@/api/image';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 
@@ -14,12 +16,14 @@ interface RecordFromProps {
 }
 
 const RecordForm = ({ startDate }: RecordFromProps) => {
+  const registerImage = useMutation(registerImageApi);
+
   const [postImage, setPostImage] = useImage(
     {
-      id: '',
+      name: '',
       url: '',
     },
-    'RECORD',
+    registerImage,
   );
 
   const [description, setDescription] = useState('');
