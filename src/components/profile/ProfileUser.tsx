@@ -1,17 +1,25 @@
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { registerImageApi } from '@/api/image';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 
 const ProfileUser = () => {
+  const registerImage = useMutation(registerImageApi);
+
   const [editing, setEditing] = useState(false);
   const [profileImage, setProfileImage] = useImage(
-    { id: '1', url: '' },
-    'PROFILE',
+    { name: '', url: '' },
+    registerImage,
   );
   const [nickname, setNickname] = useInput('api에서 받아온 닉네임');
   const [bio, setBio] = useInput('api에서 받아온 bio');
+
+  useEffect(() => {
+    console.log(profileImage);
+  }, [profileImage]);
 
   const submitEditing = () => {
     {
@@ -40,6 +48,7 @@ const ProfileUser = () => {
             className='hidden'
             type='file'
             id='profile-image'
+            accept='image/*'
             onChange={setProfileImage}
           />
           <input
