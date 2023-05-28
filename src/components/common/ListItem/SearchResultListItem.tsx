@@ -39,6 +39,10 @@ const SearchResultListItem = ({
         <span>{`${author[0]} ${author[1] ? `|  ${author[1]}` : ''}`}</span>
         <span>{publisher}</span>
       </div>
+      {/* by 민형, 독서 인원 모집 리스트 아이템 클릭 시 상세 페이지로 이동하는 것을 확인하기 위한 임시 코드이므로 나중에 제거_230528 */}
+      <Link href='/recruit/detail?recruitId=1' className='bg-white'>
+        독서 상세페이지로
+      </Link>
     </Link>
   );
 };
