@@ -28,6 +28,7 @@ const RecruitInfinityScrollLists = () => {
 
         return page;
       },
+      staleTime: 20000,
     },
   );
 
