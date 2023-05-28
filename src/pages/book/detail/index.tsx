@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 
-import search from '../../../../public/images/search.svg';
-
 const DUMMY = [
   { id: '1', description: '하이하이', nickname: '하이1' },
   { id: '2', description: '바이바이', nickname: '바이1' },
@@ -13,7 +11,7 @@ const BookDetailPage = () => {
     <div className='flex flex-col gap-2.5 pb-2.5 '>
       <section className='h-[30rem] border border-solid  bg-[#ffffff]'>
         <div className='absolute w-44 h-64 left-[calc(50%_-_170px_/_2)] rounded-[0px_3px_3px_0px] top-[107px] drop-shadow-xl border-basic'>
-          <Image src={search} alt='테스트' fill />
+          <Image src='' alt='테스트' fill />
         </div>
         <article className='absolute w-[175px] h-[74px] left-[calc(50%_-_175px_/_2_+_0.5px)] flex flex-col items-center gap-[5px] top-[380px]'>
           <h1 className='text-xl font-semibold'>아들러의 성격 상담소</h1>
@@ -48,7 +46,7 @@ const BookDetailPage = () => {
                 </h3>
               </div>
               <div className='border w-16 h-16 border-solid border-[blue]'>
-                <Image src={search} alt='테스트2' width={64} height={64} />
+                <Image src='' alt='테스트2' width={64} height={64} />
               </div>
             </li>
           ))}
