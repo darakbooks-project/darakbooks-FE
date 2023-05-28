@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import tw from 'tailwind-styled-components';
@@ -35,26 +36,31 @@ const RecruitPage = () => {
   }, [fetchNextPage, inView]);
 
   return (
-    <Container>
-      <h1>독서 인원 모집 페이지</h1>
-      {status === 'success' && (
-        <>
-          {bookSearchResultLists.pages.map(
-            ({ documents }, index) =>
-              documents.length > 0 &&
-              documents[index] && (
-                <SearchResultList
-                  key={documents[index].isbn}
-                  listData={documents}
-                />
-              ),
-          )}
-          <Bottom ref={ref}>
-            {isFetchingNextPage && hasNextPage && 'Loading...'}
-          </Bottom>
-        </>
-      )}
-    </Container>
+    <>
+      <Container>
+        <h1>독서 인원 모집 페이지</h1>
+        {status === 'success' && (
+          <>
+            {bookSearchResultLists.pages.map(
+              ({ documents }, index) =>
+                documents.length > 0 &&
+                documents[index] && (
+                  <SearchResultList
+                    key={documents[index].isbn}
+                    listData={documents}
+                  />
+                ),
+            )}
+            <Bottom ref={ref}>
+              {isFetchingNextPage && hasNextPage && 'Loading...'}
+            </Bottom>
+          </>
+        )}
+      </Container>
+      <PersonnelRecruitButton href='/recruit/write'>
+        독서 인원 모집 글 작성
+      </PersonnelRecruitButton>
+    </>
   );
 };
 
@@ -63,3 +69,12 @@ export default RecruitPage;
 const Container = tw.div``;
 
 const Bottom = tw.div``;
+
+const PersonnelRecruitButton = tw(Link)`
+  fixed
+  bottom-0
+  right-0
+  w-full
+  bg-blue-500
+  text-center
+`;
