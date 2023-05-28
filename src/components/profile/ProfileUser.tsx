@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { registerImageApi } from '@/api/image';
 import useImage from '@/hooks/useImage';
@@ -16,10 +16,6 @@ const ProfileUser = () => {
   );
   const [nickname, setNickname] = useInput('api에서 받아온 닉네임');
   const [bio, setBio] = useInput('api에서 받아온 bio');
-
-  useEffect(() => {
-    console.log(profileImage);
-  }, [profileImage]);
 
   const submitEditing = () => {
     {
