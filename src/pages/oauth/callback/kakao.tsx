@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { login } from '@/api/auth';
@@ -24,13 +25,17 @@ const Kakao = () => {
     router.push('/');
   };
 
-  if (code && typeof code === 'string') {
-    loginKakao(code);
-  } else if (error === 'access_denied') {
-    // by 민형, 사용자가 로그인 페이지에서 취소한 경우_230509
-    router.push('/');
-  } else if (router.isReady) {
-    // by 민형, 사용자가 로그인 시 오류 발생_230509
+  useEffect(() => {
+    if (code && typeof code === 'string') loginKakao(code);
+  }, [code]);
+
+  // by 민형, 사용자가 로그인 페이지에서 취소한 경우_230509
+  useEffect(() => {
+    if (error === 'access_denied') router.push('/');
+  }, [error, router]);
+
+  // by 민형, 사용자 로그인 시 오류 발생_230509
+  if (router.isReady) {
     return (
       <>
         <h1>로그인에 실패했습니다</h1>
