@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 
 import Header from '@/components/common/Header';
+import { REGION_DATA } from '@/constants/region';
 
 const RecruitWritePage = () => {
   const [className, setClassName] = useState('');
@@ -16,6 +17,10 @@ const RecruitWritePage = () => {
   const changeClassType = (type: string) => {
     if (type === 'on') setClassType('on');
     else setClassType('off');
+  };
+
+  const changeClassRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setClassRegion(e.target.value);
   };
 
   const changeClassDescription = (
@@ -48,8 +53,12 @@ const RecruitWritePage = () => {
             오프라인
           </ClassTypeButton>
         </ClassType>
-        <ClassRegionSelect>
-          <option value={classRegion}>{classRegion}</option>
+        <ClassRegionSelect onChange={changeClassRegion}>
+          {REGION_DATA.map((region) => (
+            <option key={region} value={region}>
+              {region}
+            </option>
+          ))}
         </ClassRegionSelect>
         <ClassDescription
           value={classDescription}
