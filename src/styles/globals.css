@@ -10,7 +10,7 @@
 
 @layer base {
   body {
-    @apply w-full h-full max-w-xl my-0 mx-auto;
+    @apply w-full h-full max-w-xl my-0 mx-auto bg-[#f3f3f3];
   }
 }
 
