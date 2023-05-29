@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 
@@ -27,6 +28,18 @@ const RecruitWritePage = () => {
     e: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setClassDescription(e.target.value);
+  };
+
+  const openReadingClass = () => {
+    const obj = {
+      className,
+      classType,
+      classRegion,
+      classDescription,
+      isRecruiting: true,
+    };
+    // by 민형, API 호출 함수(POST) 및 객체 전달_230529
+    // useMutation();
   };
 
   return (
@@ -66,7 +79,7 @@ const RecruitWritePage = () => {
           maxLength={1500}
           placeholder='독서 모임 설명을 입력해주세요'
         ></ClassDescription>
-        <ClassOpenButton>모임 개설</ClassOpenButton>
+        <ClassOpenButton onClick={openReadingClass}>모임 개설</ClassOpenButton>
       </Wrapper>
     </Container>
   );
