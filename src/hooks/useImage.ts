@@ -4,8 +4,8 @@ import { useCallback, useState } from 'react';
 import { MAX_FILE_SIZE } from '@/constants/file';
 
 interface postImageProps {
-  name: string;
-  url: string;
+  name?: string;
+  url?: string;
 }
 
 interface registerImageReturn {
@@ -28,7 +28,7 @@ const useImage = (
       if (!files) {
         return;
       }
-      if (files[0].size > MAX_FILE_SIZE) {
+      if (files[0]?.size > MAX_FILE_SIZE) {
         alert(`업로드 가능한 최대 용량은 ${limit}MB 입니다.`);
         return;
       } else {
