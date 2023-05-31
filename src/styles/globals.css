@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
+@import 'react-datepicker/dist/react-datepicker.css';
 
 .border-basic {
   @apply border-2 border-black;
@@ -10,11 +11,42 @@
 
 @layer base {
   body {
-    @apply w-full h-full max-w-xl my-0 mx-auto bg-[#f3f3f3];
+    @apply w-full h-full max-w-xl my-0 mx-auto bg-[#f3f3f3] border-basic;
   }
 }
 
 .slick-prev::before,
 .slick-next::before {
   @apply text-gray-400;
+}
+
+.react-datepicker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fffef8;
+  border-radius: 6px;
+  height: 300px;
+  top: 15px;
+}
+
+.react-datepicker__header {
+  background: #fffef8;
+}
+
+.react-datepicker__day-names {
+  display: none;
+}
+
+.react-datepicker__day--outside-month {
+  cursor: default;
+  visibility: hidden;
+}
+
+.react-datepicker__day:nth-child(1) {
+  color: red; /* 일요일 날짜*/
+}
+
+.react-datepicker__day:nth-child(7) {
+  color: #8685ff; /* 토요일 날짜 */
 }
