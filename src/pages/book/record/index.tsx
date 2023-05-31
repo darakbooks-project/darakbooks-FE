@@ -4,10 +4,15 @@ import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
-import { registerImageApi } from '@/api/record';
+import {
+  bookRecordDataProps,
+  registerBookRecordApi,
+  registerImageApi,
+} from '@/api/record';
 import styles from '@/components/book/record/Calendar.module.css';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
+import { useRouter } from 'next/router';
 
 interface TagProps {
   id: number;
@@ -16,6 +21,7 @@ interface TagProps {
 
 const BookRecordPage = () => {
   const registerImage = useMutation(registerImageApi);
+  const registerBookRecord = useMutation(registerBookRecordApi);
 
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [description, setDescription] = useState('');
@@ -23,6 +29,7 @@ const BookRecordPage = () => {
   const [tagList, setTagList] = useState<TagProps[]>([]);
   const id = useRef(0);
   const [postImage, setPostImage] = useImage({}, registerImage);
+  const router = useRouter();
 
   const today = new Intl.DateTimeFormat('kr').format(new Date());
 
@@ -75,7 +82,28 @@ const BookRecordPage = () => {
       day >= 10 ? day : '0' + day
     }`;
 
-    console.log(postImage, description, formattedDate, tagList);
+    const data: bookRecordDataProps = {
+      record: {
+        title: 'title test',
+        thumbnail: 'thumbnail test',
+        bookIsbn: 'bookIsbn text',
+        text: description,
+        recordImg: postImage.name as string,
+        recordImgUrl: postImage.url as string,
+        tags: tagList,
+        readAt: formattedDate,
+      },
+    };
+
+    registerBookRecord.mutate(data, {
+      onSuccess: () => {
+        alert('독서 기록 성공');
+        router.push('/');
+      },
+      onError: (error) => {
+        alert(error);
+      },
+    });
   };
 
   return (
