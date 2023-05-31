@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-import { registerImageApi } from '@/api/image';
+import { registerImageApi } from '@/api/record';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 

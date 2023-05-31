@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
-import { registerImageApi } from '@/api/image';
+import { registerImageApi } from '@/api/record';
 import styles from '@/components/book/record/Calendar.module.css';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
