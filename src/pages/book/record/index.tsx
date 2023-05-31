@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
@@ -90,10 +91,13 @@ const BookRecordPage = () => {
         </article>
         <section className='flex flex-col gap-4'>
           <div>
-            <button className='flex flex-col w-full justify-center items-center h-24 border rounded-md border-dashed border-[#c2c1c1]'>
+            <Link
+              href={'/book/record/select'}
+              className='flex flex-col w-full justify-center items-center h-24 border rounded-md border-dashed border-[#c2c1c1]'
+            >
               <span>+</span>
               <span className='text-[12]'>책 등록하기</span>
-            </button>
+            </Link>
           </div>
           <div className='flex items-center justify-end'>
             <DatePicker
