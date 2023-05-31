@@ -1,18 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
-import {
-  bookRecordDataProps,
-  registerBookRecordApi,
-  registerImageApi,
-} from '@/api/record';
+import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import styles from '@/components/book/record/Calendar.module.css';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
-import { useRouter } from 'next/router';
+import { bookRecordDataProps } from '@/types/record';
 
 interface TagProps {
   id: number;

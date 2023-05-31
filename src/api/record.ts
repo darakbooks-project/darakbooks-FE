@@ -1,22 +1,8 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+import { bookRecordDataProps } from '@/types/record';
 
-export interface bookRecordDataProps {
-  record: {
-    title: string;
-    thumbnail: string;
-    bookIsbn: string;
-    text: string;
-    recordImg: string;
-    recordImgUrl: string;
-    tags?: {
-      id: number;
-      data: string | number;
-    }[];
-    readAt: string;
-  };
-}
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 // 이미지 등록
 export const registerImageApi = async (image: FormData) => {
