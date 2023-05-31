@@ -30,12 +30,7 @@ const ProfileUser = () => {
         <div className='flex flex-col'>
           <label htmlFor='profile-image' className='border-basic'>
             {profileImage ? (
-              <Image
-                alt='profile-image'
-                src={profileImage.url}
-                width={100}
-                height={100}
-              />
+              <Image alt='profile-image' src='' width={100} height={100} />
             ) : (
               <div>이미지를 선택해주세요</div>
             )}
@@ -63,12 +58,7 @@ const ProfileUser = () => {
       ) : (
         <>
           <div>
-            <Image
-              alt='profile-image'
-              src={profileImage.url}
-              width={100}
-              height={100}
-            />
+            <Image alt='profile-image' src='' width={100} height={100} />
           </div>
           <div>닉네임</div>
           <div>소개글</div>
