@@ -1,5 +1,7 @@
-import Link from 'next/link';
-import tw from 'tailwind-styled-components/dist/tailwind';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+
+import { searchInfinityScrollPositionAtom } from '@/recoil/book';
 
 import BookImage from '../ImageComponent';
 
@@ -20,9 +22,24 @@ const SearchResultListItem = ({
   publisher,
   clickShiftPath,
 }: SearchResultListItemProps) => {
+  const router = useRouter();
+  const setInfinityScrollPosition = useSetRecoilState(
+    searchInfinityScrollPositionAtom,
+  );
+
+  const setLocalStorageData = () => {
+    setInfinityScrollPosition(window.scrollY);
+
+    if (clickShiftPath === 'search') {
+      router.push('/book/detail');
+    } else {
+      router.push('/book/record');
+    }
+  };
+
   return (
-    <Link
-      href={clickShiftPath === 'search' ? '/book/detail' : '/book/select'}
+    <div
+      onClick={setLocalStorageData}
       className='w-[100%] flex items-center bg-yellow-500 px-[20px] py-[15px] cursor-pointer'
     >
       <div className='w-[50%]'>
@@ -39,7 +56,7 @@ const SearchResultListItem = ({
         <span>{`${author[0]} ${author[1] ? `|  ${author[1]}` : ''}`}</span>
         <span>{publisher}</span>
       </div>
-    </Link>
+    </div>
   );
 };
 
