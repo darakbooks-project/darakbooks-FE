@@ -99,16 +99,14 @@ const BookRecordPage = () => {
     }`;
 
     const data: bookRecordDataProps = {
-      record: {
-        title: getBookDataByIsbn.documents[0].title,
-        thumbnail: getBookDataByIsbn.documents[0].thumbnail,
-        bookIsbn: router.query.isbn as string,
-        text: description,
-        recordImg: postImage.name as string,
-        recordImgUrl: postImage.url as string,
-        tags: tagList,
-        readAt: formattedDate,
-      },
+      title: getBookDataByIsbn.documents[0].title,
+      thumbnail: getBookDataByIsbn.documents[0].thumbnail,
+      bookIsbn: router.query.isbn as string,
+      text: description,
+      recordImg: postImage.name as string,
+      recordImgUrl: postImage.url as string,
+      tags: tagList,
+      readAt: formattedDate,
     };
 
     registerBookRecord.mutate(data, {
