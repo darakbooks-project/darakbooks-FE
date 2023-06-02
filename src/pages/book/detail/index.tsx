@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const DUMMY = [
@@ -57,7 +58,11 @@ const BookDetailPage = () => {
           담기
         </button>
         <button className='flex justify-center items-center box-border w-28 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#5a987d] rounded-md border-2 border-solid border-[#5a987d]'>
-          바로기록하기
+          <Link
+            href={{ pathname: '/book/record', query: { isbn: '1168340772' } }}
+          >
+            바로기록하기
+          </Link>
         </button>
       </section>
     </div>

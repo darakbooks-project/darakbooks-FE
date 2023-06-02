@@ -40,14 +40,14 @@ export const getBookSearchResultData = async (
   }
 };
 
-// isbn으로 도서 검색
-export const getBookByIsbnApi = async (isbn: string) => {
+// isbn으로 책 한권 검색 api
+export const getBookDataByIsbnApi = async (isbn: string) => {
   try {
-    const data = await axios.get(
+    const { data } = await axios.get(
       `https://dapi.kakao.com/v3/search/book?target=isbn&query=${isbn}`,
       {
         headers: {
-          Authorization: `KaKaoAK ${process.env.NEXT_PUBLIC_KAKAO_API_KEY}`,
+          Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_API_KEY}`,
         },
       },
     );
