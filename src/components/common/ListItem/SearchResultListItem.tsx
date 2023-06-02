@@ -12,6 +12,7 @@ interface SearchResultListItemProps {
   author: string[];
   publisher: string;
   clickShiftPath: string;
+  isbn: string;
 }
 
 const SearchResultListItem = ({
@@ -21,25 +22,33 @@ const SearchResultListItem = ({
   author,
   publisher,
   clickShiftPath,
+  isbn,
 }: SearchResultListItemProps) => {
   const router = useRouter();
   const setInfinityScrollPosition = useSetRecoilState(
     searchInfinityScrollPositionAtom,
   );
 
-  const setLocalStorageData = () => {
+  const shiftPage = () => {
+    const isbnArr = isbn.split(' ');
+    const isbnValue = isbnArr[0] || isbnArr[1];
+
+    router.push(
+      `/book/${
+        clickShiftPath === 'search' ? 'detail' : 'record'
+      }?isbn=${isbnValue}`,
+    );
+  };
+
+  const clickBookListItem = () => {
     setInfinityScrollPosition(window.scrollY);
 
-    if (clickShiftPath === 'search') {
-      router.push('/book/detail');
-    } else {
-      router.push('/book/record');
-    }
+    shiftPage();
   };
 
   return (
     <div
-      onClick={setLocalStorageData}
+      onClick={clickBookListItem}
       className='w-[100%] flex items-center bg-yellow-500 px-[20px] py-[15px] cursor-pointer'
     >
       <div className='w-[50%]'>
