@@ -37,7 +37,12 @@ const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
   );
 
   useEffect(() => {
-    if (inView) fetchNextPage();
+    if (inView && bookSearchResultLists) {
+      const { pages } = bookSearchResultLists;
+      const { is_end } = pages[pages.length - 1];
+
+      !is_end && fetchNextPage();
+    }
   }, [fetchNextPage, inView]);
 
   useEffect(() => {
