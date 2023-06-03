@@ -7,7 +7,7 @@ const DUMMY = [
 ];
 
 const DUMMY_DES =
-  '이 책을 한번 읽어보자! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은 ! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은!  일은!일은!일은!일은은!일은!일은은!일은!일은은!일은!일은은!일은!일은!';
+  '이 책을 한번 읽어보자! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은 ! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은!내일';
 
 const BookDetailPage = () => {
   const [pHeight, setPHeight] = useState(false);
@@ -15,7 +15,7 @@ const BookDetailPage = () => {
   const ref = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (ref.current!.offsetHeight > 80) {
+    if (ref.current!.offsetHeight > 65) {
       setPHeight(true);
       setShowMore(true);
     } else {
@@ -25,36 +25,45 @@ const BookDetailPage = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-2.5 pb-2.5 '>
+    <div className='flex flex-col gap-2.5'>
       <section className='h-[30rem] border border-solid  bg-[#ffffff]'>
-        <div className='absolute w-44 h-64 left-[calc(50%_-_170px_/_2)] rounded-[0px_3px_3px_0px] top-[107px] drop-shadow-xl border-basic'>
-          <Image src='' alt='테스트' fill />
+        <div className='absolute w-44 h-64 left-[calc(50%_-_170px_/_2)] rounded-[0px_3px_3px_0px] top-[95px] drop-shadow-xl border-basic'>
+          <Image
+            src=''
+            alt='테스트'
+            width='0'
+            height='0'
+            sizes='100vw'
+            className='w-full h-auto'
+          />
         </div>
-        <article className='absolute w-[175px] h-[74px] left-[calc(50%_-_175px_/_2_+_0.5px)] flex flex-col items-center gap-[5px] top-[380px]'>
+        <article className='absolute w-[175px] h-[74px] left-[calc(50%_-_175px_/_2_+_0.5px)] flex flex-col items-center gap-[5px] top-[370px]'>
           <h1 className='text-xl font-semibold'>아들러의 성격 상담소</h1>
           <h3 className='text-[13px]'>기시미 이치로 지음</h3>
           <h4 className='text-[13px] text-[#999797]'>생각의 날개</h4>
         </article>
       </section>
-      <section className='border p-4 border-solid bg-[#ffffff]'>
-        <h2 className='not-italic font-bold text-xl leading-[29px] mb-4'>
+      <section className='border p-5 pb-2 border-solid bg-[#ffffff]'>
+        <h2 className='not-italic font-bold text-xl leading-[29px]  mb-4'>
           책 소개
         </h2>
         <p
           ref={ref}
-          className={`not-italic font-normal text-[15px] leading-[22px] text-justify text-[#707070] overflow-hidden ${
+          className={`not-italic font-normal text-[15px] leading-[24px] text-justify text-[#707070] overflow-hidden  ${
             pHeight ? 'h-[45px]' : null
           }`}
         >
           {DUMMY_DES}
         </p>
         {showMore ? (
-          <button onClick={() => setPHeight((prev) => !prev)}>
-            {pHeight ? '더보기' : '닫기'}
-          </button>
+          <div className='border-t-[#ebeaea] border-t border-solid mt-4 flex justify-center pt-2'>
+            <button onClick={() => setPHeight((prev) => !prev)}>
+              {pHeight ? '더보기' : '닫기'}
+            </button>
+          </div>
         ) : null}
       </section>
-      <section className='border p-4 border-solid bg-[#ffffff]'>
+      <section className='border p-5 border-solid bg-[#ffffff]'>
         <h2 className='not-italic font-bold text-xl leading-[29px] mb-4'>
           관련 기록
         </h2>
@@ -71,19 +80,26 @@ const BookDetailPage = () => {
                 </h3>
               </div>
               <div className='border w-16 h-16 border-solid border-[blue]'>
-                <Image src='' alt='테스트2' width={64} height={64} />
+                <Image
+                  src=''
+                  alt='테스트2'
+                  width='0'
+                  height='0'
+                  sizes='100vw'
+                  className='w-full h-auto'
+                />
               </div>
             </li>
           ))}
         </ul>
-      </section>
-      <section className='flex justify-evenly items-center w-full px-0 py-4 bg-[#ffffff]'>
-        <button className='flex justify-center items-center box-border w-28 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#5a987d] rounded-md border-2 border-solid border-[#5a987d]'>
-          담기
-        </button>
-        <button className='flex justify-center items-center box-border w-28 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#5a987d] rounded-md border-2 border-solid border-[#5a987d]'>
-          바로기록하기
-        </button>
+        <section className='flex justify-evenly items-center w-full gap-2  bg-[#ffffff]'>
+          <button className='flex justify-center items-center box-border w-28 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#5a987d] rounded-md border-2 border-solid border-[#5a987d]'>
+            담기
+          </button>
+          <button className='flex justify-center items-center box-border w-56 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d]'>
+            바로기록하기
+          </button>
+        </section>
       </section>
     </div>
   );
