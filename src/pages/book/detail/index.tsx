@@ -92,11 +92,11 @@ const BookDetailPage = () => {
             </li>
           ))}
         </ul>
-        <section className='flex justify-evenly items-center w-full gap-2  bg-[#ffffff]'>
-          <button className='flex justify-center items-center box-border w-28 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#5a987d] rounded-md border-2 border-solid border-[#5a987d]'>
+        <section className='flex justify-between items-center w-full gap-2  bg-[#ffffff]'>
+          <button className='flex justify-center items-center box-border w-1/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#5a987d] rounded-md border-2 border-solid border-[#5a987d]'>
             담기
           </button>
-          <button className='flex justify-center items-center box-border w-56 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d]'>
+          <button className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d]'>
             바로기록하기
           </button>
         </section>
