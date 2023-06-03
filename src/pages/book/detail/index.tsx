@@ -1,12 +1,29 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const DUMMY = [
   { id: '1', description: '하이하이', nickname: '하이1' },
   { id: '2', description: '바이바이', nickname: '바이1' },
 ];
 
+const DUMMY_DES =
+  '이 책을 한번 읽어보자! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은 ! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은!  일은!일은!일은!일은은!일은!일은은!일은!일은은!일은!일은은!일은!일은!';
+
 const BookDetailPage = () => {
+  const [pHeight, setPHeight] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  const ref = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (ref.current!.offsetHeight > 80) {
+      setPHeight(true);
+      setShowMore(true);
+    } else {
+      setPHeight(false);
+      setShowMore(false);
+    }
+  }, []);
+
   return (
     <div className='flex flex-col gap-2.5 pb-2.5 '>
       <section className='h-[30rem] border border-solid  bg-[#ffffff]'>
@@ -23,11 +40,19 @@ const BookDetailPage = () => {
         <h2 className='not-italic font-bold text-xl leading-[29px] mb-4'>
           책 소개
         </h2>
-        <p className='not-italic font-normal text-[15px] leading-[22px] text-justify text-[#707070]'>
-          내 성격은 도대체 왜 이럴까? 성격은 정말 팔자인 걸까? 타고난 성격을
-          바꾸는 일은 불가능할까? 내일은 행복해지고 싶은 당신을 위한 아들러식
-          카운슬링. 어쩌자고 이런 성격일까 싶다면, 이 책을 한번 읽어보자!
+        <p
+          ref={ref}
+          className={`not-italic font-normal text-[15px] leading-[22px] text-justify text-[#707070] overflow-hidden ${
+            pHeight ? 'h-[45px]' : null
+          }`}
+        >
+          {DUMMY_DES}
         </p>
+        {showMore ? (
+          <button onClick={() => setPHeight((prev) => !prev)}>
+            {pHeight ? '더보기' : '닫기'}
+          </button>
+        ) : null}
       </section>
       <section className='border p-4 border-solid bg-[#ffffff]'>
         <h2 className='not-italic font-bold text-xl leading-[29px] mb-4'>
