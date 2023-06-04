@@ -24,7 +24,7 @@ const BookDetailPage = () => {
   const ref = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (ref.current!.offsetHeight > 65) {
+    if (ref.current && ref.current.offsetHeight > 65) {
       setPHeight(true);
       setShowMore(true);
     } else {
@@ -34,7 +34,7 @@ const BookDetailPage = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-2.5'>
+    <div className='flex flex-col gap-1'>
       <section className='h-[30rem] border border-solid  bg-[#ffffff]'>
         <div className='absolute w-44 h-64 left-[calc(50%_-_170px_/_2)] rounded-[0px_3px_3px_0px] top-[95px] drop-shadow-xl'>
           {getBookDataByIsbn && (
