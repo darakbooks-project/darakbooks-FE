@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { getBookDataByIsbnApi } from '@/api/book';
+import { getBookDataByIsbnProps } from '@/types/book';
 
 const DUMMY = [
   { id: '1', description: '하이하이', nickname: '하이1' },
@@ -16,7 +17,7 @@ const DUMMY_DES =
 
 const BookDetailPage = () => {
   const router = useRouter();
-  const { data: getBookDataByIsbn } = useQuery(
+  const { data: getBookDataByIsbn } = useQuery<getBookDataByIsbnProps>(
     ['getBookDataByIsbn', 'detail'],
     () => getBookDataByIsbnApi(router.query.isbn as string),
   );
