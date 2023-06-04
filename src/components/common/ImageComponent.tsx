@@ -19,7 +19,7 @@ interface ImageComponentProps {
   threshold?: number;
   placeholder: string;
   src: string;
-  size: string;
+  size?: string;
   alt: string;
   imgStyle?: string;
   onImageClick?: React.MouseEventHandler<HTMLDivElement>;
@@ -80,7 +80,7 @@ const ImageComponent = ({
   return (
     <div
       onClick={size ? onImageClick : undefined}
-      className={imgStyle && `${imageSize[size]} ${imgStyle}`}
+      className={`${size && imageSize[size]} ${imgStyle && imgStyle}`}
     >
       <img
         className='w-[100%] h-[100%]'
