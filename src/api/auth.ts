@@ -4,12 +4,14 @@ import { setAxiosHeader } from '@/utils/helpers/axiosHandler';
 
 import { axiosInstance } from './axios';
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 export const login = async (code: string) => {
   try {
     const {
       data: { accessToken },
     } = await axios.get<{ accessToken: string }>(
-      `http://3.36.210.43:3000/user/auth/kakao?code=${code}`,
+      `${BASE_URL}/user/auth/kakao?code=${code}`,
     );
 
     axiosInstance.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -28,7 +30,7 @@ export const silentRefresh = async (
       data: { accessToken },
     } = await axiosInstance.request<{ accessToken: string }>({
       method: 'GET',
-      url: `http://3.36.210.43:3000/user/auth/reissue`,
+      url: `${BASE_URL}/user/auth/reissue`,
     });
 
     if (originRequest) {
