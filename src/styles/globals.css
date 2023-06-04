@@ -1,3 +1,6 @@
+Styles/gobals.css
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,7 +14,7 @@
 
 @layer base {
   body {
-    @apply w-full h-full max-w-xl my-0 mx-auto bg-[#f3f3f3] border-basic;
+    @apply w-full h-full max-w-xl my-0 mx-auto bg-[#f3f3f3];
   }
 }
 
