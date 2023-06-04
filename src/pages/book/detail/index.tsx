@@ -1,5 +1,10 @@
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
+
+import { getBookDataByIsbnApi } from '@/api/book';
 
 const DUMMY = [
   { id: '1', description: '하이하이', nickname: '하이1' },
@@ -10,6 +15,12 @@ const DUMMY_DES =
   '이 책을 한번 읽어보자! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은 ! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은!내일';
 
 const BookDetailPage = () => {
+  const router = useRouter();
+  const { data: getBookDataByIsbn } = useQuery(
+    ['getBookDataByIsbn', 'detail'],
+    () => getBookDataByIsbnApi(router.query.isbn as string),
+  );
+
   const [pHeight, setPHeight] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);
@@ -105,14 +116,19 @@ const BookDetailPage = () => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const queryClient = new QueryClient();
-//   await queryClient.prefetchQuery(['bookList'], fetchDummy);
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//     },
-//   };
-// };
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(['getBookDataByIsbn', 'detail'], () =>
+    getBookDataByIsbnApi(context.query?.isbn as string),
+  );
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
 
 export default BookDetailPage;
