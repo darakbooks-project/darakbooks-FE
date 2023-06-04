@@ -12,14 +12,11 @@ const DUMMY = [
   { id: '2', description: '바이바이', nickname: '바이1' },
 ];
 
-const DUMMY_DES =
-  '이 책을 한번 읽어보자! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은 ! 내 성격은 도대체 왜 이럴성격을 바꾸는 일은!내일';
-
 const BookDetailPage = () => {
-  const router = useRouter();
+  const router = useRouter(); // router로 isbn 받으면
   const { data: getBookDataByIsbn } = useQuery<getBookDataByIsbnProps>(
     ['getBookDataByIsbn', 'detail'],
-    () => getBookDataByIsbnApi(router.query.isbn as string),
+    () => getBookDataByIsbnApi('8996991341'), // 여기 넣어주기 router.query.isbn as string
   );
 
   const [pHeight, setPHeight] = useState(false);
@@ -39,20 +36,28 @@ const BookDetailPage = () => {
   return (
     <div className='flex flex-col gap-2.5'>
       <section className='h-[30rem] border border-solid  bg-[#ffffff]'>
-        <div className='absolute w-44 h-64 left-[calc(50%_-_170px_/_2)] rounded-[0px_3px_3px_0px] top-[95px] drop-shadow-xl border-basic'>
-          <Image
-            src=''
-            alt='테스트'
-            width='0'
-            height='0'
-            sizes='100vw'
-            className='w-full h-auto'
-          />
+        <div className='absolute w-44 h-64 left-[calc(50%_-_170px_/_2)] rounded-[0px_3px_3px_0px] top-[95px] drop-shadow-xl'>
+          {getBookDataByIsbn && (
+            <Image
+              src={getBookDataByIsbn?.documents[0].thumbnail}
+              alt='테스트'
+              width='0'
+              height='0'
+              sizes='100vw'
+              className='w-full h-auto'
+            />
+          )}
         </div>
         <article className='absolute w-[175px] h-[74px] left-[calc(50%_-_175px_/_2_+_0.5px)] flex flex-col items-center gap-[5px] top-[370px]'>
-          <h1 className='text-xl font-semibold'>아들러의 성격 상담소</h1>
-          <h3 className='text-[13px]'>기시미 이치로 지음</h3>
-          <h4 className='text-[13px] text-[#999797]'>생각의 날개</h4>
+          <h1 className='text-xl font-semibold'>
+            {getBookDataByIsbn?.documents[0].title}
+          </h1>
+          <h3 className='text-[13px]'>
+            {getBookDataByIsbn?.documents[0].authors[0]} 지음
+          </h3>
+          <h4 className='text-[13px] text-[#999797]'>
+            {getBookDataByIsbn?.documents[0].publisher}
+          </h4>
         </article>
       </section>
       <section className='border p-5 pb-2 border-solid bg-[#ffffff]'>
@@ -65,7 +70,7 @@ const BookDetailPage = () => {
             pHeight ? 'h-[45px]' : null
           }`}
         >
-          {DUMMY_DES}
+          {getBookDataByIsbn?.documents[0].contents}
         </p>
         {showMore ? (
           <div className='border-t-[#ebeaea] border-t border-solid mt-4 flex justify-center pt-2'>
@@ -122,8 +127,9 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['getBookDataByIsbn', 'detail'], () =>
-    getBookDataByIsbnApi(context.query?.isbn as string),
+  await queryClient.prefetchQuery(
+    ['getBookDataByIsbn', 'detail'],
+    () => getBookDataByIsbnApi('8996991341'), // 여기도 context.query.isbn as string 넣어주기
   );
   return {
     props: {
