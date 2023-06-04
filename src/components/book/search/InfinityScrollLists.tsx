@@ -1,9 +1,11 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import { getBookSearchResultData } from '@/api/book';
+import { searchInfinityScrollPageAtom } from '@/recoil/book';
 
 import SearchResultList from './SearchResultList';
 
@@ -13,7 +15,17 @@ interface InfinityScrollListsProps {
 
 const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
   const { ref, inView } = useInView();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useRecoilState(searchInfinityScrollPageAtom);
+  const queryClient = useQueryClient();
+  const bookSearchData = useRef(
+    queryClient.getQueryData([
+      'book',
+      'search',
+      'result',
+      'list',
+      searchKeyword,
+    ]),
+  );
 
   const {
     data: bookSearchResultLists,
@@ -32,17 +44,22 @@ const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
 
         return page;
       },
-      enabled: !!searchKeyword,
+      enabled: !!searchKeyword && !bookSearchData.current,
     },
   );
 
   useEffect(() => {
-    if (inView) fetchNextPage();
+    if (inView && bookSearchResultLists) {
+      const { pages } = bookSearchResultLists;
+      const { is_end } = pages[pages.length - 1];
+
+      !is_end && fetchNextPage();
+    }
   }, [fetchNextPage, inView]);
 
   useEffect(() => {
-    if (searchKeyword) setPage(1);
-  }, [searchKeyword]);
+    if (searchKeyword && !bookSearchData.current) setPage(1);
+  }, [searchKeyword, setPage]);
 
   return (
     <Container>

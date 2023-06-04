@@ -23,6 +23,7 @@ const SearchResultList = ({ listData }: SearchResultListProps) => {
           author={authors.slice(0, 2)}
           publisher={publisher}
           clickShiftPath={shiftPath}
+          isbn={isbn}
         />
       ))}
     </>
