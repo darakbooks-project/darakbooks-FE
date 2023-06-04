@@ -39,3 +39,20 @@ export const getBookSearchResultData = async (
     throw new Error('데이터 패치 실패');
   }
 };
+
+// isbn으로 책 한권 검색 api
+export const getBookDataByIsbnApi = async (isbn: string) => {
+  try {
+    const { data } = await axios.get(
+      `https://dapi.kakao.com/v3/search/book?target=isbn&query=${isbn}`,
+      {
+        headers: {
+          Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_API_KEY}`,
+        },
+      },
+    );
+    return data;
+  } catch (error) {
+    throw new Error('해당 도서를 찾을 수 없습니다.');
+  }
+};
