@@ -13,7 +13,7 @@ const Header = ({ title }: Props) => {
       <Image
         onClick={() => router.back()}
         className='mr-[15px] cursor-pointer'
-        src='./images/back-button.svg'
+        src='../images/back-button.svg'
         width={20}
         height={20}
         alt='뒤로 가기 버튼입니다'

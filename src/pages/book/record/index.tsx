@@ -1,13 +1,23 @@
-import { useMutation } from '@tanstack/react-query';
+import {
+  dehydrate,
+  QueryClient,
+  useMutation,
+  useQuery,
+} from '@tanstack/react-query';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
-import { registerImageApi } from '@/api/image';
+import { getBookDataByIsbnApi } from '@/api/book';
+import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import styles from '@/components/book/record/Calendar.module.css';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
+import { getBookDataByIsbnProps } from '@/types/book';
+import { bookRecordDataProps } from '@/types/record';
 
 interface TagProps {
   id: number;
@@ -15,7 +25,13 @@ interface TagProps {
 }
 
 const BookRecordPage = () => {
+  const router = useRouter();
   const registerImage = useMutation(registerImageApi);
+  const registerBookRecord = useMutation(registerBookRecordApi);
+  const { data: getBookDataByIsbn } = useQuery<getBookDataByIsbnProps>(
+    ['getBookDataByIsbn', 'record'],
+    () => getBookDataByIsbnApi(router.query.isbn as string),
+  );
 
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [description, setDescription] = useState('');
@@ -62,8 +78,8 @@ const BookRecordPage = () => {
   };
 
   const submitRecord = () => {
-    if (!postImage || !description || !startDate) {
-      alert('이미지, 본문, 완독일을 지정해주세요');
+    if (!postImage || !description || !startDate || !getBookDataByIsbn) {
+      alert('도서, 이미지, 본문, 완독일을 지정해주세요');
       return;
     }
 
@@ -75,7 +91,26 @@ const BookRecordPage = () => {
       day >= 10 ? day : '0' + day
     }`;
 
-    console.log(postImage, description, formattedDate, tagList);
+    const data: bookRecordDataProps = {
+      title: getBookDataByIsbn.documents[0].title,
+      thumbnail: getBookDataByIsbn.documents[0].thumbnail,
+      bookIsbn: router.query.isbn as string,
+      text: description,
+      recordImg: postImage.name as string,
+      recordImgUrl: postImage.url as string,
+      tags: tagList,
+      readAt: formattedDate,
+    };
+
+    registerBookRecord.mutate(data, {
+      onSuccess: () => {
+        alert('독서 기록 성공');
+        router.push('/');
+      },
+      onError: (error) => {
+        alert(error);
+      },
+    });
   };
 
   return (
@@ -93,10 +128,35 @@ const BookRecordPage = () => {
           <div>
             <Link
               href={'/book/record/select'}
-              className='flex flex-col w-full justify-center items-center h-24 border rounded-md border-dashed border-[#c2c1c1]'
+              className='flex flex-col w-full justify-center p-4 items-center border rounded-md border-dashed border-[#c2c1c1]'
             >
-              <span>+</span>
-              <span className='text-[12]'>책 등록하기</span>
+              {getBookDataByIsbn &&
+              getBookDataByIsbn.documents &&
+              getBookDataByIsbn.documents[0] ? (
+                <section className='flex h-full w-full gap-4'>
+                  <div className='border w-1/5 border-solid border-[black]'>
+                    <Image
+                      src={getBookDataByIsbn.documents[0].thumbnail}
+                      alt='도서 이미지'
+                      width='0'
+                      height='0'
+                      sizes='100vw'
+                      className='w-full h-auto'
+                    />
+                  </div>
+                  <article className='flex flex-col justify-evenly w-4/5'>
+                    <h3>{getBookDataByIsbn.documents[0].title}</h3>
+                    <h4 className='text-[13px] text-[#999797]'>
+                      {getBookDataByIsbn.documents[0].authors[0]}
+                    </h4>
+                  </article>
+                </section>
+              ) : (
+                <>
+                  <span>+</span>
+                  <span className='text-[12]'>책 등록하기</span>
+                </>
+              )}
             </Link>
           </div>
           <div className='flex items-center justify-end'>
@@ -212,6 +272,21 @@ const BookRecordPage = () => {
       </section>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(['getBookDataByIsbn', 'record'], () =>
+    getBookDataByIsbnApi(context.query?.isbn as string),
+  );
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default BookRecordPage;

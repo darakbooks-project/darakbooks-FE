@@ -41,6 +41,9 @@ const useImage = (
             };
             setImage(newImage);
           },
+          onError: (error) => {
+            alert(error);
+          },
         });
       }
     },

@@ -1,29 +1,43 @@
-import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import InfinityScrollLists from '@/components/book/search/InfinityScrollLists';
 import BottomNav from '@/components/common/BottomNav';
 import SearchInput from '@/components/common/SearchInput';
 import { isAuthorizedSelector } from '@/recoil/auth';
+import {
+  searchBookTitleAtom,
+  searchInfinityScrollPositionAtom,
+} from '@/recoil/book';
 
 const BookSearchPage = () => {
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchBookTitle, setSearchBookTitle] =
+    useRecoilState(searchBookTitleAtom);
+  const infinityScrollPosition = useRecoilValue(
+    searchInfinityScrollPositionAtom,
+  );
   const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
 
   const onSubmit = (keyword: string) => {
-    setSearchKeyword(keyword);
+    setSearchBookTitle(keyword);
   };
 
   const clickLogout = () => {
     setIsAuthorized(false);
   };
 
+  useEffect(() => {
+    if (infinityScrollPosition !== 0) {
+      window.scrollTo(0, infinityScrollPosition);
+    }
+  }, []);
+
   return (
     <Container>
       <SearchInput onSubmit={onSubmit} />
       <button onClick={clickLogout}>로그아웃</button>
-      <InfinityScrollLists searchKeyword={searchKeyword} />
+      <InfinityScrollLists searchKeyword={searchBookTitle} />
       <BottomNav />
     </Container>
   );

@@ -5,3 +5,13 @@ export interface BookSearchResulListItem {
   publisher: string;
   isbn: string;
 }
+
+export interface getBookDataByIsbnProps {
+  documents: {
+    authors: string[];
+    title: string;
+    thumbnail: string;
+    contents: string;
+    publisher: string;
+  }[];
+}
