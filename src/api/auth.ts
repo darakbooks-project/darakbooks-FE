@@ -22,6 +22,19 @@ export const login = async (code: string) => {
   }
 };
 
+export const logout = async () => {
+  try {
+    await axiosInstance.request({
+      method: 'GET',
+      url: `${BASE_URL}/user/auth/logout`,
+    });
+
+    axiosInstance.defaults.headers['Authorization'] = '';
+  } catch {
+    throw new Error('로그아웃 중 에러가 발생하였습니다.');
+  }
+};
+
 export const silentRefresh = async (
   originRequest?: InternalAxiosRequestConfig,
 ) => {
