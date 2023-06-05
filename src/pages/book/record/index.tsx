@@ -16,19 +16,12 @@ import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import styles from '@/components/book/record/Calendar.module.css';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
+import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
 
 interface TagProps {
   id: number;
   data: string | number;
-}
-
-interface getBookDataByIsbnProps {
-  documents: {
-    authors: string[];
-    title: string;
-    thumbnail: string;
-  }[];
 }
 
 const BookRecordPage = () => {
