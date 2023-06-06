@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { getBookDataByIsbnProps } from '@/types/book';
+import Link from 'next/link';
 
 const DUMMY = [
   { id: '1', description: '하이하이', nickname: '하이1' },
@@ -115,7 +116,14 @@ const BookDetailPage = () => {
             담기
           </button>
           <button className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d]'>
-            바로기록하기
+            <Link
+              href={{
+                pathname: '/book/record',
+                query: { isbn: router.query.isbn },
+              }}
+            >
+              바로기록하기
+            </Link>
           </button>
         </section>
       </section>
