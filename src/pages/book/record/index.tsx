@@ -113,9 +113,12 @@ const BookRecordPage = () => {
     });
   };
 
+  const isValid =
+    !postImage || !description || !startDate || !getBookDataByIsbn;
+
   return (
     <div className='flex flex-col'>
-      <section className='flex flex-col p-4 gap-8 pt-28 border-b-[#dfdfdf] border-b border-solid'>
+      <section className='flex flex-col p-4 gap-8 pt-28 border-solid'>
         <article className='flex flex-col gap-2'>
           <h3 className='italic font-normal text-base leading-[19px] text-[#333333]'>
             {today}
@@ -198,11 +201,16 @@ const BookRecordPage = () => {
                   : styles.unselectedDay
               }
             />
-            <label
-              htmlFor='calendar'
-              className='w-full flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] '
-            >
-              {startDate ? startDate.toLocaleDateString('ko') : '완독일'}
+            <label htmlFor='calendar'>
+              {startDate ? (
+                <div className='w-[12rem] flex justify-end h-8 text-[14px] text-[#333333]'>
+                  완독일_ {startDate.toLocaleDateString('ko')}
+                </div>
+              ) : (
+                <div className='w-[6.5rem] text-[14px] text-[#333333] flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] '>
+                  완독일
+                </div>
+              )}
             </label>
           </div>
           <textarea
@@ -211,39 +219,20 @@ const BookRecordPage = () => {
             value={description}
             onChange={changeDescription}
           ></textarea>
-          <div>
-            <label
-              htmlFor='record-image'
-              className='flex justify-center items-center w-[4.5rem] h-[4.5rem] rounded-md bg-[#dfdfdf]'
-            >
-              {postImage.url ? (
-                <Image
-                  src={postImage.url}
-                  alt='메인이미지'
-                  width='0'
-                  height='0'
-                  sizes='100vw'
-                  className='w-full h-auto'
-                />
-              ) : (
-                '+'
-              )}
-            </label>
-            <input
-              type='file'
-              className='hidden'
-              id='record-image'
-              accept='image/*'
-              onChange={setPostImage}
-            />
-          </div>
         </section>
       </section>
       <section className='flex flex-col justify-center gap-4 p-4'>
+        <input
+          className='border-b border-solid border-b-[#C2C1C1] bg-inherit p-1'
+          placeholder='# 태그입력'
+          onChange={setTag}
+          value={tag}
+          onKeyDown={keyPress}
+        />
         <h2 className='not-italic font-bold text-sm leading-5 text-[#333333]'>
-          해시태그 추가하기
+          추가한 태그
         </h2>
-        <div className=' w-full flex flex-wrap gap-2'>
+        <div className='w-full flex flex-wrap gap-2'>
           {tagList.map((tag) => (
             <span
               key={tag.id}
@@ -255,17 +244,53 @@ const BookRecordPage = () => {
               </span>
             </span>
           ))}
+        </div>
+        <div>
+          <label
+            htmlFor='record-image'
+            className={` ${
+              postImage.url
+                ? 'border-[none]'
+                : 'flex flex-col justify-center items-center min-h-[8rem] border rounded-md border-dashed border-[#C2C1C1] gap-1'
+            } `}
+          >
+            {postImage.url ? (
+              <Image
+                src={postImage.url}
+                alt='메인이미지'
+                width='0'
+                height='0'
+                sizes='100vw'
+                className='w-full h-auto'
+              />
+            ) : (
+              <>
+                <div>아이콘</div>
+                <span className='text-[13px] text-[#333333]'>
+                  사진 추가하기
+                </span>
+                <span className='text-[10px] text-[#999797]'>
+                  이미지는 1장만 업로드 할 수 있습니다.
+                </span>
+              </>
+            )}
+          </label>
           <input
-            className='w-auto inline-flex cursor-text  border italic font-normal text-sm leading-[17px] text-[#333333] px-3 py-1.5 rounded-[50px] border-solid border-[#ebeaea]'
-            placeholder='# 태그입력'
-            onChange={setTag}
-            value={tag}
-            onKeyDown={keyPress}
+            type='file'
+            className='hidden'
+            id='record-image'
+            accept='image/*'
+            onChange={setPostImage}
           />
         </div>
         <button
-          className='h-14 bg-inherit border rounded-md border-solid border-[#333333]'
+          className={`${
+            isValid
+              ? 'h-14 border bg-[#DFDFDF] rounded-md text-[#ffffff]'
+              : 'h-14 border bg-[#5A987D] rounded-md text-[#ffffff]'
+          }`}
           onClick={submitRecord}
+          disabled={isValid}
         >
           기록하기
         </button>
