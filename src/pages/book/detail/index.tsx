@@ -13,10 +13,10 @@ const DUMMY = [
 ];
 
 const BookDetailPage = () => {
-  const router = useRouter(); // router로 isbn 받으면
+  const router = useRouter();
   const { data: getBookDataByIsbn } = useQuery<getBookDataByIsbnProps>(
     ['getBookDataByIsbn', 'detail'],
-    () => getBookDataByIsbnApi('8996991341'), // 여기 넣어주기 router.query.isbn as string
+    () => getBookDataByIsbnApi(router.query.isbn as string), // 여기 넣어주기 router.query.isbn as string
   );
 
   const [pHeight, setPHeight] = useState(false);
@@ -127,9 +127,8 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(
-    ['getBookDataByIsbn', 'detail'],
-    () => getBookDataByIsbnApi('8996991341'), // 여기도 context.query.isbn as string 넣어주기
+  await queryClient.prefetchQuery(['getBookDataByIsbn', 'detail'], () =>
+    getBookDataByIsbnApi(context.query.isbn as string),
   );
   return {
     props: {
