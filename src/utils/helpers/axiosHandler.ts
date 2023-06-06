@@ -1,10 +1,10 @@
 import { InternalAxiosRequestConfig } from 'axios';
 
-const setAxiosHeader = (
+const setOriginRequestAxiosHeader = (
   config: InternalAxiosRequestConfig,
   acessToken: string,
 ) => {
   config.headers['Authorization'] = `Bearer ${acessToken}`;
 };
 
-export { setAxiosHeader };
+export { setOriginRequestAxiosHeader };
