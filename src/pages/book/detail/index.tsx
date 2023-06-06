@@ -35,8 +35,9 @@ const BookDetailPage = () => {
 
   return (
     <div className='flex flex-col gap-1'>
-      <section className='h-[30rem] border border-solid  bg-[#ffffff]'>
-        <div className='absolute w-44 h-64 left-[calc(50%_-_170px_/_2)] rounded-[0px_3px_3px_0px] top-[95px] drop-shadow-xl'>
+      <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#ffffff] gap-5'>
+        <div className='w-full px-4'>&lt;</div>
+        <div className=' w-40 h-60 rounded-[0px_3px_3px_0px]  drop-shadow-xl'>
           {getBookDataByIsbn && (
             <Image
               src={getBookDataByIsbn?.documents[0].thumbnail}
@@ -48,8 +49,8 @@ const BookDetailPage = () => {
             />
           )}
         </div>
-        <article className='absolute w-[175px] h-[74px] left-[calc(50%_-_175px_/_2_+_0.5px)] flex flex-col items-center gap-[5px] top-[370px]'>
-          <h1 className='text-xl font-semibold'>
+        <article className=' flex flex-col items-center gap-1'>
+          <h1 className='text-xl font-semibold text-[#242424]'>
             {getBookDataByIsbn?.documents[0].title}
           </h1>
           <h3 className='text-[13px]'>
