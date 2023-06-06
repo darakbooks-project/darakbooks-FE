@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { getBookDataByIsbnProps } from '@/types/book';
+import Link from 'next/link';
 
 const DUMMY = [
   { id: '1', description: '하이하이', nickname: '하이1' },
@@ -13,10 +14,10 @@ const DUMMY = [
 ];
 
 const BookDetailPage = () => {
-  const router = useRouter(); // router로 isbn 받으면
+  const router = useRouter();
   const { data: getBookDataByIsbn } = useQuery<getBookDataByIsbnProps>(
     ['getBookDataByIsbn', 'detail'],
-    () => getBookDataByIsbnApi('8996991341'), // 여기 넣어주기 router.query.isbn as string
+    () => getBookDataByIsbnApi(router.query.isbn as string), // 여기 넣어주기 router.query.isbn as string
   );
 
   const [pHeight, setPHeight] = useState(false);
@@ -35,8 +36,9 @@ const BookDetailPage = () => {
 
   return (
     <div className='flex flex-col gap-1'>
-      <section className='h-[30rem] border border-solid  bg-[#ffffff]'>
-        <div className='absolute w-44 h-64 left-[calc(50%_-_170px_/_2)] rounded-[0px_3px_3px_0px] top-[95px] drop-shadow-xl'>
+      <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#ffffff] gap-5'>
+        <div className='w-full px-4'>&lt;</div>
+        <div className=' w-40 h-60 rounded-[0px_3px_3px_0px]  drop-shadow-xl'>
           {getBookDataByIsbn && (
             <Image
               src={getBookDataByIsbn?.documents[0].thumbnail}
@@ -48,8 +50,8 @@ const BookDetailPage = () => {
             />
           )}
         </div>
-        <article className='absolute w-[175px] h-[74px] left-[calc(50%_-_175px_/_2_+_0.5px)] flex flex-col items-center gap-[5px] top-[370px]'>
-          <h1 className='text-xl font-semibold'>
+        <article className=' flex flex-col items-center gap-1'>
+          <h1 className='text-xl font-semibold text-[#242424]'>
             {getBookDataByIsbn?.documents[0].title}
           </h1>
           <h3 className='text-[13px]'>
@@ -114,7 +116,14 @@ const BookDetailPage = () => {
             담기
           </button>
           <button className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d]'>
-            바로기록하기
+            <Link
+              href={{
+                pathname: '/book/record',
+                query: { isbn: router.query.isbn },
+              }}
+            >
+              바로기록하기
+            </Link>
           </button>
         </section>
       </section>
@@ -127,9 +136,8 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(
-    ['getBookDataByIsbn', 'detail'],
-    () => getBookDataByIsbnApi('8996991341'), // 여기도 context.query.isbn as string 넣어주기
+  await queryClient.prefetchQuery(['getBookDataByIsbn', 'detail'], () =>
+    getBookDataByIsbnApi(context.query.isbn as string),
   );
   return {
     props: {

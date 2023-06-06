@@ -44,10 +44,10 @@ export const getBookSearchResultData = async (
 export const getBookDataByIsbnApi = async (isbn: string) => {
   try {
     const { data } = await axios.get(
-      `https://dapi.kakao.com/v3/search/book?target=isbn&query=${isbn}`,
+      `${KAKAO_BOOK_SEARCH_API_URL}?target=isbn&query=${isbn}`,
       {
         headers: {
-          Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_API_KEY}`,
+          Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`,
         },
       },
     );
