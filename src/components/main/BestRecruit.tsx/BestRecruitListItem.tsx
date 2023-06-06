@@ -1,35 +1,44 @@
 import Link from 'next/link';
 import React from 'react';
 
-interface BestRecruitListItemProps {
-  groupId: number;
-  groupName: string;
-  description: string;
-  recruitment: boolean;
+import Avatar from '@/components/common/Avartar';
+import { GroupList, UserGroup } from '@/types/recruit';
+
+interface BestRecruitListItemProps extends GroupList {
+  index: number;
+  groupLeader: UserGroup;
 }
 
 const BestRecruitListItem = ({
-  groupId,
-  groupName,
+  group_id,
+  name,
   description,
-  recruitment,
+  index,
+  groupLeader,
 }: BestRecruitListItemProps) => {
   return (
     <li>
       <Link
-        href={`recruit/detail?groupId=${groupId}`}
-        className='flex justify-between items-center mx-5 mb-7'
+        href={`recruit/detail?groupId=${group_id}`}
+        className='flex items-center mx-5 mb-7'
       >
+        <div className='text-lg font-bold mr-3 text-[#67A68A]'>{index + 1}</div>
+        <div className='mr-3'>
+          <Avatar
+            src={groupLeader.profileImg}
+            shape='circle'
+            alt='모임장 프로필 이미지'
+            lazy={false}
+            placeholder=''
+          />
+        </div>
         <div className='flex-col justify-between'>
-          <h3 className='text-base font-bold text-[#707070] truncate w-[55vw] max-w-sm'>
-            {groupName}
+          <h3 className='text-base font-bold text-[#707070] truncate w-[60vw] max-w-sm xxs:w-[50vw]'>
+            {name}
           </h3>
-          <p className='text-sm text-[#707070] truncate w-[55vw] max-w-sm'>
+          <p className='text-sm text-[#707070] truncate w-[60vw] max-w-sm xxs:w-[50vw]'>
             {description}
           </p>
-        </div>
-        <div className='bg-[#67A68A] text-white text-xs flex items-center justify-center rounded p-1'>
-          {recruitment ? '모집중' : '모집완료'}
         </div>
       </Link>
     </li>
