@@ -248,7 +248,11 @@ const BookRecordPage = () => {
         <div>
           <label
             htmlFor='record-image'
-            className='flex flex-col justify-center items-center min-h-[8rem] border rounded-md border-dashed border-[#C2C1C1] gap-1'
+            className={` ${
+              postImage.url
+                ? 'border-[none]'
+                : 'flex flex-col justify-center items-center min-h-[8rem] border rounded-md border-dashed border-[#C2C1C1] gap-1'
+            } `}
           >
             {postImage.url ? (
               <Image
