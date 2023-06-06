@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
+import { logout } from '@/api/auth';
 import InfinityScrollLists from '@/components/book/search/InfinityScrollLists';
 import BottomNav from '@/components/common/BottomNav';
 import SearchInput from '@/components/common/SearchInput';
@@ -24,6 +25,7 @@ const BookSearchPage = () => {
   };
 
   const clickLogout = () => {
+    logout();
     setIsAuthorized(false);
   };
 
