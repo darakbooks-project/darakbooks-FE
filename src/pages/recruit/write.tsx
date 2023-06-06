@@ -11,15 +11,23 @@ import {
 
 const RecruitWritePage = () => {
   const [className, setClassName] = useState('');
-  const [classType, setClassType] = useState('on');
+  const [classType, setClassType] = useState('online');
   const [classRegion, setClassRegion] = useState('서울');
   const [classDescription, setClassDescription] = useState('');
+  const [classDay, setClassDay] = useState('월');
+  const [classTime, setClassTime] = useState('12:00');
+  const [classPeopleNumber, setClassPeopleNumber] = useState(0);
+  const [classKakaoLink, setClassKakaoLink] = useState('');
 
   const classStateObj: ClassOpenStateObjProps = {
     className,
     classType,
     classRegion,
     classDescription,
+    classDay,
+    classTime,
+    classPeopleNumber,
+    classKakaoLink,
   };
 
   const classChangeStateObj: ClassOpenChangeStateObjProps = {
@@ -27,14 +35,26 @@ const RecruitWritePage = () => {
       setClassName(e.target.value);
     },
     changeClassType: (type) => {
-      if (type === 'on') setClassType('on');
-      else setClassType('off');
+      if (type === 'online') setClassType('online');
+      else setClassType('offline');
     },
     changeClassRegion: (e) => {
       setClassRegion(e.target.value);
     },
     changeClassDescription: (e) => {
       setClassDescription(e.target.value);
+    },
+    changeClassDay: (e) => {
+      setClassDay(e.target.value);
+    },
+    changeClassTime: (e) => {
+      setClassTime(e.target.value);
+    },
+    changeClassPeopleNumber: (e) => {
+      setClassPeopleNumber(parseInt(e.target.value));
+    },
+    changeClassKakaoLink: (e) => {
+      setClassKakaoLink(e.target.value);
     },
   };
 
