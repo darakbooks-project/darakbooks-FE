@@ -48,14 +48,14 @@ const RecruitOpenForm = ({
           </option>
         ))}
       </ClassRegionSelect>
-      <ClassDaySelect onChange={classChangeStateObj.changeClassRegion}>
+      <ClassDaySelect onChange={classChangeStateObj.changeClassDay}>
         {DAY_DATA.map((day) => (
           <option key={day} value={day}>
             {day}
           </option>
         ))}
       </ClassDaySelect>
-      <ClassTimeSelect onChange={classChangeStateObj.changeClassRegion}>
+      <ClassTimeSelect onChange={classChangeStateObj.changeClassTime}>
         {TIME_DATA.map((time) => (
           <option key={time} value={time}>
             {time}
