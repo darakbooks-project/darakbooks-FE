@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import tw from 'tailwind-styled-components';
 
 interface Props {
   onSubmit(keywrod: string): void;
@@ -27,33 +28,60 @@ const SearchInput = ({ onSubmit }: Props) => {
   };
 
   return (
-    <div>
-      <form
-        className='flex w-[100%] h-[50px] flex-row-reverse'
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <input
-          className='w-[85%] border border-solid border-black rounded-r-xl outline-none pl-2'
+    <Container>
+      <Form onSubmit={(e) => e.preventDefault()}>
+        <Input
           type='text'
           placeholder='검색어를 입력해주세요'
           onChange={updateInputData}
         />
-        <button
-          type='submit'
-          className='w-[15%] border border-solid border-black bg-gray-300 flex justify-center items-center rounded-l-xl border-r-0'
-          onClick={onClickSearchButton}
-        >
+        <Button type='submit' className='' onClick={onClickSearchButton}>
           <Image
             src='../images/search.svg'
-            width={35}
-            height={35}
+            width={20}
+            height={20}
             alt='검색 아이콘'
           />
-        </button>
-      </form>
-      <div>{isError && '한글자 이상의 검색어를 입력해주세요'}</div>
-    </div>
+        </Button>
+      </Form>
+      <ErrorMessage>
+        {isError && '한글자 이상의 검색어를 입력해주세요'}
+      </ErrorMessage>
+    </Container>
   );
 };
 
 export default SearchInput;
+
+const Container = tw.div``;
+
+const Form = tw.form`
+  flex
+  w-[100%]
+  flex-row-reverse
+`;
+
+const Input = tw.input`
+  w-[90%]
+  rounded-r-lg
+  outline-none
+  pl-2
+  py-[12.5px]
+  bg-[#F2F2F2]
+  text-sm
+`;
+
+const Button = tw.button`
+  w-[10%]
+  flex 
+  justify-center 
+  items-center 
+  rounded-l-lg
+  bg-[#F2F2F2]
+  pl-2
+`;
+
+const ErrorMessage = tw.div`
+  absolute
+  bottom-[-30px]
+`;
