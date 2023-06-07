@@ -14,6 +14,10 @@ const SearchInput = ({ onSubmit }: Props) => {
     setInputData(event.target.value);
   };
 
+  const removeInputData = () => {
+    setInputData('');
+  };
+
   const onClickSearchButton = () => {
     onSubmit(inputData);
 
@@ -34,15 +38,24 @@ const SearchInput = ({ onSubmit }: Props) => {
           type='text'
           placeholder='검색어를 입력해주세요'
           onChange={updateInputData}
+          value={inputData}
         />
-        <Button type='submit' className='' onClick={onClickSearchButton}>
+        <SearchButton type='submit' onClick={onClickSearchButton}>
           <Image
             src='../images/search.svg'
             width={20}
             height={20}
             alt='검색 아이콘'
           />
-        </Button>
+        </SearchButton>
+        <CloseButton onClick={removeInputData}>
+          <Image
+            src='../images/close.svg'
+            width={15}
+            height={15}
+            alt='닫기 아이콘'
+          />
+        </CloseButton>
       </Form>
       <ErrorMessage>
         {isError && '한글자 이상의 검색어를 입력해주세요'}
@@ -71,7 +84,7 @@ const Input = tw.input`
   text-sm
 `;
 
-const Button = tw.button`
+const SearchButton = tw.button`
   w-[10%]
   flex 
   justify-center 
@@ -79,6 +92,10 @@ const Button = tw.button`
   rounded-l-lg
   bg-[#F2F2F2]
   pl-2
+`;
+
+const CloseButton = tw.button`
+
 `;
 
 const ErrorMessage = tw.div`
