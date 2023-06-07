@@ -11,3 +11,29 @@ export interface ClassOpenChangeStateObjProps {
   changeClassRegion: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   changeClassDescription: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
+
+export interface GroupList {
+  group_id: number;
+  name: string;
+  recruitment_status: boolean;
+  meeting_type: string;
+  day: string;
+  time: string;
+  region: string;
+  description: string;
+  participant_limit: number;
+  open_chat_link: string;
+  group_lead: string;
+  userGroup: UserGroup[];
+}
+
+export interface UserGroup {
+  age: string;
+  gender: string;
+  groups: number[];
+  nickname: string;
+  profileImg: string;
+  provider: string;
+  userId: string;
+  userInfo: string;
+}
