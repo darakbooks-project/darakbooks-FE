@@ -72,6 +72,7 @@ const Form = tw.form`
   flex
   w-[100%]
   flex-row-reverse
+  relative
 `;
 
 const Input = tw.input`
@@ -95,7 +96,9 @@ const SearchButton = tw.button`
 `;
 
 const CloseButton = tw.button`
-
+  absolute
+  top-[17.5px]
+  right-[17.5px]
 `;
 
 const ErrorMessage = tw.div`
