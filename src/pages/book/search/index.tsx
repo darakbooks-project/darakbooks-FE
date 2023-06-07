@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
+import { logout } from '@/api/auth';
 import InfinityScrollLists from '@/components/book/search/InfinityScrollLists';
 import BottomNav from '@/components/common/BottomNav';
 import SearchInput from '@/components/common/SearchInput';
+import { isAuthorizedSelector } from '@/recoil/auth';
 import {
   searchBookTitleAtom,
   searchInfinityScrollPositionAtom,
@@ -16,9 +18,15 @@ const BookSearchPage = () => {
   const infinityScrollPosition = useRecoilValue(
     searchInfinityScrollPositionAtom,
   );
+  const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
 
   const onSubmit = (keyword: string) => {
     setSearchBookTitle(keyword);
+  };
+
+  const clickLogout = () => {
+    logout();
+    setIsAuthorized(false);
   };
 
   useEffect(() => {
@@ -30,6 +38,7 @@ const BookSearchPage = () => {
   return (
     <Container>
       <SearchInput onSubmit={onSubmit} />
+      <button onClick={clickLogout}>로그아웃</button>
       <InfinityScrollLists searchKeyword={searchBookTitle} />
       <BottomNav />
     </Container>

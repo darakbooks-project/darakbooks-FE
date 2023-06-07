@@ -1,16 +1,19 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
-import { setAxiosHeader } from '@/utils/helpers/axiosHandler';
+import { setOriginRequestAxiosHeader } from '@/utils/helpers/axiosHandler';
 
 import { axiosInstance } from './axios';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const login = async (code: string) => {
   try {
     const {
       data: { accessToken },
-    } = await axios.get<{ accessToken: string }>(
-      `http://3.36.210.43:3000/user/auth/kakao?code=${code}`,
-    );
+    } = await axiosInstance.request({
+      method: 'GET',
+      url: `${BASE_URL}/user/auth/kakao?code=${code}`,
+    });
 
     axiosInstance.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
 
@@ -20,19 +23,36 @@ export const login = async (code: string) => {
   }
 };
 
+export const logout = async () => {
+  try {
+    await axiosInstance.request({
+      method: 'GET',
+      url: `${BASE_URL}/user/auth/logout`,
+    });
+
+    axiosInstance.defaults.headers['Authorization'] = '';
+  } catch {
+    throw new Error('로그아웃 중 에러가 발생하였습니다.');
+  }
+};
+
 export const silentRefresh = async (
   originRequest?: InternalAxiosRequestConfig,
 ) => {
   try {
     const {
       data: { accessToken },
-    } = await axiosInstance.request<{ accessToken: string }>({
-      method: 'GET',
-      url: `http://3.36.210.43:3000/user/auth/reissue`,
-    });
+    } = await axios.get<{ accessToken: string }>(
+      `${BASE_URL}/user/auth/reissu`,
+      {
+        withCredentials: true,
+      },
+    );
+
+    axiosInstance.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
 
     if (originRequest) {
-      setAxiosHeader(originRequest, accessToken);
+      setOriginRequestAxiosHeader(originRequest, accessToken);
       return axiosInstance(originRequest);
     }
 
