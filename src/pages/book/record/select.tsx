@@ -1,11 +1,15 @@
 import Image from 'next/image';
 import React from 'react';
 import { ReactElement } from 'react';
+import { useRecoilState } from 'recoil';
 
+import SelectModal from '@/components/book/record/SelectModal';
 import BookSelectLayout from '@/layout/BookSelectLayout';
+import { selectModalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
 
 const BookRecordSelectPage: NextPageWithLayout = () => {
+  const [modal, setModal] = useRecoilState(selectModalStateAtom);
   return (
     <>
       <div>
@@ -13,8 +17,11 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
           전체 <span className='text-[#67a68a]'>6</span>권
         </h5>
       </div>
-      <ul className='h-[90%] grid grid-cols-[repeat(3,1fr)] grid-rows-[repeat(4,1fr)] gap-4'>
-        <li className='flex flex-col justify-center items-center h-48 bg-[rgba(182,245,217,0.15)] border p-2 rounded-lg border-solid border-[#67a68a]'>
+      <ul
+        className='grid grid-cols-[repeat(3,1fr)] grid-rows-[repeat(4,1fr)] gap-4 overflow-hidden'
+        onClick={() => setModal(true)}
+      >
+        <li className='flex flex-col justify-center items-center h-48'>
           <div className='w-full h-[9.5rem] border mb-2.5 rounded-[0px_3px_3px_0px] border-solid border-[red] shadow-[0px_0px_7px_rgba(0,0,0,0.25)]'>
             <Image src='' alt='' />
           </div>
@@ -24,8 +31,9 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
           <h3 className='w-full text-[11px] text-[#707070] text-center'>
             루리
           </h3>
-        </li>
+        </li>{' '}
       </ul>
+      {modal && <SelectModal />}
     </>
   );
 };
