@@ -31,6 +31,7 @@ const BookRecordPage = () => {
   const { data: getBookDataByIsbn } = useQuery<getBookDataByIsbnProps>(
     ['getBookDataByIsbn', 'record'],
     () => getBookDataByIsbnApi(router.query.isbn as string),
+    { enabled: !!router.query.isbn },
   );
 
   const [startDate, setStartDate] = useState<Date | null>(null);

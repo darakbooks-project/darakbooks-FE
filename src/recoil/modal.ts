@@ -8,3 +8,8 @@ export const modalStateAtom = atom<ModalStateProps>({
   key: 'modalState',
   default: { type: 'HIDDEN' },
 });
+
+export const selectModalStateAtom = atom<boolean>({
+  key: 'selectModalState',
+  default: false,
+});
