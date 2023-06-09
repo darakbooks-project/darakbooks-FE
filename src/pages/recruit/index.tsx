@@ -1,10 +1,7 @@
-import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 
-import { getReadingClassData } from '@/api/recruit';
 import RecruitInfinityScrollLists from '@/components/recruit/RecruitInfinityScrollLists';
 
 const RecruitPage = () => {
@@ -35,17 +32,3 @@ const PersonnelRecruitButton = tw(Link)`
   bg-blue-500
   text-center
 `;
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchInfiniteQuery(['reading', 'group', 'list'], () =>
-    getReadingClassData(1),
-  );
-
-  return {
-    props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-};

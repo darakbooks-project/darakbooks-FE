@@ -1,5 +1,5 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
@@ -15,6 +15,11 @@ const RecruitInfinityScrollLists = () => {
     readingGroupInfinityScrollPositionAtom,
   );
 
+  const queryClient = useQueryClient();
+  const readingGroupQueryData = useRef(
+    queryClient.getQueryData(['reading', 'group', 'list']),
+  );
+
   const {
     data: readingGroupLists,
     fetchNextPage,
@@ -23,7 +28,7 @@ const RecruitInfinityScrollLists = () => {
     status,
   } = useInfiniteQuery(
     ['reading', 'group', 'list'],
-    ({ pageParam = 2 }) => getReadingClassData(pageParam),
+    ({ pageParam = 1 }) => getReadingClassData(pageParam),
     {
       onError: (error) => console.error(error),
       getNextPageParam: (lastPage) => {
@@ -31,7 +36,7 @@ const RecruitInfinityScrollLists = () => {
 
         return parseInt(lastPage.currentPage) + 1;
       },
-      staleTime: 20000,
+      enabled: !readingGroupQueryData.current,
     },
   );
 
