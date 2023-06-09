@@ -1,6 +1,6 @@
 import tw from 'tailwind-styled-components';
 
-import { REGION_DATA } from '@/constants/region';
+import { DAY_DATA, REGION_DATA, TIME_DATA } from '@/constants/recruit';
 import {
   ClassOpenChangeStateObjProps,
   ClassOpenStateObjProps,
@@ -26,17 +26,17 @@ const RecruitOpenForm = ({
       <ClassType>
         <ClassTypeButton
           className={
-            classStateObj.classType === 'on' ? 'bg-blue-100' : 'bg-white'
+            classStateObj.classType === 'online' ? 'bg-blue-100' : 'bg-white'
           }
-          onClick={() => classChangeStateObj.changeClassType('on')}
+          onClick={() => classChangeStateObj.changeClassType('online')}
         >
           온라인
         </ClassTypeButton>
         <ClassTypeButton
           className={
-            classStateObj.classType === 'off' ? 'bg-blue-100' : 'bg-white'
+            classStateObj.classType === 'offline' ? 'bg-blue-100' : 'bg-white'
           }
-          onClick={() => classChangeStateObj.changeClassType('off')}
+          onClick={() => classChangeStateObj.changeClassType('offline')}
         >
           오프라인
         </ClassTypeButton>
@@ -48,12 +48,38 @@ const RecruitOpenForm = ({
           </option>
         ))}
       </ClassRegionSelect>
+      <ClassDaySelect onChange={classChangeStateObj.changeClassDay}>
+        {DAY_DATA.map((day) => (
+          <option key={day} value={day}>
+            {day}
+          </option>
+        ))}
+      </ClassDaySelect>
+      <ClassTimeSelect onChange={classChangeStateObj.changeClassTime}>
+        {TIME_DATA.map((time) => (
+          <option key={time} value={time}>
+            {time}
+          </option>
+        ))}
+      </ClassTimeSelect>
       <ClassDescription
         value={classStateObj.classDescription}
         onChange={classChangeStateObj.changeClassDescription}
         maxLength={1500}
         placeholder='독서 모임 설명을 입력해주세요'
       ></ClassDescription>
+      <ClassPeopleNumber
+        type='text'
+        onChange={classChangeStateObj.changeClassPeopleNumber}
+        value={classStateObj.classPeopleNumber}
+        placeholder='인원 수를 입력해주세요'
+      />
+      <ClassKakaoLink
+        type='text'
+        onChange={classChangeStateObj.changeClassKakaoLink}
+        value={classStateObj.classKakaoLink}
+        placeholder='카카오 링크를 입력해주세요'
+      />
     </>
   );
 };
@@ -78,10 +104,32 @@ const ClassRegionSelect = tw.select`
   border-black
 `;
 
+const ClassDaySelect = tw.select`
+  border
+  border-black
+`;
+
+const ClassTimeSelect = tw.select`
+  border
+  border-black
+`;
+
 const ClassDescription = tw.textarea`
   border-basic 
   w-full 
   resize-none 
   h-2/5 
   p-1
+`;
+
+const ClassPeopleNumber = tw.input`
+  w-full
+  border
+  border-black
+`;
+
+const ClassKakaoLink = tw.input`
+  w-full
+  border
+  border-black
 `;
