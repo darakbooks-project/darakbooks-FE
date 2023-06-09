@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { GroupList } from '@/types/recruit';
 
 interface ReadingGroupRecruitmentProps {
@@ -5,10 +7,27 @@ interface ReadingGroupRecruitmentProps {
 }
 
 const ReadingGroupRecruitment = ({
-  listItemData: { name, meeting_type, day, time, region, recruitment_status },
+  listItemData: {
+    group_id,
+    name,
+    meeting_type,
+    day,
+    time,
+    region,
+    recruitment_status,
+  },
 }: ReadingGroupRecruitmentProps) => {
+  const router = useRouter();
+
+  const clickListItem = () => {
+    router.push(`/recruit/detail?groupId=${group_id}`);
+  };
+
   return (
-    <div className='w-[100%] flex items-center bg-yellow-600 px-[20px] py-[15px] relative cursor-pointer mb-[30px]'>
+    <div
+      onClick={clickListItem}
+      className='w-[100%] flex items-center bg-yellow-600 px-[20px] py-[15px] relative cursor-pointer mb-[30px]'
+    >
       <div className='font-bold text-[15px] ml-[20px]'>
         <span className='text-xl'>{name}</span>
         <div className='space-x-2 my-[2px]'>
