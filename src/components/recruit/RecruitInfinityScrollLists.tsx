@@ -3,30 +3,28 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import tw from 'tailwind-styled-components';
 
-import { getBookSearchResultData } from '@/api/book';
+import { getReadingClassData } from '@/api/recruit';
 
-import SearchResultList from '../book/search/SearchResultList';
+import RecruitList from './RecruitList';
 
 const RecruitInfinityScrollLists = () => {
   const { ref, inView } = useInView();
-  const [page, setPage] = useState(2);
 
   const {
-    data: bookSearchResultLists,
+    data: readingGroupLists,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     status,
   } = useInfiniteQuery(
-    ['reading', 'personnel', 'recruit'],
-    ({ pageParam }) => getBookSearchResultData('미움 받을 용기', pageParam),
+    ['reading', 'group', 'list'],
+    ({ pageParam = 2 }) => getReadingClassData(pageParam),
     {
-      onSuccess: () => setPage((prev) => prev + 1),
       onError: (error) => console.error(error),
       getNextPageParam: (lastPage) => {
-        if (lastPage.is_end) return;
+        if (parseInt(lastPage.currentPage) === lastPage.totalPages) return;
 
-        return page;
+        return parseInt(lastPage.currentPage) + 1;
       },
       staleTime: 20000,
     },
@@ -40,16 +38,14 @@ const RecruitInfinityScrollLists = () => {
     <Container>
       {status === 'success' && (
         <>
-          {bookSearchResultLists.pages.map(
-            ({ documents }, index) =>
-              documents.length > 0 &&
-              documents[index] && (
-                <SearchResultList
-                  key={documents[index].isbn}
-                  listData={documents}
-                />
+          {readingGroupLists.pages.map(
+            ({ groups, currentPage }, index) =>
+              groups.length > 0 &&
+              groups[index] && (
+                <RecruitList key={currentPage} listData={groups} />
               ),
           )}
+
           <Bottom ref={ref}>
             {isFetchingNextPage && hasNextPage && 'Loading...'}
           </Bottom>
