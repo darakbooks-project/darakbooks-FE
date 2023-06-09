@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 
+import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
 import { GroupList } from '@/types/recruit';
 
 interface ReadingGroupRecruitmentProps {
@@ -18,8 +20,13 @@ const ReadingGroupRecruitment = ({
   },
 }: ReadingGroupRecruitmentProps) => {
   const router = useRouter();
+  const setInfinityScrollPosition = useSetRecoilState(
+    readingGroupInfinityScrollPositionAtom,
+  );
 
   const clickListItem = () => {
+    setInfinityScrollPosition(window.scrollY);
+
     router.push(`/recruit/detail?groupId=${group_id}`);
   };
 
