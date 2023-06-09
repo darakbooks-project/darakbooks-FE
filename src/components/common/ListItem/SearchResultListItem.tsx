@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
+import tw from 'tailwind-styled-components';
 
 import { searchInfinityScrollPositionAtom } from '@/recoil/book';
 
@@ -48,32 +49,63 @@ const SearchResultListItem = ({
   };
 
   return (
-    <>
-      <div
-        onClick={clickBookListItem}
-        className='w-[100%] flex items-center bg-yellow-500 px-[20px] py-[15px] cursor-pointer'
-      >
-        <div className='w-[50%]'>
-          <BookImage
-            lazy={true}
-            src={src}
-            placeholder='스켈레톤'
-            alt='책 선택 리스트 아이템의 사진 입니다.'
-            size={imageSize}
-          />
-        </div>
-        <div className='w-[50%] flex flex-col font-bold text-[15px]'>
-          <span>{title}</span>
-          <span>{`${author[0]} ${author[1] ? `|  ${author[1]}` : ''}`}</span>
+    <Container onClick={clickBookListItem}>
+      <BookImageWrap>
+        <BookImage
+          lazy={true}
+          src={src}
+          placeholder='스켈레톤'
+          alt='책 선택 리스트 아이템의 사진 입니다.'
+          size={imageSize}
+        />
+      </BookImageWrap>
+      <Introduce>
+        <Title>{title}</Title>
+        <AuthorPublisher>
           <span>{publisher}</span>
-        </div>
-      </div>
-      {/* by 민형, 독서 인원 모집 리스트 아이템 클릭 시 상세 페이지로 이동하는 것을 확인하기 위한 임시 코드이므로 나중에 제거_230528 */}
-      <Link href='/recruit/detail?recruitId=1' className='bg-white'>
-        독서 상세페이지로
-      </Link>
-    </>
+          <Divider>/</Divider>
+          <span>{`${author[0]}`} 지음</span>
+        </AuthorPublisher>
+      </Introduce>
+    </Container>
   );
 };
 
 export default SearchResultListItem;
+
+const Container = tw.div`
+  w-[100%]
+  flex
+  items-center
+  px-[20px]
+  py-[15px]
+  cursor-pointer
+  border-b-2	
+`;
+
+const BookImageWrap = tw.div`
+  w-[30%]
+`;
+
+const Introduce = tw.div`
+  w-[70%]
+  flex
+  flex-col
+  pl-[10px]
+`;
+
+const Title = tw.span`
+  font-bold
+  mb-[5px]
+`;
+
+const AuthorPublisher = tw.div`
+  flex
+  text-xs
+  text-black
+  text-opacity-50
+`;
+
+const Divider = tw.div`
+  px-[2.5px]
+`;
