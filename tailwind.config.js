@@ -4,6 +4,7 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/layout/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -12,9 +13,14 @@ module.exports = {
           from: { opacity: '0', transform: 'translateY(-3rem)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
+        slideUp: {
+          from: { opacity: '0', transform: 'translateY(5rem)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         slideDown: 'slideDown 300ms ease-out forwards',
+        slideUp: 'slideUp 300ms ease-out forwards',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -23,6 +29,7 @@ module.exports = {
       },
     },
     screens: {
+      s: '575px',
       xs: { max: '390px' },
       xxs: { max: '280px' },
     },
