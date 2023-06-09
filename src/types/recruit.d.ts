@@ -12,6 +12,13 @@ export interface ClassOpenChangeStateObjProps {
   changeClassDescription: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
+export interface GroupLists {
+  groups: GroupList[];
+  totalPages: number;
+  totalGroups: number;
+  currentPage: string;
+}
+
 export interface GroupList {
   group_id: number;
   name: string;

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 
-import { getBookSearchResultData } from '@/api/book';
+import { getReadingClassData } from '@/api/recruit';
 import RecruitInfinityScrollLists from '@/components/recruit/RecruitInfinityScrollLists';
 
 const RecruitPage = () => {
@@ -39,9 +39,8 @@ const PersonnelRecruitButton = tw(Link)`
 export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchInfiniteQuery(
-    ['reading', 'personnel', 'recruit'],
-    () => getBookSearchResultData('미움 받을 용기', 1),
+  await queryClient.prefetchInfiniteQuery(['reading', 'group', 'list'], () =>
+    getReadingClassData(1),
   );
 
   return {
