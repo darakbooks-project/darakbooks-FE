@@ -30,6 +30,8 @@ const BestRecruitListItem = ({
             alt='모임장 프로필 이미지'
             lazy={false}
             placeholder=''
+            width='w-[45px]'
+            height='h-[45px]'
           />
         </div>
         <div className='flex-col justify-between'>
