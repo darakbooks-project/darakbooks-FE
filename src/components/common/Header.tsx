@@ -2,14 +2,14 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 interface Props {
-  title: string;
+  title?: string;
 }
 
 const Header = ({ title }: Props) => {
   const router = useRouter();
 
   return (
-    <div className='flex my-[20px] items-center'>
+    <div className='flex pt-[20px] mb-[20px] items-center'>
       <Image
         onClick={() => router.back()}
         className='mr-[15px] cursor-pointer'
