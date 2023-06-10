@@ -1,36 +1,40 @@
-import { GetServerSideProps } from 'next';
-import React from 'react';
-import { useRecoilState } from 'recoil';
+import Image from 'next/image';
+import React, { ReactElement } from 'react';
 
-import Modal from '@/components/common/Modal';
-import ProfileContents from '@/components/profile/ProfileContents';
-import ProfileUser from '@/components/profile/ProfileUser';
-import { modalStateAtom } from '@/recoil/modal';
+import ProfileLayout from '@/layout/ProfileLayout';
+import { NextPageWithLayout } from '@/types/layout';
 
-const ProfilePage = () => {
-  const [modal, setModal] = useRecoilState(modalStateAtom);
-
+const ProfilePage: NextPageWithLayout = () => {
   return (
-    <div className='h-screen p-5 border-2 border-red-500'>
-      <ProfileUser />
-      <ProfileContents />
-      <button onClick={() => setModal({ ...modal, type: 'BOOKS' })}>
-        책장 모달
-      </button>
-      <button onClick={() => setModal({ ...modal, type: 'SETTING' })}>
-        세팅 모달
-      </button>
-      {modal.type === 'BOOKS' && <Modal>Books</Modal>}
-      {modal.type === 'SETTING' && <Modal>Setting</Modal>}
-    </div>
+    <>
+      <div className='h-14 flex items-center justify-between px-6 py-0'>
+        <span className='text-[15px] text-[#707070]'>
+          전체 <span className='text-[15px] text-[#67a68a]'>6</span>권
+        </span>
+        <span className='text-[15px] text-[#333333]'>편집</span>
+      </div>
+      <section className='grid grid-cols-[repeat(3,1fr)] px-4 py-0'>
+        <article className='relative flex flex-col items-center mb-4'>
+          <div className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-0.5'>
+            X
+          </div>
+          <section className='w-full shadow-[0px_4px_8px_rgba(0,0,0,0.15)] mb-4 p-[7px]'>
+            <div className='w-full h-[9.5rem] border rounded-[0px_3px_3px_0px] border-solid border-[blue] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'>
+              <Image src='' alt='' />
+            </div>
+          </section>
+          <div className='w-full flex flex-col items-center'>
+            <h3 className='text-[13px] text-[#333333] mb-[5px]'>긴긴밤</h3>
+            <h4 className='text-[11px] text-[#707070]'>루리</h4>
+          </div>
+        </article>
+      </section>
+    </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  {
-    /* 리액트 쿼리로 프로필 정보, 글 리스트 불러오기 */
-  }
-  return { props: {} };
+ProfilePage.getLayout = function getLayout(page: ReactElement) {
+  return <ProfileLayout>{page}</ProfileLayout>;
 };
 
 export default ProfilePage;
