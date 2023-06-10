@@ -106,7 +106,7 @@ const RecruitDetailPage: NextPageWithLayout = () => {
         </h3>
         <div className='flex justify-between items-center pb-5'>
           <h2 className='text-xl pt-1 font-bold'>멤버 소개</h2>
-          <Link href={`/recruit/member`}>전체보기</Link>
+          <Link href={`/recruit/detail/member`}>전체보기</Link>
         </div>
         <div className='flex'>
           {DUMMY.userGroup.map((member) => (
