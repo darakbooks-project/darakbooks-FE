@@ -3,7 +3,7 @@ import React from 'react';
 
 import Avatar from '@/components/common/Avartar';
 import RecruitNotification from '@/components/recruit/detail/RecruitNotification';
-import RecruitUserManagement from '@/components/recruit/detail/RecruitUserManagement';
+import RecruitParticipationControl from '@/components/recruit/detail/RecruitParticipationControl';
 import { NextPageWithLayout } from '@/types/layout';
 
 const DUMMY = {
@@ -126,7 +126,7 @@ const RecruitDetailPage: NextPageWithLayout = () => {
         </div>
       </main>
       {!DUMMY.isLeader && (
-        <RecruitUserManagement
+        <RecruitParticipationControl
           isMember={DUMMY.isMember}
           recruitmentStatus={DUMMY.recruitment_status}
         />
