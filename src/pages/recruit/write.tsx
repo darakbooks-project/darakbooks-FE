@@ -67,27 +67,66 @@ const RecruitWritePage = () => {
 
   return (
     <Container>
-      <Header title='개설 하기' />
       <Wrapper>
-        <RecruitOpenForm
-          classStateObj={classStateObj}
-          classChangeStateObj={classChangeStateObj}
-        />
-        <ClassOpenButton onClick={onClickOpenButton}>모임 개설</ClassOpenButton>
+        <Header />
+        <PageDescription>
+          모임 만들기
+          <br />
+          독서 모임을 개설해 볼까요?
+        </PageDescription>
+        <RecruitOpenFormWrapper>
+          <RecruitOpenForm
+            classStateObj={classStateObj}
+            classChangeStateObj={classChangeStateObj}
+          />
+        </RecruitOpenFormWrapper>
       </Wrapper>
+      <ClassOpenButtonWrap>
+        <ClassOpenButton onClick={onClickOpenButton}>만들기</ClassOpenButton>
+      </ClassOpenButtonWrap>
     </Container>
   );
 };
 
 export default RecruitWritePage;
 
-const Container = tw.div``;
+const Container = tw.div`
+  h-full
+  bg-white
+`;
 
 const Wrapper = tw.div`
+  w-[90%]
+  mx-auto
+`;
+
+const PageDescription = tw.h1`
+  text-xl
+  font-bold
+  mt-[10px]
+  mb-[20px]
+`;
+
+const RecruitOpenFormWrapper = tw.div`
   flex
   flex-col
 `;
 
+const ClassOpenButtonWrap = tw.div`  
+  border 
+  border-t-[black]
+  border-opacity-10
+  w-full
+  px-[15px]
+  py-[12.5px]
+
+`;
+
 const ClassOpenButton = tw.button`  
-  bg-blue-300
+  bg-[#67A68A]
+  w-full
+  h-[55px]
+  text-white
+  rounded
+  font-bold
 `;
