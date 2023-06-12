@@ -71,7 +71,7 @@ const RecruitOpenForm = ({
         <ClassSelectButton
           onClick={() => changeSelectItemDisplayStatus('region')}
         >
-          <span>지역</span>
+          <span>{classStateObj.classRegion || '지역'}</span>
           <Image
             src={`../images/${
               openRegionStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
@@ -109,7 +109,7 @@ const RecruitOpenForm = ({
           <ClassSelectButton
             onClick={() => changeSelectItemDisplayStatus('day')}
           >
-            <span>요일</span>
+            <span>{classStateObj.classDay || '요일'}</span>
             <Image
               src={`../images/${
                 openDayStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
@@ -139,7 +139,7 @@ const RecruitOpenForm = ({
           <ClassSelectButton
             onClick={() => changeSelectItemDisplayStatus('time')}
           >
-            <span>시간</span>
+            <span>{classStateObj.classTime || '시간'}</span>
             <Image
               src={`../images/${
                 openTimeStatus === 'view' ? 'not-select-arrow' : 'select-arrow'

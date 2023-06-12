@@ -15,10 +15,10 @@ const RecruitWritePage = () => {
 
   const [className, setClassName] = useState('');
   const [classType, setClassType] = useState('online');
-  const [classRegion, setClassRegion] = useState('서울');
+  const [classRegion, setClassRegion] = useState('');
   const [classDescription, setClassDescription] = useState('');
-  const [classDay, setClassDay] = useState('월');
-  const [classTime, setClassTime] = useState('12:00');
+  const [classDay, setClassDay] = useState('');
+  const [classTime, setClassTime] = useState('');
   const [classPeopleNumber, setClassPeopleNumber] = useState('');
   const [classKakaoLink, setClassKakaoLink] = useState('');
 
