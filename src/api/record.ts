@@ -1,14 +1,22 @@
-import axios from 'axios';
-
 import { bookRecordDataProps } from '@/types/record';
+
+import { axiosInstance } from './axios';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 // 이미지 등록
 export const registerImageApi = async (image: FormData) => {
   try {
-    const { data } = await axios.post(`${BASE_URL}/records/photo`, image);
-    return data;
+    const response = await axiosInstance.request({
+      method: 'POST',
+      url: `${BASE_URL}/records/photo`,
+      data: image,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data;
   } catch (error) {
     throw new Error('사진 등록 실패');
   }
@@ -19,7 +27,11 @@ export const registerBookRecordApi = async (
   bookRecordData: bookRecordDataProps,
 ) => {
   try {
-    const { data } = await axios.post(`${BASE_URL}/records`, bookRecordData);
+    const { data } = await axiosInstance.request({
+      method: 'POST',
+      url: `${BASE_URL}/records`,
+      data: bookRecordData,
+    });
     return data;
   } catch (error) {
     throw new Error('독서 기록 등록 실패');

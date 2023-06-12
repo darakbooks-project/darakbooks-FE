@@ -1,12 +1,12 @@
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { getBookDataByIsbnProps } from '@/types/book';
-import Link from 'next/link';
 
 const DUMMY = [
   { id: '1', description: '하이하이', nickname: '하이1' },

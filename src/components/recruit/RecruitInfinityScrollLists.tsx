@@ -1,34 +1,42 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
-import { getBookSearchResultData } from '@/api/book';
+import { getReadingClassData } from '@/api/recruit';
+import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
 
-import SearchResultList from '../book/search/SearchResultList';
+import RecruitList from './RecruitList';
 
 const RecruitInfinityScrollLists = () => {
   const { ref, inView } = useInView();
-  const [page, setPage] = useState(2);
+  const infinityScrollPosition = useRecoilValue(
+    readingGroupInfinityScrollPositionAtom,
+  );
+
+  const queryClient = useQueryClient();
+  const readingGroupQueryData = useRef(
+    queryClient.getQueryData(['reading', 'group', 'list']),
+  );
 
   const {
-    data: bookSearchResultLists,
+    data: readingGroupLists,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     status,
   } = useInfiniteQuery(
-    ['reading', 'personnel', 'recruit'],
-    ({ pageParam }) => getBookSearchResultData('미움 받을 용기', pageParam),
+    ['reading', 'group', 'list'],
+    ({ pageParam = 1 }) => getReadingClassData(pageParam),
     {
-      onSuccess: () => setPage((prev) => prev + 1),
       onError: (error) => console.error(error),
       getNextPageParam: (lastPage) => {
-        if (lastPage.is_end) return;
+        if (parseInt(lastPage.currentPage) === lastPage.totalPages) return;
 
-        return page;
+        return parseInt(lastPage.currentPage) + 1;
       },
-      staleTime: 20000,
+      enabled: !readingGroupQueryData.current,
     },
   );
 
@@ -36,20 +44,24 @@ const RecruitInfinityScrollLists = () => {
     if (inView) fetchNextPage();
   }, [fetchNextPage, inView]);
 
+  useEffect(() => {
+    if (infinityScrollPosition !== 0) {
+      window.scrollTo(0, infinityScrollPosition);
+    }
+  }, []);
+
   return (
     <Container>
       {status === 'success' && (
         <>
-          {bookSearchResultLists.pages.map(
-            ({ documents }, index) =>
-              documents.length > 0 &&
-              documents[index] && (
-                <SearchResultList
-                  key={documents[index].isbn}
-                  listData={documents}
-                />
+          {readingGroupLists.pages.map(
+            ({ groups, currentPage }, index) =>
+              groups.length > 0 &&
+              groups[index] && (
+                <RecruitList key={currentPage} listData={groups} />
               ),
           )}
+
           <Bottom ref={ref}>
             {isFetchingNextPage && hasNextPage && 'Loading...'}
           </Bottom>

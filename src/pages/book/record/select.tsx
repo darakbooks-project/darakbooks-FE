@@ -31,7 +31,7 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
           <h3 className='w-full text-[11px] text-[#707070] text-center'>
             루리
           </h3>
-        </li>{' '}
+        </li>
       </ul>
       {modal && <SelectModal />}
     </>

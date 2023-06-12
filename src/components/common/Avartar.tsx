@@ -7,6 +7,8 @@ interface Props {
   shape: string;
   placeholder: string;
   alt: string;
+  width: string;
+  height: string;
   onAvatarClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
@@ -17,11 +19,13 @@ const Avatar = ({
   placeholder,
   shape,
   alt,
+  width,
+  height,
   onAvatarClick,
 }: Props) => {
   return (
     <div
-      className={`${avatarShape[shape]} relative border-1 border-solid border-stone-200 bg-white overflow-hidden w-[40px] h-[40px] flex justify-center items-center`}
+      className={`${avatarShape[shape]} relative border-1 border-solid border-stone-200 bg-white overflow-hidden flex justify-center items-center`}
       onClick={onAvatarClick}
     >
       <ImageComponent
@@ -30,6 +34,7 @@ const Avatar = ({
         src={src}
         placeholder={placeholder}
         alt={alt}
+        imgStyle={`${width} ${height}`}
       />
     </div>
   );
