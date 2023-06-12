@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import tw from 'tailwind-styled-components';
 
 import { DAY_DATA, REGION_DATA, TIME_DATA } from '@/constants/recruit';
@@ -16,6 +17,20 @@ const RecruitOpenForm = ({
   classStateObj,
   classChangeStateObj,
 }: RecruitOpenFormProps) => {
+  const [openRegionStatus, setOpenRegionStatus] = useState('hidden');
+  const [openDayStatus, setOpenDayStatus] = useState('hidden');
+  const [openTimeStatus, setOpenTimeStatus] = useState('hidden');
+
+  const changeSelectItemDisplayStatus = (itemName: string) => {
+    if (itemName === 'region') {
+      setOpenRegionStatus((prev) => (prev === 'hidden' ? 'view' : 'hidden'));
+    } else if (itemName === 'day') {
+      setOpenDayStatus((prev) => (prev === 'hidden' ? 'view' : 'hidden'));
+    } else if (itemName === 'time') {
+      setOpenTimeStatus((prev) => (prev === 'hidden' ? 'view' : 'hidden'));
+    }
+  };
+
   return (
     <Container>
       <ItemDescription>모임 이름</ItemDescription>
@@ -52,19 +67,29 @@ const RecruitOpenForm = ({
         </ClassTypeButton>
       </ClassType>
 
-      <ClassRegionWrap>
+      <ClassRegionWrap isdisplay={openRegionStatus}>
         <ClassRegionSelect>
           <span>지역</span>
           <Image
-            src='../images/select-arrow.svg'
+            onClick={() => changeSelectItemDisplayStatus('region')}
+            src={`../images/${
+              openRegionStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
+            }.svg`}
             width={12.5}
             height={12.5}
             alt='선택 화살표 입니다.'
           />
         </ClassRegionSelect>
-        <ClassRegionList onChange={classChangeStateObj.changeClassRegion}>
+        <ClassRegionList
+          onClick={classChangeStateObj.changeClassRegion}
+          isdisplay={openRegionStatus}
+        >
           {REGION_DATA.map((region) => (
-            <RegionItem key={region} value={region}>
+            <RegionItem
+              key={region}
+              value={region}
+              className='hover:bg-black hover:bg-opacity-10'
+            >
               {region}
             </RegionItem>
           ))}
@@ -72,20 +97,36 @@ const RecruitOpenForm = ({
       </ClassRegionWrap>
 
       <ItemDescription>요일/시간을 선택해주세요</ItemDescription>
-      <ClassDayTimeWrap>
+      <ClassDayTimeWrap
+        isdisplay={
+          openDayStatus === 'view' || openTimeStatus === 'view'
+            ? 'view'
+            : 'hidden'
+        }
+      >
         <ClassDayWrap>
           <ClassDaySelect>
             <span>요일</span>
             <Image
-              src='../images/select-arrow.svg'
+              onClick={() => changeSelectItemDisplayStatus('day')}
+              src={`../images/${
+                openDayStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
+              }.svg`}
               width={12.5}
               height={12.5}
               alt='선택 화살표 입니다.'
             />
           </ClassDaySelect>
-          <ClassDayList onChange={classChangeStateObj.changeClassDay}>
+          <ClassDayList
+            onClick={classChangeStateObj.changeClassDay}
+            isdisplay={openDayStatus}
+          >
             {DAY_DATA.map((day) => (
-              <DayItem key={day} value={day}>
+              <DayItem
+                key={day}
+                value={day}
+                className='hover:bg-black hover:bg-opacity-10'
+              >
                 {day}요일
               </DayItem>
             ))}
@@ -96,15 +137,25 @@ const RecruitOpenForm = ({
           <ClassTimeSelect>
             <span>시간</span>
             <Image
-              src='../images/select-arrow.svg'
+              onClick={() => changeSelectItemDisplayStatus('time')}
+              src={`../images/${
+                openTimeStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
+              }.svg`}
               width={12.5}
               height={12.5}
               alt='선택 화살표 입니다.'
             />
           </ClassTimeSelect>
-          <ClassTimeList onChange={classChangeStateObj.changeClassTime}>
+          <ClassTimeList
+            onClick={classChangeStateObj.changeClassTime}
+            isdisplay={openTimeStatus}
+          >
             {TIME_DATA.map((time) => (
-              <TimeItem key={time} value={time}>
+              <TimeItem
+                key={time}
+                value={time}
+                className='hover:bg-black hover:bg-opacity-10'
+              >
                 {time}
               </TimeItem>
             ))}
@@ -187,9 +238,9 @@ const ClassTypeButton = tw.button<{ classtype: string; currenttype: string }>`
   rounded
 `;
 
-const ClassRegionWrap = tw.div`
+const ClassRegionWrap = tw.div<{ isdisplay: string }>`
+  ${(props) => (props.isdisplay === 'view' ? 'mb-40' : 'mb-8')}
   relative
-  mb-36
 `;
 
 const ClassRegionSelect = tw.button`
@@ -208,7 +259,9 @@ const ClassRegionSelect = tw.button`
   items-center
 `;
 
-const ClassRegionList = tw.ul`
+const ClassRegionList = tw.ul<{ isdisplay: string }>`
+ ${(props) => (props.isdisplay === 'view' ? 'block' : 'hidden')}
+
   border
   w-full
   border 
@@ -223,11 +276,14 @@ const ClassRegionList = tw.ul`
   overflow-scroll
 `;
 
-const RegionItem = tw.li``;
+const RegionItem = tw.li`
+  cursor-pointer
+`;
 
-const ClassDayTimeWrap = tw.div`
+const ClassDayTimeWrap = tw.div<{ isdisplay: string }>`
+  ${(props) => (props.isdisplay === 'view' ? 'mb-40' : 'mb-8')}
+
   flex
-  mb-36
   justify-between	
 `;
 
@@ -252,7 +308,9 @@ const ClassDaySelect = tw.button`
   items-center
 `;
 
-const ClassDayList = tw.ul`
+const ClassDayList = tw.ul<{ isdisplay: string }>`
+  ${(props) => (props.isdisplay === 'view' ? 'block' : 'hidden')}
+ 
   border
   w-full
   border 
@@ -267,7 +325,9 @@ const ClassDayList = tw.ul`
   overflow-scroll
 `;
 
-const DayItem = tw.li``;
+const DayItem = tw.li`
+cursor-pointer  
+`;
 
 const ClassTimeWrap = tw.div`
   relative
@@ -290,7 +350,9 @@ const ClassTimeSelect = tw.button`
   items-center
 `;
 
-const ClassTimeList = tw.ul`
+const ClassTimeList = tw.ul<{ isdisplay: string }>`
+  ${(props) => (props.isdisplay === 'view' ? 'block' : 'hidden')}
+  
   border
   w-full
   border 
@@ -305,7 +367,9 @@ const ClassTimeList = tw.ul`
   overflow-scroll
 `;
 
-const TimeItem = tw.li``;
+const TimeItem = tw.li`
+  cursor-pointer
+`;
 
 const ClassPeopleNumber = tw.input`
   w-full

@@ -42,16 +42,19 @@ const RecruitWritePage = () => {
       else setClassType('offline');
     },
     changeClassRegion: (e) => {
-      setClassRegion(e.target.value);
+      const selectedItem = e.target as HTMLUListElement;
+      selectedItem.textContent && setClassRegion(selectedItem.textContent);
     },
     changeClassDescription: (e) => {
       setClassDescription(e.target.value);
     },
     changeClassDay: (e) => {
-      setClassDay(e.target.value);
+      const selectedItem = e.target as HTMLUListElement;
+      selectedItem.textContent && setClassDay(selectedItem.textContent);
     },
     changeClassTime: (e) => {
-      setClassTime(e.target.value);
+      const selectedItem = e.target as HTMLUListElement;
+      selectedItem.textContent && setClassTime(selectedItem.textContent);
     },
     changeClassPeopleNumber: (e) => {
       setClassPeopleNumber(parseInt(e.target.value));
