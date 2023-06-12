@@ -70,8 +70,8 @@ const RecruitWritePage = () => {
 
   return (
     <Container>
+      <Header />
       <Wrapper>
-        <Header />
         <PageDescription>
           모임 만들기
           <br />
@@ -99,8 +99,9 @@ const Container = tw.div`
 `;
 
 const Wrapper = tw.div`
-  w-[90%]
+  px-[5%]
   mx-auto
+  bg-white
 `;
 
 const PageDescription = tw.h1`
@@ -122,7 +123,7 @@ const ClassOpenButtonWrap = tw.div`
   w-full
   px-[15px]
   py-[12.5px]
-
+  bg-white
 `;
 
 const ClassOpenButton = tw.button`  
