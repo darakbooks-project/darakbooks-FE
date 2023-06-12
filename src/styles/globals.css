@@ -10,7 +10,9 @@
 }
 
 @layer base {
-  body {
+  html,
+  body,
+  #__next {
     @apply w-full h-full max-w-xl my-0 mx-auto bg-[#f3f3f3];
   }
 }
