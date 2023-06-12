@@ -31,3 +31,16 @@ export const postReadingClassOpen = async (
     throw new Error('모임 추가 작업 중 에러가 발생하였습니다.');
   }
 };
+
+export const getReadingGroupInfo = async (groupId: string) => {
+  try {
+    const response = await axiosInstance.request({
+      method: 'GET',
+      url: `${BASE_URL}/groups/${groupId}`,
+    });
+
+    if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

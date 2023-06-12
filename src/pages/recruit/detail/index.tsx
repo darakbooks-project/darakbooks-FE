@@ -1,10 +1,13 @@
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import React from 'react';
 
+import { getReadingGroupInfo } from '@/api/recruit';
 import Avatar from '@/components/common/Avartar';
 import RecruitNotification from '@/components/recruit/detail/RecruitNotification';
 import RecruitParticipationControl from '@/components/recruit/detail/RecruitParticipationControl';
-import { NextPageWithLayout } from '@/types/layout';
+import { GroupList } from '@/types/recruit';
 
 const DUMMY = {
   group_id: 1,
@@ -19,7 +22,7 @@ const DUMMY = {
   open_chat_link: 'https://naver.com',
   group_lead: '1',
   isLeader: false,
-  isMember: false,
+  isMember: true,
   userGroup: [
     {
       user_id: '1',
@@ -55,15 +58,15 @@ const GROUPLEADER = {
   groups: [2, 3, 4],
 };
 
-const RecruitDetailPage: NextPageWithLayout = () => {
+const RecruitDetailPage = ({ groupInfo }: { groupInfo: GroupList }) => {
   const NotificationState = [
-    { title: '요일/시간', detail: `매주 ${DUMMY.day} ${DUMMY.time}` },
-    { title: '활동 장소', detail: `매주 ${DUMMY.region}` },
+    { title: '요일/시간', detail: `매주 ${groupInfo.day} ${groupInfo.time}` },
+    { title: '활동 장소', detail: `매주 ${groupInfo.region}` },
     {
       title: '참여 인원',
-      detail: `${DUMMY.userGroup.length}/${DUMMY.participant_limit}`,
+      detail: `${groupInfo.userGroup.length}/${groupInfo.participant_limit}`,
     },
-    { title: '소통 방법', detail: `${DUMMY.open_chat_link}` },
+    { title: '소통 방법', detail: `${groupInfo.open_chat_link}` },
   ];
 
   return (
@@ -82,12 +85,12 @@ const RecruitDetailPage: NextPageWithLayout = () => {
           />
           <div className='pl-4'>
             <h3 className='text-sm text-[#67A68A]'>
-              {DUMMY.recruitment_status ? '모집중' : '모집완료'}
+              {groupInfo.recruitment_status ? '모집중' : '모집완료'}
             </h3>
-            <h1 className='text-xl font-bold'>{DUMMY.name}</h1>
+            <h1 className='text-xl font-bold'>{groupInfo.name}</h1>
           </div>
         </div>
-        <p>{DUMMY.description}</p>
+        <p>{groupInfo.description}</p>
         <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
         <h3 className='text-[#67A68A] text-sm'>자세한 정보 알려드려요</h3>
         <h2 className='text-xl pt-1 font-bold pb-6'>안내사항</h2>
@@ -96,7 +99,7 @@ const RecruitDetailPage: NextPageWithLayout = () => {
             key={title}
             title={title}
             detail={detail}
-            meetingType={DUMMY.meeting_type === 'online'}
+            meetingType={groupInfo.meeting_type === 'online'}
             isMember={DUMMY.isMember}
           />
         ))}
@@ -128,7 +131,7 @@ const RecruitDetailPage: NextPageWithLayout = () => {
       {!DUMMY.isLeader && (
         <RecruitParticipationControl
           isMember={DUMMY.isMember}
-          recruitmentStatus={DUMMY.recruitment_status}
+          recruitmentStatus={groupInfo.recruitment_status}
         />
       )}
     </div>
@@ -136,3 +139,19 @@ const RecruitDetailPage: NextPageWithLayout = () => {
 };
 
 export default RecruitDetailPage;
+
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(['recruitDetail'], () =>
+    getReadingGroupInfo(context.query.groupId as string),
+  );
+
+  return {
+    props: {
+      groupInfo: dehydrate(queryClient).queries[0].state.data,
+    },
+  };
+};
