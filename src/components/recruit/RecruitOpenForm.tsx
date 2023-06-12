@@ -68,7 +68,7 @@ const RecruitOpenForm = ({
       </ClassType>
 
       <ClassRegionWrap isdisplay={openRegionStatus}>
-        <ClassRegionSelect>
+        <ClassSelectButton>
           <span>지역</span>
           <Image
             onClick={() => changeSelectItemDisplayStatus('region')}
@@ -79,21 +79,21 @@ const RecruitOpenForm = ({
             height={12.5}
             alt='선택 화살표 입니다.'
           />
-        </ClassRegionSelect>
-        <ClassRegionList
+        </ClassSelectButton>
+        <ClassSelectList
           onClick={classChangeStateObj.changeClassRegion}
           isdisplay={openRegionStatus}
         >
           {REGION_DATA.map((region) => (
-            <RegionItem
+            <ClassSelectListItem
               key={region}
               value={region}
               className='hover:bg-black hover:bg-opacity-10'
             >
               {region}
-            </RegionItem>
+            </ClassSelectListItem>
           ))}
-        </ClassRegionList>
+        </ClassSelectList>
       </ClassRegionWrap>
 
       <ItemDescription>요일/시간을 선택해주세요</ItemDescription>
@@ -105,7 +105,7 @@ const RecruitOpenForm = ({
         }
       >
         <ClassDayWrap>
-          <ClassDaySelect>
+          <ClassSelectButton>
             <span>요일</span>
             <Image
               onClick={() => changeSelectItemDisplayStatus('day')}
@@ -116,25 +116,25 @@ const RecruitOpenForm = ({
               height={12.5}
               alt='선택 화살표 입니다.'
             />
-          </ClassDaySelect>
-          <ClassDayList
+          </ClassSelectButton>
+          <ClassSelectList
             onClick={classChangeStateObj.changeClassDay}
             isdisplay={openDayStatus}
           >
             {DAY_DATA.map((day) => (
-              <DayItem
+              <ClassSelectListItem
                 key={day}
                 value={day}
                 className='hover:bg-black hover:bg-opacity-10'
               >
                 {day}요일
-              </DayItem>
+              </ClassSelectListItem>
             ))}
-          </ClassDayList>
+          </ClassSelectList>
         </ClassDayWrap>
 
         <ClassTimeWrap>
-          <ClassTimeSelect>
+          <ClassSelectButton>
             <span>시간</span>
             <Image
               onClick={() => changeSelectItemDisplayStatus('time')}
@@ -145,21 +145,21 @@ const RecruitOpenForm = ({
               height={12.5}
               alt='선택 화살표 입니다.'
             />
-          </ClassTimeSelect>
-          <ClassTimeList
+          </ClassSelectButton>
+          <ClassSelectList
             onClick={classChangeStateObj.changeClassTime}
             isdisplay={openTimeStatus}
           >
             {TIME_DATA.map((time) => (
-              <TimeItem
+              <ClassSelectListItem
                 key={time}
                 value={time}
                 className='hover:bg-black hover:bg-opacity-10'
               >
                 {time}
-              </TimeItem>
+              </ClassSelectListItem>
             ))}
-          </ClassTimeList>
+          </ClassSelectList>
         </ClassTimeWrap>
       </ClassDayTimeWrap>
 
@@ -192,7 +192,7 @@ const ItemDescription = tw.h1`
   mb-[10px]
 `;
 
-const ClassName = tw.input`
+const CommonInputStyle = tw.input`
   w-full
   border
   border-black
@@ -203,6 +203,8 @@ const ClassName = tw.input`
   mb-[30px]
   outline-none
 `;
+
+const ClassName = tw(CommonInputStyle)``;
 
 const ClassDescription = tw.textarea`
   w-full 
@@ -238,12 +240,7 @@ const ClassTypeButton = tw.button<{ classtype: string; currenttype: string }>`
   rounded
 `;
 
-const ClassRegionWrap = tw.div<{ isdisplay: string }>`
-  ${(props) => (props.isdisplay === 'view' ? 'mb-40' : 'mb-8')}
-  relative
-`;
-
-const ClassRegionSelect = tw.button`
+const ClassSelectButton = tw.button`
   border
   w-full
   border 
@@ -259,7 +256,7 @@ const ClassRegionSelect = tw.button`
   items-center
 `;
 
-const ClassRegionList = tw.ul<{ isdisplay: string }>`
+const ClassSelectList = tw.ul<{ isdisplay: string }>`
  ${(props) => (props.isdisplay === 'view' ? 'block' : 'hidden')}
 
   border
@@ -276,8 +273,13 @@ const ClassRegionList = tw.ul<{ isdisplay: string }>`
   overflow-scroll
 `;
 
-const RegionItem = tw.li`
+const ClassSelectListItem = tw.li`
   cursor-pointer
+`;
+
+const ClassRegionWrap = tw.div<{ isdisplay: string }>`
+  ${(props) => (props.isdisplay === 'view' ? 'mb-40' : 'mb-8')}
+  relative
 `;
 
 const ClassDayTimeWrap = tw.div<{ isdisplay: string }>`
@@ -292,105 +294,11 @@ const ClassDayWrap = tw.div`
   w-[48.5%]
 `;
 
-const ClassDaySelect = tw.button`
-  border
-  w-full
-  border 
-  border-[#67A68A]
-  text-[#67A68A]
-  rounded
-  p-[10px]
-  pr-[20px]
-  text-left	
-
-  flex
-  justify-between
-  items-center
-`;
-
-const ClassDayList = tw.ul<{ isdisplay: string }>`
-  ${(props) => (props.isdisplay === 'view' ? 'block' : 'hidden')}
- 
-  border
-  w-full
-  border 
-  border-[#67A68A]
-  text-[#67A68A]
-  rounded
-  p-[10px]
-  absolute
-  top-[60px]
-  text-left	
-  h-28
-  overflow-scroll
-`;
-
-const DayItem = tw.li`
-cursor-pointer  
-`;
-
 const ClassTimeWrap = tw.div`
   relative
   w-[48.5%]
 `;
 
-const ClassTimeSelect = tw.button`
-  border
-  w-full
-  border 
-  border-[#67A68A]
-  text-[#67A68A]
-  rounded
-  p-[10px]
-  pr-[20px]
-  text-left	
+const ClassPeopleNumber = tw(CommonInputStyle)``;
 
-  flex
-  justify-between
-  items-center
-`;
-
-const ClassTimeList = tw.ul<{ isdisplay: string }>`
-  ${(props) => (props.isdisplay === 'view' ? 'block' : 'hidden')}
-  
-  border
-  w-full
-  border 
-  border-[#67A68A]
-  text-[#67A68A]
-  rounded
-  p-[10px]
-  absolute
-  top-[60px]
-  text-left	
-  h-28
-  overflow-scroll
-`;
-
-const TimeItem = tw.li`
-  cursor-pointer
-`;
-
-const ClassPeopleNumber = tw.input`
-  w-full
-  border
-  border-black
-  border-opacity-10
-  rounded
-  p-[10px]
-  text-sm
-  mb-[30px]
-  outline-none
-`;
-
-const ClassKakaoLink = tw.input`
-  w-full
-  border
-  border-black
-  border-opacity-10
-  rounded
-  p-[10px]
-  text-sm
-  mb-20
-  outline-none
-`;
+const ClassKakaoLink = tw(CommonInputStyle)``;
