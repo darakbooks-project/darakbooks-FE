@@ -20,6 +20,13 @@ export interface ClassOpenChangeStateObjProps {
   changeClassKakaoLink: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface GroupLists {
+  groups: GroupList[];
+  totalPages: number;
+  totalGroups: number;
+  currentPage: string;
+}
+
 export interface GroupList {
   group_id: number;
   name: string;
