@@ -19,7 +19,7 @@ const RecruitWritePage = () => {
   const [classDescription, setClassDescription] = useState('');
   const [classDay, setClassDay] = useState('월');
   const [classTime, setClassTime] = useState('12:00');
-  const [classPeopleNumber, setClassPeopleNumber] = useState(0);
+  const [classPeopleNumber, setClassPeopleNumber] = useState('');
   const [classKakaoLink, setClassKakaoLink] = useState('');
 
   const classStateObj: ClassOpenStateObjProps = {
@@ -57,7 +57,7 @@ const RecruitWritePage = () => {
       selectedItem.textContent && setClassTime(selectedItem.textContent);
     },
     changeClassPeopleNumber: (e) => {
-      setClassPeopleNumber(parseInt(e.target.value));
+      setClassPeopleNumber(e.target.value);
     },
     changeClassKakaoLink: (e) => {
       setClassKakaoLink(e.target.value);

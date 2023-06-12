@@ -15,7 +15,7 @@ export const postReadingClassOpen = async (
     time: openReadingClassData.classTime,
     region: openReadingClassData.classRegion,
     description: openReadingClassData.classDescription,
-    participant_limit: openReadingClassData.classPeopleNumber,
+    participant_limit: parseInt(openReadingClassData.classPeopleNumber),
     open_chat_link: openReadingClassData.classKakaoLink,
   };
 

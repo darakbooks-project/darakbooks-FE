@@ -5,7 +5,7 @@ export interface ClassOpenStateObjProps {
   classDescription: string;
   classDay: string;
   classTime: string;
-  classPeopleNumber: number;
+  classPeopleNumber: string;
   classKakaoLink: string;
 }
 
