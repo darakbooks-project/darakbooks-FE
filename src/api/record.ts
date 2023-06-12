@@ -37,3 +37,21 @@ export const registerBookRecordApi = async (
     throw new Error('독서 기록 등록 실패');
   }
 };
+
+// 메인페이지, 도상세 페이지에 필요한 독서기록 전체보기
+export const getAllMainDetailRecordsApi = async (
+  isbn: string,
+  lastId: number,
+  pageSize: number,
+) => {
+  try {
+    const { data } = await axiosInstance.request({
+      method: 'GET',
+      url: `${BASE_URL}/records?bookID=${isbn}&lastId=${lastId}/&pageSize=${pageSize}`,
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error('독서 기록을 불러올 수 없습니다.');
+  }
+};
