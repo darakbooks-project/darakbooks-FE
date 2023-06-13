@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
@@ -37,6 +38,7 @@ interface getAllMainDetailRecordsProps {
 }
 
 const BookDetailPage = () => {
+  const [ref, inView] = useInView();
   const [pHeight, setPHeight] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const pRef = useRef<HTMLParagraphElement>(null);
@@ -49,36 +51,35 @@ const BookDetailPage = () => {
     fetchNextPage,
     hasNextPage,
     data: getAllDetailRecords,
-    isFetchingNextPage,
     status,
+    isLoading,
   } = useInfiniteQuery<getAllMainDetailRecordsProps[]>(
     ['getAllDetailRecords', 'detail'],
-    ({ pageParam = 1 }) =>
-      getAllMainDetailRecordsApi('1234567890', pageParam, 8),
+    ({ pageParam = 0 }) =>
+      getAllMainDetailRecordsApi(router.query.isbn as string, pageParam, 3),
     {
       getNextPageParam: (lastPage) => {
-        console.log(lastPage);
+        if (lastPage.length === 0) {
+          return;
+        }
+        return lastPage[lastPage.length - 1].recordId;
       },
     },
   );
-
+  const getAllDetailRecordsScroll = getAllDetailRecords?.pages.flatMap(
+    (page) => page,
+  );
   const postBookshelf = useMutation(postBookshelfApi);
 
   useEffect(() => {
-    if (getAllDetailRecords) {
-      console.log(getAllDetailRecords);
-    }
-  }, [getAllDetailRecords]);
-
-  useEffect(() => {
-    if (pRef.current && pRef.current.offsetHeight > 65) {
+    if (pRef.current && pRef.current.offsetHeight > 65 && !isLoading) {
       setPHeight(true);
       setShowMore(true);
     } else {
       setPHeight(false);
       setShowMore(false);
     }
-  }, []);
+  }, [isLoading]);
 
   const getBookDataByIsnValid =
     getBookDataByIsbn &&
@@ -108,14 +109,23 @@ const BookDetailPage = () => {
     });
   };
 
-  // useEffect(() => {
-  //   if (!getBookDataByIsnValid) {
-  //     router.push('/');
-  //   }
-  // }, [getBookDataByIsnValid, router]);
+  useEffect(() => {
+    if (!getAllDetailRecords) return;
+    if (hasNextPage && inView) fetchNextPage();
+  }, [fetchNextPage, getAllDetailRecords, hasNextPage, inView]);
+
+  useEffect(() => {
+    if (!getBookDataByIsnValid) {
+      router.push('/');
+    }
+  }, [getBookDataByIsnValid, router]);
+
+  if (isLoading) {
+    return <div>로딩 중</div>;
+  }
 
   return (
-    <div className='flex flex-col gap-1'>
+    <div className='flex flex-col'>
       {getBookDataByIsnValid && (
         <>
           <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#ffffff] gap-5'>
@@ -167,57 +177,70 @@ const BookDetailPage = () => {
           </section>
         </>
       )}
-      <section className='border p-5 border-solid bg-[#ffffff]'>
+      <section className='border p-5 pb-20 border-solid bg-[#ffffff]'>
         <h2 className='not-italic font-bold text-xl leading-[29px] mb-4'>
           관련 기록
         </h2>
-        <ul className='flex flex-col items-center'>
+        <ul className='flex flex-col '>
           {status === 'success' && (
             <>
-              {getAllDetailRecords.pages[0].map((item) => (
-                <li
-                  className='w-full flex justify-between mb-4 px-0 py-4 border-b-[#ebeaea] border-b border-solid'
+              {getAllDetailRecordsScroll?.map((item) => (
+                <Link
                   key={item.recordId}
+                  href={{
+                    pathname: '/book/feed',
+                    query: {
+                      recordId: item.recordId,
+                      isbn: router.query.isbn as string,
+                    },
+                  }}
                 >
-                  <div className='flex flex-col justify-between w-9/12'>
-                    <p className='text-[#333333] text-[13px]'>{item.text}</p>
-                    <h3 className='text-[#707070] text-[13px]'>
-                      @ {item.user.nickname}
-                    </h3>
-                  </div>
-                  <div className='border w-16 h-16 border-solid border-[blue]'>
-                    <Image
-                      src={item.recordImgUrl}
-                      alt='테스트2'
-                      width='0'
-                      height='0'
-                      sizes='100vw'
-                      className='w-full h-auto'
-                    />
-                  </div>
-                </li>
+                  <li className='w-full flex justify-between px-0 py-4 border-b-[#ebeaea] border-b border-solid'>
+                    <div className='flex flex-col justify-between w-9/12'>
+                      <p className='text-[#333333] text-[13px]'>
+                        {item.text.length >= 69
+                          ? item.text.substring(0, 68) + '...'
+                          : item.text}
+                      </p>
+                      <h3 className='text-[#707070] text-[13px]'>
+                        @ {item.user.nickname}
+                      </h3>
+                    </div>
+                    <div className='w-16 h-16 '>
+                      <Image
+                        src={item.recordImgUrl}
+                        alt='테스트2'
+                        width='0'
+                        height='0'
+                        sizes='100vw'
+                        className='w-full h-auto'
+                      />
+                    </div>
+                  </li>
+                </Link>
               ))}
             </>
           )}
+          <div ref={ref}></div>
         </ul>
-        <section className='flex justify-between items-center w-full gap-2  bg-[#ffffff]'>
-          <button
-            className='flex justify-center items-center box-border w-1/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#5a987d] rounded-md border-2 border-solid border-[#5a987d]'
-            onClick={onPutBook}
+      </section>
+      <section className='flex justify-between items-center  w-full gap-2 p-2  bg-[#ffffff] border-solid border fixed bottom-0 s:w-[575px]'>
+        <button
+          className='flex justify-center items-center box-border w-1/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#5a987d] rounded-md border-2 border-solid border-[#5a987d]'
+          onClick={onPutBook}
+        >
+          담기
+        </button>
+        <button className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d]'>
+          <Link
+            href={{
+              pathname: '/book/record',
+              query: { isbn: router.query.isbn },
+            }}
           >
-            담기
-          </button>
-          <button className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d]'>
-            <Link
-              href={{
-                pathname: '/book/record',
-                query: { isbn: router.query.isbn },
-              }}
-            >
-              바로기록하기
-            </Link>
-          </button>
-        </section>
+            바로기록하기
+          </Link>
+        </button>
       </section>
     </div>
   );
