@@ -1,11 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode } from 'react';
+import { useSetRecoilState } from 'recoil';
 
+import { logout } from '@/api/auth';
 import { getMyProfileApi } from '@/api/profile';
-
+import { isAuthorizedSelector } from '@/recoil/auth';
 interface myProfileProps {
   bookshelfIsHidden: boolean;
   isMine: boolean;
@@ -22,9 +24,13 @@ function ProfileLayout({ children }: { children: ReactNode }) {
     () => getMyProfileApi(),
   );
 
-  useEffect(() => {
-    console.log(getMyProfile);
-  }, [getMyProfile]);
+  const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
+
+  const onLogout = () => {
+    logout();
+    router.push('/');
+    setIsAuthorized(false);
+  };
 
   return (
     <div className='h-screen'>
@@ -32,7 +38,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
         <>
           <section className='w-full h-[30%] bg-[#fffef8] flex flex-col px-6 py-0'>
             <div className='flex items-center justify-end h-3/6'>
-              <div>로그아웃</div>
+              <div onClick={onLogout}>로그아웃</div>
             </div>
             <article className='h-3/6 flex items-center justify-between'>
               <div>

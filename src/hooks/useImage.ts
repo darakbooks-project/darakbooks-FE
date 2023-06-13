@@ -9,8 +9,8 @@ interface postImageProps {
 }
 
 interface registerImageReturn {
-  recordImg: string;
-  recordImgUrl: string;
+  photoId: string;
+  photoUrl: string;
 }
 
 const useImage = (
@@ -36,8 +36,8 @@ const useImage = (
         mutation.mutate(formData, {
           onSuccess: (data) => {
             const newImage = {
-              name: data.recordImg,
-              url: data.recordImgUrl,
+              name: data.photoId,
+              url: data.photoUrl,
             };
             setImage(newImage);
           },
