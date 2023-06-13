@@ -1,10 +1,16 @@
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
+import { getMyProfileApi, getUserProfileApi } from '@/api/profile';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { NextPageWithLayout } from '@/types/layout';
 
 const ProfilePage: NextPageWithLayout = () => {
+  const router = useRouter();
+
   return (
     <>
       <div className='h-14 flex items-center justify-between px-6 py-0'>
@@ -35,6 +41,28 @@ const ProfilePage: NextPageWithLayout = () => {
 
 ProfilePage.getLayout = function getLayout(page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;
+};
+
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const queryClient = new QueryClient();
+
+  if (context.query.isbn) {
+    await queryClient.prefetchQuery(['getUserProfile', 'profile'], () => {
+      getUserProfileApi(context.query.isbn as string);
+    });
+  } else {
+    await queryClient.prefetchQuery(['getMyProfile', 'profile'], () => {
+      getMyProfileApi();
+    });
+  }
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default ProfilePage;

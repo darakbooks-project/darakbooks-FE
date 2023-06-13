@@ -2,8 +2,9 @@ import Image from 'next/image';
 import React, { ReactElement } from 'react';
 
 import ProfileLayout from '@/layout/ProfileLayout';
+import { NextPageWithLayout } from '@/types/layout';
 
-const myFeed = () => {
+const myFeed: NextPageWithLayout = () => {
   return (
     <>
       <section className='grid grid-cols-[repeat(3,1fr)] gap-0.5'>

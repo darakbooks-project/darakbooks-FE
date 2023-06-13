@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
 
 import ProfileLayout from '@/layout/ProfileLayout';
+import { NextPageWithLayout } from '@/types/layout';
 
-const myRecruit = () => {
+const myRecruit: NextPageWithLayout = () => {
   return <div>myRecruit</div>;
 };
 
