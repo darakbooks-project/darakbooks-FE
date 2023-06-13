@@ -34,10 +34,10 @@ const useImage = (
       } else {
         formData.append('file', files[0]);
         mutation.mutate(formData, {
-          onSuccess: (data) => {
+          onSuccess: ({ photoId, photoUrl }) => {
             const newImage = {
-              name: data.photoId,
-              url: data.photoUrl,
+              name: photoId,
+              url: photoUrl,
             };
             setImage(newImage);
           },
