@@ -1,5 +1,9 @@
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
+
+import { useAuth } from '@/hooks/useAuth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 
 interface BookShelfPreviewProps {
   nickname: string;
@@ -12,15 +16,26 @@ const BookShelfPreview = ({
   imageSrcArr,
   memberId,
 }: BookShelfPreviewProps) => {
+  const { openAuthRequiredModal } = useAuth();
+  const isAuthorized = useRecoilValue(isAuthorizedSelector);
+
+  const renderLoginModal = () => {
+    if (!isAuthorized) openAuthRequiredModal();
+  };
+
   return (
     <div
+      onClick={renderLoginModal}
       className='w-[100%] h-[187px] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'
       style={{
         perspective: '300px',
         transform: 'translate3d(0,0,0)',
       }}
     >
-      <Link href={`bookshelf?memberId=${memberId}`} className=' flex'>
+      <Link
+        href={isAuthorized ? `bookshelf?memberId=${memberId}` : ''}
+        className='flex '
+      >
         <div className='flex flex-col w-[100%]'>
           <p className='text-xs ml-[calc((50%-(87.86px/2)-87.86px)/2)] relative top-3 xxs:ml-[calc((50%-87.86px)/2-0.5rem)]'>
             {nickname}의 서재
@@ -28,7 +43,7 @@ const BookShelfPreview = ({
           <div className='flex justify-evenly items-center w-[100%] relative top-6 xs:p-1'>
             {imageSrcArr.map((src: StaticImageData) => {
               return (
-                <div key={src.src} className='drop-shadow-lg z-10'>
+                <div key={src.src} className='z-10 drop-shadow-lg'>
                   <Image
                     src={src}
                     width={87}

@@ -1,6 +1,13 @@
 import { useColor } from 'color-thief-react';
 import Image, { StaticImageData } from 'next/image';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
+
+import { useAuth } from '@/hooks/useAuth';
+import {
+  isAuthorizedSelector,
+  isOpenedAuthRequiredModalAtom,
+} from '@/recoil/auth';
 
 interface FeedItemProps {
   image: string;
@@ -22,14 +29,24 @@ const FeedItem = ({
   const { data: colors } = useColor(image, 'hex', {
     crossOrigin: 'anonymous',
   });
+
+  const { openAuthRequiredModal } = useAuth();
+  const isAuthorized = useRecoilValue(isAuthorizedSelector);
+
+  const renderLoginModal = () => {
+    if (!isAuthorized) openAuthRequiredModal();
+  };
+
   if (!colors) return null;
+
   return (
     <div
+      onClick={renderLoginModal}
       className='w-full h-[108px] flex justify-between border border-solid border-[#DFDFDF] rounded-md mb-4 px-6 overflow-hidden'
       style={{ backgroundColor: `${colors}20` }}
     >
-      <div className=' py-4'>
-        <h1 className='text-base font-bold h-4'>#{title}</h1>
+      <div className='py-4 '>
+        <h1 className='h-4 text-base font-bold'>#{title}</h1>
         <p className='text-xs pb-3 pt-2 truncate w-[50vw] max-w-sm'>{recode}</p>
         <p className='text-xs text-[#707070]'>@{nickname}</p>
       </div>
