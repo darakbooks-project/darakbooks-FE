@@ -4,6 +4,25 @@ import { axiosInstance } from './axios';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
+interface getAllMainDetailRecordsProps {
+  recordId: number;
+  text: string;
+  recordImgUrl: string;
+  tags: { id: number; data: string }[];
+  readAt: string;
+  book: {
+    title: string;
+    thumbnail: string;
+    bookIsbn: string;
+    authors: string[];
+  };
+  user: {
+    userId: string;
+    nickname: string;
+    photoUrl: string;
+  };
+}
+
 // 이미지 등록
 export const registerImageApi = async (image: FormData) => {
   try {
@@ -43,7 +62,7 @@ export const getAllMainDetailRecordsApi = async (
   isbn: string,
   lastId: number,
   pageSize: number,
-) => {
+): Promise<getAllMainDetailRecordsProps[]> => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
