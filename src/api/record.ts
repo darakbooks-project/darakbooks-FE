@@ -2,8 +2,6 @@ import { bookRecordDataProps } from '@/types/record';
 
 import { axiosInstance } from './axios';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
 interface getAllMainDetailRecordsProps {
   recordId: number;
   text: string;
@@ -28,7 +26,7 @@ export const registerImageApi = async (image: FormData) => {
   try {
     const response = await axiosInstance.request({
       method: 'POST',
-      url: `${BASE_URL}/records/photo`,
+      url: `/records/photo`,
       data: image,
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -48,7 +46,7 @@ export const registerBookRecordApi = async (
   try {
     const { data } = await axiosInstance.request({
       method: 'POST',
-      url: `${BASE_URL}/records`,
+      url: `/records`,
       data: bookRecordData,
     });
     return data;
@@ -66,7 +64,7 @@ export const getAllMainDetailRecordsApi = async (
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `${BASE_URL}/records?bookID=${isbn}&lastId=${lastId}/&pageSize=${pageSize}`,
+      url: `/records?bookID=${isbn}&lastId=${lastId}/&pageSize=${pageSize}`,
     });
 
     return data;

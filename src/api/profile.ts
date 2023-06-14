@@ -1,13 +1,11 @@
 import { axiosInstance } from './axios';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
 // 나의 프로필
 export const getMyProfileApi = async () => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${BASE_URL}/user/profile`,
+      url: `/user/profile`,
     });
 
     return response.data;
@@ -21,7 +19,7 @@ export const getUserProfileApi = async (ownerId: string) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${BASE_URL}/user/profile/${ownerId}`,
+      url: `/user/profile/${ownerId}`,
     });
 
     return response.data;
@@ -35,7 +33,7 @@ export const registerProfileImageApi = async (image: FormData) => {
   try {
     const response = await axiosInstance.request({
       method: 'POST',
-      url: `${BASE_URL}/user/photo`,
+      url: `/user/photo`,
       data: image,
       headers: {
         'Content-Type': 'multipart/form-data',
