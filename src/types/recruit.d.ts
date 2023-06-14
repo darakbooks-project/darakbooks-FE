@@ -27,28 +27,35 @@ export interface GroupLists {
   currentPage: string;
 }
 
-export interface GroupList {
-  group_id: number;
-  name: string;
-  recruitment_status: boolean;
-  meeting_type: string;
-  day: string;
-  time: string;
-  region: string;
-  description: string;
-  participant_limit: number;
-  open_chat_link: string;
-  group_lead: string;
-  userGroup: UserGroup[];
+export interface GroupListType {
+  group_group_id: number;
+  group_name: string;
+  group_recruitment_status: number;
+  group_meeting_type: string;
+  group_day: string;
+  group_time: string;
+  group_region: string;
+  group_description: string;
+  group_participant_limit: number;
+  group_open_chat_link: string;
+  group_group_lead: string;
+  group_created_at: string;
+  group_updated_at: string;
+  group_deleted_at: string | null;
+  group: number;
+  userCount: string;
 }
 
-export interface UserGroup {
+export interface GroupLeaderType {
   age: string;
   gender: string;
   groups: number[];
   nickname: string;
-  profileImg: string;
+  photoUrl: string;
   provider: string;
   userId: string;
-  userInfo: string;
+  userInfo: string | null;
+  photoId: string;
+  bookshelfIsHidden: boolean;
+  groupIsHidden: boolean;
 }
