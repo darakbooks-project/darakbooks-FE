@@ -11,7 +11,7 @@ const Header = ({ title, moreMenu }: Props) => {
   const router = useRouter();
 
   return (
-    <div className='w-full flex justify-between items-center h-14 px-5'>
+    <div className='flex items-center justify-between w-full px-5 h-14'>
       <div className='flex-1'>
         <Image
           onClick={() => router.back()}

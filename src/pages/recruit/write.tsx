@@ -15,11 +15,11 @@ const RecruitWritePage = () => {
 
   const [className, setClassName] = useState('');
   const [classType, setClassType] = useState('online');
-  const [classRegion, setClassRegion] = useState('서울');
+  const [classRegion, setClassRegion] = useState('');
   const [classDescription, setClassDescription] = useState('');
-  const [classDay, setClassDay] = useState('월');
-  const [classTime, setClassTime] = useState('12:00');
-  const [classPeopleNumber, setClassPeopleNumber] = useState(0);
+  const [classDay, setClassDay] = useState('');
+  const [classTime, setClassTime] = useState('');
+  const [classPeopleNumber, setClassPeopleNumber] = useState('');
   const [classKakaoLink, setClassKakaoLink] = useState('');
 
   const classStateObj: ClassOpenStateObjProps = {
@@ -42,19 +42,22 @@ const RecruitWritePage = () => {
       else setClassType('offline');
     },
     changeClassRegion: (e) => {
-      setClassRegion(e.target.value);
+      const selectedItem = e.target as HTMLUListElement;
+      selectedItem.textContent && setClassRegion(selectedItem.textContent);
     },
     changeClassDescription: (e) => {
       setClassDescription(e.target.value);
     },
     changeClassDay: (e) => {
-      setClassDay(e.target.value);
+      const selectedItem = e.target as HTMLUListElement;
+      selectedItem.textContent && setClassDay(selectedItem.textContent);
     },
     changeClassTime: (e) => {
-      setClassTime(e.target.value);
+      const selectedItem = e.target as HTMLUListElement;
+      selectedItem.textContent && setClassTime(selectedItem.textContent);
     },
     changeClassPeopleNumber: (e) => {
-      setClassPeopleNumber(parseInt(e.target.value));
+      setClassPeopleNumber(e.target.value);
     },
     changeClassKakaoLink: (e) => {
       setClassKakaoLink(e.target.value);
@@ -67,27 +70,67 @@ const RecruitWritePage = () => {
 
   return (
     <Container>
-      <Header title='개설 하기' />
+      <Header />
       <Wrapper>
-        <RecruitOpenForm
-          classStateObj={classStateObj}
-          classChangeStateObj={classChangeStateObj}
-        />
-        <ClassOpenButton onClick={onClickOpenButton}>모임 개설</ClassOpenButton>
+        <PageDescription>
+          모임 만들기
+          <br />
+          독서 모임을 개설해 볼까요?
+        </PageDescription>
+        <RecruitOpenFormWrapper>
+          <RecruitOpenForm
+            classStateObj={classStateObj}
+            classChangeStateObj={classChangeStateObj}
+          />
+        </RecruitOpenFormWrapper>
       </Wrapper>
+      <ClassOpenButtonWrap>
+        <ClassOpenButton onClick={onClickOpenButton}>만들기</ClassOpenButton>
+      </ClassOpenButtonWrap>
     </Container>
   );
 };
 
 export default RecruitWritePage;
 
-const Container = tw.div``;
+const Container = tw.div`
+  h-full
+  bg-white
+`;
 
 const Wrapper = tw.div`
+  px-[5%]
+  mx-auto
+  bg-white
+`;
+
+const PageDescription = tw.h1`
+  text-xl
+  font-bold
+  mt-[10px]
+  mb-[20px]
+`;
+
+const RecruitOpenFormWrapper = tw.div`
   flex
   flex-col
 `;
 
+const ClassOpenButtonWrap = tw.div`  
+  border 
+  border-t-[black]
+  border-opacity-10
+  w-full
+  px-[15px]
+  py-[12.5px]
+  bg-white
+`;
+
 const ClassOpenButton = tw.button`  
-  bg-blue-300
+  bg-[#67A68A]
+  w-full
+  h-[55px]
+  text-white
+  rounded
+  font-bold
 `;
