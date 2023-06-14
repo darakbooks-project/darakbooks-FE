@@ -39,9 +39,9 @@ interface getAllMainDetailRecordsProps {
 
 const BookDetailPage = () => {
   const [ref, inView] = useInView();
-  const [pHeight, setPHeight] = useState(false);
+  const [introductionHeight, setIntroductionHeight] = useState(false);
   const [showMore, setShowMore] = useState(false);
-  const pRef = useRef<HTMLParagraphElement>(null);
+  const introductionRef = useRef<HTMLParagraphElement>(null);
   const router = useRouter();
   const { data: getBookDataByIsbn } = useQuery<getBookDataByIsbnProps>(
     ['getBookDataByIsbn', 'detail'],
@@ -72,11 +72,15 @@ const BookDetailPage = () => {
   const postBookshelf = useMutation(postBookshelfApi);
 
   useEffect(() => {
-    if (pRef.current && pRef.current.offsetHeight > 65 && !isLoading) {
-      setPHeight(true);
+    if (
+      introductionRef.current &&
+      introductionRef.current.offsetHeight > 65 &&
+      !isLoading
+    ) {
+      setIntroductionHeight(true);
       setShowMore(true);
     } else {
-      setPHeight(false);
+      setIntroductionHeight(false);
       setShowMore(false);
     }
   }, [isLoading]);
@@ -160,17 +164,17 @@ const BookDetailPage = () => {
               책 소개
             </h2>
             <p
-              ref={pRef}
+              ref={introductionRef}
               className={`not-italic font-normal text-[15px] leading-[24px] text-justify text-[#707070] overflow-hidden  ${
-                pHeight ? 'h-[45px]' : null
+                introductionHeight ? 'h-[45px]' : null
               }`}
             >
               {getBookDataByIsbn?.documents[0].contents}
             </p>
             {showMore ? (
               <div className='border-t-[#ebeaea] border-t border-solid mt-4 flex justify-center pt-2'>
-                <button onClick={() => setPHeight((prev) => !prev)}>
-                  {pHeight ? '더보기' : '닫기'}
+                <button onClick={() => setIntroductionHeight((prev) => !prev)}>
+                  {introductionHeight ? '더보기' : '닫기'}
                 </button>
               </div>
             ) : null}
