@@ -46,7 +46,8 @@ const BookDetailPage = () => {
       },
     },
   );
-  const getAllDetailRecordsScroll = getAllDetailRecords?.pages.flatMap(
+
+  const bookRelatedAllRecord = getAllDetailRecords?.pages.flatMap(
     (page) => page,
   );
   const postBookshelf = useMutation(postBookshelfApi);
@@ -168,7 +169,7 @@ const BookDetailPage = () => {
         <ul className='flex flex-col '>
           {status === 'success' && (
             <>
-              {getAllDetailRecordsScroll?.map((item) => (
+              {bookRelatedAllRecord?.map((item) => (
                 <Link
                   key={item.recordId}
                   href={{
