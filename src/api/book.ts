@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { KAKAO_REST_API_KEY } from '@/constants/auth';
-import { BookSearchResulListItem } from '@/types/book';
+import { BookSearchResulListItem, getBookDataByIsbnProps } from '@/types/book';
 
 const KAKAO_BOOK_SEARCH_API_URL =
   process.env.NEXT_PUBLIC_KAKAO_BOOK_SEARCH_API_URL;
@@ -41,7 +41,9 @@ export const getBookSearchResultData = async (
 };
 
 // isbn으로 책 한권 검색 api
-export const getBookDataByIsbnApi = async (isbn: string) => {
+export const getBookDataByIsbnApi = async (
+  isbn: string,
+): Promise<getBookDataByIsbnProps> => {
   try {
     const { data } = await axios.get(
       `${KAKAO_BOOK_SEARCH_API_URL}?target=isbn&query=${isbn}`,

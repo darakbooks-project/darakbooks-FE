@@ -15,27 +15,7 @@ import { useInView } from 'react-intersection-observer';
 import { getBookDataByIsbnApi } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
 import { getAllMainDetailRecordsApi } from '@/api/record';
-import { getBookDataByIsbnProps } from '@/types/book';
 import { bookshelfDataProps } from '@/types/bookshelf';
-
-interface getAllMainDetailRecordsProps {
-  recordId: number;
-  text: string;
-  recordImgUrl: string;
-  tags: { id: number; data: string }[];
-  readAt: string;
-  book: {
-    title: string;
-    thumbnail: string;
-    bookIsbn: string;
-    authors: string[];
-  };
-  user: {
-    userId: string;
-    nickname: string;
-    photoUrl: string;
-  };
-}
 
 const BookDetailPage = () => {
   const [ref, inView] = useInView();
@@ -43,7 +23,7 @@ const BookDetailPage = () => {
   const [showMore, setShowMore] = useState(false);
   const introductionRef = useRef<HTMLParagraphElement>(null);
   const router = useRouter();
-  const { data: getBookDataByIsbn } = useQuery<getBookDataByIsbnProps>(
+  const { data: getBookDataByIsbn } = useQuery(
     ['getBookDataByIsbn', 'detail'],
     () => getBookDataByIsbnApi(router.query.isbn as string),
   );
@@ -53,7 +33,7 @@ const BookDetailPage = () => {
     data: getAllDetailRecords,
     status,
     isLoading,
-  } = useInfiniteQuery<getAllMainDetailRecordsProps[]>(
+  } = useInfiniteQuery(
     ['getAllDetailRecords', 'detail'],
     ({ pageParam = 0 }) =>
       getAllMainDetailRecordsApi(router.query.isbn as string, pageParam, 3),
