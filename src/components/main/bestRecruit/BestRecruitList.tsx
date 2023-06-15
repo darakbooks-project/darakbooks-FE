@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { GroupListType } from '@/types/recruit';
+import { BestGroupListType } from '@/types/recruit';
 
 import BestRecruitListItem from './BestRecruitListItem';
 
 const BestRecruitList = ({
   BestGroupList,
 }: {
-  BestGroupList: GroupListType[];
+  BestGroupList: BestGroupListType[];
 }) => {
   return (
     <section className='bg-white border border-solid border-[#DFDFDF] rounded-md mx-5 mt-14'>

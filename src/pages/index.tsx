@@ -5,7 +5,7 @@ import { fetchBestGroup } from '@/api/main';
 import BookShelfPreview from '@/components/common/BookShelfPreview';
 import BestRecruitList from '@/components/main/bestRecruit/BestRecruitList';
 import RecordFeedList from '@/components/main/mainRecordFeed/RecordFeedList';
-import { GroupListType } from '@/types/recruit';
+import { BestGroupListType } from '@/types/recruit';
 
 import image1 from '../../public/images/bookCover/image1.jpg';
 import image2 from '../../public/images/bookCover/image2.jpg';
@@ -17,7 +17,11 @@ const BOOKSHELFDUMMY = {
   images: [image1, image2, image3],
 };
 
-export default function Home({ bestGroup }: { bestGroup: GroupListType[] }) {
+export default function Home({
+  bestGroup,
+}: {
+  bestGroup: BestGroupListType[];
+}) {
   return (
     <main>
       <section className='bg-[#C6BDA4] h-[17.125rem]'>
@@ -53,7 +57,7 @@ export default function Home({ bestGroup }: { bestGroup: GroupListType[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  bestGroup: GroupListType | unknown;
+  bestGroup: BestGroupListType | unknown;
 }> = async () => {
   const queryClient = new QueryClient();
 

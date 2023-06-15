@@ -4,11 +4,11 @@ import React from 'react';
 
 import { fetchBestGroupLeader } from '@/api/main';
 import Avatar from '@/components/common/Avartar';
-import { GroupLeaderType, GroupListType } from '@/types/recruit';
+import { BestGroupListType, GroupLeaderType } from '@/types/recruit';
 
 interface BestRecruitListItemProps
   extends Pick<
-    GroupListType,
+    BestGroupListType,
     'group_group_id' | 'group_name' | 'group_description'
   > {
   index: number;
