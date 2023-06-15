@@ -49,13 +49,13 @@ export const getServerSideProps: GetServerSideProps = async (
   const queryClient = new QueryClient();
 
   if (context.query.isbn) {
-    await queryClient.prefetchQuery(['getUserProfile', 'profile'], () => {
-      getUserProfileApi(context.query.isbn as string);
-    });
+    await queryClient.prefetchQuery(['getUserProfile', 'profile'], () =>
+      getUserProfileApi(context.query.isbn as string),
+    );
   } else {
-    await queryClient.prefetchQuery(['getMyProfile', 'profile'], () => {
-      getMyProfileApi();
-    });
+    await queryClient.prefetchQuery(['getMyProfile', 'profile'], () =>
+      getMyProfileApi(),
+    );
   }
 
   return {
