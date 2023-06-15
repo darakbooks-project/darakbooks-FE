@@ -37,7 +37,12 @@ export interface GroupList {
   description: string;
   participant_limit: number;
   open_chat_link: string;
+  is_group_lead: boolean;
+  is_participant: boolean;
   group_lead: string;
+  group_created_at: string;
+  group_updated_at: string;
+  group_deleted_at: string | null;
   userGroup: UserGroup[];
 }
 
