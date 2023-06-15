@@ -31,7 +31,7 @@ export const fetchBestGroupLeader = async (groupId: number) => {
 };
 
 //독서기록 조회
-export const fetchRecord = async (lastId: number | string) => {
+export const fetchRecord = async (lastId: number) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',

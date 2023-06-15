@@ -7,6 +7,11 @@ import { RecordType } from '@/types/record';
 
 import FeedItem from './FeedItem';
 
+interface RecordFeedListType {
+  records: RecordType[];
+  lastId: string;
+}
+
 const RecordFeedList = () => {
   const {
     data: mainFeedData,
@@ -14,13 +19,13 @@ const RecordFeedList = () => {
     isError,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery<RecordType[]>(
+  } = useInfiniteQuery<RecordFeedListType>(
     ['mainFeed'],
-    ({ pageParam = '' }) => fetchRecord(pageParam),
+    ({ pageParam = 1000000 }) => fetchRecord(pageParam),
     {
       getNextPageParam: (lastPage) => {
-        if (!lastPage.length) return;
-        return lastPage[lastPage.length - 1].recordId;
+        if (!lastPage.lastId) return;
+        return lastPage.lastId;
       },
     },
   );
@@ -34,7 +39,9 @@ const RecordFeedList = () => {
   if (isError) return <></>;
   if (isLoading) return <></>;
 
-  const mainFeedList = mainFeedData.pages.flatMap((feedList) => feedList);
+  const mainFeedList = mainFeedData.pages.flatMap(
+    (feedList) => feedList.records,
+  );
 
   return (
     <div className='mx-5'>
