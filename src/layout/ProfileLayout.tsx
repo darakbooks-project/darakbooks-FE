@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -8,18 +8,10 @@ import { useSetRecoilState } from 'recoil';
 import { logout } from '@/api/auth';
 import { getMyProfileApi } from '@/api/profile';
 import { isAuthorizedSelector } from '@/recoil/auth';
-interface myProfileProps {
-  bookshelfIsHidden: boolean;
-  isMine: boolean;
-  nickname: string;
-  photoUrl: string;
-  userId: string;
-  userInfo: string | null;
-}
 
 function ProfileLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const { data: getMyProfile, status } = useQuery<myProfileProps>(
+  const { data: getMyProfile, status } = useQuery(
     ['getMyProfile', 'profile'],
     () => getMyProfileApi(),
   );

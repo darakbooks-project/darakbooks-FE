@@ -2,8 +2,17 @@ import { axiosInstance } from './axios';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
+interface myProfileProps {
+  bookshelfIsHidden: boolean;
+  isMine: boolean;
+  nickname: string;
+  photoUrl: string;
+  userId: string;
+  userInfo: string | null;
+}
+
 // 나의 프로필
-export const getMyProfileApi = async () => {
+export const getMyProfileApi = async (): Promise<myProfileProps> => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
