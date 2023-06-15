@@ -44,16 +44,15 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                   <Link href='/profile/edit'>수정</Link>
                 </p>
               </div>
-              <div className='w-[4.5rem] h-[4.5rem] bg-[#ebeaea] border rounded-[50%] border-solid border-[#c2c1c1]'>
-                <Image
-                  src={getMyProfile.photoUrl}
-                  alt={getMyProfile.nickname}
-                  width='0'
-                  height='0'
-                  sizes='100vw'
-                  className='w-full h-auto'
-                />
-              </div>
+
+              <Image
+                src={getMyProfile.photoUrl}
+                alt={getMyProfile.nickname}
+                width='0'
+                height='0'
+                sizes='100vw'
+                className='w-[4.5rem] h-[4.5rem] bg-[#ebeaea] border rounded-[50%] border-solid border-[#c2c1c1]'
+              />
             </article>
           </section>
           <section className='h-[70%]'>

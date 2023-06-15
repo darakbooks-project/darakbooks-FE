@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-import { getMyProfileApi } from '@/api/profile';
+import { changeProfileApi, getMyProfileApi } from '@/api/profile';
 import { registerImageApi } from '@/api/record';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
@@ -11,14 +11,18 @@ import useInput from '@/hooks/useInput';
 const Edit = () => {
   const router = useRouter();
   const registerImage = useMutation(registerImageApi);
+  const changeProfile = useMutation(changeProfileApi);
   const [nickname, setNickname, reset] = useInput('');
   const [bio, setBio] = useState('');
-  const [secretMode, setSecretMode] = useState<'PUBLIC' | 'PRIVATE'>('PUBLIC');
   const [profileImage, setProfileImage] = useImage({}, registerImage);
 
   const { data: getMyProfile, status } = useQuery(
     ['getMyProfile', 'profile'],
     () => getMyProfileApi(),
+  );
+
+  const [secretMode, setSecretMode] = useState<'PUBLIC' | 'PRIVATE'>(
+    getMyProfile?.bookshelfIsHidden ? 'PUBLIC' : 'PRIVATE',
   );
 
   const changeBio = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -30,7 +34,21 @@ const Edit = () => {
   };
 
   const submitEdit = () => {
-    console.log(nickname, bio, profileImage, secretMode);
+    const editData = {
+      nickname: (nickname as string) || getMyProfile?.nickname,
+      photoId: profileImage.name,
+      photoUrl: profileImage.url,
+      userInfo: bio,
+      bookshelfIsHidden: secretMode === 'PUBLIC' ? true : false,
+    };
+
+    changeProfile.mutate(editData, {
+      onSuccess: () => {
+        alert('프로필 수정을 완료하였습니다.');
+        router.push('/profile');
+      },
+      onError: (error) => console.error(error),
+    });
   };
 
   return (
@@ -133,7 +151,7 @@ const Edit = () => {
                         className='mr-4'
                         type='radio'
                         name='public-private'
-                        checked={secretMode === 'PUBLIC'}
+                        defaultChecked={secretMode === 'PUBLIC'}
                         onClick={() => setSecretMode('PUBLIC')}
                       />
                       <span className='font-medium text-sm text-[#707070]'>
@@ -150,7 +168,7 @@ const Edit = () => {
                         className='mr-4'
                         type='radio'
                         name='public-private'
-                        checked={secretMode === 'PRIVATE'}
+                        defaultChecked={secretMode === 'PRIVATE'}
                         onClick={() => setSecretMode('PRIVATE')}
                       />
                       <span className='font-medium text-sm text-[#707070]'>
