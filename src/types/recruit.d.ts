@@ -26,7 +26,6 @@ export interface GroupLists {
   totalGroups: number;
   currentPage: string;
 }
-
 export interface GroupList {
   group_id: number;
   name: string;
@@ -51,4 +50,37 @@ export interface UserGroup {
   provider: string;
   userId: string;
   userInfo: string;
+}
+
+export interface BestGroupListType {
+  group_group_id: number;
+  group_name: string;
+  group_recruitment_status: number;
+  group_meeting_type: string;
+  group_day: string;
+  group_time: string;
+  group_region: string;
+  group_description: string;
+  group_participant_limit: number;
+  group_open_chat_link: string;
+  group_group_lead: string;
+  group_created_at: string;
+  group_updated_at: string;
+  group_deleted_at: string | null;
+  group: number;
+  userCount: string;
+}
+
+export interface GroupLeaderType {
+  age: string;
+  gender: string;
+  groups: number[];
+  nickname: string;
+  photoUrl: string;
+  provider: string;
+  userId: string;
+  userInfo: string | null;
+  photoId: string;
+  bookshelfIsHidden: boolean;
+  groupIsHidden: boolean;
 }
