@@ -21,7 +21,7 @@ const RecordFeedList = () => {
     hasNextPage,
   } = useInfiniteQuery<RecordFeedListType>(
     ['mainFeed'],
-    ({ pageParam = 1000000 }) => fetchRecord(pageParam),
+    ({ pageParam = Number.MAX_SAFE_INTEGER }) => fetchRecord(pageParam),
     {
       getNextPageParam: (lastPage) => {
         if (!lastPage.lastId) return;
