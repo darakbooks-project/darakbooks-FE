@@ -34,7 +34,7 @@ const Avatar = ({
         src={src}
         placeholder={placeholder}
         alt={alt}
-        imgStyle={`${width} ${height}`}
+        imgStyle={`${width} ${height} object-cover`}
       />
     </div>
   );

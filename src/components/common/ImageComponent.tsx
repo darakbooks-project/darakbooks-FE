@@ -80,10 +80,10 @@ const ImageComponent = ({
   return (
     <div
       onClick={size ? onImageClick : undefined}
-      className={`${size && imageSize[size]} ${imgStyle && imgStyle} `}
+      className={`${size && imageSize[size]}`}
     >
       <img
-        className='w-[100%] h-[100%] shadow-xl'
+        className={`w-[100%] h-[100%] shadow-xl ${imgStyle ? imgStyle : ''}`}
         ref={imgRef}
         src={loaded ? (src ? src : DEFAULT_IMAGE) : placeholder}
         alt={alt}
