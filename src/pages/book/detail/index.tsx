@@ -11,13 +11,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useRecoilValue } from 'recoil';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
 import { getAllMainDetailRecordsApi } from '@/api/record';
-import { useAuth } from '@/hooks/useAuth';
-import { isAuthorizedSelector } from '@/recoil/auth';
 import { bookshelfDataProps } from '@/types/bookshelf';
 
 const BookDetailPage = () => {
@@ -30,10 +27,6 @@ const BookDetailPage = () => {
     ['getBookDataByIsbn', 'detail'],
     () => getBookDataByIsbnApi(router.query.isbn as string),
   );
-
-  const { openAuthRequiredModal } = useAuth();
-  const isAuthorized = useRecoilValue(isAuthorizedSelector);
-
   const {
     fetchNextPage,
     hasNextPage,
@@ -42,25 +35,22 @@ const BookDetailPage = () => {
     isLoading,
   } = useInfiniteQuery(
     ['getAllDetailRecords', 'detail'],
-    ({ pageParam = 0 }) =>
+    ({ pageParam = Number.MAX_SAFE_INTEGER }) =>
       getAllMainDetailRecordsApi(router.query.isbn as string, pageParam, 3),
     {
       getNextPageParam: (lastPage) => {
-        if (lastPage.length === 0) {
+        if (!lastPage.lastId) {
           return;
         }
-        return lastPage[lastPage.length - 1].recordId;
+        return lastPage.lastId;
       },
     },
   );
 
-  const renderLoginModal = () => {
-    if (!isAuthorized) openAuthRequiredModal();
-  };
-
   const bookRelatedAllRecord = getAllDetailRecords?.pages.flatMap(
-    (page) => page,
+    (page) => page.records,
   );
+
   const postBookshelf = useMutation(postBookshelfApi);
 
   useEffect(() => {
@@ -83,11 +73,6 @@ const BookDetailPage = () => {
     getBookDataByIsbn.documents[0];
 
   const onPutBook = () => {
-    if (!isAuthorized) {
-      openAuthRequiredModal();
-      return;
-    }
-
     let data: bookshelfDataProps;
     if (getBookDataByIsnValid) {
       data = {
@@ -144,7 +129,7 @@ const BookDetailPage = () => {
                 className='w-full h-auto'
               />
             </div>
-            <article className='flex flex-col items-center gap-1 '>
+            <article className=' flex flex-col items-center gap-1'>
               <h1 className='text-xl font-semibold text-[#242424]'>
                 {getBookDataByIsbn?.documents[0].title}
               </h1>
@@ -232,13 +217,10 @@ const BookDetailPage = () => {
         >
           담기
         </button>
-        <button
-          onClick={renderLoginModal}
-          className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d]'
-        >
+        <button className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d]'>
           <Link
             href={{
-              pathname: isAuthorized ? '/book/record' : '',
+              pathname: '/book/record',
               query: { isbn: router.query.isbn },
             }}
           >
