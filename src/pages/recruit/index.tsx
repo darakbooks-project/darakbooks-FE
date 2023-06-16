@@ -1,12 +1,27 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import BottomNav from '@/components/common/BottomNav';
 import RecruitInfinityScrollLists from '@/components/recruit/RecruitInfinityScrollLists';
+import { useAuth } from '@/hooks/useAuth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 
 const RecruitPage = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const { openAuthRequiredModal } = useAuth();
+  const isAuthorized = useRecoilValue(isAuthorizedSelector);
+  const router = useRouter();
+
+  const clickGroupOpenButton = () => {
+    if (!isAuthorized) {
+      openAuthRequiredModal();
+      return;
+    }
+
+    router.push('/recruit/write');
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -20,7 +35,7 @@ const RecruitPage = () => {
             독서모임 시작하기 <br /> 참 좋은 하루에요!
           </Title>
         </BackGround>
-        <PersonnelRecruitButton href='/recruit/write'>
+        <PersonnelRecruitButton onClick={clickGroupOpenButton}>
           개설 하기
         </PersonnelRecruitButton>
       </BackGroundWrap>
@@ -74,7 +89,7 @@ const InfinityScrollLists = tw.div`
   mx-auto	
 `;
 
-const PersonnelRecruitButton = tw(Link)`
+const PersonnelRecruitButton = tw.div`
   absolute
   top-[70px]
   right-[20px]

@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
+import { useAuth } from '@/hooks/useAuth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
 import { GroupList } from '@/types/recruit';
 
@@ -24,8 +26,15 @@ const ReadingGroupRecruitment = ({
   const setInfinityScrollPosition = useSetRecoilState(
     readingGroupInfinityScrollPositionAtom,
   );
+  const { openAuthRequiredModal } = useAuth();
+  const isAuthorized = useRecoilValue(isAuthorizedSelector);
 
   const clickListItem = () => {
+    if (!isAuthorized) {
+      openAuthRequiredModal();
+      return;
+    }
+
     setInfinityScrollPosition(window.scrollY);
 
     router.push(`/recruit/detail?groupId=${group_id}`);

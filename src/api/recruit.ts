@@ -3,15 +3,13 @@ import { ClassOpenStateObjProps } from '@/types/recruit';
 
 import { axiosInstance } from './axios';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
 export const getReadingClassData = async (
   page: number,
 ): Promise<GroupLists> => {
   try {
     const { data } = await axiosInstance.request<GroupLists>({
       method: 'GET',
-      url: `${BASE_URL}/groups/find?page=${page}&limit=5`,
+      url: `/groups/find?page=${page}&limit=5`,
     });
 
     if (data) {
@@ -42,7 +40,7 @@ export const postReadingClassOpen = async (
   try {
     const response = await axiosInstance.request({
       method: 'POST',
-      url: `${BASE_URL}/groups`,
+      url: `/groups`,
       data: body,
     });
 
@@ -56,7 +54,7 @@ export const fetchReadingGroupInfo = async (groupId: string) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${BASE_URL}/groups/${groupId}`,
+      url: `/groups/${groupId}`,
     });
 
     if (response) return response.data;
