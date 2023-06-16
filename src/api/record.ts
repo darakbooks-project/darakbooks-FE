@@ -3,7 +3,7 @@ import { bookRecordDataProps } from '@/types/record';
 import { axiosInstance } from './axios';
 
 interface getAllMainDetailRecordsProps {
-  lastId: number | null;
+  lastId: number;
   records: {
     recordId: number;
     text: string;

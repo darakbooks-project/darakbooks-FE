@@ -51,11 +51,6 @@ const BookDetailPage = () => {
     (page) => page.records,
   );
 
-  useEffect(() => {
-    console.log(bookRelatedAllRecord);
-    console.log(getAllDetailRecords);
-  }, [bookRelatedAllRecord, getAllDetailRecords]);
-
   const postBookshelf = useMutation(postBookshelfApi);
 
   useEffect(() => {
@@ -181,7 +176,7 @@ const BookDetailPage = () => {
                   href={{
                     pathname: '/book/feed',
                     query: {
-                      recordId: item.recordId - 1,
+                      recordId: item.recordId + 1,
                       isbn: router.query.isbn as string,
                     },
                   }}
