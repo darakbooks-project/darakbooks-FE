@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 
 import { changeProfileApi, getMyProfileApi } from '@/api/profile';
 import { registerImageApi } from '@/api/record';
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 
@@ -52,11 +53,11 @@ const Edit = () => {
   };
 
   return (
-    <>
+    <AuthRequiredPage>
       {status === 'success' && (
         <>
-          <div className='h-screen flex flex-col items-center gap-12 px-6 py-12'>
-            <section className='w-full flex justify-between'>
+          <div className='flex flex-col items-center h-screen gap-12 px-6 py-12'>
+            <section className='flex justify-between w-full'>
               <button
                 onClick={() => {
                   router.back();
@@ -68,7 +69,7 @@ const Edit = () => {
               <h1 className='text-base text-[#333333]'>프로필 수정</h1>
               <div className='invisible'></div>
             </section>
-            <main className='flex flex-col items-center w-full gap-6  s:pb-36'>
+            <main className='flex flex-col items-center w-full gap-6 s:pb-36'>
               <section className='relative'>
                 {profileImage.url ? (
                   <Image
@@ -102,7 +103,7 @@ const Edit = () => {
                   onChange={setProfileImage}
                 />
               </section>
-              <section className='relative w-full flex flex-col'>
+              <section className='relative flex flex-col w-full'>
                 <label
                   className='text-[15px] text-[#707070] mb-2.5'
                   htmlFor='nickname'
@@ -123,7 +124,7 @@ const Edit = () => {
                   X
                 </button>
               </section>
-              <section className='w-full flex flex-col'>
+              <section className='flex flex-col w-full'>
                 <label
                   className='text-[15px] text-[#707070] mb-2.5'
                   htmlFor='bio'
@@ -140,12 +141,12 @@ const Edit = () => {
                   onChange={changeBio}
                 ></textarea>
               </section>
-              <section className='w-full flex flex-col'>
+              <section className='flex flex-col w-full'>
                 <h5 className='font-normal text-sm text-[#707070] mb-4 px-0 py-4 border-b-[#dfdfdf] border-b border-solid'>
                   공개범위
                 </h5>
                 <div>
-                  <article className='flex justify-between items-center mb-2'>
+                  <article className='flex items-center justify-between mb-2'>
                     <div>
                       <input
                         className='mr-4'
@@ -162,7 +163,7 @@ const Edit = () => {
                       나의 모든 게시글, 책장, 기록 전체 공개
                     </p>
                   </article>
-                  <article className='flex justify-between items-center mb-2'>
+                  <article className='flex items-center justify-between mb-2'>
                     <div>
                       <input
                         className='mr-4'
@@ -193,7 +194,7 @@ const Edit = () => {
           </section>
         </>
       )}
-    </>
+    </AuthRequiredPage>
   );
 };
 
