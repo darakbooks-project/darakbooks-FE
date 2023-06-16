@@ -1,7 +1,24 @@
 import { axiosInstance } from './axios';
 
+interface myProfileProps {
+  bookshelfIsHidden: boolean;
+  isMine: boolean;
+  nickname: string;
+  photoUrl: string;
+  userId: string;
+  userInfo: string | null;
+}
+
+interface editDataProps {
+  nickname?: string;
+  photoId?: string;
+  photoUrl?: string;
+  userInfo?: string;
+  bookshelfIsHidden?: boolean;
+}
+
 // 나의 프로필
-export const getMyProfileApi = async () => {
+export const getMyProfileApi = async (): Promise<myProfileProps> => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
@@ -42,5 +59,19 @@ export const registerProfileImageApi = async (image: FormData) => {
     return response.data;
   } catch (error) {
     throw new Error('사진을 등록할 수 없습니다.');
+  }
+};
+
+// 프로필 변경
+export const changeProfileApi = async (editData: editDataProps) => {
+  try {
+    const response = await axiosInstance.request({
+      method: 'PATCH',
+      url: `/user/profile`,
+      data: editData,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('프로필을 수정할 수 없습니다.');
   }
 };
