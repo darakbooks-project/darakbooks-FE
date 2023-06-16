@@ -5,13 +5,18 @@ import { ReactNode } from 'react';
 interface Props {
   title?: string;
   moreMenu?: ReactNode;
+  className?: string;
 }
 
-const Header = ({ title, moreMenu }: Props) => {
+const Header = ({ title, moreMenu, className }: Props) => {
   const router = useRouter();
 
   return (
-    <div className='flex items-center justify-between w-full px-5 h-14'>
+    <div
+      className={`flex items-center justify-between w-full max-w-xl px-5 h-14 ${
+        className ? className : ''
+      }`}
+    >
       <div className='flex-1'>
         <Image
           onClick={() => router.back()}
@@ -23,7 +28,7 @@ const Header = ({ title, moreMenu }: Props) => {
         />
       </div>
       <div className='text-xl text-center flex-[4_4_0%]'>{title}</div>
-      <div className='flex-1'>{moreMenu && moreMenu}</div>
+      <div className='flex-1 text-right'>{moreMenu && moreMenu}</div>
       {/**수정버튼 등 오른쪽 메뉴 추가 */}
     </div>
   );
