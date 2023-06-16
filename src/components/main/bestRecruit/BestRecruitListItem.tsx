@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { fetchBestGroupLeader } from '@/api/main';
+import { fetchReadingGroupLeader } from '@/api/main';
 import Avatar from '@/components/common/Avartar';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
@@ -36,7 +36,7 @@ const BestRecruitListItem = ({
     isError,
   } = useQuery<GroupLeaderType>(
     ['bestGroupLeader'],
-    () => fetchBestGroupLeader(group_group_id),
+    () => fetchReadingGroupLeader(group_group_id),
     {
       staleTime: 1000 * 60 * 60,
       cacheTime: 1000 * 60 * 60,

@@ -17,7 +17,7 @@ export const fetchBestGroup = async () => {
 };
 
 //특정 그룹 리더 조회
-export const fetchBestGroupLeader = async (groupId: number) => {
+export const fetchReadingGroupLeader = async (groupId: number | string) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',

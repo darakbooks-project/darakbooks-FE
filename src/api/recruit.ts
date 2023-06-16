@@ -50,7 +50,7 @@ export const postReadingClassOpen = async (
   }
 };
 
-export const getReadingGroupInfo = async (groupId: string) => {
+export const fetchReadingGroupInfo = async (groupId: string) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
@@ -58,6 +58,28 @@ export const getReadingGroupInfo = async (groupId: string) => {
     });
 
     if (response) return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const postGroupJoinUser = async (groupId: number) => {
+  try {
+    await axiosInstance.request({
+      method: 'POST',
+      url: `/groups/user/${groupId}/join`,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const postGroupLeaveUser = async (groupId: number) => {
+  try {
+    await axiosInstance.request({
+      method: 'POST',
+      url: `/groups/user/${groupId}/leave`,
+    });
   } catch (error) {
     console.error(error);
   }
