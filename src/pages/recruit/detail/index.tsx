@@ -3,13 +3,17 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useRecoilState } from 'recoil';
 
 import { fetchReadingGroupLeader } from '@/api/main';
 import { fetchReadingGroupInfo } from '@/api/recruit';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Avatar from '@/components/common/Avartar';
+import Header from '@/components/common/Header';
 import RecruitNotification from '@/components/recruit/detail/RecruitNotification';
 import RecruitParticipationControl from '@/components/recruit/detail/RecruitParticipationControl';
+import RecruitStatusSelectModal from '@/components/recruit/detail/RecruitStatusSelectModal';
+import { selectRecruitStatusAtom } from '@/recoil/modal';
 import { GroupLeaderType, GroupList } from '@/types/recruit';
 
 interface ReadingGroupType {
@@ -22,13 +26,18 @@ const RecruitDetailPage = () => {
   const {
     query: { groupId },
   } = useRouter();
+  const [modal, setModal] = useRecoilState(selectRecruitStatusAtom);
 
   const {
     data: groupData,
     isError: isGroupError,
     isLoading: isGroupLoading,
-  } = useQuery<ReadingGroupType>(['recruitDetail'], () =>
-    fetchReadingGroupInfo(groupId as string),
+  } = useQuery<ReadingGroupType>(
+    ['recruitDetail', groupId],
+    async () => await fetchReadingGroupInfo(groupId as string),
+    {
+      staleTime: 1000,
+    },
   );
 
   const {
@@ -71,10 +80,17 @@ const RecruitDetailPage = () => {
     { title: '소통 방법', detail: `${open_chat_link}` },
   ];
 
+  const moreMenu = <Link href={''}>⏵</Link>;
+  //독서모임 수정 페이지로 이동 예정
+
   return (
     <AuthRequiredPage>
       <div className='h-full bg-white'>
-        <div className='w-full h-[17.5rem] bg-[#FFFCEA]' />
+        <Header
+          moreMenu={groupData.is_group_lead && moreMenu}
+          className='absolute mt-14'
+        />
+        <div className='w-full h-[350px] bg-[#FFFCEA]' />
         <main className='flex flex-col bg-white relative -top-10 px-5 rounded-t-[1.875rem] pb-20'>
           <div className='flex py-6'>
             <Avatar
@@ -89,10 +105,26 @@ const RecruitDetailPage = () => {
             <div className='pl-4'>
               <h3 className='text-sm text-[#67A68A]'>
                 {recruitment_status ? '모집중' : '모집완료'}
+                {}
               </h3>
               <h1 className='text-xl font-bold'>{name}</h1>
             </div>
           </div>
+          {groupData.is_group_lead && (
+            <button
+              onClick={() => setModal(true)}
+              className='w-[5.625rem] h-[2.1875rem] border border-solid border-[#DFDFDF] rounded mb-5 flex justify-center items-center'
+            >
+              {recruitment_status ? '모집중' : '모집완료'}
+              <p>&#x2193;</p>
+            </button>
+          )}
+          {modal && (
+            <RecruitStatusSelectModal
+              groupId={group_id}
+              recruitmentStatus={recruitment_status}
+            />
+          )}
           <p>{description}</p>
           <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
           <h3 className='text-[#67A68A] text-sm'>자세한 정보 알려드려요</h3>
