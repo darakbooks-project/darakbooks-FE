@@ -3,6 +3,32 @@ import { ClassOpenStateObjProps } from '@/types/recruit';
 
 import { axiosInstance } from './axios';
 
+interface getAllMyGroupsProps {
+  group_id: number;
+  name: string;
+  recruitment_status: boolean;
+  meeting_type: string;
+  day: string;
+  time: string;
+  region: string;
+  description: string;
+  participant_limit: number;
+  open_chat_link: string;
+  group_lead: string;
+  is_group_lead: boolean;
+  is_participant: boolean;
+  userGroup: {
+    nickname: string;
+    photoId: string;
+    photoUrl: string;
+    userInfo: string;
+    gender: string;
+    age: string;
+    provider: string;
+    groups: number[];
+  }[];
+}
+
 export const getReadingClassData = async (
   page: number,
 ): Promise<GroupLists> => {
@@ -82,5 +108,19 @@ export const postGroupLeaveUser = async (groupId: number) => {
     });
   } catch (error) {
     console.error(error);
+  }
+};
+
+// 요청보내는 유저가 속한 모든 그룹 조희
+export const getAllMyGroupsApi = async (): Promise<getAllMyGroupsProps[]> => {
+  try {
+    const { data } = await axiosInstance.request({
+      method: 'GET',
+      url: '/groups/user-group',
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error('그룹을 불러올 수 없습니다.');
   }
 };
