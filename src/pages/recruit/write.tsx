@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 
 import { postReadingClassOpen } from '@/api/recruit';
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Header from '@/components/common/Header';
 import RecruitOpenForm from '@/components/recruit/RecruitOpenForm';
 import {
@@ -69,25 +70,27 @@ const RecruitWritePage = () => {
   };
 
   return (
-    <Container>
-      <Header />
-      <Wrapper>
-        <PageDescription>
-          모임 만들기
-          <br />
-          독서 모임을 개설해 볼까요?
-        </PageDescription>
-        <RecruitOpenFormWrapper>
-          <RecruitOpenForm
-            classStateObj={classStateObj}
-            classChangeStateObj={classChangeStateObj}
-          />
-        </RecruitOpenFormWrapper>
-      </Wrapper>
-      <ClassOpenButtonWrap>
-        <ClassOpenButton onClick={onClickOpenButton}>만들기</ClassOpenButton>
-      </ClassOpenButtonWrap>
-    </Container>
+    <AuthRequiredPage>
+      <Container>
+        <Header />
+        <Wrapper>
+          <PageDescription>
+            모임 만들기
+            <br />
+            독서 모임을 개설해 볼까요?
+          </PageDescription>
+          <RecruitOpenFormWrapper>
+            <RecruitOpenForm
+              classStateObj={classStateObj}
+              classChangeStateObj={classChangeStateObj}
+            />
+          </RecruitOpenFormWrapper>
+        </Wrapper>
+        <ClassOpenButtonWrap>
+          <ClassOpenButton onClick={onClickOpenButton}>만들기</ClassOpenButton>
+        </ClassOpenButtonWrap>
+      </Container>
+    </AuthRequiredPage>
   );
 };
 
