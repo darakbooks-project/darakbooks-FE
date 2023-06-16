@@ -12,7 +12,7 @@ export const login = async (code: string) => {
       data: { accessToken },
     } = await axiosInstance.request({
       method: 'GET',
-      url: `${BASE_URL}/user/auth/kakao?code=${code}`,
+      url: `/user/auth/kakao?code=${code}`,
     });
 
     axiosInstance.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -27,7 +27,7 @@ export const logout = async () => {
   try {
     await axiosInstance.request({
       method: 'GET',
-      url: `${BASE_URL}/user/auth/logout`,
+      url: `/user/auth/logout`,
     });
 
     axiosInstance.defaults.headers['Authorization'] = '';
