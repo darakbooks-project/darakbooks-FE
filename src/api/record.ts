@@ -57,7 +57,7 @@ export const registerBookRecordApi = async (
   }
 };
 
-// 메인페이지, 도상세 페이지에 필요한 독서기록 전체보기
+// 메인페이지, 도서상세 페이지에 필요한 독서기록 전체보기
 export const getAllMainDetailRecordsApi = async (
   isbn: string,
   lastId: number,

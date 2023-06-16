@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -8,18 +8,10 @@ import { useSetRecoilState } from 'recoil';
 import { logout } from '@/api/auth';
 import { getMyProfileApi } from '@/api/profile';
 import { isAuthorizedSelector } from '@/recoil/auth';
-interface myProfileProps {
-  bookshelfIsHidden: boolean;
-  isMine: boolean;
-  nickname: string;
-  photoUrl: string;
-  userId: string;
-  userInfo: string | null;
-}
 
 function ProfileLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const { data: getMyProfile, status } = useQuery<myProfileProps>(
+  const { data: getMyProfile, status } = useQuery(
     ['getMyProfile', 'profile'],
     () => getMyProfileApi(),
   );
@@ -52,16 +44,15 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                   <Link href='/profile/edit'>수정</Link>
                 </p>
               </div>
-              <div className='w-[4.5rem] h-[4.5rem] bg-[#ebeaea] border rounded-[50%] border-solid border-[#c2c1c1]'>
-                <Image
-                  src={getMyProfile.photoUrl}
-                  alt={getMyProfile.nickname}
-                  width='0'
-                  height='0'
-                  sizes='100vw'
-                  className='w-full h-auto'
-                />
-              </div>
+
+              <Image
+                src={getMyProfile.photoUrl}
+                alt={getMyProfile.nickname}
+                width='0'
+                height='0'
+                sizes='100vw'
+                className='w-[4.5rem] h-[4.5rem] bg-[#ebeaea] border rounded-[50%] border-solid border-[#c2c1c1]'
+              />
             </article>
           </section>
           <section className='h-[70%]'>

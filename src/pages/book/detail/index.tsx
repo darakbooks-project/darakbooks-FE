@@ -191,7 +191,7 @@ const BookDetailPage = () => {
                   href={{
                     pathname: '/book/feed',
                     query: {
-                      recordId: item.recordId,
+                      recordId: item.recordId - 1,
                       isbn: router.query.isbn as string,
                     },
                   }}

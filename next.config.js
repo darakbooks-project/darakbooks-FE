@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'darak-book-bucket.s3.ap-northeast-2.amazonaws.com',
       },
+      {
+        protocol: 'http',
+        hostname: 'k.kakaocdn.net',
+      },
       { protocol: 'https', hostname: 'via.placeholder.com' },
       { protocol: 'https', hostname: 'search1.kakaocdn.net' },
     ],
