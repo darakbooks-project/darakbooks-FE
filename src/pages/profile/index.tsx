@@ -6,6 +6,7 @@ import React, { ReactElement } from 'react';
 
 import { getMyProfileApi, getUserProfileApi } from '@/api/profile';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
+import BottomNav from '@/components/common/BottomNav';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { NextPageWithLayout } from '@/types/layout';
 
@@ -36,6 +37,7 @@ const ProfilePage: NextPageWithLayout = () => {
           </div>
         </article>
       </section>
+      <BottomNav />
     </AuthRequiredPage>
   );
 };
@@ -50,13 +52,13 @@ export const getServerSideProps: GetServerSideProps = async (
   const queryClient = new QueryClient();
 
   if (context.query.isbn) {
-    await queryClient.prefetchQuery(['getUserProfile', 'profile'], () => {
-      getUserProfileApi(context.query.isbn as string);
-    });
+    await queryClient.prefetchQuery(['getUserProfile', 'profile'], () =>
+      getUserProfileApi(context.query.isbn as string),
+    );
   } else {
-    await queryClient.prefetchQuery(['getMyProfile', 'profile'], () => {
-      getMyProfileApi();
-    });
+    await queryClient.prefetchQuery(['getMyProfile', 'profile'], () =>
+      getMyProfileApi(),
+    );
   }
 
   return {

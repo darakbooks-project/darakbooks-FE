@@ -2,11 +2,14 @@ import axios, { AxiosError, CreateAxiosDefaults } from 'axios';
 
 import { silentRefresh } from './auth';
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 const options: CreateAxiosDefaults = {
   headers: {
     'Accept': '*/*',
     'Content-Type': 'application/json',
   },
+  baseURL: BASE_URL,
   timeout: 3000,
   withCredentials: true,
 };

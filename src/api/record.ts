@@ -2,8 +2,6 @@ import { bookRecordDataProps } from '@/types/record';
 
 import { axiosInstance } from './axios';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
 interface getAllMainDetailRecordsProps {
   recordId: number;
   text: string;
@@ -28,7 +26,7 @@ export const registerImageApi = async (image: FormData) => {
   try {
     const response = await axiosInstance.request({
       method: 'POST',
-      url: `${BASE_URL}/records/photo`,
+      url: `/records/photo`,
       data: image,
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -48,7 +46,7 @@ export const registerBookRecordApi = async (
   try {
     const { data } = await axiosInstance.request({
       method: 'POST',
-      url: `${BASE_URL}/records`,
+      url: `/records`,
       data: bookRecordData,
     });
     return data;
@@ -57,7 +55,7 @@ export const registerBookRecordApi = async (
   }
 };
 
-// 메인페이지, 도상세 페이지에 필요한 독서기록 전체보기
+// 메인페이지, 도서상세 페이지에 필요한 독서기록 전체보기
 export const getAllMainDetailRecordsApi = async (
   isbn: string,
   lastId: number,
@@ -66,7 +64,7 @@ export const getAllMainDetailRecordsApi = async (
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `${BASE_URL}/records?bookID=${isbn}&lastId=${lastId}/&pageSize=${pageSize}`,
+      url: `/records?bookID=${isbn}&lastId=${lastId}/&pageSize=${pageSize}`,
     });
 
     return data;

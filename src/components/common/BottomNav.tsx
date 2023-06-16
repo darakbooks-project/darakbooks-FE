@@ -40,14 +40,17 @@ const BottomNav = () => {
       },
     },
     {
-      path: '/recommend/random',
-      text: '추천',
+      path: '/recruit',
+      text: '모임',
       src: '',
     },
     {
-      path: '/recruit',
-      text: '모집',
+      path: isAuthorized ? '/profile' : '',
+      text: '마이페이지',
       src: '',
+      onClick: () => {
+        isAuthorized || openAuthRequiredModal();
+      },
     },
   ];
 
