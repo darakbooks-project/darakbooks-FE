@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Header from '@/components/common/Header';
 import MemberListItem from '@/components/recruit/detail/member/MemberListItem';
 
@@ -40,22 +41,24 @@ const GROUPMEMBER = {
 
 const member = () => {
   return (
-    <div className='bg-white h-full'>
-      <div className='pt-14 pb-5'>
-        <Header title='참여인원' />
+    <AuthRequiredPage>
+      <div className='h-full bg-white'>
+        <div className='pb-5 pt-14'>
+          <Header title='참여인원' />
+        </div>
+        <div className=' border border-[#EBEAEA]' />
+        <section className='px-5 '>
+          <p className=' py-4 text-[#67A68A] text-sm'>
+            멤버 {GROUPMEMBER.userGroup.length}
+          </p>
+          <ul>
+            {GROUPMEMBER.userGroup.map((user) => (
+              <MemberListItem key={user.userId} {...user} />
+            ))}
+          </ul>
+        </section>
       </div>
-      <div className=' border border-[#EBEAEA]' />
-      <section className=' px-5'>
-        <p className=' py-4 text-[#67A68A] text-sm'>
-          멤버 {GROUPMEMBER.userGroup.length}
-        </p>
-        <ul>
-          {GROUPMEMBER.userGroup.map((user) => (
-            <MemberListItem key={user.userId} {...user} />
-          ))}
-        </ul>
-      </section>
-    </div>
+    </AuthRequiredPage>
   );
 };
 

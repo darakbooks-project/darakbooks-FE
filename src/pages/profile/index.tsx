@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import { getMyProfileApi, getUserProfileApi } from '@/api/profile';
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { NextPageWithLayout } from '@/types/layout';
 
@@ -12,8 +13,8 @@ const ProfilePage: NextPageWithLayout = () => {
   const router = useRouter();
 
   return (
-    <>
-      <div className='h-14 flex items-center justify-between px-6 py-0'>
+    <AuthRequiredPage>
+      <div className='flex items-center justify-between px-6 py-0 h-14'>
         <span className='text-[15px] text-[#707070]'>
           전체 <span className='text-[15px] text-[#67a68a]'>6</span>권
         </span>
@@ -29,13 +30,13 @@ const ProfilePage: NextPageWithLayout = () => {
               <Image src='' alt='' />
             </div>
           </section>
-          <div className='w-full flex flex-col items-center'>
+          <div className='flex flex-col items-center w-full'>
             <h3 className='text-[13px] text-[#333333] mb-[5px]'>긴긴밤</h3>
             <h4 className='text-[11px] text-[#707070]'>루리</h4>
           </div>
         </article>
       </section>
-    </>
+    </AuthRequiredPage>
   );
 };
 
