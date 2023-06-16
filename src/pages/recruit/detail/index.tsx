@@ -132,6 +132,7 @@ const RecruitDetailPage = () => {
       {!groupData.is_group_lead && (
         <RecruitParticipationControl
           groupId={group_id}
+          groupName={name}
           isMember={groupData.is_participant}
           recruitmentStatus={recruitment_status}
         />

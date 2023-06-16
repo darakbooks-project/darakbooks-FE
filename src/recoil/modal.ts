@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 interface ModalStateProps {
-  type: 'HIDDEN' | 'SETTING' | 'BOOKS';
+  type: 'HIDDEN' | 'SETTING' | 'BOOKS' | 'GROUPJOIN' | 'GROUPLEAVE';
 }
 
 export const modalStateAtom = atom<ModalStateProps>({
