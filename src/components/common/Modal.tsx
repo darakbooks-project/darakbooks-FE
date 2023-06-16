@@ -6,9 +6,10 @@ import { modalStateAtom } from '@/recoil/modal';
 
 const BackDrop = () => {
   const [modal, setModal] = useRecoilState(modalStateAtom);
+
   return (
     <div
-      className='fixed w-full h-screen z-20 bg-[rgba(0,0,0,0.75)] left-0 top-0'
+      className='fixed w-full max-w-xl mx-auto h-screen z-20 bg-[rgba(0,0,0,0.6)] top-0'
       onClick={() => setModal({ ...modal, type: 'HIDDEN' })}
     />
   );
@@ -16,7 +17,7 @@ const BackDrop = () => {
 
 const ModalOverlay = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='fixed bg-[white] shadow-[0_2px_8px_rgba(0,0,0,0.25)] z-30 p-4 rounded-[14px] top-12 mx-auto inset-x-0 w-[21rem] animate-slideDown'>
+    <div className='fixed bg-[white] shadow-[0_2px_8px_rgba(0,0,0,0.6)] z-30 p-4 rounded-[14px] inset-x-0 w-[21rem] animate-slideDown overflow-hidden top-[50%] mx-auto translate-y-1/2'>
       {children}
     </div>
   );
