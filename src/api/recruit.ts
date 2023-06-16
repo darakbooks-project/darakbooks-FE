@@ -67,7 +67,7 @@ export const postGroupJoinUser = async (groupId: number) => {
   try {
     await axiosInstance.request({
       method: 'POST',
-      url: `${BASE_URL}/groups/user/${groupId}/join`,
+      url: `/groups/user/${groupId}/join`,
     });
   } catch (error) {
     console.error(error);
@@ -78,7 +78,7 @@ export const postGroupLeaveUser = async (groupId: number) => {
   try {
     await axiosInstance.request({
       method: 'POST',
-      url: `${BASE_URL}/groups/user/${groupId}/leave`,
+      url: `/groups/user/${groupId}/leave`,
     });
   } catch (error) {
     console.error(error);
