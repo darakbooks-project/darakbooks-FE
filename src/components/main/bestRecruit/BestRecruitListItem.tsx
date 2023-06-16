@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { fetchBestGroupLeader } from '@/api/main';
 import Avatar from '@/components/common/Avartar';
+import { useAuth } from '@/hooks/useAuth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 import { BestGroupListType, GroupLeaderType } from '@/types/recruit';
 
 interface BestRecruitListItemProps
@@ -20,6 +23,13 @@ const BestRecruitListItem = ({
   group_description,
   index,
 }: BestRecruitListItemProps) => {
+  const { openAuthRequiredModal } = useAuth();
+  const isAuthorized = useRecoilValue(isAuthorizedSelector);
+
+  const renderLoginModal = () => {
+    if (!isAuthorized) openAuthRequiredModal();
+  };
+
   const {
     data: groupLeader,
     isLoading,
@@ -37,9 +47,9 @@ const BestRecruitListItem = ({
   if (isError) return <></>;
 
   return (
-    <li>
+    <li onClick={renderLoginModal}>
       <Link
-        href={`recruit/detail?groupId=${group_group_id}`}
+        href={isAuthorized ? `recruit/detail?groupId=${group_group_id}` : ''}
         className='flex items-center mx-5 mb-7'
       >
         <div className='text-lg font-bold mr-3 text-[#67A68A]'>{index + 1}</div>
