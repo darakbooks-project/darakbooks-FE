@@ -2,7 +2,10 @@ import ColorThief from 'colorthief';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
+import { useAuth } from '@/hooks/useAuth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 import { RecordType } from '@/types/record';
 
 const FeedItem = ({ text, book, user, recordId }: RecordType) => {
@@ -10,6 +13,23 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
   const { nickname } = user;
   const [bookCoverBgColor, setBookCoverBgColor] = useState('');
   const router = useRouter();
+
+  const { openAuthRequiredModal } = useAuth();
+  const isAuthorized = useRecoilValue(isAuthorizedSelector);
+
+  const handleMoveRecrdFeed = () => {
+    if (!isAuthorized) {
+      openAuthRequiredModal();
+      return;
+    }
+
+    router.push({
+      pathname: 'book/feed',
+      query: {
+        recordId,
+      },
+    });
+  };
 
   const handleGetImgColor = (image: HTMLImageElement) => {
     const colorThief = new ColorThief();
@@ -25,21 +45,14 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
 
   return (
     <div
-      onClick={() =>
-        router.push({
-          pathname: 'book/feed',
-          query: {
-            recordId: recordId,
-          },
-        })
-      }
+      onClick={handleMoveRecrdFeed}
       className='w-full h-[108px] flex justify-between border border-solid border-[#DFDFDF] rounded-md mb-4 px-6 overflow-hidden '
       style={{
         backgroundColor: `${bookCoverBgColor}20`,
       }}
     >
-      <div className=' py-4'>
-        <h1 className='text-base font-bold h-4'>#{title}</h1>
+      <div className='py-4 '>
+        <h1 className='h-4 text-base font-bold'>#{title}</h1>
         <p className='text-xs pb-3 pt-2 truncate w-[50vw] max-w-sm'>{text}</p>
         <p className='text-xs text-[#707070]'>@{nickname}</p>
       </div>
