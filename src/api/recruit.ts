@@ -1,8 +1,9 @@
-import { GroupLists } from '@/types/recruit';
+import { GroupList, GroupLists } from '@/types/recruit';
 import { ClassOpenStateObjProps } from '@/types/recruit';
 
 import { axiosInstance } from './axios';
 
+//독서모임 리스트 조회
 export const getReadingClassData = async (
   page: number,
 ): Promise<GroupLists> => {
@@ -22,6 +23,7 @@ export const getReadingClassData = async (
   }
 };
 
+//독서모임 개설
 export const postReadingClassOpen = async (
   openReadingClassData: ClassOpenStateObjProps,
 ) => {
@@ -50,6 +52,7 @@ export const postReadingClassOpen = async (
   }
 };
 
+//독서모임 정보 상세 조회
 export const fetchReadingGroupInfo = async (groupId: string) => {
   try {
     const response = await axiosInstance.request({
@@ -63,6 +66,7 @@ export const fetchReadingGroupInfo = async (groupId: string) => {
   }
 };
 
+//독서모임 가입
 export const postGroupJoinUser = async (groupId: number) => {
   try {
     await axiosInstance.request({
@@ -74,11 +78,33 @@ export const postGroupJoinUser = async (groupId: number) => {
   }
 };
 
+//독서모임 탈퇴
 export const postGroupLeaveUser = async (groupId: number) => {
   try {
     await axiosInstance.request({
       method: 'POST',
       url: `/groups/user/${groupId}/leave`,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+interface patchReadingClassChangeType {
+  groupId: number;
+  groupData: Partial<GroupList>;
+}
+
+//독서모임 수정 patch api
+export const patchReadingClassChange = async ({
+  groupId,
+  groupData,
+}: patchReadingClassChangeType) => {
+  try {
+    await axiosInstance.request({
+      method: 'PATCH',
+      url: `/groups/${groupId}`,
+      data: groupData,
     });
   } catch (error) {
     console.error(error);
