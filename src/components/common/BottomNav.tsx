@@ -45,12 +45,9 @@ const BottomNav = () => {
       src: '',
     },
     {
-      path: isAuthorized ? '/profile' : '',
-      text: '마이페이지',
+      path: isAuthorized ? '/profile' : '/login',
+      text: isAuthorized ? '마이페이지' : '로그인',
       src: '',
-      onClick: () => {
-        isAuthorized || openAuthRequiredModal();
-      },
     },
   ];
 
