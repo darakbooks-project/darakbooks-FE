@@ -63,7 +63,7 @@ export const getAllMainDetailRecordsApi = async (
   isbn: string,
   lastId: number,
   pageSize: number,
-): Promise<getAllMainDetailRecordsProps[]> => {
+): Promise<getAllMainDetailRecordsProps> => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
