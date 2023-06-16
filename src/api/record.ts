@@ -3,22 +3,25 @@ import { bookRecordDataProps } from '@/types/record';
 import { axiosInstance } from './axios';
 
 interface getAllMainDetailRecordsProps {
-  recordId: number;
-  text: string;
-  recordImgUrl: string;
-  tags: { id: number; data: string }[];
-  readAt: string;
-  book: {
-    title: string;
-    thumbnail: string;
-    bookIsbn: string;
-    authors: string[];
-  };
-  user: {
-    userId: string;
-    nickname: string;
-    photoUrl: string;
-  };
+  lastId: number | null;
+  records: {
+    recordId: number;
+    text: string;
+    recordImgUrl: string;
+    tags: { id: number; data: string }[];
+    readAt: string;
+    book: {
+      title: string;
+      thumbnail: string;
+      bookIsbn: string;
+      authors: string[];
+    };
+    user: {
+      userId: string;
+      nickname: string;
+      photoUrl: string;
+    };
+  }[];
 }
 
 // 이미지 등록
