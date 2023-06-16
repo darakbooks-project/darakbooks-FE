@@ -1,5 +1,6 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
+import { useEffect, useState } from 'react';
 
 import { fetchBestGroup } from '@/api/main';
 import BookShelfPreview from '@/components/common/BookShelfPreview';
@@ -23,6 +24,14 @@ export default function Home({
 }: {
   bestGroup: BestGroupListType[];
 }) {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) return null;
+
   return (
     <main>
       <section className='bg-[#C6BDA4] h-[17.125rem]'>
