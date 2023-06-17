@@ -50,7 +50,7 @@ export default function Home({
             key={BOOKSHELFDUMMY.memberId}
             nickname={BOOKSHELFDUMMY.nickname}
             imageSrcArr={BOOKSHELFDUMMY.images}
-            memberId={BOOKSHELFDUMMY.memberId}
+            memberId='2823683088'
           />
         </div>
       </section>
