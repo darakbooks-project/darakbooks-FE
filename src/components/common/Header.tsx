@@ -14,7 +14,7 @@ const Header = ({ title, moreMenu, className }: Props) => {
   return (
     <div
       className={`flex items-center justify-between w-full max-w-xl px-5 h-14 ${
-        className ? className : ''
+        className ?? ''
       }`}
     >
       <div className='flex-1'>
