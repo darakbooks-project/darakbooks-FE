@@ -17,8 +17,9 @@ import {
 import { NextPageWithLayout } from '@/types/layout';
 
 const BookRecordSelectPage: NextPageWithLayout = () => {
-  const { data, status } = useQuery(['getMyBookShelf', 'select'], () =>
-    getMyBookShelfApi(),
+  const { data, status } = useQuery(
+    ['getMyBookShelf', 'select'],
+    getMyBookShelfApi,
   );
   const [sendData, setSendData] = useRecoilState(selectModalDataAtom);
   const [modal, setModal] = useRecoilState(selectModalStateAtom);
@@ -89,8 +90,9 @@ BookRecordSelectPage.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['getMyBookShelf', 'select'], () =>
-    getMyBookShelfApi(),
+  await queryClient.prefetchQuery(
+    ['getMyBookShelf', 'select'],
+    getMyBookShelfApi,
   );
   return {
     props: {

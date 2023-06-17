@@ -13,7 +13,7 @@ import { NextPageWithLayout } from '@/types/layout';
 const BookRecordSearchPage: NextPageWithLayout = () => {
   const [searchBookTitle, setSearchBookTitle] =
     useRecoilState(searchBookTitleAtom);
-  const [modal, setModal] = useRecoilState(selectModalStateAtom);
+  const modal = useRecoilValue(selectModalStateAtom);
   const sendData = useRecoilValue(selectModalDataAtom);
   const onSubmit = (keyword: string) => {
     setSearchBookTitle(keyword);
