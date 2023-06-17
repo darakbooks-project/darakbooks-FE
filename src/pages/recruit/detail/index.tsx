@@ -34,7 +34,7 @@ const RecruitDetailPage = () => {
     isLoading: isGroupLoading,
   } = useQuery<ReadingGroupType>(
     ['recruitDetail', groupId],
-    async () => await fetchReadingGroupInfo(groupId as string),
+    () => fetchReadingGroupInfo(groupId as string),
     {
       staleTime: 1000,
     },

@@ -41,7 +41,10 @@ const ModalOverlay = ({ groupId, recruitmentStatus }: RecruitmentModalType) => {
   const handleChangeRecruitmentStatus = (
     groupId: number,
     recruitmentStatus: boolean,
+    type: boolean,
   ) => {
+    if (type === recruitmentStatus) return;
+
     updateRecruitmentStatus({
       groupId,
       groupData: {
@@ -61,7 +64,7 @@ const ModalOverlay = ({ groupId, recruitmentStatus }: RecruitmentModalType) => {
     },
   ];
 
-  const handleChangeRecruitmentStatusTitle = (
+  const changeRecruitmentStatusComponent = (
     groupId: number,
     recruitmentStatus: boolean,
   ) => {
@@ -69,7 +72,7 @@ const ModalOverlay = ({ groupId, recruitmentStatus }: RecruitmentModalType) => {
       <button
         key={title}
         onClick={() =>
-          handleChangeRecruitmentStatus(groupId, recruitmentStatus)
+          handleChangeRecruitmentStatus(groupId, recruitmentStatus, type)
         }
         className={`flex justify-center items-center h-14 w-full text-lg ${
           recruitmentStatus === type ? 'text-[#67A68A]' : 'text-black'
@@ -87,7 +90,7 @@ const ModalOverlay = ({ groupId, recruitmentStatus }: RecruitmentModalType) => {
           <p className='h-11 flex justify-center items-center text-[#707070] text-sm'>
             상태 변경
           </p>
-          {handleChangeRecruitmentStatusTitle(groupId, recruitmentStatus)}
+          {changeRecruitmentStatusComponent(groupId, recruitmentStatus)}
         </div>
       </div>
       <button
