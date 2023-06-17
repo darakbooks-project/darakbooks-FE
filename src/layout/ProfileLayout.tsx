@@ -66,7 +66,14 @@ function ProfileLayout({ children }: { children: ReactNode }) {
           <section className='h-[70%]'>
             <nav className='grid grid-cols-[repeat(3,1fr)] h-14 border-t-[#ebeaea] border-t border-solid'>
               <Link
-                href='/profile'
+                href={
+                  router.query.ownerId
+                    ? {
+                        pathname: '/profile',
+                        query: { ownerId: router.query.ownerId },
+                      }
+                    : { pathname: '/profile' }
+                }
                 className={
                   router.pathname === '/profile'
                     ? 'flex justify-center items-center text-sm text-[#67a68a] border-b-[#67a68a] border-b border-solid'
@@ -76,7 +83,14 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 책장
               </Link>
               <Link
-                href='/profile/myfeed'
+                href={
+                  router.query.ownerId
+                    ? {
+                        pathname: '/profile/myfeed',
+                        query: { ownerId: router.query.ownerId },
+                      }
+                    : { pathname: '/profile/myfeed' }
+                }
                 className={
                   router.pathname === '/profile/myfeed'
                     ? 'flex justify-center items-center text-sm text-[#67a68a] border-b-[#67a68a] border-b border-solid'
@@ -86,7 +100,14 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 나의기록
               </Link>
               <Link
-                href='/profile/myrecruit'
+                href={
+                  router.query.ownerId
+                    ? {
+                        pathname: '/profile/myrecruit',
+                        query: { ownerId: router.query.ownerId },
+                      }
+                    : { pathname: '/profile/myrecruit' }
+                }
                 className={
                   router.pathname === '/profile/myrecruit'
                     ? 'flex justify-center items-center text-sm text-[#67a68a] border-b-[#67a68a] border-b border-solid'

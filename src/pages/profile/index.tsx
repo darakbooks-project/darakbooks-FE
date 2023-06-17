@@ -48,11 +48,10 @@ const ProfilePage: NextPageWithLayout = () => {
     <AuthRequiredPage>
       {bookshelfStatus === 'success' && bookshelfData && (
         <>
-          {userData?.isMine && userData.bookshelfIsHidden === false ? (
+          {userData?.isMine === false && userData.bookshelfIsHidden === true ? (
             <div>비공개</div>
           ) : (
             <>
-              {' '}
               <div className='flex items-center justify-between px-6 py-0 h-14'>
                 <span className='text-[15px] text-[#707070]'>
                   전체{' '}

@@ -57,15 +57,20 @@ export const getAllMainDetailRecordsApi = async (
   }
 };
 
-// 마이페이지 나의 독서기록 전체보기
-export const getAllMyRecordsApi = async (
+// 마이페이지 독서기록 전체보기
+export const getAllRecordsApi = async (
   lastId: number,
   pageSize: number,
+  ownerId?: string,
 ): Promise<getAllMainDetailRecordsProps> => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `/records/mine?lastId=${lastId}&pageSize=${pageSize}`,
+      url: `${
+        ownerId
+          ? `/records/${ownerId}?lastId=${lastId}&pageSize=${pageSize}`
+          : `/records/mine?lastId=${lastId}&pageSize=${pageSize}`
+      }`,
     });
 
     return data;
