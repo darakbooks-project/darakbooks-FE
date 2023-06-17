@@ -13,3 +13,8 @@ export const selectModalStateAtom = atom<boolean>({
   key: 'selectModalState',
   default: false,
 });
+
+export const selectRecruitStatusAtom = atom<boolean>({
+  key: 'selectRecruitStatus',
+  default: false,
+});
