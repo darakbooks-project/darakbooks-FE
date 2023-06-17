@@ -15,8 +15,6 @@ export const login = async (code: string) => {
       url: `/user/auth/kakao?code=${code}`,
     });
 
-    console.log(accessToken);
-
     axiosInstance.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
 
     return accessToken;
