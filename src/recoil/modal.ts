@@ -25,3 +25,8 @@ export const selectModalDataAtom = atom<selectBookProps>({
   key: 'selectModalData',
   default: { isbn: '', title: '', thumbnail: '', author: '' },
 });
+
+export const selectRecruitStatusAtom = atom<boolean>({
+  key: 'selectRecruitStatus',
+  default: false,
+});

@@ -5,35 +5,66 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import { fetchRecord } from '@/api/main';
 import { getAllMainDetailRecordsApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
+import { getAllMainDetailRecordsProps } from '@/types/record';
 
 const BookDetailFeed = () => {
   const router = useRouter();
   let page = parseInt(router.query.recordId as string);
 
-  const { status, data } = useQuery(
-    ['getAllDetailRecords', 'record', page],
-    () => getAllMainDetailRecordsApi(router.query.isbn as string, page, 1),
-  );
+  const { status: getAllDetailRecordsStatus, data: getAllDetailRecordsData } =
+    useQuery(
+      ['getAllDetailRecords', 'record', page],
+      () => getAllMainDetailRecordsApi(router.query.isbn as string, page, 1),
+      {
+        enabled: !!router.query.isbn,
+      },
+    );
+
+  const { status: getAllRecordsStatus, data: getAllRecordsData } =
+    useQuery<getAllMainDetailRecordsProps>(
+      ['getAllRecords', 'feed', page],
+      () => fetchRecord(page, 1),
+      {
+        enabled: !router.query.isbn,
+      },
+    );
+
+  const status =
+    getAllDetailRecordsStatus !== 'success'
+      ? getAllRecordsStatus
+      : getAllDetailRecordsStatus;
+  const data = getAllDetailRecordsData
+    ? getAllDetailRecordsData
+    : getAllRecordsData;
 
   const nextPage = () => {
     // 마지막 데이터 판별 로직 필요
     page++;
-    router.push(`/book/feed?recordId=${page}&isbn=${router.query.isbn}`);
+    if (router.query.isbn) {
+      router.push(`/book/feed?recordId=${page}&isbn=${router.query.isbn}`);
+    } else {
+      router.push(`/book/feed?recordId=${page}`);
+    }
   };
 
   const prevPage = () => {
     // 첫번째 데이터 반별 로직 필요
     page--;
-    router.push(`/book/feed?recordId=${page}&isbn=${router.query.isbn}`);
+    if (router.query.isbn) {
+      router.push(`/book/feed?recordId=${page}&isbn=${router.query.isbn}`);
+    } else {
+      router.push(`/book/feed?recordId=${page}`);
+    }
   };
 
   return (
     <AuthRequiredPage>
       <div className='flex flex-col bg-[#fbfbfb] gap-4 py-16'>
-        {status === 'success' && (
+        {status === 'success' && data && (
           <>
             <section className='flex items-center justify-center '>
               <button onClick={prevPage}>&lt;</button>
@@ -53,7 +84,7 @@ const BookDetailFeed = () => {
                   className='h-10 w-10 mr-2 rounded-[50%] '
                 />
 
-                <h3>{data.records[0].user.nickname}</h3>
+                <h3>{data?.records[0].user.nickname}</h3>
               </article>
             </section>
             <Image
@@ -120,7 +151,7 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const queryClient = new QueryClient();
 
-  if (context.query.recordId) {
+  if (context.query.isbn) {
     await queryClient.prefetchQuery(
       [
         'getBookDataByIsbn',
@@ -133,6 +164,11 @@ export const getServerSideProps: GetServerSideProps = async (
           parseInt(context.query.recordId as string),
           1,
         ),
+    );
+  } else {
+    await queryClient.prefetchQuery(
+      ['getAllRecords', 'feed', parseInt(context.query.recordId as string)],
+      () => fetchRecord(parseInt(context.query.recordId as string), 1),
     );
   }
   return {
