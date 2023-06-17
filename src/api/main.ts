@@ -31,11 +31,11 @@ export const fetchReadingGroupLeader = async (groupId: number | string) => {
 };
 
 //독서기록 조회
-export const fetchRecord = async (lastId: number) => {
+export const fetchRecord = async (lastId: number, pageSize: number) => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${BASE_URL}/records?&lastId=${lastId}&pageSize=5`,
+      url: `${BASE_URL}/records?&lastId=${lastId}&pageSize=${pageSize}`,
     });
 
     if (response) return response.data;

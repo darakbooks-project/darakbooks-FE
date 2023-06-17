@@ -42,3 +42,25 @@ interface UserType {
   nickname: string;
   photoUrl: string;
 }
+
+export interface getAllMainDetailRecordsProps {
+  lastId: number | null;
+  records: {
+    recordId: number;
+    text: string;
+    recordImgUrl: string;
+    tags: { id: number; data: string }[];
+    readAt: string;
+    book: {
+      title: string;
+      thumbnail: string;
+      bookIsbn: string;
+      authors: string[];
+    };
+    user: {
+      userId: string;
+      nickname: string;
+      photoUrl: string;
+    };
+  }[];
+}

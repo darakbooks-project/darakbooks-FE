@@ -1,28 +1,9 @@
-import { bookRecordDataProps } from '@/types/record';
+import {
+  bookRecordDataProps,
+  getAllMainDetailRecordsProps,
+} from '@/types/record';
 
 import { axiosInstance } from './axios';
-
-interface getAllMainDetailRecordsProps {
-  lastId: number | null;
-  records: {
-    recordId: number;
-    text: string;
-    recordImgUrl: string;
-    tags: { id: number; data: string }[];
-    readAt: string;
-    book: {
-      title: string;
-      thumbnail: string;
-      bookIsbn: string;
-      authors: string[];
-    };
-    user: {
-      userId: string;
-      nickname: string;
-      photoUrl: string;
-    };
-  }[];
-}
 
 // 이미지 등록
 export const registerImageApi = async (image: FormData) => {
@@ -72,6 +53,23 @@ export const getAllMainDetailRecordsApi = async (
 
     return data;
   } catch (error) {
-    throw new Error('독서 기록을 불러올 수 없습니다.');
+    throw new Error('독서기록을 불러올 수 없습니다.');
+  }
+};
+
+// 마이페이지 나의 독서기록 전체보기
+export const getAllMyRecordsApi = async (
+  lastId: number,
+  pageSize: number,
+): Promise<getAllMainDetailRecordsProps> => {
+  try {
+    const { data } = await axiosInstance.request({
+      method: 'GET',
+      url: `/records/mine?lastId=${lastId}&pageSize=${pageSize}`,
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error('독서기록을 불러올 수 없습니다.');
   }
 };
