@@ -15,6 +15,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
   const router = useRouter();
 
   const { openAuthRequiredModal } = useAuth();
+
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
 
   const handleMoveRecrdFeed = () => {
@@ -26,7 +27,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
     router.push({
       pathname: 'book/feed',
       query: {
-        recordId,
+        recordId: recordId + 1,
       },
     });
   };
