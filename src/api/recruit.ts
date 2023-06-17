@@ -1,7 +1,33 @@
-import { GroupLists } from '@/types/recruit';
+import { GroupList, GroupLists } from '@/types/recruit';
 import { ClassOpenStateObjProps } from '@/types/recruit';
 
 import { axiosInstance } from './axios';
+
+interface getAllMyGroupsProps {
+  group_id: number;
+  name: string;
+  recruitment_status: boolean;
+  meeting_type: string;
+  day: string;
+  time: string;
+  region: string;
+  description: string;
+  participant_limit: number;
+  open_chat_link: string;
+  group_lead: string;
+  is_group_lead: boolean;
+  is_participant: boolean;
+  userGroup: {
+    nickname: string;
+    photoId: string;
+    photoUrl: string;
+    userInfo: string;
+    gender: string;
+    age: string;
+    provider: string;
+    groups: number[];
+  }[];
+}
 
 export const getReadingClassData = async (
   page: number,
@@ -22,6 +48,7 @@ export const getReadingClassData = async (
   }
 };
 
+//독서모임 개설
 export const postReadingClassOpen = async (
   openReadingClassData: ClassOpenStateObjProps,
 ) => {
@@ -50,6 +77,7 @@ export const postReadingClassOpen = async (
   }
 };
 
+//독서모임 정보 상세 조회
 export const fetchReadingGroupInfo = async (groupId: string) => {
   try {
     const response = await axiosInstance.request({
@@ -63,6 +91,7 @@ export const fetchReadingGroupInfo = async (groupId: string) => {
   }
 };
 
+//독서모임 가입
 export const postGroupJoinUser = async (groupId: number) => {
   try {
     await axiosInstance.request({
@@ -74,6 +103,7 @@ export const postGroupJoinUser = async (groupId: number) => {
   }
 };
 
+//독서모임 탈퇴
 export const postGroupLeaveUser = async (groupId: number) => {
   try {
     await axiosInstance.request({
@@ -82,5 +112,40 @@ export const postGroupLeaveUser = async (groupId: number) => {
     });
   } catch (error) {
     console.error(error);
+  }
+};
+
+interface patchReadingClassChangeType {
+  groupId: number;
+  groupData: Partial<GroupList>;
+}
+
+//독서모임 수정 patch api
+export const patchReadingClassChange = async ({
+  groupId,
+  groupData,
+}: patchReadingClassChangeType) => {
+  try {
+    await axiosInstance.request({
+      method: 'PATCH',
+      url: `/groups/${groupId}`,
+      data: groupData,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// 요청보내는 유저가 속한 모든 그룹 조희
+export const getAllMyGroupsApi = async (): Promise<getAllMyGroupsProps[]> => {
+  try {
+    const { data } = await axiosInstance.request({
+      method: 'GET',
+      url: '/groups/user-group',
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error('그룹을 불러올 수 없습니다.');
   }
 };

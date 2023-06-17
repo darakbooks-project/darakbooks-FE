@@ -1,4 +1,4 @@
-import { QueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -20,7 +20,7 @@ const RecruitUserManagement = ({
   recruitmentStatus,
 }: RecruitManagementProps) => {
   const [modal, setModal] = useRecoilState(modalStateAtom);
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { mutate: joinGroupUser } = useMutation(postGroupJoinUser, {
     onSuccess: () => {
       setModal({ type: 'HIDDEN' });
