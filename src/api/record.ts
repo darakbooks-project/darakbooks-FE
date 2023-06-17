@@ -72,6 +72,23 @@ export const getAllMainDetailRecordsApi = async (
 
     return data;
   } catch (error) {
-    throw new Error('독서 기록을 불러올 수 없습니다.');
+    throw new Error('독서기록을 불러올 수 없습니다.');
+  }
+};
+
+// 마이페이지 나의 독서기록 전체보기
+export const getAllMyRecordsApi = async (
+  lastId: number,
+  pageSize: number,
+): Promise<getAllMainDetailRecordsProps> => {
+  try {
+    const { data } = await axiosInstance.request({
+      method: 'GET',
+      url: `/records/mine?lastId=${lastId}&pageSize=${pageSize}`,
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error('독서기록을 불러올 수 없습니다.');
   }
 };
