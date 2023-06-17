@@ -226,13 +226,13 @@ const BookDetailPage = () => {
       </section>
       <section className='flex justify-between items-center  w-full gap-2 p-2  bg-[#ffffff] border-solid border fixed bottom-0 s:w-[575px]'>
         <button
-          className='flex justify-center items-center box-border w-1/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#5a987d] rounded-md border-2 border-solid border-[#5a987d]'
+          className='flex justify-center items-center box-border w-1/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-main rounded-md border-2 border-solid border-main'
           onClick={onPutBook}
         >
           담기
         </button>
         <button
-          className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-[#5a987d] bg-[#5a987d] '
+          className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-main bg-main '
           onClick={renderLoginModal}
         >
           <Link

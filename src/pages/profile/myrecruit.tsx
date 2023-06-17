@@ -60,7 +60,7 @@ const MyRecruit: NextPageWithLayout = () => {
                           />
                         ))}
                       </div>
-                      <span className='flex justify-center items-center w-[2.8rem] h-5 bg-[#67a68a] text-[11px] text-white rounded-[3px]'>
+                      <span className='flex justify-center items-center w-[2.8rem] h-5 bg-main text-[11px] text-white rounded-[3px]'>
                         {item.recruitment_status ? '모집중' : '모집완료'}
                       </span>
                     </div>
@@ -108,7 +108,7 @@ const MyRecruit: NextPageWithLayout = () => {
                         className='w-6 h-6 bg-[#d9d9d9] border rounded-[50%] border-solid border-white'
                       />
                     </div>
-                    <span className='flex justify-center items-center w-[2.8rem] h-5 bg-[#67a68a] text-[11px] text-white rounded-[3px]'>
+                    <span className='flex justify-center items-center w-[2.8rem] h-5 bg-main text-[11px] text-white rounded-[3px]'>
                       모집중
                     </span>
                   </div>

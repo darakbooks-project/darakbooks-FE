@@ -52,7 +52,7 @@ const BestRecruitListItem = ({
         href={isAuthorized ? `recruit/detail?groupId=${group_group_id}` : ''}
         className='flex items-center mx-5 mb-7'
       >
-        <div className='text-lg font-bold mr-3 text-[#67A68A]'>{index + 1}</div>
+        <div className='text-lg font-bold mr-3 text-main'>{index + 1}</div>
         <div className='mr-3'>
           <Avatar
             src={groupLeader.photoUrl}

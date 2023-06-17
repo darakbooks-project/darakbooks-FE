@@ -48,7 +48,7 @@ const member = () => {
         </div>
         <div className=' border border-[#EBEAEA]' />
         <section className='px-5 '>
-          <p className=' py-4 text-[#67A68A] text-sm'>
+          <p className=' py-4 text-main text-sm'>
             멤버 {GROUPMEMBER.userGroup.length}
           </p>
           <ul>

@@ -15,7 +15,7 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
     <AuthRequiredPage>
       <div>
         <h5 className='text-[13px]'>
-          전체 <span className='text-[#67a68a]'>6</span>권
+          전체 <span className='text-main'>6</span>권
         </h5>
       </div>
       <ul

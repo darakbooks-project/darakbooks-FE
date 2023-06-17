@@ -38,7 +38,7 @@ const ModalOverlay = () => {
       <span className='absolute -translate-x-2/4 -translate-y-1/4 text-[#707070] text-[13px] w-full text-center left-2/4 bottom-[7rem]'>
         책 정보 보기
       </span>
-      <button className='absolute w-[90%] h-[3.6rem] -translate-x-2/4 -translate-y-1/4 text-base text-white bg-[#67a68a] rounded-md border-[none] left-2/4 bottom-2'>
+      <button className='absolute w-[90%] h-[3.6rem] -translate-x-2/4 -translate-y-1/4 text-base text-white bg-main rounded-md border-[none] left-2/4 bottom-2'>
         책 등록
       </button>
     </div>
