@@ -6,15 +6,24 @@ import React, { ReactNode } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { logout } from '@/api/auth';
-import { getMyProfileApi } from '@/api/profile';
+import { getProfileApi } from '@/api/profile';
 import { isAuthorizedSelector } from '@/recoil/auth';
 
 function ProfileLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const { data: getMyProfile, status } = useQuery(
-    ['getMyProfile', 'profile'],
-    () => getMyProfileApi(),
+  const { data: someoneData, status: someoneStatus } = useQuery(
+    ['getUserProfile', 'profile', router.query.ownerId],
+    () => getProfileApi(router.query.ownerId as string),
+    { enabled: !!router.query.ownerId },
   );
+  const { data: myData, status: myStatus } = useQuery(
+    ['getUserProfile', 'profile', 'myprofile'],
+    () => getProfileApi(),
+    { enabled: !router.query.ownerId },
+  );
+
+  const data = someoneData ? someoneData : myData;
+  const status = someoneStatus === 'success' ? someoneStatus : myStatus;
 
   const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
 
@@ -26,28 +35,27 @@ function ProfileLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className='h-screen'>
-      {status === 'success' && (
+      {status === 'success' && data && (
         <>
           <section className='w-full h-[30%] bg-[#fffef8] flex flex-col px-6 py-0'>
             <div className='flex items-center justify-end h-3/6'>
-              <div onClick={onLogout}>로그아웃</div>
+              {data?.isMine && <div onClick={onLogout}>로그아웃</div>}
             </div>
             <article className='h-3/6 flex items-center justify-between'>
               <div>
                 <h1 className='text-2xl text-[#333333] font-[bold] mb-[5px]'>
-                  {getMyProfile?.nickname}
+                  {data?.nickname}
                 </h1>
                 <p className='text-[13px] text-[#707070]'>
-                  {getMyProfile?.userInfo
-                    ? getMyProfile.userInfo
+                  {data?.userInfo
+                    ? data.userInfo
                     : '좋아하는 것을 일고 기록해요 :)'}
-                  <Link href='/profile/edit'>수정</Link>
+                  {data?.isMine && <Link href='/profile/edit'>수정</Link>}
                 </p>
               </div>
-
               <Image
-                src={getMyProfile.photoUrl}
-                alt={getMyProfile.nickname}
+                src={data.photoUrl}
+                alt={data.nickname}
                 width='0'
                 height='0'
                 sizes='100vw'

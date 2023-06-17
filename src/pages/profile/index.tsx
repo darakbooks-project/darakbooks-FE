@@ -2,10 +2,10 @@ import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { getMyBookShelfApi } from '@/api/bookshelf';
-import { getMyProfileApi, getUserProfileApi } from '@/api/profile';
+import { getProfileApi } from '@/api/profile';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 import ProfileLayout from '@/layout/ProfileLayout';
@@ -20,8 +20,9 @@ const ProfilePage: NextPageWithLayout = () => {
     () => getMyBookShelfApi(),
   );
 
-  const { data: getMyProfile } = useQuery(['getMyProfile', 'profile'], () =>
-    getMyProfileApi(),
+  const { data: getMyProfile } = useQuery(
+    ['getMyProfile', 'profile', 'myprofile'],
+    () => getProfileApi(),
   );
 
   return (
@@ -94,20 +95,32 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const queryClient = new QueryClient();
 
-  if (context.query.isbn) {
-    await queryClient.prefetchQuery(['getUserProfile', 'profile'], () =>
-      getUserProfileApi(context.query.isbn as string),
+  if (context.query.ownerId) {
+    await queryClient.prefetchQuery(
+      ['getUserProfile', 'profile', context.query.ownerId],
+      () => getProfileApi(context.query.ownerId as string),
     );
   } else {
-    await Promise.all([
-      queryClient.prefetchQuery(['getMyProfile', 'profile'], () =>
-        getMyProfileApi(),
-      ),
-      queryClient.prefetchQuery(['getMyBookShelf', 'profile'], () =>
-        getMyBookShelfApi(),
-      ),
-    ]);
+    await queryClient.prefetchQuery(
+      ['getUserProfile', 'profile', 'myprofile'],
+      () => getProfileApi(),
+    );
   }
+
+  // if (context.query.isbn) {
+  //   await queryClient.prefetchQuery(['getUserProfile', 'profile'], () =>
+  //     getProfileApi(context.query.isbn as string),
+  //   );
+  // } else {
+  //   await Promise.all([
+  //     queryClient.prefetchQuery(['getMyProfile', 'profile'], () =>
+  //       getMyProfileApi(),
+  //     ),
+  //     queryClient.prefetchQuery(['getMyBookShelf', 'profile'], () =>
+  //       getMyBookShelfApi(),
+  //     ),
+  //   ]);
+  // }
 
   return {
     props: {
