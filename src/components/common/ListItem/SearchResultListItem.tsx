@@ -6,6 +6,7 @@ import tw from 'tailwind-styled-components';
 import { searchInfinityScrollPositionAtom } from '@/recoil/book';
 
 import BookImage from '../ImageComponent';
+import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
 
 interface SearchResultListItemProps {
   src: string;
@@ -26,6 +27,8 @@ const SearchResultListItem = ({
   clickShiftPath,
   isbn,
 }: SearchResultListItemProps) => {
+  const setModal = useSetRecoilState(selectModalStateAtom);
+  const setSendData = useSetRecoilState(selectModalDataAtom);
   const router = useRouter();
   const setInfinityScrollPosition = useSetRecoilState(
     searchInfinityScrollPositionAtom,
@@ -44,8 +47,17 @@ const SearchResultListItem = ({
 
   const clickBookListItem = () => {
     setInfinityScrollPosition(window.scrollY);
-
-    shiftPage();
+    if (router.pathname === '/book/record/search') {
+      setSendData({
+        isbn: isbn.split(' ')[0],
+        title,
+        thumbnail: src,
+        author: author[0],
+      });
+      setModal(true);
+    } else {
+      shiftPage();
+    }
   };
 
   return (
