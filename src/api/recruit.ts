@@ -125,7 +125,7 @@ export const postGroupLeaveUser = async (groupId: number) => {
 
 interface patchReadingClassChangeType {
   groupId: number;
-  groupData: Partial<GroupList>;
+  groupData: Partial<GroupList> | GroupFormStateObjProps;
 }
 
 //독서모임 수정 patch api
