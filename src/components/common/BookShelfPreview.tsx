@@ -33,7 +33,11 @@ const BookShelfPreview = ({
       }}
     >
       <Link
-        href={isAuthorized ? `bookshelf?memberId=${memberId}` : ''}
+        href={
+          isAuthorized
+            ? { pathname: '/profile', query: { ownerId: memberId } }
+            : ''
+        }
         className='flex '
       >
         <div className='flex flex-col w-[100%]'>

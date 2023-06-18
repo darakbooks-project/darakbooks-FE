@@ -41,7 +41,7 @@ export default function Home({
         </div>
       </section>
       <section className='mt-14'>
-        <p className='text-sm mx-5 font-bold text-[#67A68A]'>
+        <p className='mx-5 text-sm font-bold text-main'>
           오늘의 나를 위한 도서 선택
         </p>
         <h1 className='mx-5 mb-5 text-xl font-bold'>인기서재 추천</h1>
@@ -50,13 +50,13 @@ export default function Home({
             key={BOOKSHELFDUMMY.memberId}
             nickname={BOOKSHELFDUMMY.nickname}
             imageSrcArr={BOOKSHELFDUMMY.images}
-            memberId={BOOKSHELFDUMMY.memberId}
+            memberId='2823683088'
           />
         </div>
       </section>
       <BestRecruitList BestGroupList={bestGroup} />
       <section className='mt-10'>
-        <p className='text-sm mx-5 font-bold text-[#67A68A]'>
+        <p className='mx-5 text-sm font-bold text-main'>
           요즘 푹 빠져있는 관심사
         </p>
         <h1 className='mx-5 mb-5 text-xl font-bold'>콘텐츠 추천</h1>

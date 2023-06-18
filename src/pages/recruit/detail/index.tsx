@@ -97,7 +97,7 @@ const RecruitDetailPage = () => {
               height='h-[3.375rem]'
             />
             <div className='pl-4'>
-              <h3 className='text-sm text-[#67A68A]'>
+              <h3 className='text-sm text-main'>
                 {recruitment_status ? '모집중' : '모집완료'}
                 {}
               </h3>
@@ -121,7 +121,7 @@ const RecruitDetailPage = () => {
           )}
           <p>{description}</p>
           <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
-          <h3 className='text-[#67A68A] text-sm'>자세한 정보 알려드려요</h3>
+          <h3 className='text-sm text-main'>자세한 정보 알려드려요</h3>
           <h2 className='pt-1 pb-6 text-xl font-bold'>안내사항</h2>
           {NotificationState.map(({ title, detail }) => (
             <RecruitNotification
@@ -133,9 +133,7 @@ const RecruitDetailPage = () => {
             />
           ))}
           <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
-          <h3 className='text-[#67A68A] text-sm'>
-            함께 독서하며 소통하고 있어요
-          </h3>
+          <h3 className='text-sm text-main'>함께 독서하며 소통하고 있어요</h3>
           <div className='flex items-center justify-between pb-5'>
             <h2 className='pt-1 text-xl font-bold'>멤버 소개</h2>
             <Link href={`/recruit/detail/member`}>전체보기</Link>

@@ -232,12 +232,12 @@ const ClassType = tw.div`
 const ClassTypeButton = tw.button<{ classtype: string; currenttype: string }>`
   ${(props) =>
     props.classtype === props.currenttype
-      ? 'border border-[#67A68A]'
+      ? 'border border-main'
       : 'bg-[#F3F3F3]'}
 
   font-bold
   text-sm
-  text-[#67A68A]
+  text-main
   w-[47.5%]
   py-[10px]
   rounded
@@ -247,8 +247,8 @@ const ClassSelectButton = tw.button`
   border
   w-full
   border 
-  border-[#67A68A]
-  text-[#67A68A]
+  border-main
+  text-main
   rounded
   p-[10px]
   pr-[20px]
@@ -265,8 +265,8 @@ const ClassSelectList = tw.ul<{ isdisplay: string }>`
   border
   w-full
   border 
-  border-[#67A68A]
-  text-[#67A68A]
+  border-main
+  text-main
   rounded
   p-[10px]
   absolute

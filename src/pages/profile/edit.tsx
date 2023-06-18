@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-import { changeProfileApi, getMyProfileApi } from '@/api/profile';
+import { changeProfileApi, getProfileApi } from '@/api/profile';
 import { registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import useImage from '@/hooks/useImage';
@@ -19,7 +19,7 @@ const Edit = () => {
 
   const { data: getMyProfile, status } = useQuery(
     ['getMyProfile', 'profile'],
-    () => getMyProfileApi(),
+    () => getProfileApi(),
   );
 
   const [secretMode, setSecretMode] = useState<'PUBLIC' | 'PRIVATE'>(
@@ -186,7 +186,7 @@ const Edit = () => {
           </div>
           <section className='s:w-[575px] w-full fixed p-4 border-t-[#ebeaea] border-t border-solid bottom-0 bg-[#f3f3f3]'>
             <button
-              className='flex justify-center items-center w-full h-[3.125rem] bg-[#67a68a] text-white rounded-md'
+              className='flex justify-center items-center w-full h-[3.125rem] bg-main text-white rounded-md'
               onClick={submitEdit}
             >
               저장하기
