@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
@@ -24,7 +23,6 @@ const SearchResultListItem = ({
   title,
   author,
   publisher,
-
   isbn,
 }: SearchResultListItemProps) => {
   const setModal = useSetRecoilState(selectModalStateAtom);
@@ -72,8 +70,12 @@ const SearchResultListItem = ({
         <Title>{title}</Title>
         <AuthorPublisher>
           <span>{publisher}</span>
-          <Divider>/</Divider>
-          <span>{`${author[0]}`} 지음</span>
+          {author[0] && (
+            <>
+              <Divider>/</Divider>
+              <span>{`${author[0]}`} 지음</span>
+            </>
+          )}
         </AuthorPublisher>
       </Introduce>
     </Container>
