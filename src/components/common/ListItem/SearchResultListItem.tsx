@@ -24,7 +24,7 @@ const SearchResultListItem = ({
   title,
   author,
   publisher,
-  clickShiftPath,
+
   isbn,
 }: SearchResultListItemProps) => {
   const setModal = useSetRecoilState(selectModalStateAtom);
