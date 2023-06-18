@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { fetchReadingGroupInfo, patchReadingClassChange } from '@/api/recruit';
 import RecruitForm from '@/components/recruit/RecruitForm';
 import { useGroupForm } from '@/hooks/useGroupForm';
-import { GroupList } from '@/types/recruit';
 
 const RecruitUpdatePage = () => {
   const {
@@ -46,29 +45,16 @@ const RecruitUpdatePage = () => {
     },
   );
 
-  const {
-    name,
-    meeting_type,
-    day,
-    time,
-    region,
-    description,
-    participant_limit,
-    open_chat_link,
-  } = groupData as GroupList;
-
-  const classDataObj = {
-    className: name,
-    classType: meeting_type,
-    classRegion: region,
-    classDescription: description,
-    classDay: day,
-    classTime: time,
-    classPeopleNumber: String(participant_limit),
-    classKakaoLink: open_chat_link,
-  };
-
-  const { classStateObj, classChangeStateObj } = useGroupForm(classDataObj);
+  const { classStateObj, classChangeStateObj } = useGroupForm({
+    className: groupData?.name ?? '',
+    classType: groupData?.meeting_type ?? '',
+    classRegion: groupData?.region ?? '',
+    classDescription: groupData?.description ?? '',
+    classDay: groupData?.day ?? '',
+    classTime: groupData?.time ?? '',
+    classPeopleNumber: String(groupData?.participant_limit ?? ''),
+    classKakaoLink: groupData?.open_chat_link ?? '',
+  });
 
   if (isGroupLoading) return <></>;
   if (isGroupError) return <></>;
