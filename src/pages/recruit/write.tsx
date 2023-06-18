@@ -4,7 +4,7 @@ import tw from 'tailwind-styled-components';
 import { postReadingClassOpen } from '@/api/recruit';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Header from '@/components/common/Header';
-import RecruitOpenForm from '@/components/recruit/RecruitOpenForm';
+import RecruitFormUserInput from '@/components/recruit/RecruitFormUserInput';
 import { useGroupForm } from '@/hooks/useGroupForm';
 
 const RecruitWritePage = () => {
@@ -36,7 +36,7 @@ const RecruitWritePage = () => {
             독서 모임을 개설해 볼까요?
           </PageDescription>
           <RecruitOpenFormWrapper>
-            <RecruitOpenForm
+            <RecruitFormUserInput
               classStateObj={classStateObj}
               classChangeStateObj={classChangeStateObj}
             />

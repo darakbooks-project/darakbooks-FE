@@ -8,15 +8,15 @@ import {
   GroupFormStateObjProps,
 } from '@/types/recruit';
 
-interface RecruitOpenFormProps {
+interface RecruitFormUserInputProps {
   classStateObj: GroupFormStateObjProps;
   classChangeStateObj: GroupFormChangeStateObjProps;
 }
 
-const RecruitOpenForm = ({
+const RecruitFormUserInput = ({
   classStateObj,
   classChangeStateObj,
-}: RecruitOpenFormProps) => {
+}: RecruitFormUserInputProps) => {
   const [openRegionStatus, setOpenRegionStatus] = useState('hidden');
   const [openDayStatus, setOpenDayStatus] = useState('hidden');
   const [openTimeStatus, setOpenTimeStatus] = useState('hidden');
@@ -185,7 +185,7 @@ const RecruitOpenForm = ({
   );
 };
 
-export default RecruitOpenForm;
+export default RecruitFormUserInput;
 
 const Container = tw.div`
 `;

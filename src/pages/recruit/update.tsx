@@ -4,7 +4,7 @@ import tw from 'tailwind-styled-components';
 
 import { fetchReadingGroupInfo, patchReadingClassChange } from '@/api/recruit';
 import Header from '@/components/common/Header';
-import RecruitOpenForm from '@/components/recruit/RecruitOpenForm';
+import RecruitFormUserInput from '@/components/recruit/RecruitFormUserInput';
 import { useGroupForm } from '@/hooks/useGroupForm';
 import { GroupList } from '@/types/recruit';
 
@@ -86,7 +86,7 @@ const RecruitUpdatePage = () => {
             독서 모임을 개설해 볼까요?
           </PageDescription>
           <RecruitOpenFormWrapper>
-            <RecruitOpenForm
+            <RecruitFormUserInput
               classStateObj={classStateObj}
               classChangeStateObj={classChangeStateObj}
             />
