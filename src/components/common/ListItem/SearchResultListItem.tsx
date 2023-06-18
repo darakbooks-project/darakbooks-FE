@@ -7,6 +7,7 @@ import { searchInfinityScrollPositionAtom } from '@/recoil/book';
 import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
 
 import BookImage from '../ImageComponent';
+import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
 
 interface SearchResultListItemProps {
   src: string;
