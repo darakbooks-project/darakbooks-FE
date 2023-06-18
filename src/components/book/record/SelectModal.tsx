@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useSetRecoilState } from 'recoil';
 
-import { selectBookProps, selectModalStateAtom } from '@/recoil/modal';
+import { selectModalStateAtom } from '@/recoil/modal';
+import { selectBookProps } from '@/types/modal';
 
 const BackDrop = () => {
   const setModal = useSetRecoilState(selectModalStateAtom);

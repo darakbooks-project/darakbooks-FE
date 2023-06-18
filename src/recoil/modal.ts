@@ -1,14 +1,9 @@
 import { atom } from 'recoil';
 
+import { selectBookProps } from '@/types/modal';
+
 export interface ModalStateProps {
   type: 'HIDDEN' | 'SETTING' | 'BOOKS' | 'GROUPJOIN' | 'GROUPLEAVE';
-}
-
-export interface selectBookProps {
-  isbn: string;
-  title: string;
-  thumbnail: string;
-  author: string;
 }
 
 export const modalStateAtom = atom<ModalStateProps>({

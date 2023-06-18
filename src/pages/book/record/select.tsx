@@ -9,12 +9,9 @@ import { getMyBookShelfApi } from '@/api/bookshelf';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import SelectModal from '@/components/book/record/SelectModal';
 import BookSelectLayout from '@/layout/BookSelectLayout';
-import {
-  selectBookProps,
-  selectModalDataAtom,
-  selectModalStateAtom,
-} from '@/recoil/modal';
+import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
+import { selectBookProps } from '@/types/modal';
 
 const BookRecordSelectPage: NextPageWithLayout = () => {
   const { data, status } = useQuery(
