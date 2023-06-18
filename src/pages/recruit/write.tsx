@@ -130,7 +130,7 @@ const ClassOpenButtonWrap = tw.div`
 `;
 
 const ClassOpenButton = tw.button`  
-  bg-[#67A68A]
+  bg-main
   w-full
   h-[55px]
   text-white

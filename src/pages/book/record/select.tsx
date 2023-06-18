@@ -32,13 +32,13 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
         <>
           <div>
             <h5 className='text-[13px]'>
-              전체 <span className='text-[#67a68a]'>{data.length}</span>권
+              전체 <span className='text-main'>{data.length}</span>권
             </h5>
           </div>
           <ul className='grid grid-cols-[repeat(3,1fr)] grid-rows-[repeat(4,1fr)] gap-4 overflow-scroll'>
             {data.map((item) => (
               <li
-                className='flex flex-col justify-start items-start h-64'
+                className='flex flex-col items-start justify-start h-64'
                 key={item.bookIsbn}
                 onClick={() =>
                   selectBook({
