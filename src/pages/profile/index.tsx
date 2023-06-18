@@ -110,7 +110,12 @@ const ProfilePage: NextPageWithLayout = () => {
                       {edit && (
                         <div
                           className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-0.5'
-                          onClick={() => removeBook(data.bookIsbn)}
+                          onClick={(
+                            event: React.MouseEvent<HTMLDivElement>,
+                          ) => {
+                            event.stopPropagation();
+                            removeBook(data.bookIsbn);
+                          }}
                         >
                           X
                         </div>
