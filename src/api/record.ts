@@ -4,7 +4,6 @@ import {
 } from '@/types/record';
 
 import { axiosInstance } from './axios';
-import { url } from 'inspector';
 
 // 이미지 등록
 export const registerImageApi = async (image: FormData) => {
