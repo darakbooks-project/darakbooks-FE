@@ -38,26 +38,23 @@ const SearchResultListItem = ({
     const isbnArr = isbn.split(' ');
     const isbnValue = isbnArr[0] || isbnArr[1];
 
-    router.push(
-      `/book/${
-        clickShiftPath === 'search' ? 'detail' : 'record'
-      }?isbn=${isbnValue}`,
-    );
+    router.push(`/book/search?isbn=${isbnValue}`);
   };
 
   const clickBookListItem = () => {
     setInfinityScrollPosition(window.scrollY);
-    if (router.pathname === '/book/record/search') {
-      setSendData({
-        isbn: isbn.split(' ')[0],
-        title,
-        thumbnail: src,
-        author: author[0],
-      });
-      setModal(true);
-    } else {
+    if (router.pathname !== '/book/record/search') {
       shiftPage();
+      return;
     }
+
+    setSendData({
+      isbn: isbn.split(' ')[0],
+      title,
+      thumbnail: src,
+      author: author[0],
+    });
+    setModal(true);
   };
 
   return (
