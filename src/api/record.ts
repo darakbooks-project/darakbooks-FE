@@ -96,8 +96,9 @@ export const getCertainBookRecordsApi = async (
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `/records/${ownerId}?lastId=${lastId}&pageSize=${pageSize}&bookId=${bookId}`,
+      url: `/records/${ownerId}?lastId=${lastId}&pageSize=${pageSize}&bookID=${bookId}`,
     });
+
     return data;
   } catch (error) {
     throw new Error('독서기록을 불러올 수 없습니다.');
