@@ -10,7 +10,7 @@ const BackDrop = () => {
   return (
     <div
       className='fixed w-full max-w-xl mx-auto h-screen z-20 bg-[rgba(0,0,0,0.6)] top-0'
-      onClick={() => setModal({ ...modal, type: 'HIDDEN' })}
+      onClick={() => setModal({ type: 'HIDDEN' })}
     />
   );
 };

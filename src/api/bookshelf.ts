@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 import { bookshelfDataProps } from '@/types/bookshelf';
 
 import { axiosInstance } from './axios';
@@ -48,6 +50,9 @@ export const deleteBookShelfApi = async (bookId: string) => {
       url: `/bookshelf/${bookId}`,
     });
   } catch (error) {
-    throw new Error('책을 삭제 할 수 없습니다.');
+    const { response } = error as unknown as AxiosError;
+    if (response) {
+      throw { status: response.status };
+    }
   }
 };
