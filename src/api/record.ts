@@ -85,3 +85,21 @@ export const getAllRecordsApi = async (
     throw new Error('독서기록을 불러올 수 없습니다.');
   }
 };
+
+// 마이페이지 특정 책의 독서기록 전체보기
+export const getCertainBookRecordsApi = async (
+  lastId: number,
+  pageSize: number,
+  bookId: string,
+  ownerId = 'mine',
+): Promise<getAllMainDetailRecordsProps> => {
+  try {
+    const { data } = await axiosInstance.request({
+      method: 'GET',
+      url: `/records/${ownerId}?lastId=${lastId}&pageSize=${pageSize}$bookId=${bookId}`,
+    });
+    return data;
+  } catch (error) {
+    throw new Error('독서기록을 불러올 수 없습니다.');
+  }
+};

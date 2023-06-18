@@ -45,7 +45,7 @@ const ProfilePage: NextPageWithLayout = () => {
   const {
     data: myBookShelf,
     status: myBookShelfStatus,
-    refetch,
+    refetch: myBookShelfRefetch,
   } = useQuery(
     ['getBookShelf', 'profile', 'mybookshelf'],
     () => getBookShelfApi(),
@@ -60,7 +60,7 @@ const ProfilePage: NextPageWithLayout = () => {
     deleteBookShelf.mutate(bookId, {
       onSuccess: () => {
         alert('삭제 되었습니다.');
-        refetch();
+        myBookShelfRefetch();
       },
       onError: (error) => {
         const { status } = error as AxiosError;
@@ -101,7 +101,52 @@ const ProfilePage: NextPageWithLayout = () => {
               <section className='grid grid-cols-[repeat(3,1fr)] px-4 py-0 pb-16'>
                 {bookshelfData.map((data) => (
                   <>
-                    {modal.type === 'BOOKSHELF' && <Modal>하이</Modal>}
+                    {modal.type === 'BOOKSHELF' && (
+                      <Modal>
+                        <div
+                          className='flex text-lg justify-end'
+                          onClick={() => setModal({ type: 'HIDDEN' })}
+                        >
+                          X
+                        </div>
+                        <section className='flex flex-col items-center'>
+                          <h3 className='font-bold text-[21px] text-[#333333]'>
+                            {data.title}
+                          </h3>
+                          <h4 className='font-normal text-[15px] text-[#333333]'>
+                            총{' '}
+                            <span className='font-normal text-[15px] text-[#60b28d]'>
+                              3개
+                            </span>
+                            의 도서 기록을 작성하셨어요!
+                          </h4>
+                        </section>
+                        <ul className='h-[12.75rem] grid grid-cols-[repeat(3,1fr)] gap-2 overflow-y-scroll my-4'>
+                          <li
+                            className='flex justify-center items-center text-[54px] font-[lighter] text-[#999797] w-[6.125rem] h-[6.125rem] border rounded-lg border-dashed border-[#999797]'
+                            onClick={() => {
+                              router.push({
+                                pathname: '/book/record',
+                                query: { isbn: data.bookIsbn },
+                              });
+                            }}
+                          >
+                            +
+                          </li>
+                        </ul>
+                        <button
+                          className='flex w-full justify-center items-center h-[3.125rem] text-white rounded-[10px] bg-[#60b28d]'
+                          onClick={() =>
+                            router.push({
+                              pathname: '/book/detail',
+                              query: { isbn: data.bookIsbn },
+                            })
+                          }
+                        >
+                          책정보
+                        </button>
+                      </Modal>
+                    )}
                     <article
                       className='relative flex flex-col items-center mb-4'
                       key={data.bookIsbn}
