@@ -36,19 +36,18 @@ const ProfilePage: NextPageWithLayout = () => {
     { enabled: !router.query.ownerId },
   );
 
-  const bookshelfData = someoneBookShelf ? someoneBookShelf : myBookShelf;
+  const bookshelfData = someoneBookShelf ?? myBookShelf;
+  const userData = someoneData ?? myData;
   const bookshelfStatus =
     someoneBookShelfStatus === 'success'
       ? someoneBookShelfStatus
       : myBookShelfStatus;
 
-  const userData = someoneData ? someoneData : myData;
-
   return (
     <AuthRequiredPage>
       {bookshelfStatus === 'success' && bookshelfData && (
         <>
-          {userData?.isMine === false && userData.bookshelfIsHidden === true ? (
+          {!userData?.isMine && userData?.bookshelfIsHidden ? (
             <div>비공개</div>
           ) : (
             <>

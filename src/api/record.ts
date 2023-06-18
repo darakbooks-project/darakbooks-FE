@@ -4,6 +4,7 @@ import {
 } from '@/types/record';
 
 import { axiosInstance } from './axios';
+import { url } from 'inspector';
 
 // 이미지 등록
 export const registerImageApi = async (image: FormData) => {
@@ -61,18 +62,13 @@ export const getAllMainDetailRecordsApi = async (
 export const getAllRecordsApi = async (
   lastId: number,
   pageSize: number,
-  ownerId?: string,
+  ownerId = 'mine',
 ): Promise<getAllMainDetailRecordsProps> => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `${
-        ownerId
-          ? `/records/${ownerId}?lastId=${lastId}&pageSize=${pageSize}`
-          : `/records/mine?lastId=${lastId}&pageSize=${pageSize}`
-      }`,
+      url: `/records/${ownerId}?lastId=${lastId}&pageSize=${pageSize}`,
     });
-
     return data;
   } catch (error) {
     throw new Error('독서기록을 불러올 수 없습니다.');

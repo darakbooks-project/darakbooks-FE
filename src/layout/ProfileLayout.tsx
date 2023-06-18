@@ -22,7 +22,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
     { enabled: !router.query.ownerId },
   );
 
-  const data = someoneData ? someoneData : myData;
+  const data = someoneData ?? myData;
   const status = someoneStatus === 'success' ? someoneStatus : myStatus;
 
   const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
@@ -33,24 +33,31 @@ function ProfileLayout({ children }: { children: ReactNode }) {
     setIsAuthorized(false);
   };
 
+  const routes = (pathname: string) => {
+    return router.query.ownerId
+      ? {
+          pathname,
+          query: { ownerId: router.query.ownerId },
+        }
+      : { pathname };
+  };
+
   return (
     <div className='h-screen'>
       {status === 'success' && data && (
         <>
           <section className='w-full h-[30%] bg-[#fffef8] flex flex-col px-6 py-0'>
             <div className='flex items-center justify-end h-3/6'>
-              {data?.isMine && <div onClick={onLogout}>로그아웃</div>}
+              {data.isMine && <div onClick={onLogout}>로그아웃</div>}
             </div>
             <article className='h-3/6 flex items-center justify-between'>
               <div>
                 <h1 className='text-2xl text-[#333333] font-[bold] mb-[5px]'>
-                  {data?.nickname}
+                  {data.nickname}
                 </h1>
                 <p className='text-[13px] text-[#707070]'>
-                  {data?.userInfo
-                    ? data.userInfo
-                    : '좋아하는 것을 일고 기록해요 :)'}
-                  {data?.isMine && <Link href='/profile/edit'>수정</Link>}
+                  {data.userInfo ?? '좋아하는 것을 일고 기록해요 :)'}
+                  {data.isMine && <Link href='/profile/edit'>수정</Link>}
                 </p>
               </div>
               <Image
@@ -66,14 +73,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
           <section className='h-[70%]'>
             <nav className='grid grid-cols-[repeat(3,1fr)] h-14 border-t-[#ebeaea] border-t border-solid'>
               <Link
-                href={
-                  router.query.ownerId
-                    ? {
-                        pathname: '/profile',
-                        query: { ownerId: router.query.ownerId },
-                      }
-                    : { pathname: '/profile' }
-                }
+                href={routes('/profile')}
                 className={
                   router.pathname === '/profile'
                     ? 'flex justify-center items-center text-sm text-[#67a68a] border-b-[#67a68a] border-b border-solid'
@@ -83,14 +83,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 책장
               </Link>
               <Link
-                href={
-                  router.query.ownerId
-                    ? {
-                        pathname: '/profile/myfeed',
-                        query: { ownerId: router.query.ownerId },
-                      }
-                    : { pathname: '/profile/myfeed' }
-                }
+                href={routes('/profile/myfeed')}
                 className={
                   router.pathname === '/profile/myfeed'
                     ? 'flex justify-center items-center text-sm text-[#67a68a] border-b-[#67a68a] border-b border-solid'
@@ -100,14 +93,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 나의기록
               </Link>
               <Link
-                href={
-                  router.query.ownerId
-                    ? {
-                        pathname: '/profile/myrecruit',
-                        query: { ownerId: router.query.ownerId },
-                      }
-                    : { pathname: '/profile/myrecruit' }
-                }
+                href={routes('/profile/myrecruit')}
                 className={
                   router.pathname === '/profile/myrecruit'
                     ? 'flex justify-center items-center text-sm text-[#67a68a] border-b-[#67a68a] border-b border-solid'

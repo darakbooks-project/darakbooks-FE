@@ -31,8 +31,9 @@ export const getBookShelfApi = async (
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `${ownerId ? `/bookshelf/${ownerId}` : '/bookshelf'}`,
+      url: `/bookshelf${ownerId ? `/${ownerId}` : ''}`,
     });
+
     return data;
   } catch (error) {
     throw new Error('책장을 가져올 수 없습니다.');

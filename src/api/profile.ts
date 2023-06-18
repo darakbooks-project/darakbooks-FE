@@ -24,7 +24,7 @@ export const getProfileApi = async (
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `${ownerId ? `/user/profile/${ownerId}` : '/user/profile'}`,
+      url: `/user/profile${ownerId ? `/${ownerId}` : ''}`,
     });
 
     return response.data;
