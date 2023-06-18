@@ -39,6 +39,18 @@ export const registerBookRecordApi = async (
   }
 };
 
+// 독서기록 삭제
+export const deleteRecordApi = async (id: string) => {
+  try {
+    await axiosInstance.request({
+      method: 'DELETE',
+      url: `/records/${id}`,
+    });
+  } catch (error) {
+    throw new Error('독서기록을 삭제하지 못하였습니다.');
+  }
+};
+
 // 메인페이지, 도서상세 페이지에 필요한 독서기록 전체보기
 export const getAllMainDetailRecordsApi = async (
   isbn: string,
