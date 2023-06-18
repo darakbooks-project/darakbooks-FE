@@ -66,7 +66,7 @@ const RecruitDetailPage = () => {
 
   const NotificationState = [
     { title: '요일/시간', detail: `매주 ${day} ${time}` },
-    { title: '활동 장소', detail: `매주 ${region}` },
+    { title: '활동 장소', detail: `${region}` },
     {
       title: '참여 인원',
       detail: `${userGroup.length}/${participant_limit}`,
