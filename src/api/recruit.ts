@@ -78,16 +78,24 @@ export const postReadingClassOpen = async (
 };
 
 //독서모임 정보 상세 조회
-export const fetchReadingGroupInfo = async (groupId: string) => {
+export const fetchReadingGroupInfo = async (
+  groupId: string,
+): Promise<GroupList> => {
   try {
-    const response = await axiosInstance.request({
+    const {
+      data: { group: groupDataObj },
+    } = await axiosInstance.request({
       method: 'GET',
       url: `/groups/${groupId}`,
     });
 
-    if (response) return response.data;
+    if (groupDataObj) {
+      return groupDataObj;
+    } else {
+      throw new Error('독서 모임 상세 데이터를 찾을 수 없습니다.');
+    }
   } catch (error) {
-    console.error(error);
+    throw new Error('독서 모임 상세 데이터 fetch 시 문제가 발생하였습니다.');
   }
 };
 
