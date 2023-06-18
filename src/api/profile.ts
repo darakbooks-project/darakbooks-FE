@@ -1,6 +1,6 @@
 import { axiosInstance } from './axios';
 
-interface myProfileProps {
+interface ProfileProps {
   bookshelfIsHidden: boolean;
   isMine: boolean;
   nickname: string;
@@ -17,26 +17,14 @@ interface editDataProps {
   bookshelfIsHidden?: boolean;
 }
 
-// 나의 프로필
-export const getMyProfileApi = async (): Promise<myProfileProps> => {
+// 사용자 프로필
+export const getProfileApi = async (
+  ownerId?: string,
+): Promise<ProfileProps> => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
-      url: `/user/profile`,
-    });
-
-    return response.data;
-  } catch (error) {
-    throw new Error('프로필을 불러올 수 없습니다.');
-  }
-};
-
-// 다른 사용자 프로필
-export const getUserProfileApi = async (ownerId: string) => {
-  try {
-    const response = await axiosInstance.request({
-      method: 'GET',
-      url: `/user/profile/${ownerId}`,
+      url: `/user/profile${ownerId ? `/${ownerId}` : ''}`,
     });
 
     return response.data;

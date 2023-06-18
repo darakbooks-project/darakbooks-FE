@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-import { changeProfileApi, getMyProfileApi } from '@/api/profile';
+import { changeProfileApi, getProfileApi } from '@/api/profile';
 import { registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import useImage from '@/hooks/useImage';
@@ -19,7 +19,7 @@ const Edit = () => {
 
   const { data: getMyProfile, status } = useQuery(
     ['getMyProfile', 'profile'],
-    () => getMyProfileApi(),
+    () => getProfileApi(),
   );
 
   const [secretMode, setSecretMode] = useState<'PUBLIC' | 'PRIVATE'>(

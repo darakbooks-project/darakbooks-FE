@@ -5,7 +5,7 @@ import React from 'react';
 import { ReactElement } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { getMyBookShelfApi } from '@/api/bookshelf';
+import { getBookShelfApi } from '@/api/bookshelf';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import SelectModal from '@/components/book/record/SelectModal';
 import BookSelectLayout from '@/layout/BookSelectLayout';
@@ -14,9 +14,8 @@ import { NextPageWithLayout } from '@/types/layout';
 import { selectBookProps } from '@/types/modal';
 
 const BookRecordSelectPage: NextPageWithLayout = () => {
-  const { data, status } = useQuery(
-    ['getMyBookShelf', 'select'],
-    getMyBookShelfApi,
+  const { data, status } = useQuery(['getMyBookShelf', 'select'], () =>
+    getBookShelfApi(),
   );
   const [sendData, setSendData] = useRecoilState(selectModalDataAtom);
   const [modal, setModal] = useRecoilState(selectModalStateAtom);
@@ -87,9 +86,8 @@ BookRecordSelectPage.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(
-    ['getMyBookShelf', 'select'],
-    getMyBookShelfApi,
+  await queryClient.prefetchQuery(['getMyBookShelf', 'select'], () =>
+    getBookShelfApi(),
   );
   return {
     props: {
