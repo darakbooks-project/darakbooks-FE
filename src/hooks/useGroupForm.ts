@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
 import {
-  ClassOpenChangeStateObjProps,
-  ClassOpenStateObjProps,
+  GroupFormChangeStateObjProps,
+  GroupFormStateObjProps,
 } from '@/types/recruit';
 
-export const useGroupForm = (classData: ClassOpenStateObjProps) => {
+export const useGroupForm = (classData: GroupFormStateObjProps) => {
   const {
     className: relayedClassName,
     classType: relayedClassType,
@@ -30,7 +30,7 @@ export const useGroupForm = (classData: ClassOpenStateObjProps) => {
   );
   const [classKakaoLink, setClassKakaoLink] = useState(relayedClassKakaoLink);
 
-  const classStateObj: ClassOpenStateObjProps = {
+  const classStateObj: GroupFormStateObjProps = {
     className,
     classType,
     classRegion,
@@ -41,7 +41,7 @@ export const useGroupForm = (classData: ClassOpenStateObjProps) => {
     classKakaoLink,
   };
 
-  const classChangeStateObj: ClassOpenChangeStateObjProps = {
+  const classChangeStateObj: GroupFormChangeStateObjProps = {
     changeClassName: (e) => {
       setClassName(e.target.value);
     },

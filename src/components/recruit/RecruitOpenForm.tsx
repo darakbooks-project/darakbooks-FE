@@ -4,13 +4,13 @@ import tw from 'tailwind-styled-components';
 
 import { DAY_DATA, REGION_DATA, TIME_DATA } from '@/constants/recruit';
 import {
-  ClassOpenChangeStateObjProps,
-  ClassOpenStateObjProps,
+  GroupFormChangeStateObjProps,
+  GroupFormStateObjProps,
 } from '@/types/recruit';
 
 interface RecruitOpenFormProps {
-  classStateObj: ClassOpenStateObjProps;
-  classChangeStateObj: ClassOpenChangeStateObjProps;
+  classStateObj: GroupFormStateObjProps;
+  classChangeStateObj: GroupFormChangeStateObjProps;
 }
 
 const RecruitOpenForm = ({

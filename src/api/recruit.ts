@@ -1,5 +1,5 @@
 import { GroupList, GroupLists } from '@/types/recruit';
-import { ClassOpenStateObjProps } from '@/types/recruit';
+import { GroupFormStateObjProps } from '@/types/recruit';
 
 import { axiosInstance } from './axios';
 
@@ -50,7 +50,7 @@ export const getReadingClassData = async (
 
 //독서모임 개설
 export const postReadingClassOpen = async (
-  openReadingClassData: ClassOpenStateObjProps,
+  openReadingClassData: GroupFormStateObjProps,
 ) => {
   const body = {
     name: openReadingClassData.className,
