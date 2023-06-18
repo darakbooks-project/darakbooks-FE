@@ -8,11 +8,12 @@ import { AxiosError } from 'axios';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { deleteBookShelfApi, getBookShelfApi } from '@/api/bookshelf';
 import { getProfileApi } from '@/api/profile';
+import { getCertainBookRecordsApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 import Modal from '@/components/common/Modal';
@@ -26,6 +27,34 @@ const ProfilePage: NextPageWithLayout = () => {
   const [edit, setEdit] = useState(false);
   const deleteBookShelf = useMutation(deleteBookShelfApi);
   const [modal, setModal] = useRecoilState(modalStateAtom);
+  const [bookId, setBookId] = useState('');
+
+  const { data: myCertainBookData } = useQuery(
+    ['getCertainBookRecords', 'profile', bookId, 'mine'],
+    () =>
+      getCertainBookRecordsApi(
+        Number.MAX_SAFE_INTEGER,
+        Number.MAX_SAFE_INTEGER,
+        bookId,
+      ),
+    {
+      enabled: !!bookId && !router.query.ownerId,
+    },
+  );
+
+  const { data: someoneCertainBookData } = useQuery(
+    ['getCertainBookRecords', 'profile', bookId, router.query.ownerId],
+    () =>
+      getCertainBookRecordsApi(
+        Number.MAX_SAFE_INTEGER,
+        Number.MAX_SAFE_INTEGER,
+        bookId,
+        router.query.ownerId as string,
+      ),
+    {
+      enabled: !!bookId && !!router.query.ownerId,
+    },
+  );
 
   const { data: someoneData } = useQuery(
     ['getUserProfile', 'profile', router.query.ownerId],
@@ -55,6 +84,7 @@ const ProfilePage: NextPageWithLayout = () => {
   const bookshelfData = mine ? myBookShelf : someoneBookShelf;
   const userData = mine ? myData : someoneData;
   const bookshelfStatus = mine ? myBookShelfStatus : someoneBookShelfStatus;
+  const certainBookData = mine ? myCertainBookData : someoneCertainBookData;
 
   const removeBook = (bookId: string) => {
     deleteBookShelf.mutate(bookId, {
@@ -71,6 +101,11 @@ const ProfilePage: NextPageWithLayout = () => {
         }
       },
     });
+  };
+
+  const openBookShelf = () => {
+    setModal({ type: 'BOOKSHELF' });
+    setBookId('8996991341');
   };
 
   return (
@@ -122,6 +157,17 @@ const ProfilePage: NextPageWithLayout = () => {
                           </h4>
                         </section>
                         <ul className='h-[12.75rem] grid grid-cols-[repeat(3,1fr)] gap-2 overflow-y-scroll my-4'>
+                          {certainBookData?.records.map((record) => (
+                            <Image
+                              key={record.recordId}
+                              src={record.recordImgUrl}
+                              alt={record.text}
+                              width='0'
+                              height='0'
+                              sizes='100vw'
+                              className='flex justify-center items-center w-[6.125rem] h-[6.125rem]  rounded-lg'
+                            />
+                          ))}
                           <li
                             className='flex justify-center items-center text-[54px] font-[lighter] text-[#999797] w-[6.125rem] h-[6.125rem] border rounded-lg border-dashed border-[#999797]'
                             onClick={() => {
@@ -150,7 +196,7 @@ const ProfilePage: NextPageWithLayout = () => {
                     <article
                       className='relative flex flex-col items-center mb-4'
                       key={data.bookIsbn}
-                      onClick={() => setModal({ type: 'BOOKSHELF' })}
+                      onClick={openBookShelf}
                     >
                       {edit && (
                         <div
