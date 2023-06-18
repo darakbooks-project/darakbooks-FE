@@ -1,73 +1,29 @@
 import { useMutation } from '@tanstack/react-query';
-import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 
 import { postReadingClassOpen } from '@/api/recruit';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Header from '@/components/common/Header';
 import RecruitOpenForm from '@/components/recruit/RecruitOpenForm';
-import {
-  ClassOpenChangeStateObjProps,
-  ClassOpenStateObjProps,
-} from '@/types/recruit';
+import { useGroupForm } from '@/hooks/useGroupForm';
 
 const RecruitWritePage = () => {
   const openReadingClass = useMutation(postReadingClassOpen);
-
-  const [className, setClassName] = useState('');
-  const [classType, setClassType] = useState('online');
-  const [classRegion, setClassRegion] = useState('');
-  const [classDescription, setClassDescription] = useState('');
-  const [classDay, setClassDay] = useState('');
-  const [classTime, setClassTime] = useState('');
-  const [classPeopleNumber, setClassPeopleNumber] = useState('');
-  const [classKakaoLink, setClassKakaoLink] = useState('');
-
-  const classStateObj: ClassOpenStateObjProps = {
-    className,
-    classType,
-    classRegion,
-    classDescription,
-    classDay,
-    classTime,
-    classPeopleNumber,
-    classKakaoLink,
-  };
-
-  const classChangeStateObj: ClassOpenChangeStateObjProps = {
-    changeClassName: (e) => {
-      setClassName(e.target.value);
-    },
-    changeClassType: (type) => {
-      if (type === 'online') setClassType('online');
-      else setClassType('offline');
-    },
-    changeClassRegion: (e) => {
-      const selectedItem = e.target as HTMLUListElement;
-      selectedItem.textContent && setClassRegion(selectedItem.textContent);
-    },
-    changeClassDescription: (e) => {
-      setClassDescription(e.target.value);
-    },
-    changeClassDay: (e) => {
-      const selectedItem = e.target as HTMLUListElement;
-      selectedItem.textContent && setClassDay(selectedItem.textContent);
-    },
-    changeClassTime: (e) => {
-      const selectedItem = e.target as HTMLUListElement;
-      selectedItem.textContent && setClassTime(selectedItem.textContent);
-    },
-    changeClassPeopleNumber: (e) => {
-      setClassPeopleNumber(e.target.value);
-    },
-    changeClassKakaoLink: (e) => {
-      setClassKakaoLink(e.target.value);
-    },
-  };
-
   const onClickOpenButton = () => {
     openReadingClass.mutate(classStateObj);
   };
+
+  const classDataObj = {
+    className: '',
+    classType: 'online',
+    classRegion: '',
+    classDescription: '',
+    classDay: '',
+    classTime: '',
+    classPeopleNumber: '',
+    classKakaoLink: '',
+  };
+  const { classStateObj, classChangeStateObj } = useGroupForm(classDataObj);
 
   return (
     <AuthRequiredPage>
