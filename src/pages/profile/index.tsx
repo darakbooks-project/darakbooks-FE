@@ -13,6 +13,7 @@ import { NextPageWithLayout } from '@/types/layout';
 
 const ProfilePage: NextPageWithLayout = () => {
   const router = useRouter();
+  const mine = !router.query.ownerId;
   const [edit, setEdit] = useState(false);
 
   const { data: someoneData } = useQuery(
@@ -36,12 +37,9 @@ const ProfilePage: NextPageWithLayout = () => {
     { enabled: !router.query.ownerId },
   );
 
-  const bookshelfData = someoneBookShelf ?? myBookShelf;
-  const userData = someoneData ?? myData;
-  const bookshelfStatus =
-    someoneBookShelfStatus === 'success'
-      ? someoneBookShelfStatus
-      : myBookShelfStatus;
+  const bookshelfData = mine ? myBookShelf : someoneBookShelf;
+  const userData = mine ? myData : someoneData;
+  const bookshelfStatus = mine ? myBookShelfStatus : someoneBookShelfStatus;
 
   return (
     <AuthRequiredPage>

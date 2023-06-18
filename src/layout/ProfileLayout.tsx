@@ -11,6 +11,7 @@ import { isAuthorizedSelector } from '@/recoil/auth';
 
 function ProfileLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const mine = !router.query.ownerId;
   const { data: someoneData, status: someoneStatus } = useQuery(
     ['getUserProfile', 'profile', router.query.ownerId],
     () => getProfileApi(router.query.ownerId as string),
@@ -22,8 +23,8 @@ function ProfileLayout({ children }: { children: ReactNode }) {
     { enabled: !router.query.ownerId },
   );
 
-  const data = someoneData ?? myData;
-  const status = someoneStatus === 'success' ? someoneStatus : myStatus;
+  const data = mine ? myData : someoneData;
+  const status = mine ? myStatus : someoneStatus;
 
   const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
 

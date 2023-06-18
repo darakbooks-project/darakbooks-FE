@@ -18,6 +18,7 @@ import { NextPageWithLayout } from '@/types/layout';
 
 const MyFeed: NextPageWithLayout = () => {
   const router = useRouter();
+  const mine = !router.query.ownerId;
   const { data: someoneData } = useQuery(
     ['getUserProfile', 'profile', router.query.ownerId],
     () => getProfileApi(router.query.ownerId as string),
@@ -68,23 +69,17 @@ const MyFeed: NextPageWithLayout = () => {
     },
   );
 
-  const recordsData = getAllMyRecords ? getAllMyRecords : getAllSomeoneRecords;
-  const userData = someoneData ? someoneData : myData;
+  const recordsData = mine ? getAllMyRecords : getAllSomeoneRecords;
+  const userData = mine ? myData : someoneData;
+  const recordsStatus = mine ? myRecordsStatus : someoneRecordsStatus;
+  const hasNextPage = mine ? myRecordsHasNextPage : someoneRecordsHasNextPage;
   const allRecords = recordsData?.pages.flatMap((page) => page.records);
 
-  const recordsStatus =
-    someoneRecordsStatus === 'success' ? someoneRecordsStatus : myRecordsStatus;
-
-  const hasNextPage = getAllMyRecords
-    ? myRecordsHasNextPage
-    : someoneRecordsHasNextPage;
-
-  const fetchNextPage = getAllMyRecords
+  const fetchNextPage = mine
     ? myRecordsFetchNextPage
     : someoneRecordsFetchNextPage;
 
   useEffect(() => {
-    if (!getAllMyRecords) return;
     if (hasNextPage && inView) fetchNextPage();
   }, [fetchNextPage, getAllMyRecords, hasNextPage, inView]);
 
@@ -92,7 +87,7 @@ const MyFeed: NextPageWithLayout = () => {
     <>
       {recordsStatus === 'success' && (
         <>
-          {userData?.isMine === false && userData.bookshelfIsHidden === true ? (
+          {!userData?.isMine && userData?.bookshelfIsHidden ? (
             <div>비공개</div>
           ) : (
             <>

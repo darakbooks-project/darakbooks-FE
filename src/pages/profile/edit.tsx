@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { changeProfileApi, getProfileApi } from '@/api/profile';
 import { registerImageApi } from '@/api/record';
@@ -23,7 +23,7 @@ const Edit = () => {
   );
 
   const [secretMode, setSecretMode] = useState<'PUBLIC' | 'PRIVATE'>(
-    getMyProfile?.bookshelfIsHidden ? 'PUBLIC' : 'PRIVATE',
+    getMyProfile?.bookshelfIsHidden ? 'PRIVATE' : 'PUBLIC',
   );
 
   const changeBio = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,7 +40,7 @@ const Edit = () => {
       photoId: profileImage.name,
       photoUrl: profileImage.url,
       userInfo: bio,
-      bookshelfIsHidden: secretMode === 'PUBLIC' ? true : false,
+      bookshelfIsHidden: secretMode === 'PUBLIC' ? false : true,
     };
 
     changeProfile.mutate(editData, {
