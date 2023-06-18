@@ -107,7 +107,7 @@ const GroupRrecruitmentButtonWrap = tw.div`
 const GroupRrecruitmentButton = tw.button<{ recruitmentstatus: string }>`
   ${(props) => props.recruitmentstatus === '모집완료' && 'bg-opacity-50'}
     
-  bg-[#6CA88D]
+  bg-main
   text-white
   text-[10px]
   rounded

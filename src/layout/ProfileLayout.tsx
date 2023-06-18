@@ -76,7 +76,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 href={routes('/profile')}
                 className={
                   router.pathname === '/profile'
-                    ? 'flex justify-center items-center text-sm text-[#67a68a] border-b-[#67a68a] border-b border-solid'
+                    ? 'flex justify-center items-center text-sm text-main border-b-main border-b border-solid'
                     : 'flex justify-center items-center text-sm text-[#999797] border-b-[#ebeaea] border-b border-solid'
                 }
               >
@@ -86,7 +86,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 href={routes('/profile/myfeed')}
                 className={
                   router.pathname === '/profile/myfeed'
-                    ? 'flex justify-center items-center text-sm text-[#67a68a] border-b-[#67a68a] border-b border-solid'
+                    ? 'flex justify-center items-center text-sm text-main border-b-main border-b border-solid'
                     : 'flex justify-center items-center text-sm text-[#999797] border-b-[#ebeaea] border-b border-solid'
                 }
               >
@@ -96,7 +96,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 href={routes('/profile/myrecruit')}
                 className={
                   router.pathname === '/profile/myrecruit'
-                    ? 'flex justify-center items-center text-sm text-[#67a68a] border-b-[#67a68a] border-b border-solid'
+                    ? 'flex justify-center items-center text-sm text-main border-b-main border-b border-solid'
                     : 'flex justify-center items-center text-sm text-[#999797] border-b-[#ebeaea] border-b border-solid'
                 }
               >

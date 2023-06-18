@@ -299,7 +299,7 @@ const BookRecordPage = () => {
             className={`${
               isValid
                 ? 'h-14 border bg-[#DFDFDF] rounded-md text-[#ffffff]'
-                : 'h-14 border bg-[#5A987D] rounded-md text-[#ffffff]'
+                : 'h-14 border bg-main rounded-md text-[#ffffff]'
             }`}
             onClick={submitRecord}
             disabled={isValid}

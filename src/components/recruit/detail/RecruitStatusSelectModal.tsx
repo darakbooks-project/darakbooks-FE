@@ -75,7 +75,7 @@ const ModalOverlay = ({ groupId, recruitmentStatus }: RecruitmentModalType) => {
           handleChangeRecruitmentStatus(groupId, recruitmentStatus, type)
         }
         className={`flex justify-center items-center h-14 w-full text-lg ${
-          recruitmentStatus === type ? 'text-[#67A68A]' : 'text-black'
+          recruitmentStatus === type ? 'text-main' : 'text-black'
         }`}
       >
         {title}
@@ -95,7 +95,7 @@ const ModalOverlay = ({ groupId, recruitmentStatus }: RecruitmentModalType) => {
       </div>
       <button
         onClick={() => setModal(false)}
-        className='fixed left-0 right-0 w-5/6 max-w-lg bg-white h-14 z-30 rounded-2xl bottom-8 mx-auto text-lg text-[#67A68A] animate-slideUp'
+        className='fixed left-0 right-0 w-5/6 max-w-lg bg-white h-14 z-30 rounded-2xl bottom-8 mx-auto text-lg text-main animate-slideUp'
       >
         닫기
       </button>

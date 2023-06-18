@@ -12,7 +12,7 @@ function BookSelectLayout({ children }: { children: ReactNode }) {
           href='/book/record/select'
           className={
             router.pathname === '/book/record/select'
-              ? 'flex justify-center items-center w-6/12 text-[#67a68a] px-0 py-3 border-b-2 border-[#67a68a] border-solid'
+              ? 'flex justify-center items-center w-6/12 text-main px-0 py-3 border-b-2 border-main border-solid'
               : 'flex justify-center items-center w-6/12 text-[#999797] px-0 py-3 border-b-2 border-b-[#f3f3f3] border-solid'
           }
         >
@@ -22,7 +22,7 @@ function BookSelectLayout({ children }: { children: ReactNode }) {
           href='/book/record/search'
           className={
             router.pathname === '/book/record/search'
-              ? 'flex justify-center items-center w-6/12 text-[#67a68a] px-0 py-3 border-b-2 border-[#67a68a] border-solid'
+              ? 'flex justify-center items-center w-6/12 text-main px-0 py-3 border-b-2 border-main border-solid'
               : 'flex justify-center items-center w-6/12 text-[#999797] px-0 py-3 border-b-2 border-b-[#f3f3f3] border-solid'
           }
         >
