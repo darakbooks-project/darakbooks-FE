@@ -1,10 +1,15 @@
-import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import {
+  dehydrate,
+  QueryClient,
+  useMutation,
+  useQuery,
+} from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useState } from 'react';
 
-import { getBookShelfApi } from '@/api/bookshelf';
+import { deleteBookShelfApi, getBookShelfApi } from '@/api/bookshelf';
 import { getProfileApi } from '@/api/profile';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
@@ -15,6 +20,7 @@ const ProfilePage: NextPageWithLayout = () => {
   const router = useRouter();
   const mine = !router.query.ownerId;
   const [edit, setEdit] = useState(false);
+  const deleteBookShelf = useMutation(deleteBookShelfApi);
 
   const { data: someoneData } = useQuery(
     ['getUserProfile', 'profile', router.query.ownerId],
@@ -31,7 +37,11 @@ const ProfilePage: NextPageWithLayout = () => {
     () => getBookShelfApi(router.query.ownerId as string),
     { enabled: !!router.query.ownerId },
   );
-  const { data: myBookShelf, status: myBookShelfStatus } = useQuery(
+  const {
+    data: myBookShelf,
+    status: myBookShelfStatus,
+    refetch,
+  } = useQuery(
     ['getBookShelf', 'profile', 'mybookshelf'],
     () => getBookShelfApi(),
     { enabled: !router.query.ownerId },
@@ -40,6 +50,17 @@ const ProfilePage: NextPageWithLayout = () => {
   const bookshelfData = mine ? myBookShelf : someoneBookShelf;
   const userData = mine ? myData : someoneData;
   const bookshelfStatus = mine ? myBookShelfStatus : someoneBookShelfStatus;
+
+  const removeBook = (bookId: string) => {
+    deleteBookShelf.mutate(bookId, {
+      onSuccess: () => {
+        alert('삭제 되었습니다.');
+        refetch();
+      },
+
+      // 에러 코드에 따라 다르게 피드백
+    });
+  };
 
   return (
     <AuthRequiredPage>
@@ -73,7 +94,10 @@ const ProfilePage: NextPageWithLayout = () => {
                     key={data.bookIsbn}
                   >
                     {edit && (
-                      <div className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-0.5'>
+                      <div
+                        className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-0.5'
+                        onClick={() => removeBook(data.bookIsbn)}
+                      >
                         X
                       </div>
                     )}

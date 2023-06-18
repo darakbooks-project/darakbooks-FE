@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { changeProfileApi, getProfileApi } from '@/api/profile';
 import { registerImageApi } from '@/api/record';

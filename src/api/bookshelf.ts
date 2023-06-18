@@ -39,3 +39,15 @@ export const getBookShelfApi = async (
     throw new Error('책장을 가져올 수 없습니다.');
   }
 };
+
+// 책장 속 책 삭제
+export const deleteBookShelfApi = async (bookId: string) => {
+  try {
+    await axiosInstance.request({
+      method: 'DELETE',
+      url: `/bookshelf/${bookId}`,
+    });
+  } catch (error) {
+    throw new Error('책을 삭제 할 수 없습니다.');
+  }
+};
