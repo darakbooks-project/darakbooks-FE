@@ -38,7 +38,7 @@ const SearchResultListItem = ({
     const isbnArr = isbn.split(' ');
     const isbnValue = isbnArr[0] || isbnArr[1];
 
-    router.push(`/book/search?isbn=${isbnValue}`);
+    router.push(`/book/detail?isbn=${isbnValue}`);
   };
 
   const clickBookListItem = () => {
