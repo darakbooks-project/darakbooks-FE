@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 import { bookshelfDataProps } from '@/types/bookshelf';
 
 import { axiosInstance } from './axios';
@@ -20,7 +22,10 @@ export const postBookshelfApi = async (bookData: bookshelfDataProps) => {
 
     return data;
   } catch (error) {
-    throw new Error('책을 추가할 수 없습니다.');
+    const { response } = error as unknown as AxiosError;
+    if (response) {
+      throw { status: response.status };
+    }
   }
 };
 
@@ -37,5 +42,20 @@ export const getBookShelfApi = async (
     return data;
   } catch (error) {
     throw new Error('책장을 가져올 수 없습니다.');
+  }
+};
+
+// 책장 속 책 삭제
+export const deleteBookShelfApi = async (bookId: string) => {
+  try {
+    await axiosInstance.request({
+      method: 'DELETE',
+      url: `/bookshelf/${bookId}`,
+    });
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    if (response) {
+      throw { status: response.status };
+    }
   }
 };

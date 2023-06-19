@@ -1,47 +1,122 @@
-import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import {
+  dehydrate,
+  QueryClient,
+  useMutation,
+  useQuery,
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { getBookShelfApi } from '@/api/bookshelf';
+import { deleteBookShelfApi, getBookShelfApi } from '@/api/bookshelf';
 import { getProfileApi } from '@/api/profile';
+import { getCertainBookRecordsApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
+import Modal from '@/components/common/Modal';
 import ProfileLayout from '@/layout/ProfileLayout';
+import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
 
 const ProfilePage: NextPageWithLayout = () => {
-  const router = useRouter();
+  const {
+    query: { ownerId },
+    push,
+  } = useRouter();
   const [edit, setEdit] = useState(false);
+  const deleteBookShelf = useMutation(deleteBookShelfApi);
+  const [modal, setModal] = useRecoilState(modalStateAtom);
+  const [bookId, setBookId] = useState('');
+  const [certainBookTitle, setCertainBookTitle] = useState('');
+
+  const { data: myCertainBookData } = useQuery(
+    ['getCertainBookRecords', 'profile', bookId, 'mine'],
+    () =>
+      getCertainBookRecordsApi(
+        Number.MAX_SAFE_INTEGER,
+        Number.MAX_SAFE_INTEGER,
+        bookId,
+      ),
+    {
+      enabled: !!bookId && !ownerId,
+    },
+  );
+
+  const { data: someoneCertainBookData } = useQuery(
+    ['getCertainBookRecords', 'profile', bookId, ownerId],
+    () =>
+      getCertainBookRecordsApi(
+        Number.MAX_SAFE_INTEGER,
+        Number.MAX_SAFE_INTEGER,
+        bookId,
+        ownerId as string,
+      ),
+    {
+      enabled: !!bookId && !!ownerId,
+    },
+  );
 
   const { data: someoneData } = useQuery(
-    ['getUserProfile', 'profile', router.query.ownerId],
-    () => getProfileApi(router.query.ownerId as string),
-    { enabled: !!router.query.ownerId },
+    ['getUserProfile', 'profile', ownerId],
+    () => getProfileApi(ownerId as string),
+    { enabled: !!ownerId },
   );
   const { data: myData } = useQuery(
     ['getUserProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
-    { enabled: !router.query.ownerId },
+    { enabled: !ownerId },
   );
   const { data: someoneBookShelf, status: someoneBookShelfStatus } = useQuery(
-    ['getBookShelf', 'profile', router.query.ownerId],
-    () => getBookShelfApi(router.query.ownerId as string),
-    { enabled: !!router.query.ownerId },
+    ['getBookShelf', 'profile', ownerId],
+    () => getBookShelfApi(ownerId as string),
+    { enabled: !!ownerId },
   );
-  const { data: myBookShelf, status: myBookShelfStatus } = useQuery(
+  const {
+    data: myBookShelf,
+    status: myBookShelfStatus,
+    refetch: myBookShelfRefetch,
+  } = useQuery(
     ['getBookShelf', 'profile', 'mybookshelf'],
     () => getBookShelfApi(),
-    { enabled: !router.query.ownerId },
+    { enabled: !ownerId },
   );
 
-  const bookshelfData = someoneBookShelf ?? myBookShelf;
-  const userData = someoneData ?? myData;
-  const bookshelfStatus =
-    someoneBookShelfStatus === 'success'
-      ? someoneBookShelfStatus
-      : myBookShelfStatus;
+  const bookshelfData = ownerId ? someoneBookShelf : myBookShelf;
+  const userData = ownerId ? someoneData : myData;
+  const bookshelfStatus = ownerId ? someoneBookShelfStatus : myBookShelfStatus;
+  const certainBookData = ownerId ? someoneCertainBookData : myCertainBookData;
+
+  const removeBook = (bookId: string) => {
+    deleteBookShelf.mutate(bookId, {
+      onSuccess: () => {
+        alert('삭제 되었습니다.');
+        myBookShelfRefetch();
+      },
+      onError: (error) => {
+        const { status } = error as AxiosError;
+        if (status === 403) {
+          alert('책의 독서기록이 작성 돼 있기 때문에 삭제가 안됩니다.');
+        } else if (status === 404) {
+          alert('사용자의 책장에 저장 돼 있지 않은 책입니다.');
+        }
+      },
+    });
+  };
+
+  const openBookShelf = (bookIsbn: string, title: string) => {
+    setModal({ type: 'BOOKSHELF' });
+    setCertainBookTitle(title);
+    setBookId(bookIsbn);
+  };
+
+  useEffect(() => {
+    setModal({ type: 'HIDDEN' });
+    setCertainBookTitle('');
+    setBookId('');
+  }, []);
 
   return (
     <AuthRequiredPage>
@@ -70,40 +145,113 @@ const ProfilePage: NextPageWithLayout = () => {
               </div>
               <section className='grid grid-cols-[repeat(3,1fr)] px-4 py-0 pb-16'>
                 {bookshelfData.map((data) => (
-                  <article
-                    className='relative flex flex-col items-center mb-4'
-                    key={data.bookIsbn}
-                  >
-                    {edit && (
-                      <div className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-0.5'>
-                        X
-                      </div>
-                    )}
+                  <>
+                    <article
+                      className='relative flex flex-col items-center mb-4'
+                      key={data.bookIsbn}
+                      onClick={() => openBookShelf(data.bookIsbn, data.title)}
+                    >
+                      {edit && (
+                        <div
+                          className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-0.5'
+                          onClick={(
+                            event: React.MouseEvent<HTMLDivElement>,
+                          ) => {
+                            event.stopPropagation();
+                            removeBook(data.bookIsbn);
+                          }}
+                        >
+                          X
+                        </div>
+                      )}
 
-                    <section className='w-full shadow-[0px_4px_8px_rgba(0,0,0,0.15)] mb-4 p-[7px]'>
-                      <Image
-                        src={data.thumbnail}
-                        alt={data.title}
-                        width='0'
-                        height='0'
-                        sizes='100vw'
-                        className='w-full h-[9.5rem]  rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
-                      />
-                    </section>
-                    <div className='flex flex-col items-center w-full'>
-                      <h3 className='text-[13px] text-[#333333] mb-[5px]'>
-                        {data.title}
-                      </h3>
-                      <h4 className='text-[11px] text-[#707070]'>
-                        {data.authors[0]}
-                      </h4>
-                    </div>
-                  </article>
+                      <section className='w-full shadow-[0px_4px_8px_rgba(0,0,0,0.15)] mb-4 p-[7px]'>
+                        <Image
+                          src={data.thumbnail}
+                          alt={data.title}
+                          width='0'
+                          height='0'
+                          sizes='100vw'
+                          className='w-full h-[9.5rem]  rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
+                        />
+                      </section>
+                      <div className='flex flex-col items-center w-full'>
+                        <h3 className='text-[13px] text-[#333333] mb-[5px]'>
+                          {data.title}
+                        </h3>
+                        <h4 className='text-[11px] text-[#707070]'>
+                          {data.authors[0]}
+                        </h4>
+                      </div>
+                    </article>
+                  </>
                 ))}
+                {modal.type === 'BOOKSHELF' && (
+                  <Modal>
+                    <div
+                      className='flex text-lg justify-end'
+                      onClick={() => setModal({ type: 'HIDDEN' })}
+                    >
+                      X
+                    </div>
+                    <section className='flex flex-col items-center'>
+                      <h3 className='font-bold text-[21px] text-[#333333]'>
+                        {certainBookTitle}
+                      </h3>
+                      <h4 className='font-normal text-[15px] text-[#333333]'>
+                        총{' '}
+                        <span className='font-normal text-[15px] text-[#60b28d]'>
+                          {certainBookData?.records.length}개
+                        </span>
+                        의 도서 기록을 작성하셨어요!
+                      </h4>
+                    </section>
+                    <ul className='h-[12.75rem] grid grid-cols-[repeat(3,1fr)] gap-2 overflow-y-scroll my-4'>
+                      {certainBookData?.records.map((record) => (
+                        <Image
+                          key={record.recordId}
+                          src={record.recordImgUrl}
+                          alt={record.text}
+                          width='0'
+                          height='0'
+                          sizes='100vw'
+                          className='flex justify-center items-center w-[6.125rem] h-[6.125rem]  rounded-lg'
+                        />
+                      ))}
+                      {userData?.isMine && (
+                        <li
+                          className='flex justify-center items-center text-[54px] font-[lighter] text-[#999797] w-[6.125rem] h-[6.125rem] border rounded-lg border-dashed border-[#999797]'
+                          onClick={() => {
+                            push({
+                              pathname: '/book/record',
+                              query: {
+                                isbn: bookId,
+                              },
+                            });
+                          }}
+                        >
+                          +
+                        </li>
+                      )}
+                    </ul>
+                    <button
+                      className='flex w-full justify-center items-center h-[3.125rem] text-white rounded-[10px] bg-[#60b28d]'
+                      onClick={() =>
+                        push({
+                          pathname: '/book/detail',
+                          query: {
+                            isbn: bookId,
+                          },
+                        })
+                      }
+                    >
+                      책정보
+                    </button>
+                  </Modal>
+                )}
               </section>
             </>
           )}
-
           <BottomNav />
         </>
       )}

@@ -10,34 +10,39 @@ import { getProfileApi } from '@/api/profile';
 import { isAuthorizedSelector } from '@/recoil/auth';
 
 function ProfileLayout({ children }: { children: ReactNode }) {
-  const router = useRouter();
+  const {
+    query: { ownerId },
+    push,
+    pathname,
+  } = useRouter();
+  const mine = !ownerId;
   const { data: someoneData, status: someoneStatus } = useQuery(
-    ['getUserProfile', 'profile', router.query.ownerId],
-    () => getProfileApi(router.query.ownerId as string),
-    { enabled: !!router.query.ownerId },
+    ['getUserProfile', 'profile', ownerId],
+    () => getProfileApi(ownerId as string),
+    { enabled: !!ownerId },
   );
   const { data: myData, status: myStatus } = useQuery(
     ['getUserProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
-    { enabled: !router.query.ownerId },
+    { enabled: !ownerId },
   );
 
-  const data = someoneData ?? myData;
-  const status = someoneStatus === 'success' ? someoneStatus : myStatus;
+  const data = mine ? myData : someoneData;
+  const status = mine ? myStatus : someoneStatus;
 
   const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
 
   const onLogout = () => {
     logout();
-    router.push('/');
+    push('/');
     setIsAuthorized(false);
   };
 
   const routes = (pathname: string) => {
-    return router.query.ownerId
+    return ownerId
       ? {
           pathname,
-          query: { ownerId: router.query.ownerId },
+          query: { ownerId: ownerId },
         }
       : { pathname };
   };
@@ -75,7 +80,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
               <Link
                 href={routes('/profile')}
                 className={
-                  router.pathname === '/profile'
+                  pathname === '/profile'
                     ? 'flex justify-center items-center text-sm text-main border-b-main border-b border-solid'
                     : 'flex justify-center items-center text-sm text-[#999797] border-b-[#ebeaea] border-b border-solid'
                 }
@@ -85,7 +90,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
               <Link
                 href={routes('/profile/myfeed')}
                 className={
-                  router.pathname === '/profile/myfeed'
+                  pathname === '/profile/myfeed'
                     ? 'flex justify-center items-center text-sm text-main border-b-main border-b border-solid'
                     : 'flex justify-center items-center text-sm text-[#999797] border-b-[#ebeaea] border-b border-solid'
                 }
@@ -95,7 +100,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
               <Link
                 href={routes('/profile/myrecruit')}
                 className={
-                  router.pathname === '/profile/myrecruit'
+                  pathname === '/profile/myrecruit'
                     ? 'flex justify-center items-center text-sm text-main border-b-main border-b border-solid'
                     : 'flex justify-center items-center text-sm text-[#999797] border-b-[#ebeaea] border-b border-solid'
                 }
