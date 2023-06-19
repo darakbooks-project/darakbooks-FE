@@ -32,19 +32,18 @@ export default function Home({
   const {
     query: { isRendedOnboarding },
     push,
-    isReady,
   } = useRouter();
 
   useEffect(() => {
     setHydrated(true);
   }, []);
 
-  useEffect(() => {
-    if (!isAuthorized && !isRendedOnboarding) push('/onboarding');
-  }, [isAuthorized, isRendedOnboarding, push]);
-
   if (!hydrated) return null;
-  if (!isReady || !isRendedOnboarding) return null;
+  if (!isAuthorized && !isRendedOnboarding) {
+    push('/onboarding');
+    return <></>;
+  }
+
   return (
     <main>
       <section className='bg-[#C6BDA4] h-[17.125rem]'>
