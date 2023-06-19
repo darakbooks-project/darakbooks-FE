@@ -53,8 +53,15 @@ const BookDetailPage = () => {
     },
   );
 
-  const renderLoginModal = () => {
-    if (!isAuthorized) openAuthRequiredModal();
+  const moveBookRecord = () => {
+    if (!isAuthorized) return openAuthRequiredModal();
+
+    router.push({
+      pathname: '/book/record',
+      query: {
+        isbn: router.query.isbn,
+      },
+    });
   };
 
   const bookRelatedAllRecord = getAllDetailRecords?.pages.flatMap(
@@ -147,7 +154,7 @@ const BookDetailPage = () => {
                 className='w-full h-auto'
               />
             </div>
-            <article className=' flex flex-col items-center gap-1'>
+            <article className='flex flex-col items-center gap-1 '>
               <h1 className='text-xl font-semibold text-[#242424]'>
                 {getBookDataByIsbn?.documents[0].title}
               </h1>
@@ -237,16 +244,9 @@ const BookDetailPage = () => {
         </button>
         <button
           className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-main bg-main '
-          onClick={renderLoginModal}
+          onClick={moveBookRecord}
         >
-          <Link
-            href={{
-              pathname: isAuthorized ? '/book/record' : '',
-              query: { isbn: router.query.isbn },
-            }}
-          >
-            바로기록하기
-          </Link>
+          바로기록하기
         </button>
       </section>
     </div>

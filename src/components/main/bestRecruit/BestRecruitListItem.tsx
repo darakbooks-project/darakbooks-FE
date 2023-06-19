@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -24,10 +25,18 @@ const BestRecruitListItem = ({
   index,
 }: BestRecruitListItemProps) => {
   const { openAuthRequiredModal } = useAuth();
+  const router = useRouter();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
 
-  const renderLoginModal = () => {
-    if (!isAuthorized) openAuthRequiredModal();
+  const moveGroupDetail = (group_group_id: number) => {
+    if (!isAuthorized) return openAuthRequiredModal();
+
+    router.push({
+      pathname: 'recruit/detail',
+      query: {
+        groupId: group_group_id,
+      },
+    });
   };
 
   const {
@@ -47,12 +56,9 @@ const BestRecruitListItem = ({
   if (isError) return <></>;
 
   return (
-    <li onClick={renderLoginModal}>
-      <Link
-        href={isAuthorized ? `recruit/detail?groupId=${group_group_id}` : ''}
-        className='flex items-center mx-5 mb-7'
-      >
-        <div className='text-lg font-bold mr-3 text-main'>{index + 1}</div>
+    <li onClick={() => moveGroupDetail(group_group_id)}>
+      <div className='flex items-center mx-5 mb-7'>
+        <div className='mr-3 text-lg font-bold text-main'>{index + 1}</div>
         <div className='mr-3'>
           <Avatar
             src={groupLeader.photoUrl}
@@ -72,7 +78,7 @@ const BestRecruitListItem = ({
             {group_description}
           </p>
         </div>
-      </Link>
+      </div>
     </li>
   );
 };
