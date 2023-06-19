@@ -30,6 +30,7 @@ const ProfilePage: NextPageWithLayout = () => {
   const deleteBookShelf = useMutation(deleteBookShelfApi);
   const [modal, setModal] = useRecoilState(modalStateAtom);
   const [bookId, setBookId] = useState('');
+  const [certainBookTitle, setCertainBookTitle] = useState('');
 
   const { data: myCertainBookData } = useQuery(
     ['getCertainBookRecords', 'profile', bookId, 'mine'],
@@ -105,13 +106,15 @@ const ProfilePage: NextPageWithLayout = () => {
     });
   };
 
-  const openBookShelf = (bookIsbn: string) => {
+  const openBookShelf = (bookIsbn: string, title: string) => {
     setModal({ type: 'BOOKSHELF' });
+    setCertainBookTitle(title);
     setBookId(bookIsbn);
   };
 
   useEffect(() => {
     setModal({ type: 'HIDDEN' });
+    setCertainBookTitle('');
     setBookId('');
   }, []);
 
@@ -146,7 +149,7 @@ const ProfilePage: NextPageWithLayout = () => {
                     <article
                       className='relative flex flex-col items-center mb-4'
                       key={data.bookIsbn}
-                      onClick={() => openBookShelf(data.bookIsbn)}
+                      onClick={() => openBookShelf(data.bookIsbn, data.title)}
                     >
                       {edit && (
                         <div
@@ -193,7 +196,7 @@ const ProfilePage: NextPageWithLayout = () => {
                     </div>
                     <section className='flex flex-col items-center'>
                       <h3 className='font-bold text-[21px] text-[#333333]'>
-                        {certainBookData?.records[0].book.title}
+                        {certainBookTitle}
                       </h3>
                       <h4 className='font-normal text-[15px] text-[#333333]'>
                         총{' '}
@@ -222,7 +225,7 @@ const ProfilePage: NextPageWithLayout = () => {
                             push({
                               pathname: '/book/record',
                               query: {
-                                isbn: certainBookData?.records[0].book.bookIsbn,
+                                isbn: bookId,
                               },
                             });
                           }}
@@ -237,7 +240,7 @@ const ProfilePage: NextPageWithLayout = () => {
                         push({
                           pathname: '/book/detail',
                           query: {
-                            isbn: certainBookData?.records[0].book.bookIsbn,
+                            isbn: bookId,
                           },
                         })
                       }
