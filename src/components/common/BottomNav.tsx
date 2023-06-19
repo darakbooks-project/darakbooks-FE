@@ -106,6 +106,7 @@ const Button = tw.div`
   flex
   flex-col
   items-center
+  cursor-pointer
 `;
 
 const Text = tw(Link)<{ isclick: string }>`
