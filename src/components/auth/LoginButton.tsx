@@ -22,9 +22,12 @@ export default LoginButton;
 const LinkStyle = tw(Link)`
   flex 
   items-center 
-  justify-center 
-  w-full h-10 
-  bg-yellow-300 
+  bg-[#F9E000] 
   border 
   cursor-pointer
+  rounded-md
+  px-4
+  py-3.5
+  my-4
+  font-medium	
 `;
