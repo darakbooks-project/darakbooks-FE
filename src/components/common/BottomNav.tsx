@@ -84,7 +84,7 @@ export default BottomNav;
 
 const Container = tw.nav`
   fixed
-  bottom-0
+  bottom-[-1px]
   left-[50%]
   translate-x-[-50%]
   w-full
