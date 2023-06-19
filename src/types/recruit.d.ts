@@ -1,4 +1,4 @@
-export interface ClassOpenStateObjProps {
+export interface GroupFormStateObjProps {
   className: string;
   classType: string;
   classRegion: string;
@@ -9,7 +9,7 @@ export interface ClassOpenStateObjProps {
   classKakaoLink: string;
 }
 
-export interface ClassOpenChangeStateObjProps {
+export interface GroupFormChangeStateObjProps {
   changeClassName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   changeClassType: (type: string) => void;
   changeClassRegion: (e: React.MouseEvent<HTMLUListElement>) => void;

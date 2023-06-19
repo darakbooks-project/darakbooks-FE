@@ -14,13 +14,7 @@ import RecruitNotification from '@/components/recruit/detail/RecruitNotification
 import RecruitParticipationControl from '@/components/recruit/detail/RecruitParticipationControl';
 import RecruitStatusSelectModal from '@/components/recruit/detail/RecruitStatusSelectModal';
 import { selectRecruitStatusAtom } from '@/recoil/modal';
-import { GroupLeaderType, GroupList } from '@/types/recruit';
-
-interface ReadingGroupType {
-  group: GroupList;
-  is_group_lead: boolean;
-  is_participant: boolean;
-}
+import { GroupLeaderType } from '@/types/recruit';
 
 const RecruitDetailPage = () => {
   const {
@@ -32,7 +26,7 @@ const RecruitDetailPage = () => {
     data: groupData,
     isError: isGroupError,
     isLoading: isGroupLoading,
-  } = useQuery<ReadingGroupType>(
+  } = useQuery(
     ['recruitDetail', groupId],
     () => fetchReadingGroupInfo(groupId as string),
     {
@@ -68,11 +62,11 @@ const RecruitDetailPage = () => {
     description,
     meeting_type,
     group_id,
-  } = groupData.group;
+  } = groupData;
 
   const NotificationState = [
     { title: '요일/시간', detail: `매주 ${day} ${time}` },
-    { title: '활동 장소', detail: `매주 ${region}` },
+    { title: '활동 장소', detail: `${region}` },
     {
       title: '참여 인원',
       detail: `${userGroup.length}/${participant_limit}`,
@@ -127,8 +121,8 @@ const RecruitDetailPage = () => {
           )}
           <p>{description}</p>
           <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
-          <h3 className='text-main text-sm'>자세한 정보 알려드려요</h3>
-          <h2 className='text-xl pt-1 font-bold pb-6'>안내사항</h2>
+          <h3 className='text-sm text-main'>자세한 정보 알려드려요</h3>
+          <h2 className='pt-1 pb-6 text-xl font-bold'>안내사항</h2>
           {NotificationState.map(({ title, detail }) => (
             <RecruitNotification
               key={title}
@@ -139,9 +133,9 @@ const RecruitDetailPage = () => {
             />
           ))}
           <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
-          <h3 className='text-main text-sm'>함께 독서하며 소통하고 있어요</h3>
-          <div className='flex justify-between items-center pb-5'>
-            <h2 className='text-xl pt-1 font-bold'>멤버 소개</h2>
+          <h3 className='text-sm text-main'>함께 독서하며 소통하고 있어요</h3>
+          <div className='flex items-center justify-between pb-5'>
+            <h2 className='pt-1 text-xl font-bold'>멤버 소개</h2>
             <Link href={`/recruit/detail/member`}>전체보기</Link>
           </div>
           <div className='flex'>
