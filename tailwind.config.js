@@ -29,6 +29,7 @@ module.exports = {
       },
       colors: {
         main: '#50BEAB',
+        background: '#FFFEF8',
       },
     },
     screens: {
