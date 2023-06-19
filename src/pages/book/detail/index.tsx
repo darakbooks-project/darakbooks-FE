@@ -5,6 +5,7 @@ import {
   useMutation,
   useQuery,
 } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -104,7 +105,10 @@ const BookDetailPage = () => {
         alert('책 담기 성공');
       },
       onError: (error) => {
-        alert(error);
+        const { status } = error as AxiosError;
+        if (status === 403) {
+          alert('이미 책장에 저장된 책입니다.');
+        }
       },
     });
   };

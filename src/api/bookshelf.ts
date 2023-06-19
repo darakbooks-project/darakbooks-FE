@@ -22,7 +22,10 @@ export const postBookshelfApi = async (bookData: bookshelfDataProps) => {
 
     return data;
   } catch (error) {
-    throw new Error('책을 추가할 수 없습니다.');
+    const { response } = error as unknown as AxiosError;
+    if (response) {
+      throw { status: response.status };
+    }
   }
 };
 

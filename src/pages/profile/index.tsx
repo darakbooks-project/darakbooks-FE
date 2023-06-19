@@ -22,8 +22,10 @@ import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
 
 const ProfilePage: NextPageWithLayout = () => {
-  const router = useRouter();
-  const mine = !router.query.ownerId;
+  const {
+    query: { ownerId },
+    push,
+  } = useRouter();
   const [edit, setEdit] = useState(false);
   const deleteBookShelf = useMutation(deleteBookShelfApi);
   const [modal, setModal] = useRecoilState(modalStateAtom);
@@ -38,38 +40,38 @@ const ProfilePage: NextPageWithLayout = () => {
         bookId,
       ),
     {
-      enabled: !!bookId && !router.query.ownerId,
+      enabled: !!bookId && !ownerId,
     },
   );
 
   const { data: someoneCertainBookData } = useQuery(
-    ['getCertainBookRecords', 'profile', bookId, router.query.ownerId],
+    ['getCertainBookRecords', 'profile', bookId, ownerId],
     () =>
       getCertainBookRecordsApi(
         Number.MAX_SAFE_INTEGER,
         Number.MAX_SAFE_INTEGER,
         bookId,
-        router.query.ownerId as string,
+        ownerId as string,
       ),
     {
-      enabled: !!bookId && !!router.query.ownerId,
+      enabled: !!bookId && !!ownerId,
     },
   );
 
   const { data: someoneData } = useQuery(
-    ['getUserProfile', 'profile', router.query.ownerId],
-    () => getProfileApi(router.query.ownerId as string),
-    { enabled: !!router.query.ownerId },
+    ['getUserProfile', 'profile', ownerId],
+    () => getProfileApi(ownerId as string),
+    { enabled: !!ownerId },
   );
   const { data: myData } = useQuery(
     ['getUserProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
-    { enabled: !router.query.ownerId },
+    { enabled: !ownerId },
   );
   const { data: someoneBookShelf, status: someoneBookShelfStatus } = useQuery(
-    ['getBookShelf', 'profile', router.query.ownerId],
-    () => getBookShelfApi(router.query.ownerId as string),
-    { enabled: !!router.query.ownerId },
+    ['getBookShelf', 'profile', ownerId],
+    () => getBookShelfApi(ownerId as string),
+    { enabled: !!ownerId },
   );
   const {
     data: myBookShelf,
@@ -78,13 +80,13 @@ const ProfilePage: NextPageWithLayout = () => {
   } = useQuery(
     ['getBookShelf', 'profile', 'mybookshelf'],
     () => getBookShelfApi(),
-    { enabled: !router.query.ownerId },
+    { enabled: !ownerId },
   );
 
-  const bookshelfData = mine ? myBookShelf : someoneBookShelf;
-  const userData = mine ? myData : someoneData;
-  const bookshelfStatus = mine ? myBookShelfStatus : someoneBookShelfStatus;
-  const certainBookData = mine ? myCertainBookData : someoneCertainBookData;
+  const bookshelfData = ownerId ? someoneBookShelf : myBookShelf;
+  const userData = ownerId ? someoneData : myData;
+  const bookshelfStatus = ownerId ? someoneBookShelfStatus : myBookShelfStatus;
+  const certainBookData = ownerId ? someoneCertainBookData : myCertainBookData;
 
   const removeBook = (bookId: string) => {
     deleteBookShelf.mutate(bookId, {
@@ -196,7 +198,7 @@ const ProfilePage: NextPageWithLayout = () => {
                       <h4 className='font-normal text-[15px] text-[#333333]'>
                         총{' '}
                         <span className='font-normal text-[15px] text-[#60b28d]'>
-                          3개
+                          {certainBookData?.records.length}개
                         </span>
                         의 도서 기록을 작성하셨어요!
                       </h4>
@@ -217,7 +219,7 @@ const ProfilePage: NextPageWithLayout = () => {
                         <li
                           className='flex justify-center items-center text-[54px] font-[lighter] text-[#999797] w-[6.125rem] h-[6.125rem] border rounded-lg border-dashed border-[#999797]'
                           onClick={() => {
-                            router.push({
+                            push({
                               pathname: '/book/record',
                               query: {
                                 isbn: certainBookData?.records[0].book.bookIsbn,
@@ -232,7 +234,7 @@ const ProfilePage: NextPageWithLayout = () => {
                     <button
                       className='flex w-full justify-center items-center h-[3.125rem] text-white rounded-[10px] bg-[#60b28d]'
                       onClick={() =>
-                        router.push({
+                        push({
                           pathname: '/book/detail',
                           query: {
                             isbn: certainBookData?.records[0].book.bookIsbn,

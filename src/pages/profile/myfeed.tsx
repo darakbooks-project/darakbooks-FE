@@ -18,19 +18,20 @@ import ProfileLayout from '@/layout/ProfileLayout';
 import { NextPageWithLayout } from '@/types/layout';
 
 const MyFeed: NextPageWithLayout = () => {
-  const router = useRouter();
-  const mine = !router.query.ownerId;
+  const {
+    query: { ownerId },
+  } = useRouter();
   const [edit, setEdit] = useState(false);
   const deleteRecord = useMutation(deleteRecordApi);
   const { data: someoneData } = useQuery(
-    ['getUserProfile', 'profile', router.query.ownerId],
-    () => getProfileApi(router.query.ownerId as string),
-    { enabled: !!router.query.ownerId },
+    ['getUserProfile', 'profile', ownerId],
+    () => getProfileApi(ownerId as string),
+    { enabled: !!ownerId },
   );
   const { data: myData } = useQuery(
     ['getUserProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
-    { enabled: !router.query.ownerId },
+    { enabled: !ownerId },
   );
 
   const [ref, inView] = useInView();
@@ -50,7 +51,7 @@ const MyFeed: NextPageWithLayout = () => {
         }
         return lastPage.lastId;
       },
-      enabled: !router.query.ownerId,
+      enabled: !ownerId,
     },
   );
   const {
@@ -61,7 +62,7 @@ const MyFeed: NextPageWithLayout = () => {
   } = useInfiniteQuery(
     ['getAllSomeoneRecords', 'someonefeed'],
     ({ pageParam = Number.MAX_SAFE_INTEGER }) =>
-      getAllRecordsApi(pageParam, 9, router.query.ownerId as string),
+      getAllRecordsApi(pageParam, 9, ownerId as string),
     {
       getNextPageParam: (lastPage) => {
         if (!lastPage.lastId) {
@@ -69,19 +70,21 @@ const MyFeed: NextPageWithLayout = () => {
         }
         return lastPage.lastId;
       },
-      enabled: !!router.query.ownerId,
+      enabled: !!ownerId,
     },
   );
 
-  const recordsData = mine ? getAllMyRecords : getAllSomeoneRecords;
-  const userData = mine ? myData : someoneData;
-  const recordsStatus = mine ? myRecordsStatus : someoneRecordsStatus;
-  const hasNextPage = mine ? myRecordsHasNextPage : someoneRecordsHasNextPage;
+  const recordsData = ownerId ? getAllSomeoneRecords : getAllMyRecords;
+  const userData = ownerId ? someoneData : myData;
+  const recordsStatus = ownerId ? someoneRecordsStatus : myRecordsStatus;
+  const hasNextPage = ownerId
+    ? someoneRecordsHasNextPage
+    : myRecordsHasNextPage;
   const allRecords = recordsData?.pages.flatMap((page) => page.records);
 
-  const fetchNextPage = mine
-    ? myRecordsFetchNextPage
-    : someoneRecordsFetchNextPage;
+  const fetchNextPage = ownerId
+    ? someoneRecordsFetchNextPage
+    : myRecordsFetchNextPage;
 
   useEffect(() => {
     if (hasNextPage && inView) fetchNextPage();

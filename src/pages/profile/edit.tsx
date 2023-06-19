@@ -18,8 +18,12 @@ const Edit = () => {
   const [profileImage, setProfileImage] = useImage({}, registerImage);
 
   const { data: getMyProfile, status } = useQuery(
-    ['getMyProfile', 'profile'],
+    ['getMyProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
+    {
+      staleTime: 1000 * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 24,
+    },
   );
 
   const [secretMode, setSecretMode] = useState<'PUBLIC' | 'PRIVATE'>(

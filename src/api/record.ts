@@ -96,7 +96,7 @@ export const getCertainBookRecordsApi = async (
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `/records/${ownerId}?lastId=${lastId}&pageSize=${pageSize}&bookID=${bookId}`,
+      url: `/records/${ownerId}?lastId=${lastId}&pageSize=${pageSize}&bookId=${bookId}`,
     });
 
     return data;
