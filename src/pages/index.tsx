@@ -30,7 +30,7 @@ export default function Home({
   const [hydrated, setHydrated] = useState(false);
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
   const {
-    query: { onboarding },
+    query: { isRendedOnboarding },
     push,
     isReady,
   } = useRouter();
@@ -40,11 +40,11 @@ export default function Home({
   }, []);
 
   useEffect(() => {
-    if (!isAuthorized && !onboarding) push('/onboarding');
-  }, [isAuthorized, onboarding, push]);
+    if (!isAuthorized && !isRendedOnboarding) push('/onboarding');
+  }, [isAuthorized, isRendedOnboarding, push]);
 
   if (!hydrated) return null;
-  if (!isReady || !onboarding) return null;
+  if (!isReady || !isRendedOnboarding) return null;
   return (
     <main>
       <section className='bg-[#C6BDA4] h-[17.125rem]'>

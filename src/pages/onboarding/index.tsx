@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import Slider from 'react-slick';
 
 const ONBOADINGDATA = [
@@ -59,7 +59,7 @@ const OnboardingPage = () => {
       {
         pathname: '/',
         query: {
-          onboarding: 'true',
+          isRendedOnboarding: 'true',
         },
       },
       '/',
@@ -71,7 +71,7 @@ const OnboardingPage = () => {
       {
         pathname: '/',
         query: {
-          onboarding: 'true',
+          isRendedOnboarding: 'true',
         },
       },
       '/recommend',
@@ -88,7 +88,7 @@ const OnboardingPage = () => {
       </button>
       <Slider {...settings}>
         {ONBOADINGDATA.map((item) => (
-          <>
+          <Fragment key={item.title}>
             <div className='flex flex-col justify-center w-5/6 pb-3'>
               <h2 className='mb-3 text-2xl font-bold'>{item.title}</h2>
               {item.desc}
@@ -117,7 +117,7 @@ const OnboardingPage = () => {
                 </button>
               </>
             )}
-          </>
+          </Fragment>
         ))}
       </Slider>
     </div>
