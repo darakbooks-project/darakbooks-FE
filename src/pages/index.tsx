@@ -1,12 +1,15 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { fetchBestGroup } from '@/api/main';
 import BookShelfPreview from '@/components/common/BookShelfPreview';
 import BottomNav from '@/components/common/BottomNav';
 import BestRecruitList from '@/components/main/bestRecruit/BestRecruitList';
 import RecordFeedList from '@/components/main/mainRecordFeed/RecordFeedList';
+import { isAuthorizedSelector } from '@/recoil/auth';
 import { BestGroupListType } from '@/types/recruit';
 
 import image1 from '../../public/images/bookCover/image1.jpg';
@@ -25,13 +28,23 @@ export default function Home({
   bestGroup: BestGroupListType[];
 }) {
   const [hydrated, setHydrated] = useState(false);
+  const isAuthorized = useRecoilValue(isAuthorizedSelector);
+  const {
+    query: { onboarding },
+    push,
+    isReady,
+  } = useRouter();
 
   useEffect(() => {
     setHydrated(true);
   }, []);
 
-  if (!hydrated) return null;
+  useEffect(() => {
+    if (!isAuthorized && !onboarding) push('/onboarding');
+  }, [isAuthorized, onboarding, push]);
 
+  if (!hydrated) return null;
+  if (!isReady || !onboarding) return null;
   return (
     <main>
       <section className='bg-[#C6BDA4] h-[17.125rem]'>
