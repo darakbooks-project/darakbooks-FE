@@ -101,48 +101,65 @@ const MyFeed: NextPageWithLayout = () => {
 
   return (
     <>
-      {recordsStatus === 'success' && (
+      {recordsStatus === 'success' && allRecords && (
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
-            <div>비공개</div>
+            <div className='h-[calc(100%_-_3.5rem)] flex flex-col justify-center items-center leading-[1.3rem]'>
+              <h5 className='text-base font-medium text-[#333333]'>
+                비공개 계정입니다.
+              </h5>
+              <p className='text-[13px] text-[#707070]'>
+                이 계정은 확인할 수 없습니다.
+              </p>
+            </div>
           ) : (
             <>
-              <div className='flex items-center justify-between px-6 py-0 h-14'>
-                <span>독서기록</span>
-                {userData?.isMine ? (
-                  <span
-                    className='text-[15px] text-[#333333]'
-                    onClick={() => setEdit((prev) => !prev)}
-                  >
-                    {edit ? '완료' : '편집'}
-                  </span>
-                ) : null}
-              </div>
-              <section className='grid grid-cols-[repeat(3,1fr)] gap-0.5'>
+              {allRecords.length < 1 ? (
+                <div className='h-[calc(100%_-_3.5rem)] flex flex-col justify-center items-center'>
+                  <h5 className='text-base font-medium text-[#333333]'>
+                    기록이 없어요.
+                  </h5>
+                </div>
+              ) : (
                 <>
-                  {allRecords?.map((item) => (
-                    <div key={item.recordId} className='relative'>
-                      {edit && (
-                        <div
-                          className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-1 bottom-1'
-                          onClick={() => removeRecord(item.recordId + '')}
-                        >
-                          X
+                  <div className='flex items-center justify-between px-6 py-0 h-14'>
+                    <span>독서기록</span>
+                    {userData?.isMine ? (
+                      <span
+                        className='text-[15px] text-[#333333]'
+                        onClick={() => setEdit((prev) => !prev)}
+                      >
+                        {edit ? '완료' : '편집'}
+                      </span>
+                    ) : null}
+                  </div>
+                  <section className='grid grid-cols-[repeat(3,1fr)] gap-0.5'>
+                    <>
+                      {allRecords.map((item) => (
+                        <div key={item.recordId} className='relative'>
+                          {edit && (
+                            <div
+                              className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-1 bottom-1'
+                              onClick={() => removeRecord(item.recordId + '')}
+                            >
+                              X
+                            </div>
+                          )}
+                          <Image
+                            src={item.recordImgUrl}
+                            alt={item.book.title}
+                            width='0'
+                            height='0'
+                            sizes='100vw'
+                            className='h-32 w-full'
+                          />
                         </div>
-                      )}
-                      <Image
-                        src={item.recordImgUrl}
-                        alt={item.book.title}
-                        width='0'
-                        height='0'
-                        sizes='100vw'
-                        className='h-32 w-full'
-                      />
-                    </div>
-                  ))}
+                      ))}
+                    </>
+                  </section>
+                  <div ref={ref}></div>
                 </>
-              </section>
-              <div ref={ref}></div>
+              )}
             </>
           )}
         </>
