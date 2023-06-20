@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { getGPTRecommendBook } from '@/api/recommend';
 import Header from '@/components/common/Header';
 import RecommendComplete from '@/components/recommend/RecommendComplete';
 import RecommendLoading from '@/components/recommend/RecommendLoading';
+import RecommendLayout from '@/layout/RecommendLayout';
 import { RecommendBookResult } from '@/recoil/recommend';
 
 const RecommendInputPage = () => {
@@ -72,6 +73,10 @@ const RecommendInputPage = () => {
       </button>
     </div>
   );
+};
+
+RecommendInputPage.getLayout = function getLayout(page: ReactElement) {
+  return <RecommendLayout>{page}</RecommendLayout>;
 };
 
 export default RecommendInputPage;
