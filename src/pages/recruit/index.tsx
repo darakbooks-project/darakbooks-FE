@@ -12,7 +12,10 @@ const RecruitPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
-  const router = useRouter();
+  const {
+    push,
+    query: { islistchange },
+  } = useRouter();
 
   const clickGroupOpenButton = () => {
     if (!isAuthorized) {
@@ -20,7 +23,7 @@ const RecruitPage = () => {
       return;
     }
 
-    router.push('/recruit/write');
+    push('/recruit/write');
   };
 
   useEffect(() => {
@@ -42,7 +45,13 @@ const RecruitPage = () => {
 
       <InfinityScrollListsWrap>
         <InfinityScrollLists>
-          {isMounted && <RecruitInfinityScrollLists />}
+          {isMounted && (
+            <RecruitInfinityScrollLists
+              islistchange={
+                typeof islistchange === 'string' ? islistchange : ''
+              }
+            />
+          )}
         </InfinityScrollLists>
       </InfinityScrollListsWrap>
 
