@@ -28,7 +28,7 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        main: '#67A68A',
+        main: '#60B28D',
         background: '#FFFEF8',
       },
       boxShadow: {
