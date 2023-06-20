@@ -90,6 +90,7 @@ const ProfilePage: NextPageWithLayout = () => {
   const certainBookData = ownerId ? someoneCertainBookData : myCertainBookData;
 
   const removeBook = (bookId: string) => {
+    console.log('hi');
     deleteBookShelf.mutate(bookId, {
       onSuccess: () => {
         alert('삭제 되었습니다.');
@@ -123,7 +124,7 @@ const ProfilePage: NextPageWithLayout = () => {
       {bookshelfStatus === 'success' && bookshelfData && (
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
-            <div className='h-[calc(100%_-_3.5rem)] flex flex-col justify-center items-center leading-[1.3rem]'>
+            <div className='h-[calc(100%_-_3.5rem)] flex flex-col justify-center items-center'>
               <h5 className='text-base font-medium text-[#333333]'>
                 비공개 계정입니다.
               </h5>
@@ -133,130 +134,142 @@ const ProfilePage: NextPageWithLayout = () => {
             </div>
           ) : (
             <>
-              <div className='flex items-center justify-between px-6 py-0 h-14'>
-                <span className='text-[15px] text-[#707070]'>
-                  전체{' '}
-                  <span className='text-[15px] text-[#67a68a]'>
-                    {bookshelfData.length}
-                  </span>
-                  권
-                </span>
-                {userData?.isMine && (
-                  <span
-                    className='text-[15px] text-[#333333]'
-                    onClick={() => setEdit((prev) => !prev)}
-                  >
-                    {edit ? '완료' : '편집'}
-                  </span>
-                )}
-              </div>
-              <section className='grid grid-cols-[repeat(3,1fr)] px-4 py-0 pb-16'>
-                {bookshelfData.map((data) => (
-                  <>
-                    <article
-                      className='relative flex flex-col items-center mb-4'
-                      key={data.bookIsbn}
-                      onClick={() => openBookShelf(data.bookIsbn, data.title)}
-                    >
-                      {edit && (
+              {bookshelfData.length < 1 ? (
+                <div className='h-[calc(100%_-_3.5rem)] flex flex-col justify-center items-center'>
+                  <h5 className='text-base font-medium text-[#333333]'>
+                    책장이 비어있어요
+                  </h5>
+                </div>
+              ) : (
+                <>
+                  <div className='flex items-center justify-between px-6 py-0 h-14'>
+                    <span className='text-[15px] text-[#707070]'>
+                      전체{' '}
+                      <span className='text-[15px] text-[#67a68a]'>
+                        {bookshelfData.length}
+                      </span>
+                      권
+                    </span>
+                    {userData?.isMine && (
+                      <span
+                        className='text-[15px] text-[#333333]'
+                        onClick={() => setEdit((prev) => !prev)}
+                      >
+                        {edit ? '완료' : '편집'}
+                      </span>
+                    )}
+                  </div>
+                  <section className='grid grid-cols-[repeat(3,1fr)] px-4 py-0 pb-16'>
+                    {bookshelfData.map((data) => (
+                      <>
+                        <article
+                          className='relative flex flex-col items-center mb-4'
+                          key={data.bookIsbn}
+                          onClick={() =>
+                            openBookShelf(data.bookIsbn, data.title)
+                          }
+                        >
+                          {edit && (
+                            <div
+                              className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-0.5'
+                              onClick={(
+                                event: React.MouseEvent<HTMLDivElement>,
+                              ) => {
+                                event.stopPropagation();
+                                removeBook(data.bookIsbn);
+                              }}
+                            >
+                              X
+                            </div>
+                          )}
+
+                          <section className='w-full shadow-[0px_4px_8px_rgba(0,0,0,0.15)] mb-4 p-[7px]'>
+                            <Image
+                              src={data.thumbnail}
+                              alt={data.title}
+                              width='0'
+                              height='0'
+                              sizes='100vw'
+                              className='w-full h-[9.5rem]  rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
+                            />
+                          </section>
+                          <div className='flex flex-col items-center w-full'>
+                            <h3 className='text-[13px] text-[#333333] mb-[5px]'>
+                              {data.title}
+                            </h3>
+                            <h4 className='text-[11px] text-[#707070]'>
+                              {data.authors[0]}
+                            </h4>
+                          </div>
+                        </article>
+                      </>
+                    ))}
+                    {modal.type === 'BOOKSHELF' && (
+                      <Modal>
                         <div
-                          className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-0.5'
-                          onClick={(
-                            event: React.MouseEvent<HTMLDivElement>,
-                          ) => {
-                            event.stopPropagation();
-                            removeBook(data.bookIsbn);
-                          }}
+                          className='flex text-lg justify-end'
+                          onClick={() => setModal({ type: 'HIDDEN' })}
                         >
                           X
                         </div>
-                      )}
-
-                      <section className='w-full shadow-[0px_4px_8px_rgba(0,0,0,0.15)] mb-4 p-[7px]'>
-                        <Image
-                          src={data.thumbnail}
-                          alt={data.title}
-                          width='0'
-                          height='0'
-                          sizes='100vw'
-                          className='w-full h-[9.5rem]  rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
-                        />
-                      </section>
-                      <div className='flex flex-col items-center w-full'>
-                        <h3 className='text-[13px] text-[#333333] mb-[5px]'>
-                          {data.title}
-                        </h3>
-                        <h4 className='text-[11px] text-[#707070]'>
-                          {data.authors[0]}
-                        </h4>
-                      </div>
-                    </article>
-                  </>
-                ))}
-                {modal.type === 'BOOKSHELF' && (
-                  <Modal>
-                    <div
-                      className='flex text-lg justify-end'
-                      onClick={() => setModal({ type: 'HIDDEN' })}
-                    >
-                      X
-                    </div>
-                    <section className='flex flex-col items-center'>
-                      <h3 className='font-bold text-[21px] text-[#333333]'>
-                        {certainBookTitle}
-                      </h3>
-                      <h4 className='font-normal text-[15px] text-[#333333]'>
-                        총{' '}
-                        <span className='font-normal text-[15px] text-[#60b28d]'>
-                          {certainBookData?.records.length}개
-                        </span>
-                        의 도서 기록을 작성하셨어요!
-                      </h4>
-                    </section>
-                    <ul className='h-[12.75rem] grid grid-cols-[repeat(3,1fr)] gap-2 overflow-y-scroll my-4'>
-                      {certainBookData?.records.map((record) => (
-                        <Image
-                          key={record.recordId}
-                          src={record.recordImgUrl}
-                          alt={record.text}
-                          width='0'
-                          height='0'
-                          sizes='100vw'
-                          className='flex justify-center items-center w-[6.125rem] h-[6.125rem]  rounded-lg'
-                        />
-                      ))}
-                      {userData?.isMine && (
-                        <li
-                          className='flex justify-center items-center text-[54px] font-[lighter] text-[#999797] w-[6.125rem] h-[6.125rem] border rounded-lg border-dashed border-[#999797]'
-                          onClick={() => {
+                        <section className='flex flex-col items-center'>
+                          <h3 className='font-bold text-[21px] text-[#333333]'>
+                            {certainBookTitle}
+                          </h3>
+                          <h4 className='font-normal text-[15px] text-[#333333]'>
+                            총{' '}
+                            <span className='font-normal text-[15px] text-[#60b28d]'>
+                              {certainBookData?.records.length}개
+                            </span>
+                            의 도서 기록을 작성하셨어요!
+                          </h4>
+                        </section>
+                        <ul className='h-[12.75rem] grid grid-cols-[repeat(3,1fr)] gap-2 overflow-y-scroll my-4'>
+                          {certainBookData?.records.map((record) => (
+                            <Image
+                              key={record.recordId}
+                              src={record.recordImgUrl}
+                              alt={record.text}
+                              width='0'
+                              height='0'
+                              sizes='100vw'
+                              className='flex justify-center items-center w-[6.125rem] h-[6.125rem]  rounded-lg'
+                            />
+                          ))}
+                          {userData?.isMine && (
+                            <li
+                              className='flex justify-center items-center text-[54px] font-[lighter] text-[#999797] w-[6.125rem] h-[6.125rem] border rounded-lg border-dashed border-[#999797]'
+                              onClick={() => {
+                                push({
+                                  pathname: '/book/record',
+                                  query: {
+                                    isbn: bookId,
+                                  },
+                                });
+                              }}
+                            >
+                              +
+                            </li>
+                          )}
+                        </ul>
+                        <button
+                          className='flex w-full justify-center items-center h-[3.125rem] text-white rounded-[10px] bg-[#60b28d]'
+                          onClick={() =>
                             push({
-                              pathname: '/book/record',
+                              pathname: '/book/detail',
                               query: {
                                 isbn: bookId,
                               },
-                            });
-                          }}
+                            })
+                          }
                         >
-                          +
-                        </li>
-                      )}
-                    </ul>
-                    <button
-                      className='flex w-full justify-center items-center h-[3.125rem] text-white rounded-[10px] bg-[#60b28d]'
-                      onClick={() =>
-                        push({
-                          pathname: '/book/detail',
-                          query: {
-                            isbn: bookId,
-                          },
-                        })
-                      }
-                    >
-                      책정보
-                    </button>
-                  </Modal>
-                )}
-              </section>
+                          책정보
+                        </button>
+                      </Modal>
+                    )}
+                  </section>
+                </>
+              )}
             </>
           )}
           <BottomNav />
