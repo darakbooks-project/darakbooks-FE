@@ -10,7 +10,10 @@ import { isAuthorizedSelector } from '@/recoil/auth';
 const RecruitPage = () => {
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
-  const router = useRouter();
+  const {
+    push,
+    query: { islistchange },
+  } = useRouter();
 
   const clickGroupOpenButton = () => {
     if (!isAuthorized) {
@@ -18,7 +21,7 @@ const RecruitPage = () => {
       return;
     }
 
-    router.push('/recruit/write');
+    push('/recruit/write');
   };
 
   return (
@@ -36,7 +39,9 @@ const RecruitPage = () => {
 
       <InfinityScrollListsWrap>
         <InfinityScrollLists>
-          <RecruitInfinityScrollLists />
+          <RecruitInfinityScrollLists
+            islistchange={typeof islistchange === 'string' ? islistchange : ''}
+          />
         </InfinityScrollLists>
       </InfinityScrollListsWrap>
 

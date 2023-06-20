@@ -19,6 +19,7 @@ import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
+import BottomNav from '@/components/common/BottomNav';
 
 interface TagProps {
   id: number;
@@ -120,12 +121,17 @@ const BookRecordPage = () => {
     });
   };
 
-  const isValid =
-    !postImage || !description || !startDate || !getBookDataByIsbn;
+  const isValid = !(
+    postImage.url &&
+    postImage.name &&
+    description &&
+    startDate &&
+    getBookDataByIsbn
+  );
 
   return (
     <AuthRequiredPage>
-      <div className='flex flex-col'>
+      <div className='flex flex-col pb-20'>
         <section className='flex flex-col gap-8 p-4 border-solid pt-28'>
           <article className='flex flex-col gap-2'>
             <h3 className='italic font-normal text-base leading-[19px] text-[#333333]'>
@@ -308,6 +314,7 @@ const BookRecordPage = () => {
           </button>
         </section>
       </div>
+      <BottomNav />
     </AuthRequiredPage>
   );
 };

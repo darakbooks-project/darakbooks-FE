@@ -1,5 +1,4 @@
-import { GroupList, GroupLists } from '@/types/recruit';
-import { GroupFormStateObjProps } from '@/types/recruit';
+import { GroupFormStateObjProps, GroupList, GroupLists } from '@/types/recruit';
 
 import { axiosInstance } from './axios';
 
