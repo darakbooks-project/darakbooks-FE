@@ -1,7 +1,6 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { fetchBestGroup } from '@/api/main';
@@ -27,18 +26,12 @@ export default function Home({
 }: {
   bestGroup: BestGroupListType[];
 }) {
-  const [hydrated, setHydrated] = useState(false);
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
   const {
     query: { isRendedOnboarding },
     push,
   } = useRouter();
 
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  if (!hydrated) return null;
   if (!isAuthorized && !isRendedOnboarding) {
     push('/onboarding');
     return <></>;

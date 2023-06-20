@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
@@ -9,7 +8,6 @@ import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 
 const RecruitPage = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
   const {
@@ -26,10 +24,6 @@ const RecruitPage = () => {
     push('/recruit/write');
   };
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   return (
     <Container>
       <BackGroundWrap>
@@ -45,13 +39,9 @@ const RecruitPage = () => {
 
       <InfinityScrollListsWrap>
         <InfinityScrollLists>
-          {isMounted && (
-            <RecruitInfinityScrollLists
-              islistchange={
-                typeof islistchange === 'string' ? islistchange : ''
-              }
-            />
-          )}
+          <RecruitInfinityScrollLists
+            islistchange={typeof islistchange === 'string' ? islistchange : ''}
+          />
         </InfinityScrollLists>
       </InfinityScrollListsWrap>
 
