@@ -23,7 +23,7 @@ import { bookRecordDataProps } from '@/types/record';
 
 interface TagProps {
   id: number;
-  data: string | number;
+  data: string;
 }
 
 const BookRecordPage = () => {
@@ -128,14 +128,6 @@ const BookRecordPage = () => {
     startDate &&
     getBookDataByIsbn
   );
-
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  if (!hydrated) return null;
 
   return (
     <AuthRequiredPage>
