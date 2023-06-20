@@ -123,7 +123,7 @@ const ProfilePage: NextPageWithLayout = () => {
       {bookshelfStatus === 'success' && bookshelfData && (
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
-            <div className='h-[calc(100%_-_3.5rem)] flex flex-col justify-center items-center'>
+            <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
               <h5 className='text-base font-medium text-[#333333]'>
                 비공개 계정입니다.
               </h5>
@@ -134,7 +134,7 @@ const ProfilePage: NextPageWithLayout = () => {
           ) : (
             <>
               {bookshelfData.length < 1 ? (
-                <div className='h-[calc(100%_-_3.5rem)] flex flex-col justify-center items-center'>
+                <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
                   <h5 className='text-base font-medium text-[#333333]'>
                     책장이 비어있어요
                   </h5>
