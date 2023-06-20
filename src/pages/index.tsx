@@ -1,7 +1,6 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { fetchBestGroup } from '@/api/main';
