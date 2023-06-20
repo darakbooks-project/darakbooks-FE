@@ -11,7 +11,7 @@ export interface bookRecordDataProps {
     recordImgUrl: string;
     tags?: {
       id: number;
-      data: string | number;
+      data: string;
     }[];
     readAt: string;
   };
@@ -21,7 +21,7 @@ export interface RecordType {
   recordId: number;
   text: string;
   recordImgUrl: string;
-  tag: {
+  tags: {
     id: number;
     data: string;
   }[];

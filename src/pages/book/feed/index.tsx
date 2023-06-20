@@ -3,80 +3,140 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useMemo } from 'react';
 
-import { fetchRecord } from '@/api/main';
-import { getAllMainDetailRecordsApi } from '@/api/record';
+import { fetchRecord } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
-import { getAllMainDetailRecordsProps } from '@/types/record';
 
 const BookDetailFeed = () => {
-  const router = useRouter();
-  let page = parseInt(router.query.recordId as string);
+  const {
+    query: { type, recordId, isbn },
+    push,
+  } = useRouter();
+  const maxNumber = Number.MAX_SAFE_INTEGER;
 
-  const { status: getAllDetailRecordsStatus, data: getAllDetailRecordsData } =
-    useQuery(
-      ['getAllDetailRecords', 'record', page],
-      () => getAllMainDetailRecordsApi(router.query.isbn as string, page, 1),
-      {
-        enabled: !!router.query.isbn,
-      },
-    );
+  const { data: mainData, status: mainStatus } = useQuery(
+    ['AllDataFromMain'],
+    () => fetchRecord(maxNumber, maxNumber),
+    {
+      enabled: !!(type === 'MAIN' && !isbn),
+    },
+  );
 
-  const { status: getAllRecordsStatus, data: getAllRecordsData } =
-    useQuery<getAllMainDetailRecordsProps>(
-      ['getAllRecords', 'feed', page],
-      () => fetchRecord(page, 1),
-      {
-        enabled: !router.query.isbn,
-      },
-    );
+  const { data: detailData, status: detailStatus } = useQuery(
+    ['AllDataFromDetail'],
+    () => fetchRecord(maxNumber, maxNumber, isbn as string),
+    {
+      enabled: !!(type === 'DETAIL' && isbn),
+    },
+  );
 
-  const status =
-    getAllDetailRecordsStatus !== 'success'
-      ? getAllRecordsStatus
-      : getAllDetailRecordsStatus;
-  const data = getAllDetailRecordsData
-    ? getAllDetailRecordsData
-    : getAllRecordsData;
+  const data = useMemo(() => {
+    switch (type) {
+      case 'MAIN': {
+        return mainData;
+      }
+      case 'DETAIL': {
+        return detailData;
+      }
+    }
+  }, [detailData, mainData, type]);
+
+  const status = useMemo(() => {
+    switch (type) {
+      case 'MAIN': {
+        return mainStatus;
+      }
+      case 'DETAIL': {
+        return detailStatus;
+      }
+    }
+  }, [detailStatus, mainStatus, type]);
+  // 두개 합치기
+
+  const currentData = data?.records.find(
+    (item) => item.recordId === parseInt(recordId + ''),
+  );
+  const currentIndex = data?.records.findIndex((item) => item === currentData);
+  const dataSize = data?.records.length;
 
   const nextPage = () => {
-    // 마지막 데이터 판별 로직 필요
-    page++;
-    if (router.query.isbn) {
-      router.push(`/book/feed?recordId=${page}&isbn=${router.query.isbn}`);
-    } else {
-      router.push(`/book/feed?recordId=${page}`);
+    if (currentIndex === parseInt(dataSize + '') - 1) {
+      return;
+    }
+    const nextRecordId = data?.records[currentIndex! + 1].recordId;
+    switch (type) {
+      case 'MAIN': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            type: 'MAIN',
+          },
+        });
+        break;
+      }
+      case 'DETAIL': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            isbn,
+            type: 'DETAIL',
+          },
+        });
+        break;
+      }
     }
   };
 
   const prevPage = () => {
-    // 첫번째 데이터 반별 로직 필요
-    page--;
-    if (router.query.isbn) {
-      router.push(`/book/feed?recordId=${page}&isbn=${router.query.isbn}`);
-    } else {
-      router.push(`/book/feed?recordId=${page}`);
+    if (currentIndex === 0) {
+      return;
+    }
+    const nextRecordId = data?.records[currentIndex! - 1].recordId;
+    switch (type) {
+      case 'MAIN': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            type: 'MAIN',
+          },
+        });
+        break;
+      }
+      case 'DETAIL': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            isbn,
+            type: 'DETAIL',
+          },
+        });
+        break;
+      }
     }
   };
 
   return (
     <AuthRequiredPage>
       <div className='flex flex-col bg-[#fbfbfb] gap-4 py-16'>
-        {status === 'success' && data && (
+        {status === 'success' && currentData && (
           <>
             <section className='flex items-center justify-center '>
               <button onClick={prevPage}>&lt;</button>
               <div className='text-[15px] text-[#232323] px-4'>
-                {data.records[0].readAt.substring(0, 10).replaceAll('-', '.')}
+                {currentData.readAt.substring(0, 10).replaceAll('-', '.')}
               </div>
               <button onClick={nextPage}>&gt;</button>
             </section>
             <section className='w-full h-10 flex justify-between items-center px-6'>
               <article className='flex items-center'>
                 <Image
-                  src={data.records[0].user.photoUrl}
+                  src={currentData.user.photoUrl}
                   alt='프로필 이미지'
                   width='0'
                   height='0'
@@ -84,11 +144,11 @@ const BookDetailFeed = () => {
                   className='h-10 w-10 mr-2 rounded-[50%] '
                 />
 
-                <h3>{data?.records[0].user.nickname}</h3>
+                <h3>{currentData.user.nickname}</h3>
               </article>
             </section>
             <Image
-              src={data.records[0].recordImgUrl}
+              src={currentData.recordImgUrl}
               alt='피드 이미지'
               width='0'
               height='0'
@@ -96,10 +156,10 @@ const BookDetailFeed = () => {
               className='w-full h-[22rem]'
             />
             <article className='w-full leading-[160%] text-[15px] rounded-md px-6'>
-              {data.records[0].text}
+              {currentData.text}
             </article>
             <ul className='inline-flex w-full flex-wrap px-6'>
-              {data.records[0].tags.map((tag) => (
+              {currentData.tags.map((tag) => (
                 <li
                   className='flex justify-center items-center border font-normal text-[13px] text-[#333333] mr-2 px-3 py-[5px] rounded-[50px] border-solid border-[#ebeaea]'
                   key={tag.id}
@@ -115,13 +175,13 @@ const BookDetailFeed = () => {
               <Link
                 href={{
                   pathname: '/book/detail',
-                  query: { isbn: router.query.isbn },
+                  query: { isbn },
                 }}
               >
-                <article className=' flex gap-4 p-4 rounded-md bg-[#ffffff]'>
+                <article className=' flex gap-4 p-4 rounded-md bg-[#ffffff] mb-3'>
                   <div className='w-1/5'>
                     <Image
-                      src={data.records[0].book.thumbnail}
+                      src={currentData.book.thumbnail}
                       alt='책 표지'
                       width='0'
                       height='0'
@@ -130,9 +190,9 @@ const BookDetailFeed = () => {
                     />
                   </div>
                   <div className='w-4/5 flex flex-col justify-evenly'>
-                    <h1 className='text-base'>{data.records[0].book.title}</h1>
+                    <h1 className='text-base'>{currentData.book.title}</h1>
                     <h3 className='text-[13px] text-[#999797]'>
-                      {data.records[0].book.authors[0]}
+                      {currentData.book.authors[0]}
                     </h3>
                   </div>
                 </article>
@@ -150,27 +210,23 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
   const queryClient = new QueryClient();
+  const maxNumber = Number.MAX_SAFE_INTEGER;
 
-  if (context.query.isbn) {
-    await queryClient.prefetchQuery(
-      [
-        'getBookDataByIsbn',
-        'record',
-        parseInt(context.query.recordId as string),
-      ],
-      () =>
-        getAllMainDetailRecordsApi(
-          context.query?.isbn as string,
-          parseInt(context.query.recordId as string),
-          1,
-        ),
-    );
-  } else {
-    await queryClient.prefetchQuery(
-      ['getAllRecords', 'feed', parseInt(context.query.recordId as string)],
-      () => fetchRecord(parseInt(context.query.recordId as string), 1),
-    );
+  switch (context.query.type) {
+    case 'MAIN': {
+      await queryClient.prefetchQuery(['AllDataFromMain'], () =>
+        fetchRecord(maxNumber, maxNumber),
+      );
+      break;
+    }
+    case 'DETAIL': {
+      await queryClient.prefetchQuery(['AllDataFromDetail'], () =>
+        fetchRecord(maxNumber, maxNumber, context.query.isbn as string),
+      );
+      break;
+    }
   }
+
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

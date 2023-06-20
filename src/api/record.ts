@@ -52,15 +52,19 @@ export const deleteRecordApi = async (id: string) => {
 };
 
 // 메인페이지, 도서상세 페이지에 필요한 독서기록 전체보기
-export const getAllMainDetailRecordsApi = async (
-  isbn: string,
+export const fetchRecord = async (
   lastId: number,
   pageSize: number,
+  bookId?: string,
 ): Promise<getAllMainDetailRecordsProps> => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `/records?bookID=${isbn}&lastId=${lastId}/&pageSize=${pageSize}`,
+      url: `${
+        bookId
+          ? `/records?bookId=${bookId}&lastId=${lastId}/&pageSize=${pageSize}`
+          : `/records?&lastId=${lastId}&pageSize=${pageSize}`
+      }`,
     });
 
     return data;

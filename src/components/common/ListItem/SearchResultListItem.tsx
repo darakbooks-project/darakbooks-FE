@@ -36,7 +36,7 @@ const SearchResultListItem = ({
     const isbnArr = isbn.split(' ');
     const isbnValue = isbnArr[0] || isbnArr[1];
 
-    router.push(`/book/detail?isbn=${isbnValue}`);
+    router.push({ pathname: '/book/detail', query: { isbn: isbnValue } });
   };
 
   const clickBookListItem = () => {
