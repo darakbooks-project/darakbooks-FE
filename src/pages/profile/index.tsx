@@ -90,7 +90,6 @@ const ProfilePage: NextPageWithLayout = () => {
   const certainBookData = ownerId ? someoneCertainBookData : myCertainBookData;
 
   const removeBook = (bookId: string) => {
-    console.log('hi');
     deleteBookShelf.mutate(bookId, {
       onSuccess: () => {
         alert('삭제 되었습니다.');
