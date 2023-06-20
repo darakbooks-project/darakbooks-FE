@@ -6,10 +6,15 @@ interface Props {
   title?: string;
   moreMenu?: ReactNode;
   className?: string;
+  pathname?: string;
 }
 
-const Header = ({ title, moreMenu, className }: Props) => {
-  const router = useRouter();
+const Header = ({ title, moreMenu, className, pathname }: Props) => {
+  const {
+    push,
+    back,
+    query: { islistchange },
+  } = useRouter();
 
   return (
     <div
@@ -19,7 +24,14 @@ const Header = ({ title, moreMenu, className }: Props) => {
     >
       <div className='flex-1'>
         <Image
-          onClick={() => router.back()}
+          onClick={() => {
+            pathname
+              ? push({
+                  pathname,
+                  query: islistchange && { islistchange },
+                })
+              : back();
+          }}
           className='cursor-pointer'
           src='/images/back-button.svg'
           width={20}

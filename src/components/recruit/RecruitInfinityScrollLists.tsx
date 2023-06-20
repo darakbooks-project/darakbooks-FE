@@ -9,7 +9,13 @@ import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
 
 import RecruitList from './RecruitList';
 
-const RecruitInfinityScrollLists = () => {
+interface RecruitInfinityScrollListsProps {
+  islistchange?: string;
+}
+
+const RecruitInfinityScrollLists = ({
+  islistchange,
+}: RecruitInfinityScrollListsProps) => {
   const { ref, inView } = useInView();
   const infinityScrollPosition = useRecoilValue(
     readingGroupInfinityScrollPositionAtom,
@@ -36,7 +42,7 @@ const RecruitInfinityScrollLists = () => {
 
         return parseInt(lastPage.currentPage) + 1;
       },
-      enabled: !readingGroupQueryData.current,
+      enabled: !readingGroupQueryData.current || !!islistchange,
     },
   );
 

@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
 import { fetchReadingGroupInfo, patchReadingClassChange } from '@/api/recruit';
@@ -11,7 +11,20 @@ const RecruitUpdatePage = () => {
     push,
   } = useRouter();
 
-  const { mutate: updateReadingGroup } = useMutation(patchReadingClassChange);
+  const queryClient = useQueryClient();
+  const { mutate: updateReadingGroup } = useMutation(patchReadingClassChange, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['reading', 'group', 'list']);
+      push({
+        pathname: '/recruit/detail',
+        query: {
+          groupId,
+          islistchange: true,
+        },
+      });
+    },
+  });
+
   const onClickUpdateButton = () => {
     if (!groupId || Array.isArray(groupId)) return;
 
@@ -29,8 +42,6 @@ const RecruitUpdatePage = () => {
         open_chat_link: classStateObj.classKakaoLink,
       },
     });
-
-    push(`/recruit/detail?groupId=${groupId}`);
   };
 
   const {

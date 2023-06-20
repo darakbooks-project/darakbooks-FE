@@ -83,6 +83,7 @@ const RecruitDetailPage = () => {
         <Header
           moreMenu={groupData.is_group_lead && moreMenu}
           className='absolute mt-14'
+          pathname='/recruit'
         />
         <div className='w-full h-[350px] bg-[#FFFCEA]' />
         <main className='flex flex-col bg-white relative -top-10 px-5 rounded-t-[1.875rem] pb-20'>
