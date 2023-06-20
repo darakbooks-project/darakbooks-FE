@@ -25,7 +25,7 @@ const RecruitForm = ({
   return (
     <AuthRequiredPage>
       <Container>
-        <Header />
+        <Header pathname={type === '개설' ? '/recruit' : ''} />
         <Wrapper>
           <PageDescription>
             {type === '개설' ? (
