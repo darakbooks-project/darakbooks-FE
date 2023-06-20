@@ -67,15 +67,7 @@ const OnboardingPage = () => {
   };
 
   const handleMoveRecommend = () => {
-    router.push(
-      {
-        pathname: '/',
-        query: {
-          isRendedOnboarding: 'true',
-        },
-      },
-      '/recommend',
-    );
+    router.push('/recommend/intro', '/recommend');
   };
 
   return (
