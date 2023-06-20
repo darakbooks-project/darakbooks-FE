@@ -27,18 +27,12 @@ export default function Home({
 }: {
   bestGroup: BestGroupListType[];
 }) {
-  const [hydrated, setHydrated] = useState(false);
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
   const {
     query: { isRendedOnboarding },
     push,
   } = useRouter();
 
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  if (!hydrated) return null;
   if (!isAuthorized && !isRendedOnboarding) {
     push('/onboarding');
     return <></>;

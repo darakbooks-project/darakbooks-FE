@@ -9,7 +9,6 @@ import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 
 const RecruitPage = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
   const router = useRouter();
@@ -22,10 +21,6 @@ const RecruitPage = () => {
 
     router.push('/recruit/write');
   };
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   return (
     <Container>
@@ -42,7 +37,7 @@ const RecruitPage = () => {
 
       <InfinityScrollListsWrap>
         <InfinityScrollLists>
-          {isMounted && <RecruitInfinityScrollLists />}
+          <RecruitInfinityScrollLists />
         </InfinityScrollLists>
       </InfinityScrollListsWrap>
 
