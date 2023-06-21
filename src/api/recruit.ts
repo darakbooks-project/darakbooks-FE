@@ -158,3 +158,21 @@ export const getGroupsApi = async (
     throw new Error('그룹을 불러올 수 없습니다.');
   }
 };
+
+//리더가 멤버 강퇴하기
+export const deleteGroupMember = async ({
+  groupId,
+  userId,
+}: {
+  groupId: string;
+  userId: string;
+}) => {
+  try {
+    await axiosInstance.request({
+      method: 'DELETE',
+      url: `/groups/${groupId}/delete-user/${userId}`,
+    });
+  } catch (error) {
+    throw new Error('그룹을 불러올 수 없습니다.');
+  }
+};
