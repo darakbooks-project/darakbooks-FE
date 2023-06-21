@@ -19,6 +19,7 @@ import { UserGroup } from '@/types/recruit';
 const RecruitDetailPage = () => {
   const {
     query: { groupId },
+    push,
   } = useRouter();
   const [modal, setModal] = useRecoilState(selectRecruitStatusAtom);
 
@@ -39,7 +40,7 @@ const RecruitDetailPage = () => {
     isLoading: isLeaderLoading,
     isError: isLeaderError,
   } = useQuery<UserGroup>(
-    ['recruitLeader'],
+    ['recruitLeader', groupId],
     () => fetchReadingGroupLeader(groupId as string),
     {
       enabled: !!groupData,
@@ -99,6 +100,14 @@ const RecruitDetailPage = () => {
               alt='모임장 프로필 이미지'
               width='w-[3.375rem]'
               height='h-[3.375rem]'
+              onAvatarClick={() =>
+                push({
+                  pathname: '/profile',
+                  query: {
+                    ownerId: groupLeader.userId,
+                  },
+                })
+              }
             />
             <div className='pl-4'>
               <h3 className='text-sm text-main'>
@@ -152,7 +161,6 @@ const RecruitDetailPage = () => {
           <div className='flex'>
             {userGroup.map(({ userId, photoUrl }) => (
               <div key={userId} className='pr-2'>
-                {/**해당 아바타 클릭 시 해당 유저의 책장 페이지로 이동 */}
                 <Avatar
                   src={photoUrl}
                   shape='circle'
@@ -161,6 +169,14 @@ const RecruitDetailPage = () => {
                   placeholder=''
                   width='w-[3.1875rem]'
                   height='h-[3.1875rem]'
+                  onAvatarClick={() =>
+                    push({
+                      pathname: '/profile',
+                      query: {
+                        ownerId: userId,
+                      },
+                    })
+                  }
                 />
               </div>
             ))}

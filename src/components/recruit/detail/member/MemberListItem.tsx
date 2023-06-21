@@ -74,7 +74,15 @@ const MemberListItem = ({
 
   return (
     <li className='flex items-center justify-between'>
-      <Link href={`/profile?userId=${userId}`} className='flex pb-4'>
+      <Link
+        href={{
+          pathname: '/profile',
+          query: {
+            ownerId: userId,
+          },
+        }}
+        className='flex pb-4'
+      >
         <Avatar
           src={photoUrl}
           shape='circle'
