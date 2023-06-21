@@ -3,18 +3,37 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
-import { fetchRecord } from '@/api/record';
+import { fetchRecord, getCertainBookRecordsApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 
 const BookDetailFeed = () => {
   const {
-    query: { type, recordId, isbn },
+    query: { type, recordId, isbn, ownerId },
     push,
   } = useRouter();
   const maxNumber = Number.MAX_SAFE_INTEGER;
+  const undefinedOwnerId = ownerId === '';
+
+  const { data: myBookShelfData, status: myBookShelfStatus } = useQuery(
+    ['MyDataFromBookShelf'],
+    () => getCertainBookRecordsApi(maxNumber, maxNumber, isbn + ''),
+    {
+      enabled: !!(type === 'BOOKSHELF' && isbn && undefinedOwnerId),
+    },
+  );
+
+  const { data: someoneBookShelfData, status: someoneBookShelfStatus } =
+    useQuery(
+      ['SomeoneDataFromBookShelf'],
+      () =>
+        getCertainBookRecordsApi(maxNumber, maxNumber, isbn + '', ownerId + ''),
+      {
+        enabled: !!(type === 'BOOKSHELF' && isbn && ownerId),
+      },
+    );
 
   const { data: mainData, status: mainStatus } = useQuery(
     ['AllDataFromMain'],
@@ -40,8 +59,22 @@ const BookDetailFeed = () => {
       case 'DETAIL': {
         return detailData;
       }
+      case 'BOOKSHELF': {
+        if (undefinedOwnerId) {
+          return myBookShelfData;
+        } else {
+          return someoneBookShelfData;
+        }
+      }
     }
-  }, [detailData, mainData, type]);
+  }, [
+    detailData,
+    mainData,
+    myBookShelfData,
+    someoneBookShelfData,
+    type,
+    undefinedOwnerId,
+  ]);
 
   const status = useMemo(() => {
     switch (type) {
@@ -51,8 +84,22 @@ const BookDetailFeed = () => {
       case 'DETAIL': {
         return detailStatus;
       }
+      case 'BOOKSHELF': {
+        if (undefinedOwnerId) {
+          return myBookShelfStatus;
+        } else {
+          return someoneBookShelfStatus;
+        }
+      }
     }
-  }, [detailStatus, mainStatus, type]);
+  }, [
+    detailStatus,
+    mainStatus,
+    myBookShelfStatus,
+    someoneBookShelfStatus,
+    type,
+    undefinedOwnerId,
+  ]);
   // 두개 합치기
 
   const currentData = data?.records.find(
@@ -88,6 +135,18 @@ const BookDetailFeed = () => {
         });
         break;
       }
+      case 'BOOKSHELF': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            isbn,
+            ownerId,
+            type: 'BOOKSHELF',
+          },
+        });
+        break;
+      }
     }
   };
 
@@ -118,8 +177,26 @@ const BookDetailFeed = () => {
         });
         break;
       }
+      case 'BOOKSHELF': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            isbn,
+            ownerId,
+            type: 'BOOKSHELF',
+          },
+        });
+        break;
+      }
     }
   };
+
+  useEffect(() => {
+    console.log('모든 데이터', data);
+    console.log('현재 데이터', currentData);
+    console.log('현재 인덱스', currentIndex);
+  }, [currentData, currentIndex, data]);
 
   return (
     <AuthRequiredPage>
@@ -211,6 +288,9 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const queryClient = new QueryClient();
   const maxNumber = Number.MAX_SAFE_INTEGER;
+  const {
+    query: { isbn, ownerId },
+  } = context;
 
   switch (context.query.type) {
     case 'MAIN': {
@@ -221,9 +301,25 @@ export const getServerSideProps: GetServerSideProps = async (
     }
     case 'DETAIL': {
       await queryClient.prefetchQuery(['AllDataFromDetail'], () =>
-        fetchRecord(maxNumber, maxNumber, context.query.isbn as string),
+        fetchRecord(maxNumber, maxNumber, isbn + ''),
       );
       break;
+    }
+    case 'BOOKSHELF': {
+      if (ownerId) {
+        await queryClient.prefetchQuery(['SomeoneDataFromBookShelf'], () =>
+          getCertainBookRecordsApi(
+            maxNumber,
+            maxNumber,
+            isbn + '',
+            ownerId + '',
+          ),
+        );
+      } else {
+        await queryClient.prefetchQuery(['MyDataFromBookShelf'], () =>
+          getCertainBookRecordsApi(maxNumber, maxNumber, isbn + ''),
+        );
+      }
     }
   }
 
