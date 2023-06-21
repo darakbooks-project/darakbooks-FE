@@ -60,12 +60,16 @@ export const fetchRecord = async (
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `${
-        bookId
-          ? `/records?bookId=${bookId}&lastId=${lastId}/&pageSize=${pageSize}`
-          : `/records?&lastId=${lastId}&pageSize=${pageSize}`
-      }`,
+      url: `/records?${
+        bookId ? `bookId=${bookId}&` : ''
+      }lastId=${lastId}&pageSize=${pageSize}`,
     });
+
+    console.log(
+      `/records?${
+        bookId ? `bookId=${bookId}&` : ''
+      }lastId=${lastId}&pageSize=${pageSize}`,
+    );
 
     return data;
   } catch (error) {
