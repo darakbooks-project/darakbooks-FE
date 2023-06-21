@@ -100,8 +100,11 @@ const RecruitUserManagement = ({
       >
         {handleCheckUserType(recruitmentStatus, isMember, participantLimit)}
       </button>
-      {!(modal.type === 'HIDDEN') && (
-        <Modal>{isMember ? groupLeaveModal : groupJoinModal}</Modal>
+      {modal.type === 'GROUPLEAVE' && isMember && (
+        <Modal>{groupLeaveModal}</Modal>
+      )}
+      {modal.type === 'GROUPJOIN' && !isMember && (
+        <Modal>{groupJoinModal}</Modal>
       )}
     </div>
   );
