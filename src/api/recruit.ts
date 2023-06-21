@@ -143,12 +143,14 @@ export const patchReadingClassChange = async ({
   }
 };
 
-// 요청보내는 유저가 속한 모든 그룹 조희
-export const getAllMyGroupsApi = async (): Promise<getAllMyGroupsProps[]> => {
+// 유저가 속한 모든 그룹 조희
+export const getGroupsApi = async (
+  userId?: string,
+): Promise<getAllMyGroupsProps[]> => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: '/groups/user-group',
+      url: `${userId ? '/groups/user-group' : `/groups/user-group/${userId}`}`,
     });
 
     return data;
