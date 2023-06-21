@@ -65,12 +65,6 @@ export const fetchRecord = async (
       }lastId=${lastId}&pageSize=${pageSize}`,
     });
 
-    console.log(
-      `/records?${
-        bookId ? `bookId=${bookId}&` : ''
-      }lastId=${lastId}&pageSize=${pageSize}`,
-    );
-
     return data;
   } catch (error) {
     throw new Error('독서기록을 불러올 수 없습니다.');
