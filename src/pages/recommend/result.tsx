@@ -41,8 +41,11 @@ const RecommendResultPage = () => {
   }, [Author, ISBN, Title, bookImg, isAuthorized]);
 
   const handleAddMyBookShelf = () => {
-    postMyBookshelf(addBookshelf);
-    alert('내 책장에 책을 담았습니다.');
+    postMyBookshelf(addBookshelf, {
+      onSuccess: () => {
+        alert('내 책장에 책을 담았습니다.');
+      },
+    });
   };
 
   const handleMoveBookDetailPage = () => {
