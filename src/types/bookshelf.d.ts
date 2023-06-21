@@ -4,3 +4,11 @@ export interface bookshelfDataProps {
   thumbnail: string;
   authors: string[];
 }
+
+export interface RecommendBookShelfType {
+  users: {
+    userId: string;
+    nickname: string;
+  };
+  bookshelves: BookshelfProps[];
+}

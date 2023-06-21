@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
