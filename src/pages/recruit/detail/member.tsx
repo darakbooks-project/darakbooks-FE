@@ -1,45 +1,34 @@
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import React from 'react';
 
+import { fetchReadingGroupInfo } from '@/api/recruit';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Header from '@/components/common/Header';
 import MemberListItem from '@/components/recruit/detail/member/MemberListItem';
 
-const GROUPMEMBER = {
-  userGroup: [
-    {
-      userId: 1,
-      nickname: '민아',
-      profileImg: 'https://via.placeholder.com/40',
-      userInfo: '계속해서 책 읽기!',
-      gender: 'female',
-      age: '23',
-      provider: 'kakao',
-      groups: [2, 3, 4],
-    },
-    {
-      userId: 2,
-      nickname: '민아',
-      profileImg: 'https://via.placeholder.com/40',
-      userInfo: '얌냠냠',
-      gender: 'female',
-      age: '23',
-      provider: 'kakao',
-      groups: [2, 3, 4],
-    },
-    {
-      userId: 3,
-      nickname: '민아',
-      profileImg: 'https://via.placeholder.com/40',
-      userInfo: '움냠얀',
-      gender: 'female',
-      age: '23',
-      provider: 'kakao',
-      groups: [2, 3, 4],
-    },
-  ],
-};
+const RecruitMemberPage = () => {
+  const {
+    query: { groupId },
+  } = useRouter();
 
-const member = () => {
+  const {
+    data: groupData,
+    isError: isGroupError,
+    isLoading: isGroupLoading,
+  } = useQuery(
+    ['recruitDetail', groupId],
+    () => fetchReadingGroupInfo(groupId as string),
+    {
+      staleTime: 1000 * 60 * 10,
+    },
+  );
+
+  if (isGroupError) return <></>;
+  if (isGroupLoading) return <></>;
+
+  const { is_group_lead, group_lead, userGroup } = groupData;
+
   return (
     <AuthRequiredPage>
       <div className='h-full bg-white'>
@@ -48,12 +37,16 @@ const member = () => {
         </div>
         <div className=' border border-[#EBEAEA]' />
         <section className='px-5 '>
-          <p className=' py-4 text-main text-sm'>
-            멤버 {GROUPMEMBER.userGroup.length}
-          </p>
+          <p className='py-4 text-sm text-main'>멤버 {userGroup.length}</p>
           <ul>
-            {GROUPMEMBER.userGroup.map((user) => (
-              <MemberListItem key={user.userId} {...user} />
+            {userGroup.map((user) => (
+              <MemberListItem
+                key={user.userId}
+                {...user}
+                groupId={groupId as string}
+                groupLeader={is_group_lead}
+                groupLeaderId={group_lead}
+              />
             ))}
           </ul>
         </section>
@@ -62,4 +55,4 @@ const member = () => {
   );
 };
 
-export default member;
+export default RecruitMemberPage;
