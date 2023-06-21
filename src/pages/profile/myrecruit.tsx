@@ -69,7 +69,6 @@ const MyRecruit: NextPageWithLayout = () => {
             </div>
           ) : (
             <>
-              {' '}
               <section className='flex flex-col justify-center h-3/6'>
                 <h3 className='font-medium text-[17px] text-[#333333] mb-2'>
                   운영중인 모임
@@ -91,16 +90,18 @@ const MyRecruit: NextPageWithLayout = () => {
                         </div>
                         <div className='flex justify-between items-center'>
                           <div className='h-full flex'>
-                            {item.userGroup.map((user) => (
-                              <Image
-                                key={user.photoId}
-                                src={user.photoUrl}
-                                alt={user.nickname}
-                                width='0'
-                                height='0'
-                                className='w-6 h-6 bg-[#d9d9d9] border rounded-[50%] border-solid border-white'
-                              />
-                            ))}
+                            {item.userGroup.map(
+                              ({ photoId, photoUrl, nickname }) => (
+                                <Image
+                                  key={photoId}
+                                  src={photoUrl}
+                                  alt={nickname}
+                                  width='0'
+                                  height='0'
+                                  className='w-6 h-6 bg-[#d9d9d9] border rounded-[50%] border-solid border-white'
+                                />
+                              ),
+                            )}
                           </div>
                           <span className='flex justify-center items-center w-[2.8rem] h-5 bg-main text-[11px] text-white rounded-[3px]'>
                             {item.recruitment_status ? '모집중' : '모집완료'}
@@ -146,16 +147,18 @@ const MyRecruit: NextPageWithLayout = () => {
                         </div>
                         <div className='flex justify-between items-center'>
                           <div className='h-full flex'>
-                            {item.userGroup.map((user) => (
-                              <Image
-                                key={user.photoId + user.nickname}
-                                src={user.photoUrl}
-                                alt={user.nickname}
-                                width='0'
-                                height='0'
-                                className='w-6 h-6 bg-[#d9d9d9] border rounded-[50%] border-solid border-white'
-                              />
-                            ))}
+                            {item.userGroup.map(
+                              ({ photoId, photoUrl, nickname }) => (
+                                <Image
+                                  key={photoId}
+                                  src={photoUrl}
+                                  alt={nickname}
+                                  width='0'
+                                  height='0'
+                                  className='w-6 h-6 bg-[#d9d9d9] border rounded-[50%] border-solid border-white'
+                                />
+                              ),
+                            )}
                           </div>
                           <span className='flex justify-center items-center w-[2.8rem] h-5 bg-main text-[11px] text-white rounded-[3px]'>
                             {item.recruitment_status ? '모집중' : '모집완료'}
