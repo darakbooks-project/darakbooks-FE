@@ -86,7 +86,7 @@ const RecruitUserManagement = ({
     isMember: boolean,
     participantLimit: boolean,
   ) => {
-    if (participantLimit) return '모임이 꽉 찼어요';
+    if (participantLimit && !isMember) return '모임이 꽉 찼어요';
     if (!recruitmentStatus) return '모집이 끝났어요';
     return isMember ? '탈퇴하기' : '참여하기';
   };
@@ -95,7 +95,7 @@ const RecruitUserManagement = ({
     <div className=' w-full h-20 max-w-xl bg-white flex justify-center items-center fixed bottom-0 border-t border-[#EBEAEA]'>
       <button
         className='w-[90%] h-12 bg-main rounded-md text-white text-base font-bold disabled:bg-zinc-300'
-        disabled={!recruitmentStatus || participantLimit}
+        disabled={!recruitmentStatus || (participantLimit && !isMember)}
         onClick={() => handleCheckJoinStatus(isMember)}
       >
         {handleCheckUserType(recruitmentStatus, isMember, participantLimit)}
