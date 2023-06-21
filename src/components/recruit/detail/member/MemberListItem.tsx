@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -32,7 +31,6 @@ const MemberListItem = ({
   const [modal, setModal] = useRecoilState(modalStateAtom);
   const { mutate: kickOutMember } = useMutation(deleteGroupMember);
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   const handleKickOutMember = (groupId: string, userId: string) => {
     kickOutMember(
@@ -40,12 +38,7 @@ const MemberListItem = ({
       {
         onSuccess: async () => {
           await queryClient.invalidateQueries(['recruitDetail']);
-          router.push({
-            pathname: 'recruit/detail',
-            query: {
-              groupId,
-            },
-          });
+          setModal({ type: 'HIDDEN' });
         },
       },
     );
