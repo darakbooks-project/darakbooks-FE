@@ -5,16 +5,57 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 
-import { fetchRecord } from '@/api/record';
+import { getProfileApi } from '@/api/profile';
+import {
+  fetchRecord,
+  getAllRecordsApi,
+  getCertainBookRecordsApi,
+} from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 
 const BookDetailFeed = () => {
   const {
-    query: { type, recordId, isbn },
+    query: { type, recordId, isbn, ownerId },
     push,
   } = useRouter();
   const maxNumber = Number.MAX_SAFE_INTEGER;
+  const undefinedOwnerId = ownerId === '';
+  const { data: me } = useQuery(['me'], () => getProfileApi());
+
+  const { data: myRecords, status: myRecordsStatus } = useQuery(
+    ['MyRecords'],
+    () => getAllRecordsApi(maxNumber, maxNumber),
+    {
+      enabled: !!(type === 'RECORDS' && undefinedOwnerId),
+    },
+  );
+
+  const { data: someoneRecords, status: someoneRecordsStatus } = useQuery(
+    ['SomeoneRecords'],
+    () => getAllRecordsApi(maxNumber, maxNumber, ownerId + ''),
+    {
+      enabled: !!(type === 'RECORDS' && ownerId),
+    },
+  );
+
+  const { data: myBookShelfData, status: myBookShelfStatus } = useQuery(
+    ['MyDataFromBookShelf'],
+    () => getCertainBookRecordsApi(maxNumber, maxNumber, isbn + ''),
+    {
+      enabled: !!(type === 'BOOKSHELF' && isbn && undefinedOwnerId),
+    },
+  );
+
+  const { data: someoneBookShelfData, status: someoneBookShelfStatus } =
+    useQuery(
+      ['SomeoneDataFromBookShelf'],
+      () =>
+        getCertainBookRecordsApi(maxNumber, maxNumber, isbn + '', ownerId + ''),
+      {
+        enabled: !!(type === 'BOOKSHELF' && isbn && ownerId),
+      },
+    );
 
   const { data: mainData, status: mainStatus } = useQuery(
     ['AllDataFromMain'],
@@ -40,8 +81,31 @@ const BookDetailFeed = () => {
       case 'DETAIL': {
         return detailData;
       }
+      case 'BOOKSHELF': {
+        if (undefinedOwnerId) {
+          return myBookShelfData;
+        } else {
+          return someoneBookShelfData;
+        }
+      }
+      case 'RECORDS': {
+        if (undefinedOwnerId) {
+          return myRecords;
+        } else {
+          return someoneRecords;
+        }
+      }
     }
-  }, [detailData, mainData, type]);
+  }, [
+    detailData,
+    mainData,
+    myBookShelfData,
+    myRecords,
+    someoneBookShelfData,
+    someoneRecords,
+    type,
+    undefinedOwnerId,
+  ]);
 
   const status = useMemo(() => {
     switch (type) {
@@ -51,8 +115,31 @@ const BookDetailFeed = () => {
       case 'DETAIL': {
         return detailStatus;
       }
+      case 'BOOKSHELF': {
+        if (undefinedOwnerId) {
+          return myBookShelfStatus;
+        } else {
+          return someoneBookShelfStatus;
+        }
+      }
+      case 'RECORDS': {
+        if (undefinedOwnerId) {
+          return myRecordsStatus;
+        } else {
+          return someoneRecordsStatus;
+        }
+      }
     }
-  }, [detailStatus, mainStatus, type]);
+  }, [
+    detailStatus,
+    mainStatus,
+    myBookShelfStatus,
+    myRecordsStatus,
+    someoneBookShelfStatus,
+    someoneRecordsStatus,
+    type,
+    undefinedOwnerId,
+  ]);
   // 두개 합치기
 
   const currentData = data?.records.find(
@@ -88,6 +175,29 @@ const BookDetailFeed = () => {
         });
         break;
       }
+      case 'BOOKSHELF': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            isbn,
+            ownerId,
+            type: 'BOOKSHELF',
+          },
+        });
+        break;
+      }
+      case 'RECORDS': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            ownerId,
+            type: 'RECORDS',
+          },
+        });
+        break;
+      }
     }
   };
 
@@ -118,6 +228,37 @@ const BookDetailFeed = () => {
         });
         break;
       }
+      case 'BOOKSHELF': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            isbn,
+            ownerId,
+            type: 'BOOKSHELF',
+          },
+        });
+        break;
+      }
+      case 'RECORDS': {
+        push({
+          pathname: '/book/feed',
+          query: {
+            recordId: nextRecordId,
+            ownerId,
+            type: 'RECORDS',
+          },
+        });
+        break;
+      }
+    }
+  };
+
+  const onProfile = (ownerId: string) => {
+    if (me?.userId === ownerId) {
+      push('/profile');
+    } else {
+      push({ pathname: '/profile', query: { ownerId } });
     }
   };
 
@@ -134,22 +275,24 @@ const BookDetailFeed = () => {
               <button onClick={nextPage}>&gt;</button>
             </section>
             <section className='w-full h-10 flex justify-between items-center px-6'>
-              <article className='flex items-center'>
+              <article
+                className='flex items-center'
+                onClick={() => onProfile(currentData.user.userId)}
+              >
                 <Image
                   src={currentData.user.photoUrl}
-                  alt='프로필 이미지'
+                  alt={currentData.user.nickname}
                   width='0'
                   height='0'
                   sizes='100vw'
                   className='h-10 w-10 mr-2 rounded-[50%] '
                 />
-
                 <h3>{currentData.user.nickname}</h3>
               </article>
             </section>
             <Image
               src={currentData.recordImgUrl}
-              alt='피드 이미지'
+              alt={currentData.recordImgUrl}
               width='0'
               height='0'
               sizes='100vw'
@@ -211,6 +354,9 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const queryClient = new QueryClient();
   const maxNumber = Number.MAX_SAFE_INTEGER;
+  const {
+    query: { isbn, ownerId },
+  } = context;
 
   switch (context.query.type) {
     case 'MAIN': {
@@ -221,8 +367,37 @@ export const getServerSideProps: GetServerSideProps = async (
     }
     case 'DETAIL': {
       await queryClient.prefetchQuery(['AllDataFromDetail'], () =>
-        fetchRecord(maxNumber, maxNumber, context.query.isbn as string),
+        fetchRecord(maxNumber, maxNumber, isbn + ''),
       );
+      break;
+    }
+    case 'BOOKSHELF': {
+      if (ownerId) {
+        await queryClient.prefetchQuery(['SomeoneDataFromBookShelf'], () =>
+          getCertainBookRecordsApi(
+            maxNumber,
+            maxNumber,
+            isbn + '',
+            ownerId + '',
+          ),
+        );
+      } else {
+        await queryClient.prefetchQuery(['MyDataFromBookShelf'], () =>
+          getCertainBookRecordsApi(maxNumber, maxNumber, isbn + ''),
+        );
+      }
+      break;
+    }
+    case 'RECORDS': {
+      if (ownerId) {
+        await queryClient.prefetchQuery(['SomeoneRecords'], () =>
+          getAllRecordsApi(maxNumber, maxNumber, ownerId + ''),
+        );
+      } else {
+        await queryClient.prefetchQuery(['MyRecords'], () =>
+          getAllRecordsApi(maxNumber, maxNumber),
+        );
+      }
       break;
     }
   }

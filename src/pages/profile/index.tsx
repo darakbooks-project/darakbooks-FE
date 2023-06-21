@@ -233,6 +233,17 @@ const ProfilePage: NextPageWithLayout = () => {
                               height='0'
                               sizes='100vw'
                               className='flex justify-center items-center w-[6.125rem] h-[6.125rem]  rounded-lg'
+                              onClick={() =>
+                                push({
+                                  pathname: '/book/feed',
+                                  query: {
+                                    isbn: record.book.bookIsbn,
+                                    recordId: record.recordId,
+                                    type: 'BOOKSHELF',
+                                    ownerId,
+                                  },
+                                })
+                              }
                             />
                           ))}
                           {userData?.isMine && (

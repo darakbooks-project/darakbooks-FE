@@ -20,6 +20,7 @@ import { NextPageWithLayout } from '@/types/layout';
 const MyFeed: NextPageWithLayout = () => {
   const {
     query: { ownerId },
+    push,
   } = useRouter();
   const [edit, setEdit] = useState(false);
   const deleteRecord = useMutation(deleteRecordApi);
@@ -152,6 +153,16 @@ const MyFeed: NextPageWithLayout = () => {
                             height='0'
                             sizes='100vw'
                             className='h-32 w-full'
+                            onClick={() =>
+                              push({
+                                pathname: '/book/feed',
+                                query: {
+                                  recordId: item.recordId,
+                                  type: 'RECORDS',
+                                  ownerId,
+                                },
+                              })
+                            }
                           />
                         </div>
                       ))}
