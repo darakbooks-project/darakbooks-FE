@@ -16,7 +16,7 @@ import { useRecoilValue } from 'recoil';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
-import { getAllMainDetailRecordsApi } from '@/api/record';
+import { fetchRecord } from '@/api/record';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { bookshelfDataProps } from '@/types/bookshelf';
@@ -42,7 +42,7 @@ const BookDetailPage = () => {
   } = useInfiniteQuery(
     ['getAllDetailRecords', 'detail'],
     ({ pageParam = Number.MAX_SAFE_INTEGER }) =>
-      getAllMainDetailRecordsApi(router.query.isbn as string, pageParam, 3),
+      fetchRecord(pageParam, 3, router.query.isbn as string),
     {
       getNextPageParam: (lastPage) => {
         if (!lastPage.lastId) {
@@ -201,8 +201,9 @@ const BookDetailPage = () => {
                   href={{
                     pathname: '/book/feed',
                     query: {
-                      recordId: item.recordId + 1,
+                      recordId: item.recordId,
                       isbn: router.query.isbn as string,
+                      type: 'DETAIL',
                     },
                   }}
                 >

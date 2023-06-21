@@ -27,17 +27,3 @@ export const fetchReadingGroupLeader = async (groupId: number | string) => {
     console.error(error);
   }
 };
-
-//독서기록 조회
-export const fetchRecord = async (lastId: number, pageSize: number) => {
-  try {
-    const response = await axiosInstance.request({
-      method: 'GET',
-      url: `/records?&lastId=${lastId}&pageSize=${pageSize}`,
-    });
-
-    if (response) return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};

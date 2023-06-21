@@ -2,15 +2,9 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import React, { Fragment, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { fetchRecord } from '@/api/main';
-import { RecordType } from '@/types/record';
+import { fetchRecord } from '@/api/record';
 
 import FeedItem from './FeedItem';
-
-interface RecordFeedListType {
-  records: RecordType[];
-  lastId: string;
-}
 
 const RecordFeedList = () => {
   const {
@@ -19,7 +13,7 @@ const RecordFeedList = () => {
     isError,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery<RecordFeedListType>(
+  } = useInfiniteQuery(
     ['mainFeed'],
     ({ pageParam = Number.MAX_SAFE_INTEGER }) => fetchRecord(pageParam, 5),
     {

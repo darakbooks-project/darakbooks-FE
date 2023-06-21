@@ -27,7 +27,8 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
     router.push({
       pathname: 'book/feed',
       query: {
-        recordId: recordId + 1,
+        recordId,
+        type: 'MAIN',
       },
     });
   };

@@ -8,22 +8,22 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import styles from '@/components/book/record/Calendar.module.css';
+import BottomNav from '@/components/common/BottomNav';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
-import BottomNav from '@/components/common/BottomNav';
 
 interface TagProps {
   id: number;
-  data: string | number;
+  data: string;
 }
 
 const BookRecordPage = () => {
