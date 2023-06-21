@@ -20,7 +20,7 @@ const RecruitMemberPage = () => {
     ['recruitDetail', groupId],
     () => fetchReadingGroupInfo(groupId as string),
     {
-      staleTime: 1000 * 60 * 10,
+      staleTime: 1000 * 60,
     },
   );
 
