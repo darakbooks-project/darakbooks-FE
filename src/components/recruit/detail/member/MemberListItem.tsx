@@ -53,11 +53,8 @@ const MemberListItem = ({
 
   const groupKickOutModal = (
     <div className='flex flex-col items-center justify-center'>
-      <h3 className='text-xl font-bold'>
-        정말 {nickname}님을
-        <br /> 강퇴 하시겠어요?
-      </h3>
-      <p className='pb-7'>더 이상 {nickname}님과 모임에서 함께 할 수 없어요</p>
+      <h3 className='text-xl font-bold'>정말 강퇴하시겠어요?</h3>
+      <p className='pb-7'>{nickname}님을 강퇴하시겠어요?</p>
       <div>
         <button
           onClick={() => setModal({ type: 'HIDDEN' })}
