@@ -8,7 +8,7 @@ import { fetchReadingGroupLeader } from '@/api/main';
 import Avatar from '@/components/common/Avartar';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
-import { BestGroupListType, GroupLeaderType } from '@/types/recruit';
+import { BestGroupListType, UserGroup } from '@/types/recruit';
 
 interface BestRecruitListItemProps
   extends Pick<
@@ -43,7 +43,7 @@ const BestRecruitListItem = ({
     data: groupLeader,
     isLoading,
     isError,
-  } = useQuery<GroupLeaderType>(
+  } = useQuery<UserGroup>(
     ['bestGroupLeader'],
     () => fetchReadingGroupLeader(group_group_id),
     {

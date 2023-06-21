@@ -49,12 +49,14 @@ export interface GroupList {
 export interface UserGroup {
   age: string;
   gender: string;
-  groups: number[];
   nickname: string;
-  profileImg: string;
+  photoUrl: string;
   provider: string;
   userId: string;
-  userInfo: string;
+  userInfo: string | null;
+  photoId: string;
+  bookshelfIsHidden: boolean;
+  groupIsHidden: boolean;
 }
 
 export interface BestGroupListType {
@@ -74,18 +76,4 @@ export interface BestGroupListType {
   group_deleted_at: string | null;
   group: number;
   userCount: string;
-}
-
-export interface GroupLeaderType {
-  age: string;
-  gender: string;
-  groups: number[];
-  nickname: string;
-  photoUrl: string;
-  provider: string;
-  userId: string;
-  userInfo: string | null;
-  photoId: string;
-  bookshelfIsHidden: boolean;
-  groupIsHidden: boolean;
 }
