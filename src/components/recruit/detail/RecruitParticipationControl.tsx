@@ -23,18 +23,24 @@ const RecruitUserManagement = ({
 }: RecruitManagementProps) => {
   const [modal, setModal] = useRecoilState(modalStateAtom);
   const queryClient = useQueryClient();
-  const { mutate: joinGroupUser } = useMutation(postGroupJoinUser, {
-    onSuccess: () => {
-      setModal({ type: 'HIDDEN' });
-      queryClient.invalidateQueries(['recruitDetail']);
+  const { mutate: joinGroupUser, isLoading: isJoinLoading } = useMutation(
+    postGroupJoinUser,
+    {
+      onSuccess: () => {
+        setModal({ type: 'HIDDEN' });
+        queryClient.invalidateQueries(['recruitDetail']);
+      },
     },
-  });
-  const { mutate: leaveGroupUser } = useMutation(postGroupLeaveUser, {
-    onSuccess: () => {
-      setModal({ type: 'HIDDEN' });
-      queryClient.invalidateQueries(['recruitDetail']);
+  );
+  const { mutate: leaveGroupUser, isLoading: isLeaveLoading } = useMutation(
+    postGroupLeaveUser,
+    {
+      onSuccess: () => {
+        setModal({ type: 'HIDDEN' });
+        queryClient.invalidateQueries(['recruitDetail']);
+      },
     },
-  });
+  );
 
   const groupJoinModal = (
     <div className='flex flex-col items-center justify-center'>
@@ -43,15 +49,17 @@ const RecruitUserManagement = ({
       <div>
         <button
           onClick={() => setModal({ type: 'HIDDEN' })}
+          disabled={isJoinLoading}
           className='w-36 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
         >
           취소
         </button>
         <button
           onClick={() => joinGroupUser(groupId)}
-          className='h-12 text-white rounded-lg w-36 bg-main'
+          disabled={isJoinLoading}
+          className='h-12 text-white rounded-lg w-36 bg-main disabled:bg-zinc-300'
         >
-          참여
+          {isJoinLoading ? '로딩중' : '참여'}
         </button>
       </div>
     </div>
@@ -64,15 +72,17 @@ const RecruitUserManagement = ({
       <div>
         <button
           onClick={() => setModal({ type: 'HIDDEN' })}
+          disabled={isLeaveLoading}
           className='w-36 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
         >
           취소
         </button>
         <button
           onClick={() => leaveGroupUser(groupId)}
-          className='w-36 h-12 bg-[#F05050] rounded-lg text-white'
+          disabled={isLeaveLoading}
+          className='w-36 h-12 bg-[#F05050] rounded-lg text-white disabled:bg-zinc-300'
         >
-          탈퇴
+          {isLeaveLoading ? '로딩중' : '탈퇴'}
         </button>
       </div>
     </div>
