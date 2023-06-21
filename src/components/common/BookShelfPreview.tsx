@@ -1,14 +1,15 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
+import { bookshelfDataProps } from '@/types/bookshelf';
 
 interface BookShelfPreviewProps {
   nickname: string;
-  imageSrcArr: StaticImageData[];
+  imageSrcArr: bookshelfDataProps[];
   memberId: string;
 }
 
@@ -46,15 +47,15 @@ const BookShelfPreview = ({
             {nickname}의 서재
           </p>
           <div className='flex justify-evenly items-center w-[100%] relative top-6 xs:p-1'>
-            {imageSrcArr.map((src: StaticImageData) => {
+            {imageSrcArr.map(({ bookIsbn, thumbnail }) => {
               return (
-                <div key={src.src} className='z-10 drop-shadow-lg'>
+                <div key={bookIsbn} className='z-10 drop-shadow-lg'>
                   <Image
-                    src={src}
+                    src={thumbnail}
                     width={87}
                     height={130}
                     placeholder='blur'
-                    blurDataURL={src.src}
+                    blurDataURL={thumbnail}
                     alt='추천 책장 책 표지'
                     className='rounded-r max-w-[97px] max-h-[130px] w-full h-full xs:px-1'
                   />

@@ -1,8 +1,12 @@
-import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
+import {
+  getCustomRecommendBookShelf,
+  getRandomBookShelf,
+} from '@/api/bookshelf';
 import { fetchBestGroup } from '@/api/main';
 import BookShelfPreview from '@/components/common/BookShelfPreview';
 import BottomNav from '@/components/common/BottomNav';
@@ -12,23 +16,40 @@ import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { BestGroupListType } from '@/types/recruit';
 
-import image1 from '../../public/images/bookCover/image1.jpg';
-import image2 from '../../public/images/bookCover/image2.jpg';
-import image3 from '../../public/images/bookCover/image3.jpg';
-
-const BOOKSHELFDUMMY = {
-  memberId: '1',
-  nickname: '짱쎈심청이',
-  images: [image1, image2, image3],
-};
-
-export default function Home({
-  bestGroup,
-}: {
+interface MainSSRProps {
   bestGroup: BestGroupListType[];
-}) {
-  const { openAuthRequiredModal } = useAuth();
+}
+
+export default function Home({ bestGroup }: MainSSRProps) {
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
+  const { openAuthRequiredModal } = useAuth();
+
+  const { data: randomBookshelf, remove: randomRemove } = useQuery(
+    ['randomBookshelf'],
+    getRandomBookShelf,
+    {
+      enabled: !isAuthorized,
+      staleTime: 1000 * 60 * 5,
+      onSuccess: () => {
+        customRemove();
+      },
+    },
+  );
+
+  const { data: customBookshelf, remove: customRemove } = useQuery(
+    ['customRecommendBookshelf'],
+    getCustomRecommendBookShelf,
+    {
+      enabled: isAuthorized,
+      staleTime: 1000 * 60 * 5,
+      onSuccess: () => {
+        randomRemove();
+      },
+    },
+  );
+
+  const currentBookshelfData = isAuthorized ? customBookshelf : randomBookshelf;
+
   const {
     query: { isRendedOnboarding },
     push,
@@ -46,7 +67,7 @@ export default function Home({
   }
 
   return (
-    <main>
+    <main className='pb-20 bg-white'>
       <section className='bg-[#C6BDA4] h-[17.125rem]'>
         <div className='relative ml-5 text-white top-44'>
           <p className='text-3xl font-bold'>어서오세요</p>
@@ -58,12 +79,14 @@ export default function Home({
           오늘의 나를 위한 도서 선택
         </p>
         <h1 className='mb-5 text-xl font-bold'>인기서재 추천</h1>
-        <BookShelfPreview
-          key={BOOKSHELFDUMMY.memberId}
-          nickname={BOOKSHELFDUMMY.nickname}
-          imageSrcArr={BOOKSHELFDUMMY.images}
-          memberId='2823683088'
-        />
+        {currentBookshelfData && (
+          <BookShelfPreview
+            key={currentBookshelfData.users.userId}
+            nickname={currentBookshelfData.users.nickname}
+            imageSrcArr={currentBookshelfData.bookshelves}
+            memberId={currentBookshelfData.users.userId}
+          />
+        )}
       </section>
       <BestRecruitList BestGroupList={bestGroup} />
       <section>
@@ -89,12 +112,11 @@ export const getServerSideProps: GetServerSideProps<{
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(['bestGroup'], fetchBestGroup);
-
-  const data = dehydrate(queryClient).queries[0].state.data;
+  const bestGroup = dehydrate(queryClient).queries[0].state.data;
 
   return {
     props: {
-      bestGroup: data,
+      bestGroup,
     },
   };
 };
