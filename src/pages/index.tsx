@@ -79,13 +79,19 @@ export default function Home({ bestGroup }: MainSSRProps) {
           오늘의 나를 위한 도서 선택
         </p>
         <h1 className='mb-5 text-xl font-bold'>인기서재 추천</h1>
-        {currentBookshelfData && (
+        {currentBookshelfData ? (
           <BookShelfPreview
             key={currentBookshelfData.users.userId}
             nickname={currentBookshelfData.users.nickname}
             imageSrcArr={currentBookshelfData.bookshelves}
             memberId={currentBookshelfData.users.userId}
           />
+        ) : (
+          <div className='w-[100%] h-[187px] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'>
+            <h3 className='flex items-center justify-center h-full'>
+              추천 책장을 찾고 있어요!
+            </h3>
+          </div>
         )}
       </section>
       <BestRecruitList BestGroupList={bestGroup} />
