@@ -118,10 +118,6 @@ const ProfilePage: NextPageWithLayout = () => {
     setBookId('');
   }, []);
 
-  useEffect(() => {
-    console.log(ownerId);
-  }, [ownerId]);
-
   return (
     <AuthRequiredPage>
       {bookshelfStatus === 'success' && bookshelfData && (
