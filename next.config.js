@@ -15,6 +15,10 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'k.kakaocdn.net',
       },
+      {
+        protocol: 'http',
+        hostname: 'www.nl.go.kr',
+      },
       { protocol: 'https', hostname: 'via.placeholder.com' },
       { protocol: 'https', hostname: 'search1.kakaocdn.net' },
     ],

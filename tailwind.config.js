@@ -28,8 +28,15 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        main: '#50BEAB',
+        main: '#60B28D',
         background: '#FFFEF8',
+      },
+      boxShadow: {
+        round: '4px 4px 8px rgba(0, 0, 0, 0.15)',
+        roundY: '0px -4px 12px rgba(0, 0, 0, 0.12)',
+      },
+      dropShadow: {
+        around: '0 0 7px rgba(0, 0, 0, 0.25)',
       },
     },
     screens: {
