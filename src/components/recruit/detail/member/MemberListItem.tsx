@@ -93,7 +93,12 @@ const MemberListItem = ({
         </div>
       </Link>
       {groupLeader && !checkGroupReader && (
-        <button onClick={() => setModal({ type: 'KICKOUT' })}>강퇴</button>
+        <button
+          onClick={() => setModal({ type: 'KICKOUT' })}
+          className='w-14 h-8 border border-[#EBEAEA] rounded-md text-xs font-semibold'
+        >
+          강퇴
+        </button>
       )}
       {modal.type === 'KICKOUT' && <Modal>{groupKickOutModal}</Modal>}
     </li>
