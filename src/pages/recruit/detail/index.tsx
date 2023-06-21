@@ -14,7 +14,6 @@ import RecruitNotification from '@/components/recruit/detail/RecruitNotification
 import RecruitParticipationControl from '@/components/recruit/detail/RecruitParticipationControl';
 import RecruitStatusSelectModal from '@/components/recruit/detail/RecruitStatusSelectModal';
 import { selectRecruitStatusAtom } from '@/recoil/modal';
-import { UserGroup } from '@/types/recruit';
 
 const RecruitDetailPage = () => {
   const {
@@ -39,7 +38,7 @@ const RecruitDetailPage = () => {
     data: groupLeader,
     isLoading: isLeaderLoading,
     isError: isLeaderError,
-  } = useQuery<UserGroup>(
+  } = useQuery(
     ['recruitLeader', groupId],
     () => fetchReadingGroupLeader(groupId as string),
     {
