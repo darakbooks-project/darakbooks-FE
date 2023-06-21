@@ -26,7 +26,7 @@ const RecommendComplete = () => {
           </p>
         </div>
         <button
-          onClick={() => router.push('result', '/recommend')}
+          onClick={() => router.push('/recommend/result', '/recommend')}
           className='absolute bottom-0 w-4/5 mb-10 text-white rounded-lg h-14 bg-main disabled:bg-[#DFDFDF] shadow-round'
         >
           확인하기
