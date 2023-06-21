@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 
+import { getProfileApi } from '@/api/profile';
 import {
   fetchRecord,
   getAllRecordsApi,
@@ -20,6 +21,7 @@ const BookDetailFeed = () => {
   } = useRouter();
   const maxNumber = Number.MAX_SAFE_INTEGER;
   const undefinedOwnerId = ownerId === '';
+  const { data: me } = useQuery(['me'], () => getProfileApi());
 
   const { data: myRecords, status: myRecordsStatus } = useQuery(
     ['MyRecords'],
@@ -252,6 +254,14 @@ const BookDetailFeed = () => {
     }
   };
 
+  const onProfile = (ownerId: string) => {
+    if (me?.userId === ownerId) {
+      push('/profile');
+    } else {
+      push({ pathname: '/profile', query: { ownerId } });
+    }
+  };
+
   return (
     <AuthRequiredPage>
       <div className='flex flex-col bg-[#fbfbfb] gap-4 py-16'>
@@ -265,22 +275,24 @@ const BookDetailFeed = () => {
               <button onClick={nextPage}>&gt;</button>
             </section>
             <section className='w-full h-10 flex justify-between items-center px-6'>
-              <article className='flex items-center'>
+              <article
+                className='flex items-center'
+                onClick={() => onProfile(currentData.user.userId)}
+              >
                 <Image
                   src={currentData.user.photoUrl}
-                  alt='프로필 이미지'
+                  alt={currentData.user.nickname}
                   width='0'
                   height='0'
                   sizes='100vw'
                   className='h-10 w-10 mr-2 rounded-[50%] '
                 />
-
                 <h3>{currentData.user.nickname}</h3>
               </article>
             </section>
             <Image
               src={currentData.recordImgUrl}
-              alt='피드 이미지'
+              alt={currentData.recordImgUrl}
               width='0'
               height='0'
               sizes='100vw'
