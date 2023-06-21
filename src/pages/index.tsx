@@ -3,10 +3,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
-import {
-  getCustomRecommendBookShelf,
-  getRandomBookShelf,
-} from '@/api/bookshelf';
+import { getRecommendBookShelf } from '@/api/bookshelf';
 import { fetchBestGroup } from '@/api/main';
 import BookShelfPreview from '@/components/common/BookShelfPreview';
 import BottomNav from '@/components/common/BottomNav';
@@ -24,31 +21,13 @@ export default function Home({ bestGroup }: MainSSRProps) {
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
   const { openAuthRequiredModal } = useAuth();
 
-  const { data: randomBookshelf, remove: randomRemove } = useQuery(
-    ['randomBookshelf'],
-    getRandomBookShelf,
-    {
-      enabled: !isAuthorized,
-      staleTime: 1000 * 60 * 5,
-      onSuccess: () => {
-        customRemove();
-      },
-    },
+  const {
+    data: currentBookshelfData,
+    isLoading: isBookshelfLoading,
+    isError: isBookshelfError,
+  } = useQuery(['customRecommendBookshelf'], () =>
+    getRecommendBookShelf(isAuthorized),
   );
-
-  const { data: customBookshelf, remove: customRemove } = useQuery(
-    ['customRecommendBookshelf'],
-    getCustomRecommendBookShelf,
-    {
-      enabled: isAuthorized,
-      staleTime: 1000 * 60 * 5,
-      onSuccess: () => {
-        randomRemove();
-      },
-    },
-  );
-
-  const currentBookshelfData = isAuthorized ? customBookshelf : randomBookshelf;
 
   const {
     query: { isRendedOnboarding },
@@ -66,6 +45,8 @@ export default function Home({ bestGroup }: MainSSRProps) {
     return <></>;
   }
 
+  if (isBookshelfError) return <></>;
+
   return (
     <main className='pb-20 bg-white'>
       <section className='bg-[#C6BDA4] h-[17.125rem]'>
@@ -79,19 +60,19 @@ export default function Home({ bestGroup }: MainSSRProps) {
           오늘의 나를 위한 도서 선택
         </p>
         <h1 className='mb-5 text-xl font-bold'>인기서재 추천</h1>
-        {currentBookshelfData ? (
+        {isBookshelfLoading ? (
+          <div className='w-[100%] h-[187px] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'>
+            <h3 className='flex items-center justify-center h-full'>
+              추천 책장을 찾고 있어요!
+            </h3>
+          </div>
+        ) : (
           <BookShelfPreview
             key={currentBookshelfData.users.userId}
             nickname={currentBookshelfData.users.nickname}
             imageSrcArr={currentBookshelfData.bookshelves}
             memberId={currentBookshelfData.users.userId}
           />
-        ) : (
-          <div className='w-[100%] h-[187px] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'>
-            <h3 className='flex items-center justify-center h-full'>
-              추천 책장을 찾고 있어요!
-            </h3>
-          </div>
         )}
       </section>
       <BestRecruitList BestGroupList={bestGroup} />

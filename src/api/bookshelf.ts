@@ -53,31 +53,21 @@ export const deleteBookShelfApi = async (bookId: string) => {
   }
 };
 
-//메인: 로그인 안 한 사용자 랜덤 책장 추천
-export const getRandomBookShelf = async (): Promise<RecommendBookShelfType> => {
+//메인: 로그인 여부에 따라 사용자 책장 추천
+export const getRecommendBookShelf = async (
+  isAuthorized: boolean,
+): Promise<RecommendBookShelfType> => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `/bookshelf/main/random`,
+      url: isAuthorized
+        ? `/bookshelf/main/recommend`
+        : `/bookshelf/main/random`,
     });
 
-    return data;
-  } catch (error) {
+    if (data) return data;
     throw new Error('책장을 추천할 수 없습니다.');
+  } catch (error) {
+    throw new Error('책장을 추천 중 오류가 발생했습니다.');
   }
 };
-
-//메인: 로그인 한 사용자 맞춤 책장 추천
-export const getCustomRecommendBookShelf =
-  async (): Promise<RecommendBookShelfType> => {
-    try {
-      const { data } = await axiosInstance.request({
-        method: 'GET',
-        url: `/bookshelf/main/recommend`,
-      });
-
-      return data;
-    } catch (error) {
-      throw new Error('책장을 추천할 수 없습니다.');
-    }
-  };
