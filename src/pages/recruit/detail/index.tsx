@@ -76,8 +76,9 @@ const RecruitDetailPage = () => {
     { title: '소통 방법', detail: `${open_chat_link}` },
   ];
 
-  const moreMenu = <Link href={''}>⏵</Link>;
-  //독서모임 수정 페이지로 이동 예정
+  const moreMenu = (
+    <Link href={{ pathname: '/recruit/update', query: { groupId } }}>⏵</Link>
+  );
 
   return (
     <AuthRequiredPage>
