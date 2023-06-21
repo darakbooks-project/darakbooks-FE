@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -44,6 +45,12 @@ const RecommendResultPage = () => {
     postMyBookshelf(addBookshelf, {
       onSuccess: () => {
         alert('내 책장에 책을 담았습니다.');
+      },
+      onError: (error) => {
+        const { status } = error as AxiosError;
+        if (status === 403) {
+          alert('이미 책장에 저장된 책입니다.');
+        }
       },
     });
   };

@@ -11,6 +11,7 @@ interface RecruitManagementProps {
   groupName: string;
   isMember: boolean;
   recruitmentStatus: boolean;
+  participantLimit: boolean;
 }
 
 const RecruitUserManagement = ({
@@ -18,6 +19,7 @@ const RecruitUserManagement = ({
   groupName,
   isMember,
   recruitmentStatus,
+  participantLimit,
 }: RecruitManagementProps) => {
   const [modal, setModal] = useRecoilState(modalStateAtom);
   const queryClient = useQueryClient();
@@ -92,7 +94,9 @@ const RecruitUserManagement = ({
   const handleCheckUserType = (
     recruitmentStatus: boolean,
     isMember: boolean,
+    participantLimit: boolean,
   ) => {
+    if (participantLimit && !isMember) return '모임이 꽉 찼어요';
     if (!recruitmentStatus) return '모집이 끝났어요';
     return isMember ? '탈퇴하기' : '참여하기';
   };
@@ -101,13 +105,16 @@ const RecruitUserManagement = ({
     <div className=' w-full h-20 max-w-xl bg-white flex justify-center items-center fixed bottom-0 border-t border-[#EBEAEA]'>
       <button
         className='w-[90%] h-12 bg-main rounded-md text-white text-base font-bold disabled:bg-zinc-300'
-        disabled={!recruitmentStatus}
+        disabled={!recruitmentStatus || (participantLimit && !isMember)}
         onClick={() => handleCheckJoinStatus(isMember)}
       >
-        {handleCheckUserType(recruitmentStatus, isMember)}
+        {handleCheckUserType(recruitmentStatus, isMember, participantLimit)}
       </button>
-      {!(modal.type === 'HIDDEN') && (
-        <Modal>{isMember ? groupLeaveModal : groupJoinModal}</Modal>
+      {modal.type === 'GROUPLEAVE' && isMember && (
+        <Modal>{groupLeaveModal}</Modal>
+      )}
+      {modal.type === 'GROUPJOIN' && !isMember && (
+        <Modal>{groupJoinModal}</Modal>
       )}
     </div>
   );

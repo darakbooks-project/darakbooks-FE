@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
@@ -8,7 +7,7 @@ import { fetchReadingGroupLeader } from '@/api/main';
 import Avatar from '@/components/common/Avartar';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
-import { BestGroupListType, GroupLeaderType } from '@/types/recruit';
+import { BestGroupListType } from '@/types/recruit';
 
 interface BestRecruitListItemProps
   extends Pick<
@@ -43,7 +42,7 @@ const BestRecruitListItem = ({
     data: groupLeader,
     isLoading,
     isError,
-  } = useQuery<GroupLeaderType>(
+  } = useQuery(
     ['bestGroupLeader'],
     () => fetchReadingGroupLeader(group_group_id),
     {

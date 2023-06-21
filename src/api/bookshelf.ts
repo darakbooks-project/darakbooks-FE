@@ -1,15 +1,8 @@
 import { AxiosError } from 'axios';
 
-import { bookshelfDataProps } from '@/types/bookshelf';
+import { bookshelfDataProps, RecommendBookShelfType } from '@/types/bookshelf';
 
 import { axiosInstance } from './axios';
-
-interface BookshelfProps {
-  bookIsbn: string;
-  title: string;
-  thumbnail: string;
-  authors: string[];
-}
 
 // 책장에 책 추가
 export const postBookshelfApi = async (bookData: bookshelfDataProps) => {
@@ -32,7 +25,7 @@ export const postBookshelfApi = async (bookData: bookshelfDataProps) => {
 // 책장 가져오기
 export const getBookShelfApi = async (
   ownerId?: string,
-): Promise<BookshelfProps[]> => {
+): Promise<bookshelfDataProps[]> => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
@@ -57,5 +50,24 @@ export const deleteBookShelfApi = async (bookId: string) => {
     if (response) {
       throw { status: response.status };
     }
+  }
+};
+
+//메인: 로그인 여부에 따라 사용자 책장 추천
+export const getRecommendBookShelf = async (
+  isAuthorized: boolean,
+): Promise<RecommendBookShelfType> => {
+  try {
+    const { data } = await axiosInstance.request({
+      method: 'GET',
+      url: isAuthorized
+        ? `/bookshelf/main/recommend`
+        : `/bookshelf/main/random`,
+    });
+
+    if (data) return data;
+    throw new Error('책장을 추천할 수 없습니다.');
+  } catch (error) {
+    throw new Error('책장을 추천 중 오류가 발생했습니다.');
   }
 };
