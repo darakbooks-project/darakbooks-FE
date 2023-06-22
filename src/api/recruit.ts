@@ -1,5 +1,4 @@
-import { GroupList, GroupLists } from '@/types/recruit';
-import { ClassOpenStateObjProps } from '@/types/recruit';
+import { GroupFormStateObjProps, GroupList, GroupLists } from '@/types/recruit';
 
 import { axiosInstance } from './axios';
 
@@ -50,7 +49,7 @@ export const getReadingClassData = async (
 
 //독서모임 개설
 export const postReadingClassOpen = async (
-  openReadingClassData: ClassOpenStateObjProps,
+  openReadingClassData: GroupFormStateObjProps,
 ) => {
   const body = {
     name: openReadingClassData.className,
@@ -78,16 +77,24 @@ export const postReadingClassOpen = async (
 };
 
 //독서모임 정보 상세 조회
-export const fetchReadingGroupInfo = async (groupId: string) => {
+export const fetchReadingGroupInfo = async (
+  groupId: string,
+): Promise<GroupList> => {
   try {
-    const response = await axiosInstance.request({
+    const {
+      data: { group: groupDataObj },
+    } = await axiosInstance.request({
       method: 'GET',
       url: `/groups/${groupId}`,
     });
 
-    if (response) return response.data;
+    if (groupDataObj) {
+      return groupDataObj;
+    } else {
+      throw new Error('독서 모임 상세 데이터를 찾을 수 없습니다.');
+    }
   } catch (error) {
-    console.error(error);
+    throw new Error('독서 모임 상세 데이터 fetch 시 문제가 발생하였습니다.');
   }
 };
 
@@ -117,7 +124,7 @@ export const postGroupLeaveUser = async (groupId: number) => {
 
 interface patchReadingClassChangeType {
   groupId: number;
-  groupData: Partial<GroupList>;
+  groupData: Partial<GroupList> | GroupFormStateObjProps;
 }
 
 //독서모임 수정 patch api
@@ -136,15 +143,35 @@ export const patchReadingClassChange = async ({
   }
 };
 
-// 요청보내는 유저가 속한 모든 그룹 조희
-export const getAllMyGroupsApi = async (): Promise<getAllMyGroupsProps[]> => {
+// 유저가 속한 모든 그룹 조희
+export const getGroupsApi = async (
+  userId?: string,
+): Promise<getAllMyGroupsProps[]> => {
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: '/groups/user-group',
+      url: `${userId ? '/groups/user-group' : `/groups/user-group/${userId}`}`,
     });
 
     return data;
+  } catch (error) {
+    throw new Error('그룹을 불러올 수 없습니다.');
+  }
+};
+
+//리더가 멤버 강퇴하기
+export const deleteGroupMember = async ({
+  groupId,
+  userId,
+}: {
+  groupId: string;
+  userId: string;
+}) => {
+  try {
+    await axiosInstance.request({
+      method: 'DELETE',
+      url: `/groups/${groupId}/delete-user/${userId}`,
+    });
   } catch (error) {
     throw new Error('그룹을 불러올 수 없습니다.');
   }

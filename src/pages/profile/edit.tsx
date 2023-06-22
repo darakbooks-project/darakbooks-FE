@@ -18,12 +18,16 @@ const Edit = () => {
   const [profileImage, setProfileImage] = useImage({}, registerImage);
 
   const { data: getMyProfile, status } = useQuery(
-    ['getMyProfile', 'profile'],
+    ['getMyProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
+    {
+      staleTime: 1000 * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 24,
+    },
   );
 
   const [secretMode, setSecretMode] = useState<'PUBLIC' | 'PRIVATE'>(
-    getMyProfile?.bookshelfIsHidden ? 'PUBLIC' : 'PRIVATE',
+    getMyProfile?.bookshelfIsHidden ? 'PRIVATE' : 'PUBLIC',
   );
 
   const changeBio = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,7 +44,7 @@ const Edit = () => {
       photoId: profileImage.name,
       photoUrl: profileImage.url,
       userInfo: bio,
-      bookshelfIsHidden: secretMode === 'PUBLIC' ? true : false,
+      bookshelfIsHidden: secretMode === 'PUBLIC' ? false : true,
     };
 
     changeProfile.mutate(editData, {

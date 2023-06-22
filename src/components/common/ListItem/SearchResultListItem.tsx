@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
@@ -24,7 +23,6 @@ const SearchResultListItem = ({
   title,
   author,
   publisher,
-  clickShiftPath,
   isbn,
 }: SearchResultListItemProps) => {
   const setModal = useSetRecoilState(selectModalStateAtom);
@@ -38,7 +36,7 @@ const SearchResultListItem = ({
     const isbnArr = isbn.split(' ');
     const isbnValue = isbnArr[0] || isbnArr[1];
 
-    router.push(`/book/search?isbn=${isbnValue}`);
+    router.push({ pathname: '/book/detail', query: { isbn: isbnValue } });
   };
 
   const clickBookListItem = () => {
@@ -72,8 +70,12 @@ const SearchResultListItem = ({
         <Title>{title}</Title>
         <AuthorPublisher>
           <span>{publisher}</span>
-          <Divider>/</Divider>
-          <span>{`${author[0]}`} 지음</span>
+          {author[0] && (
+            <>
+              <Divider>/</Divider>
+              <span>{`${author[0]}`} 지음</span>
+            </>
+          )}
         </AuthorPublisher>
       </Introduce>
     </Container>

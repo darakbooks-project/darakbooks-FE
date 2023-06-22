@@ -5,6 +5,7 @@ import {
   useMutation,
   useQuery,
 } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,7 +16,7 @@ import { useRecoilValue } from 'recoil';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
-import { getAllMainDetailRecordsApi } from '@/api/record';
+import { fetchRecord } from '@/api/record';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { bookshelfDataProps } from '@/types/bookshelf';
@@ -41,7 +42,7 @@ const BookDetailPage = () => {
   } = useInfiniteQuery(
     ['getAllDetailRecords', 'detail'],
     ({ pageParam = Number.MAX_SAFE_INTEGER }) =>
-      getAllMainDetailRecordsApi(router.query.isbn as string, pageParam, 3),
+      fetchRecord(pageParam, 3, router.query.isbn as string),
     {
       getNextPageParam: (lastPage) => {
         if (!lastPage.lastId) {
@@ -52,8 +53,15 @@ const BookDetailPage = () => {
     },
   );
 
-  const renderLoginModal = () => {
-    if (!isAuthorized) openAuthRequiredModal();
+  const moveBookRecord = () => {
+    if (!isAuthorized) return openAuthRequiredModal();
+
+    router.push({
+      pathname: '/book/record',
+      query: {
+        isbn: router.query.isbn,
+      },
+    });
   };
 
   const bookRelatedAllRecord = getAllDetailRecords?.pages.flatMap(
@@ -104,7 +112,10 @@ const BookDetailPage = () => {
         alert('책 담기 성공');
       },
       onError: (error) => {
-        alert(error);
+        const { status } = error as AxiosError;
+        if (status === 403) {
+          alert('이미 책장에 저장된 책입니다.');
+        }
       },
     });
   };
@@ -143,7 +154,7 @@ const BookDetailPage = () => {
                 className='w-full h-auto'
               />
             </div>
-            <article className=' flex flex-col items-center gap-1'>
+            <article className='flex flex-col items-center gap-1 '>
               <h1 className='text-xl font-semibold text-[#242424]'>
                 {getBookDataByIsbn?.documents[0].title}
               </h1>
@@ -190,8 +201,9 @@ const BookDetailPage = () => {
                   href={{
                     pathname: '/book/feed',
                     query: {
-                      recordId: item.recordId + 1,
+                      recordId: item.recordId,
                       isbn: router.query.isbn as string,
+                      type: 'DETAIL',
                     },
                   }}
                 >
@@ -233,16 +245,9 @@ const BookDetailPage = () => {
         </button>
         <button
           className='flex justify-center items-center box-border w-2/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-[#ffffff] rounded-md border-2 border-solid border-main bg-main '
-          onClick={renderLoginModal}
+          onClick={moveBookRecord}
         >
-          <Link
-            href={{
-              pathname: isAuthorized ? '/book/record' : '',
-              query: { isbn: router.query.isbn },
-            }}
-          >
-            바로기록하기
-          </Link>
+          바로기록하기
         </button>
       </section>
     </div>

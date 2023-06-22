@@ -1,60 +1,86 @@
-import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
 
+import { getRecommendBookShelf } from '@/api/bookshelf';
 import { fetchBestGroup } from '@/api/main';
 import BookShelfPreview from '@/components/common/BookShelfPreview';
 import BottomNav from '@/components/common/BottomNav';
 import BestRecruitList from '@/components/main/bestRecruit/BestRecruitList';
 import RecordFeedList from '@/components/main/mainRecordFeed/RecordFeedList';
+import { useAuth } from '@/hooks/useAuth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 import { BestGroupListType } from '@/types/recruit';
 
-import image1 from '../../public/images/bookCover/image1.jpg';
-import image2 from '../../public/images/bookCover/image2.jpg';
-import image3 from '../../public/images/bookCover/image3.jpg';
-
-const BOOKSHELFDUMMY = {
-  memberId: '1',
-  nickname: '짱쎈심청이',
-  images: [image1, image2, image3],
-};
-
-export default function Home({
-  bestGroup,
-}: {
+interface MainSSRProps {
   bestGroup: BestGroupListType[];
-}) {
-  const [hydrated, setHydrated] = useState(false);
+}
 
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
+export default function Home({ bestGroup }: MainSSRProps) {
+  const isAuthorized = useRecoilValue(isAuthorizedSelector);
+  const { openAuthRequiredModal } = useAuth();
 
-  if (!hydrated) return null;
+  const {
+    data: currentBookshelfData,
+    isLoading: isBookshelfLoading,
+    isError: isBookshelfError,
+  } = useQuery(['customRecommendBookshelf'], () =>
+    getRecommendBookShelf(isAuthorized),
+  );
+
+  const {
+    query: { isRendedOnboarding },
+    push,
+  } = useRouter();
+
+  const handleMoveRecommendPage = () => {
+    if (!isAuthorized) return openAuthRequiredModal();
+
+    push('/recommend');
+  };
+
+  if (!isAuthorized && !isRendedOnboarding) {
+    push('/onboarding');
+    return <></>;
+  }
+
+  if (isBookshelfError) return <></>;
 
   return (
-    <main>
+    <main className='pb-20 bg-white'>
       <section className='bg-[#C6BDA4] h-[17.125rem]'>
         <div className='relative ml-5 text-white top-44'>
           <p className='text-3xl font-bold'>어서오세요</p>
           <p className='text-base'>오늘은 어떤 책을 읽으셨나요?</p>
         </div>
       </section>
-      <section className='mt-14'>
-        <p className='mx-5 text-sm font-bold text-main'>
+      <section className='mx-5 mt-14'>
+        <p className='text-sm font-bold text-main'>
           오늘의 나를 위한 도서 선택
         </p>
-        <h1 className='mx-5 mb-5 text-xl font-bold'>인기서재 추천</h1>
-        <div className='mx-5'>
+        <h1 className='mb-5 text-xl font-bold'>인기서재 추천</h1>
+        {isBookshelfLoading ? (
+          <div className='w-[100%] h-[187px] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'>
+            <h3 className='flex items-center justify-center h-full'>
+              추천 책장을 찾고 있어요!
+            </h3>
+          </div>
+        ) : (
           <BookShelfPreview
-            key={BOOKSHELFDUMMY.memberId}
-            nickname={BOOKSHELFDUMMY.nickname}
-            imageSrcArr={BOOKSHELFDUMMY.images}
-            memberId='2823683088'
+            key={currentBookshelfData.users.userId}
+            nickname={currentBookshelfData.users.nickname}
+            imageSrcArr={currentBookshelfData.bookshelves}
+            memberId={currentBookshelfData.users.userId}
           />
-        </div>
+        )}
       </section>
       <BestRecruitList BestGroupList={bestGroup} />
+      <section>
+        <div onClick={handleMoveRecommendPage} className='mx-5 bg-white'>
+          추천 페이지로 이동
+        </div>
+      </section>
       <section className='mt-10'>
         <p className='mx-5 text-sm font-bold text-main'>
           요즘 푹 빠져있는 관심사
@@ -73,12 +99,11 @@ export const getServerSideProps: GetServerSideProps<{
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(['bestGroup'], fetchBestGroup);
-
-  const data = dehydrate(queryClient).queries[0].state.data;
+  const bestGroup = dehydrate(queryClient).queries[0].state.data;
 
   return {
     props: {
-      bestGroup: data,
+      bestGroup,
     },
   };
 };

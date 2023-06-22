@@ -8,13 +8,14 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import styles from '@/components/book/record/Calendar.module.css';
+import BottomNav from '@/components/common/BottomNav';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { getBookDataByIsbnProps } from '@/types/book';
@@ -22,7 +23,7 @@ import { bookRecordDataProps } from '@/types/record';
 
 interface TagProps {
   id: number;
-  data: string | number;
+  data: string;
 }
 
 const BookRecordPage = () => {
@@ -120,12 +121,17 @@ const BookRecordPage = () => {
     });
   };
 
-  const isValid =
-    !postImage || !description || !startDate || !getBookDataByIsbn;
+  const isValid = !(
+    postImage.url &&
+    postImage.name &&
+    description &&
+    startDate &&
+    getBookDataByIsbn
+  );
 
   return (
     <AuthRequiredPage>
-      <div className='flex flex-col'>
+      <div className='flex flex-col pb-20'>
         <section className='flex flex-col gap-8 p-4 border-solid pt-28'>
           <article className='flex flex-col gap-2'>
             <h3 className='italic font-normal text-base leading-[19px] text-[#333333]'>
@@ -308,6 +314,7 @@ const BookRecordPage = () => {
           </button>
         </section>
       </div>
+      <BottomNav />
     </AuthRequiredPage>
   );
 };

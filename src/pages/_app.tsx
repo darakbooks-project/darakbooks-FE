@@ -6,7 +6,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 
 import LoginModal from '@/components/auth/LoginModal';
@@ -18,7 +18,7 @@ interface AppPropsWithLayout extends AppProps {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const [queryClient] = React.useState(
+  const [queryClient] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
@@ -29,6 +29,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         },
       }),
   );
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) return null;
+
   const getLayout =
     Component.getLayout || ((page: ReactElement) => <Layout>{page}</Layout>);
 

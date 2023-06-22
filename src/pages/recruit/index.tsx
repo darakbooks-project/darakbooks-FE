@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
@@ -9,10 +8,12 @@ import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 
 const RecruitPage = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
-  const router = useRouter();
+  const {
+    push,
+    query: { islistchange },
+  } = useRouter();
 
   const clickGroupOpenButton = () => {
     if (!isAuthorized) {
@@ -20,12 +21,8 @@ const RecruitPage = () => {
       return;
     }
 
-    router.push('/recruit/write');
+    push('/recruit/write');
   };
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   return (
     <Container>
@@ -42,7 +39,9 @@ const RecruitPage = () => {
 
       <InfinityScrollListsWrap>
         <InfinityScrollLists>
-          {isMounted && <RecruitInfinityScrollLists />}
+          <RecruitInfinityScrollLists
+            islistchange={typeof islistchange === 'string' ? islistchange : ''}
+          />
         </InfinityScrollLists>
       </InfinityScrollListsWrap>
 

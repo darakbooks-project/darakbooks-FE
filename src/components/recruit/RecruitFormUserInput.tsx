@@ -4,19 +4,19 @@ import tw from 'tailwind-styled-components';
 
 import { DAY_DATA, REGION_DATA, TIME_DATA } from '@/constants/recruit';
 import {
-  ClassOpenChangeStateObjProps,
-  ClassOpenStateObjProps,
+  GroupFormChangeStateObjProps,
+  GroupFormStateObjProps,
 } from '@/types/recruit';
 
-interface RecruitOpenFormProps {
-  classStateObj: ClassOpenStateObjProps;
-  classChangeStateObj: ClassOpenChangeStateObjProps;
+interface RecruitFormUserInputProps {
+  classStateObj: GroupFormStateObjProps;
+  classChangeStateObj: GroupFormChangeStateObjProps;
 }
 
-const RecruitOpenForm = ({
+const RecruitFormUserInput = ({
   classStateObj,
   classChangeStateObj,
-}: RecruitOpenFormProps) => {
+}: RecruitFormUserInputProps) => {
   const [openRegionStatus, setOpenRegionStatus] = useState('hidden');
   const [openDayStatus, setOpenDayStatus] = useState('hidden');
   const [openTimeStatus, setOpenTimeStatus] = useState('hidden');
@@ -185,7 +185,7 @@ const RecruitOpenForm = ({
   );
 };
 
-export default RecruitOpenForm;
+export default RecruitFormUserInput;
 
 const Container = tw.div`
 `;

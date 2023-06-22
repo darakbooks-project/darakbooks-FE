@@ -27,7 +27,8 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
     router.push({
       pathname: 'book/feed',
       query: {
-        recordId: recordId + 1,
+        recordId,
+        type: 'MAIN',
       },
     });
   };
@@ -53,7 +54,9 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
       }}
     >
       <div className='py-4 '>
-        <h1 className='h-4 text-base font-bold'>#{title}</h1>
+        <h1 className='h-6 text-base font-bold truncate max-w-[45vw]'>
+          #{title}
+        </h1>
         <p className='text-xs pb-3 pt-2 truncate w-[50vw] max-w-sm'>{text}</p>
         <p className='text-xs text-[#707070]'>@{nickname}</p>
       </div>

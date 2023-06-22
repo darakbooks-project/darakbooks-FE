@@ -2,31 +2,37 @@ import {
   dehydrate,
   QueryClient,
   useInfiniteQuery,
+  useMutation,
   useQuery,
 } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { getProfileApi } from '@/api/profile';
-import { getAllRecordsApi } from '@/api/record';
+import { deleteRecordApi, getAllRecordsApi } from '@/api/record';
 import BottomNav from '@/components/common/BottomNav';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { NextPageWithLayout } from '@/types/layout';
 
 const MyFeed: NextPageWithLayout = () => {
-  const router = useRouter();
+  const {
+    query: { ownerId },
+    push,
+  } = useRouter();
+  const [edit, setEdit] = useState(false);
+  const deleteRecord = useMutation(deleteRecordApi);
   const { data: someoneData } = useQuery(
-    ['getUserProfile', 'profile', router.query.ownerId],
-    () => getProfileApi(router.query.ownerId as string),
-    { enabled: !!router.query.ownerId },
+    ['getUserProfile', 'profile', ownerId],
+    () => getProfileApi(ownerId as string),
+    { enabled: !!ownerId },
   );
   const { data: myData } = useQuery(
     ['getUserProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
-    { enabled: !router.query.ownerId },
+    { enabled: !ownerId },
   );
 
   const [ref, inView] = useInView();
@@ -35,6 +41,7 @@ const MyFeed: NextPageWithLayout = () => {
     hasNextPage: myRecordsHasNextPage,
     data: getAllMyRecords,
     status: myRecordsStatus,
+    refetch,
   } = useInfiniteQuery(
     ['getAllMyRecords', 'myfeed'],
     ({ pageParam = Number.MAX_SAFE_INTEGER }) => getAllRecordsApi(pageParam, 9),
@@ -45,7 +52,7 @@ const MyFeed: NextPageWithLayout = () => {
         }
         return lastPage.lastId;
       },
-      enabled: !router.query.ownerId,
+      enabled: !ownerId,
     },
   );
   const {
@@ -56,7 +63,7 @@ const MyFeed: NextPageWithLayout = () => {
   } = useInfiniteQuery(
     ['getAllSomeoneRecords', 'someonefeed'],
     ({ pageParam = Number.MAX_SAFE_INTEGER }) =>
-      getAllRecordsApi(pageParam, 9, router.query.ownerId as string),
+      getAllRecordsApi(pageParam, 9, ownerId as string),
     {
       getNextPageParam: (lastPage) => {
         if (!lastPage.lastId) {
@@ -64,60 +71,106 @@ const MyFeed: NextPageWithLayout = () => {
         }
         return lastPage.lastId;
       },
-      enabled: !!router.query.ownerId,
+      enabled: !!ownerId,
     },
   );
 
-  const recordsData = getAllMyRecords ? getAllMyRecords : getAllSomeoneRecords;
-  const userData = someoneData ? someoneData : myData;
+  const recordsData = ownerId ? getAllSomeoneRecords : getAllMyRecords;
+  const userData = ownerId ? someoneData : myData;
+  const recordsStatus = ownerId ? someoneRecordsStatus : myRecordsStatus;
+  const hasNextPage = ownerId
+    ? someoneRecordsHasNextPage
+    : myRecordsHasNextPage;
   const allRecords = recordsData?.pages.flatMap((page) => page.records);
 
-  const recordsStatus =
-    someoneRecordsStatus === 'success' ? someoneRecordsStatus : myRecordsStatus;
-
-  const hasNextPage = getAllMyRecords
-    ? myRecordsHasNextPage
-    : someoneRecordsHasNextPage;
-
-  const fetchNextPage = getAllMyRecords
-    ? myRecordsFetchNextPage
-    : someoneRecordsFetchNextPage;
+  const fetchNextPage = ownerId
+    ? someoneRecordsFetchNextPage
+    : myRecordsFetchNextPage;
 
   useEffect(() => {
-    if (!getAllMyRecords) return;
     if (hasNextPage && inView) fetchNextPage();
   }, [fetchNextPage, getAllMyRecords, hasNextPage, inView]);
 
+  const removeRecord = (id: string) => {
+    deleteRecord.mutate(id, {
+      onSuccess: () => {
+        alert('독서기록을 삭제하였습니다.');
+        refetch();
+      },
+    });
+  };
+
   return (
     <>
-      {recordsStatus === 'success' && (
+      {recordsStatus === 'success' && allRecords && (
         <>
-          {userData?.isMine === false && userData.bookshelfIsHidden === true ? (
-            <div>비공개</div>
+          {!userData?.isMine && userData?.bookshelfIsHidden ? (
+            <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center leading-[1.3rem]'>
+              <h5 className='text-base font-medium text-[#333333]'>
+                비공개 계정입니다.
+              </h5>
+              <p className='text-[13px] text-[#707070]'>
+                이 계정은 확인할 수 없습니다.
+              </p>
+            </div>
           ) : (
             <>
-              <div className='flex items-center justify-between px-6 py-0 h-14'>
-                <span>독서기록</span>
-                {userData?.isMine ? (
-                  <span className='text-[15px] text-[#333333]'>편집</span>
-                ) : null}
-              </div>
-              <section className='grid grid-cols-[repeat(3,1fr)] gap-0.5'>
+              {allRecords.length < 1 ? (
+                <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
+                  <h5 className='text-base font-medium text-[#333333]'>
+                    기록이 없어요.
+                  </h5>
+                </div>
+              ) : (
                 <>
-                  {allRecords?.map((item) => (
-                    <Image
-                      src={item.recordImgUrl}
-                      alt={item.book.title}
-                      width='0'
-                      height='0'
-                      sizes='100vw'
-                      className='h-32 w-full'
-                      key={item.recordId}
-                    />
-                  ))}
+                  <div className='flex items-center justify-between px-6 py-0 h-14'>
+                    <span>독서기록</span>
+                    {userData?.isMine ? (
+                      <span
+                        className='text-[15px] text-[#333333]'
+                        onClick={() => setEdit((prev) => !prev)}
+                      >
+                        {edit ? '완료' : '편집'}
+                      </span>
+                    ) : null}
+                  </div>
+                  <section className='grid grid-cols-[repeat(3,1fr)] gap-0.5'>
+                    <>
+                      {allRecords.map((item) => (
+                        <div key={item.recordId} className='relative'>
+                          {edit && (
+                            <div
+                              className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-1 bottom-1'
+                              onClick={() => removeRecord(item.recordId + '')}
+                            >
+                              X
+                            </div>
+                          )}
+                          <Image
+                            src={item.recordImgUrl}
+                            alt={item.book.title}
+                            width='0'
+                            height='0'
+                            sizes='100vw'
+                            className='h-32 w-full'
+                            onClick={() =>
+                              push({
+                                pathname: '/book/feed',
+                                query: {
+                                  recordId: item.recordId,
+                                  type: 'RECORDS',
+                                  ownerId,
+                                },
+                              })
+                            }
+                          />
+                        </div>
+                      ))}
+                    </>
+                  </section>
+                  <div ref={ref}></div>
                 </>
-              </section>
-              <div ref={ref}></div>
+              )}
             </>
           )}
         </>

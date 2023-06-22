@@ -13,7 +13,7 @@
   html,
   body,
   #__next {
-    @apply w-full h-full max-w-xl my-0 mx-auto bg-[#f3f3f3];
+    @apply h-full max-w-xl my-0 mx-auto bg-[#f3f3f3];
   }
 }
 
@@ -51,6 +51,50 @@
 
 .react-datepicker__day:nth-child(7) {
   color: #8685ff; /* 토요일 날짜 */
+}
+
+/* 온보딩 페이지 캐러셀 스타일*/
+.slick-slide > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+.dots_custom {
+  max-width: 576px;
+  width: 83.3333%;
+  position: static !important;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.dots_custom li {
+  list-style: none;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 6px;
+  padding: 0;
+}
+
+.dots_custom li button {
+  border: none;
+  background: #50beab80;
+  color: transparent;
+  cursor: pointer;
+  display: block;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  padding: 0;
+}
+
+.dots_custom li.slick-active button {
+  background-color: #50beab;
+  width: 36px;
+  height: 10px;
+  border-radius: 50px;
 }
 
 .vertical-text {
