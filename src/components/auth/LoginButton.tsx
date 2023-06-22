@@ -25,7 +25,7 @@ const LinkStyle = tw(Link)`
   bg-[#F9E000] 
   border 
   cursor-pointer
-  rounded-md
+  rounded-lg
   px-4
   py-3.5
   my-4
