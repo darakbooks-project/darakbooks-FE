@@ -52,3 +52,8 @@
 .react-datepicker__day:nth-child(7) {
   color: #8685ff; /* 토요일 날짜 */
 }
+
+.vertical-text {
+  writing-mode: vertical-lr;
+  letter-spacing: 6.5px;
+}
