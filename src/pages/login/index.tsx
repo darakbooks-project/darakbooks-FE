@@ -9,14 +9,19 @@ const LoginPage = () => {
     <Container>
       <Wrap>
         <Introduce>
-          <SiteImage
+          <SiteDescrtion className='vertical-text'>
+            나만의
+            <span className='my-3' />
+            작은책방
+          </SiteDescrtion>
+          <SiteName className='vertical-text'>다락책방</SiteName>
+          {/* by 민형, 일러스트 넣기_230622 */}
+          {/* <SiteImage
             src='./images/login-image.svg'
             width={200}
             height={400}
             alt='로그인 페이지 사진'
-          />
-          <SiteName>다락책방</SiteName>
-          <SiteDescrtion>책을 통해 함께 지식을 쌓아봐요~</SiteDescrtion>
+          /> */}
         </Introduce>
 
         <UserSelectWrapper>
@@ -63,16 +68,25 @@ const Wrap = tw.div`
 `;
 
 const Introduce = tw.div`
-  text-center
+  flex
+  w-full
+  pt-7
+  pl-4
 `;
 
 const SiteImage = tw(Image)`
   mx-auto
 `;
 
-const SiteName = tw.div``;
+const SiteDescrtion = tw.div`
+  text-[#707070]
+  mr-0.5
+`;
 
-const SiteDescrtion = tw.div``;
+const SiteName = tw.div`
+  text-[40px]	
+  text-[#60B28D]
+`;
 
 const UserSelectWrapper = tw.div`
   w-full
