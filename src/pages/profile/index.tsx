@@ -151,7 +151,7 @@ const ProfilePage: NextPageWithLayout = () => {
                     </span>
                     {userData?.isMine && (
                       <span
-                        className='text-[15px] text-[#333333]'
+                        className='text-[15px] text-[#60B28D]'
                         onClick={() => setEdit((prev) => !prev)}
                       >
                         {edit ? '완료' : '편집'}
@@ -169,17 +169,19 @@ const ProfilePage: NextPageWithLayout = () => {
                           }
                         >
                           {edit && (
-                            <div
-                              className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-0.5'
+                            <Image
+                              src='/images/record/delete.svg'
+                              alt='delete'
+                              width={34}
+                              height={34}
+                              className='absolute -right-3 -top-3'
                               onClick={(
-                                event: React.MouseEvent<HTMLDivElement>,
+                                event: React.MouseEvent<HTMLImageElement>,
                               ) => {
                                 event.stopPropagation();
                                 removeBook(data.bookIsbn);
                               }}
-                            >
-                              X
-                            </div>
+                            />
                           )}
 
                           <section className='w-full shadow-[0px_4px_8px_rgba(0,0,0,0.15)] mb-4 p-[7px]'>
@@ -189,7 +191,7 @@ const ProfilePage: NextPageWithLayout = () => {
                               width='0'
                               height='0'
                               sizes='100vw'
-                              className='w-full h-[9.5rem]  rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
+                              className='w-full h-[9.5rem] rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
                             />
                           </section>
                           <div className='flex flex-col items-center w-full'>

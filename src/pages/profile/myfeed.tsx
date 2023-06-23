@@ -124,7 +124,13 @@ const MyFeed: NextPageWithLayout = () => {
               ) : (
                 <>
                   <div className='flex items-center justify-between px-6 py-0 h-14'>
-                    <span>독서기록</span>
+                    <span className='text-[15px] text-[#707070]'>
+                      전체{' '}
+                      <span className='text-[15px] text-[#67a68a]'>
+                        {allRecords.length}
+                      </span>
+                      개
+                    </span>
                     {userData?.isMine ? (
                       <span
                         className='text-[15px] text-[#333333]'
@@ -139,12 +145,14 @@ const MyFeed: NextPageWithLayout = () => {
                       {allRecords.map((item) => (
                         <div key={item.recordId} className='relative'>
                           {edit && (
-                            <div
-                              className='absolute flex items-center justify-center w-4 h-4 text-[4px] bg-[#707070] rounded-[50%] right-1 bottom-1'
+                            <Image
+                              src='/images/record/delete.svg'
+                              alt='delete'
+                              width={34}
+                              height={34}
+                              className='absolute -right-1 -bottom-1'
                               onClick={() => removeRecord(item.recordId + '')}
-                            >
-                              X
-                            </div>
+                            />
                           )}
                           <Image
                             src={item.recordImgUrl}

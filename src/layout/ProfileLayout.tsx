@@ -53,16 +53,32 @@ function ProfileLayout({ children }: { children: ReactNode }) {
         <>
           <section className='w-full h-[30%] bg-[#fffef8] flex flex-col px-6 py-0'>
             <div className='flex items-center justify-end h-3/6'>
-              {data.isMine && <div onClick={onLogout}>로그아웃</div>}
+              {data.isMine && (
+                <Image
+                  src='images/profile/logout.svg'
+                  alt='logout'
+                  width={21}
+                  height={19}
+                  onClick={onLogout}
+                />
+              )}
             </div>
             <article className='h-3/6 flex items-center justify-between'>
               <div>
                 <h1 className='text-2xl text-[#333333] font-[bold] mb-[5px]'>
                   {data.nickname}
                 </h1>
-                <p className='text-[13px] text-[#707070]'>
+                <p className='text-[13px] text-[#707070] flex gap-4'>
                   {data.userInfo ?? '좋아하는 것을 일고 기록해요 :)'}
-                  {data.isMine && <Link href='/profile/edit'>수정</Link>}
+                  {data.isMine && (
+                    <Image
+                      src='/images/profile/pencil.svg'
+                      alt='edit'
+                      width={14}
+                      height={14}
+                      onClick={() => push('/profile/edit')}
+                    />
+                  )}
                 </p>
               </div>
               <Image
@@ -71,7 +87,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 width='0'
                 height='0'
                 sizes='100vw'
-                className='w-[4.5rem] h-[4.5rem] bg-[#ebeaea] border rounded-[50%] border-solid border-[#c2c1c1]'
+                className='w-[4.5rem] h-[4.5rem]  rounded-[50%] '
               />
             </article>
           </section>
