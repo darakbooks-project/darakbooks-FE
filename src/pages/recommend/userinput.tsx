@@ -35,7 +35,7 @@ const RecommendInputPage = () => {
   }
 
   if (isSuccess) {
-    return <RecommendComplete />;
+    return <RecommendComplete userRequest={userRequest} />;
   }
 
   return (
