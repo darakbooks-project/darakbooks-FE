@@ -91,6 +91,9 @@ const Container = tw.nav`
   max-w-xl
   flex
   items-center
+  border-t
+  border-black
+  border-opacity-10
 `;
 
 const Wrap = tw.div`
