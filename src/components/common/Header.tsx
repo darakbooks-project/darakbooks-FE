@@ -33,7 +33,7 @@ const Header = ({ title, moreMenu, className, pathname }: Props) => {
               : back();
           }}
           className='cursor-pointer'
-          src='/images/back-button.svg'
+          src='/images/header/back-button.svg'
           width={20}
           height={20}
           alt='뒤로 가기 버튼입니다'

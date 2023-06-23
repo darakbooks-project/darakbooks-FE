@@ -17,10 +17,15 @@ module.exports = {
           from: { opacity: '0', transform: 'translateY(5rem)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
+        slideUpModal: {
+          from: { opacity: '1', transform: 'translateY(-8rem)' },
+          to: { opacity: '1', transform: 'translateY(-50%)' },
+        },
       },
       animation: {
         slideDown: 'slideDown 300ms ease-out forwards',
         slideUp: 'slideUp 300ms ease-out forwards',
+        slideUpModal: 'slideUpModal 300ms ease-out forwards',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

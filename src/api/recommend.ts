@@ -1,6 +1,10 @@
+import { RecommendBookResultType } from '@/types/recommend';
+
 import { axiosInstance } from './axios';
 
-export const getGPTRecommendBook = async (userRequest: string) => {
+export const getGPTRecommendBook = async (
+  userRequest: string,
+): Promise<RecommendBookResultType> => {
   try {
     const response = await axiosInstance.request({
       method: 'GET',
@@ -8,7 +12,7 @@ export const getGPTRecommendBook = async (userRequest: string) => {
       data: {
         userInput: userRequest,
       },
-      timeout: 1000 * 60 * 3,
+      timeout: 1000 * 60 * 2,
     });
 
     if (response) return response.data;
