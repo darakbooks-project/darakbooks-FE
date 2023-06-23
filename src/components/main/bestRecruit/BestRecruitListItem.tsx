@@ -43,7 +43,7 @@ const BestRecruitListItem = ({
     isLoading,
     isError,
   } = useQuery(
-    ['bestGroupLeader'],
+    ['recruitLeader', group_group_id],
     () => fetchReadingGroupLeader(group_group_id),
     {
       staleTime: 1000 * 60 * 60,
