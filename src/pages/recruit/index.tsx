@@ -29,7 +29,8 @@ const RecruitPage = () => {
       <BackGroundWrap>
         <BackGround>
           <Title>
-            독서모임 시작하기 <br /> 참 좋은 하루에요!
+            독서모임 시작하기 <br /> 참 좋은 하루에요
+            <span className='ml-1'>:)</span>
           </Title>
         </BackGround>
       </BackGroundWrap>
