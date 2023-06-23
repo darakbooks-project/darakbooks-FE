@@ -32,9 +32,6 @@ const RecruitPage = () => {
             독서모임 시작하기 <br /> 참 좋은 하루에요!
           </Title>
         </BackGround>
-        <PersonnelRecruitButton onClick={clickGroupOpenButton}>
-          개설 하기
-        </PersonnelRecruitButton>
       </BackGroundWrap>
 
       <InfinityScrollListsWrap>
@@ -44,6 +41,10 @@ const RecruitPage = () => {
           />
         </InfinityScrollLists>
       </InfinityScrollListsWrap>
+
+      <PersonnelRecruitButton onClick={clickGroupOpenButton}>
+        나만의 독서 모임 만들기
+      </PersonnelRecruitButton>
 
       <BottomNav />
     </Container>
@@ -90,13 +91,17 @@ const InfinityScrollLists = tw.div`
 `;
 
 const PersonnelRecruitButton = tw.div`
-  absolute
-  top-[70px]
-  right-[20px]
-  p-[5px]
-  bg-[#FFDF8D]
+  fixed
+  bottom-[90px]
+  left-[50%]
+  translate-x-[-50%]
+  py-2.5
+  px-5
+  bg-main
   text-sm
   text-center
   text-white
-  rounded
+  rounded-lg
+  cursor-pointer
+  shadow-lg
 `;
