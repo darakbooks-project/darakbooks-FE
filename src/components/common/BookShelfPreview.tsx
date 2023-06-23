@@ -34,13 +34,13 @@ const BookShelfPreview = ({
   return (
     <div
       onClick={() => moveProfile(memberId)}
-      className='w-[100%] h-[187px] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'
+      className='w-[100%] h-[187px] bg-[#FFFEF8] shadow-around rounded-t-md cursor-pointer xxs:h-[10rem]'
       style={{
         perspective: '300px',
         transform: 'translate3d(0,0,0)',
       }}
     >
-      <div className='flex '>
+      <div className='flex'>
         <div className='flex flex-col w-[100%]'>
           <p className='text-xs ml-[calc((50%-(87.86px/2)-87.86px)/2)] relative top-3 xxs:ml-[calc((50%-87.86px)/2-0.5rem)]'>
             {nickname}의 서재
@@ -56,7 +56,7 @@ const BookShelfPreview = ({
                     placeholder='blur'
                     blurDataURL={thumbnail}
                     alt='추천 책장 책 표지'
-                    className='rounded-r max-w-[97px] max-h-[130px] w-full h-full xs:px-1'
+                    className='rounded-r max-w-[97px] max-h-[130px] xxs:w-[74px] xxs:px-1 '
                   />
                 </div>
               );
