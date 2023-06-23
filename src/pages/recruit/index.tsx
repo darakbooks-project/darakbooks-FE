@@ -59,20 +59,21 @@ const BackGroundWrap = tw.div`
   top-0
   left-0
   w-full
-  h-[250px]
+  h-[245px]
   bg-[#FFFCEA]
   z-10
 `;
 const BackGround = tw.div`
   w-full
-  h-[250px]
+  h-[245px]
   relative
+  bg-[url('/images/reading-group-illustration.svg')]
 `;
 
 const Title = tw.h1`
   absolute
   left-[20px]
-  bottom-[15px]
+  bottom-[35px]
   text-xl
   font-bold
 `;
