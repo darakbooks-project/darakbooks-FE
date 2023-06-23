@@ -34,6 +34,7 @@ module.exports = {
       boxShadow: {
         round: '4px 4px 8px rgba(0, 0, 0, 0.15)',
         roundY: '0px -4px 12px rgba(0, 0, 0, 0.12)',
+        around: '0px 0px 9px 0px rgba(0, 0, 0, 0.10)',
       },
       dropShadow: {
         around: '0 0 7px rgba(0, 0, 0, 0.25)',
