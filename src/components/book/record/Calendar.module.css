@@ -1,5 +1,6 @@
 .calenderWrapper {
   border: none;
+  left: 9%;
 }
 
 .selectedDay,
@@ -17,4 +18,10 @@
 .selectedDay:hover {
   border-radius: 50%;
   background-color: #67a68a;
+}
+
+@media (min-width: 575px) {
+  .calenderWrapper {
+    left: 80%;
+  }
 }

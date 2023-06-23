@@ -8,7 +8,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import { getBookDataByIsbnApi } from '@/api/book';
@@ -134,10 +134,10 @@ const BookRecordPage = () => {
       <div className='flex flex-col pb-20'>
         <section className='flex flex-col gap-8 p-4 border-solid pt-28'>
           <article className='flex flex-col gap-2'>
-            <h3 className='italic font-normal text-base leading-[19px] text-[#333333]'>
+            <h3 className='font-normal text-base leading-[19px] text-[#333333]'>
               {today}
             </h3>
-            <h1 className='italic font-normal text-[32px] leading-[38px] text-[#333333]'>
+            <h1 className='font-normal text-[32px] leading-[38px] text-[#333333]'>
               독서 기록
             </h1>
           </article>
@@ -145,13 +145,13 @@ const BookRecordPage = () => {
             <div>
               <Link
                 href={'/book/record/select'}
-                className='flex flex-col w-full justify-center p-4 items-center border rounded-md border-dashed border-[#c2c1c1]'
+                className='flex flex-col w-full justify-center p-4 items-center border rounded-md border-dashed border-[#c2c1c1] cursor-pointer '
               >
                 {getBookDataByIsbn &&
                 getBookDataByIsbn.documents &&
                 getBookDataByIsbn.documents[0] ? (
                   <section className='flex w-full h-full gap-4'>
-                    <div className='border w-1/5 border-solid border-[black]'>
+                    <div className='w-1/5 '>
                       <Image
                         src={getBookDataByIsbn.documents[0].thumbnail}
                         alt='도서 이미지'
@@ -170,8 +170,15 @@ const BookRecordPage = () => {
                   </section>
                 ) : (
                   <>
-                    <span>+</span>
-                    <span className='text-[12]'>책 등록하기</span>
+                    <Image
+                      src='/images/record/plus.svg'
+                      alt='책 등록하기'
+                      width={32}
+                      height={32}
+                    />
+                    <span className='text-[#33333] text-[13px]'>
+                      책 등록하기
+                    </span>
                   </>
                 )}
               </Link>
@@ -221,19 +228,19 @@ const BookRecordPage = () => {
               />
               <label htmlFor='calendar'>
                 {startDate ? (
-                  <div className='w-[12rem] flex justify-end h-8 text-[14px] text-[#333333]'>
+                  <div className='w-[12rem] flex justify-end h-8 text-[14px] text-[#333333] cursor-pointer'>
                     완독일_ {startDate.toLocaleDateString('ko')}
                   </div>
                 ) : (
-                  <div className='w-[6.5rem] text-[14px] text-[#333333] flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] '>
-                    완독일
+                  <div className='w-[6.5rem] text-[14px] text-[#333333] flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] cursor-pointer'>
+                    완독일 기록
                   </div>
                 )}
               </label>
             </div>
             <textarea
               className='flex min-h-[19rem] p-4 rounded-md resize-none bg-[#fff8cb33]'
-              placeholder='나의 독서 기록을 공유해보세요'
+              placeholder='나의 독서 기록을 공유해보세요.'
               value={description}
               onChange={changeDescription}
             ></textarea>
@@ -247,29 +254,30 @@ const BookRecordPage = () => {
             value={tag}
             onKeyDown={keyPress}
           />
-          <h2 className='not-italic font-bold text-sm leading-5 text-[#333333]'>
-            추가한 태그
-          </h2>
+          <h2 className='font-bold text-sm text-[#333333]'>추가한 태그</h2>
           <div className='flex flex-wrap w-full gap-2'>
             {tagList.map((tag) => (
               <span
                 key={tag.id}
-                className='inline-flex border italic font-normal text-sm leading-[17px] text-[#333333] px-3 py-1.5 rounded-[50px] border-solid border-[#ebeaea]'
+                className='flex items-center border font-normal text-sm leading-[17px] text-[#333333] px-3 py-1.5 rounded-[50px] border-[#ebeaea] '
               >
                 #{tag.data}
-                <span className='ml-2' onClick={() => deleteTag(tag.id)}>
+                <span
+                  className='flex justify-center items-center ml-2 text-[0.5rem] bg-[#EBEAEA] rounded-[50%] w-4 h-4 cursor-pointer'
+                  onClick={() => deleteTag(tag.id)}
+                >
                   X
                 </span>
               </span>
             ))}
           </div>
-          <div>
+          <div className='mb-4 '>
             <label
               htmlFor='record-image'
               className={` ${
                 postImage.url
                   ? 'border-[none]'
-                  : 'flex flex-col justify-center items-center min-h-[8rem] border rounded-md border-dashed border-[#C2C1C1] gap-1'
+                  : 'flex flex-col justify-center items-center min-h-[8rem] border rounded-md border-dashed border-[#C2C1C1] gap-1 cursor-pointer'
               } `}
             >
               {postImage.url ? (
@@ -279,11 +287,16 @@ const BookRecordPage = () => {
                   width='0'
                   height='0'
                   sizes='100vw'
-                  className='w-full h-auto'
+                  className='w-full h-auto cursor-pointer'
                 />
               ) : (
                 <>
-                  <div>아이콘</div>
+                  <Image
+                    src='/images/record/camera.svg'
+                    alt='사진 등록하기'
+                    width={32}
+                    height={32}
+                  />
                   <span className='text-[13px] text-[#333333]'>
                     사진 추가하기
                   </span>
