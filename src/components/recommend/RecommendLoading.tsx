@@ -1,12 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 
-import Header from '@/components/common/Header';
-
 const RecommendLoading = () => {
   return (
     <div className='flex flex-col items-center justify-center h-full bg-background'>
-      <Header className='absolute top-6' />
       <Image
         src='/images/bookRecommend/recommendCharacter.png'
         width={187}
