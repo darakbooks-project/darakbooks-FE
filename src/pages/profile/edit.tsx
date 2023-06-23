@@ -62,16 +62,18 @@ const Edit = () => {
         <>
           <div className='flex flex-col items-center h-screen gap-12 px-6 py-12'>
             <section className='flex justify-between w-full'>
-              <button
+              <Image
+                src='/images/profile/back-arrow.svg'
+                alt='back'
+                width={32}
+                height={32}
                 onClick={() => {
                   router.back();
                 }}
-                className=''
-              >
-                &lt;
-              </button>
+              />
+
               <h1 className='text-base text-[#333333]'>프로필 수정</h1>
-              <div className='invisible'></div>
+              <div className='invisible w-[32px]'></div>
             </section>
             <main className='flex flex-col items-center w-full gap-6 s:pb-36'>
               <section className='relative'>
@@ -98,7 +100,14 @@ const Edit = () => {
                 <label
                   className='absolute w-7 h-7 bg-[#ebeaea] border rounded-[50%] border-solid border-[#c2c1c1] right-0 bottom-[0.4rem]'
                   htmlFor='edit-photo'
-                ></label>
+                >
+                  <Image
+                    src='/images/record/camera.svg'
+                    alt='photo'
+                    width={32}
+                    height={32}
+                  />
+                </label>
                 <input
                   className='hidden'
                   type='file'
@@ -121,12 +130,15 @@ const Edit = () => {
                   value={nickname}
                   onChange={setNickname}
                 />
-                <button
-                  className='absolute w-6 h-6 flex justify-center items-center rounded-[50%] right-[15px] top-[3rem] bg-[#f3f3f3]'
+
+                <Image
+                  src='/images/record/delete.svg'
+                  alt='delete'
+                  width={32}
+                  height={32}
                   onClick={resetNickname}
-                >
-                  X
-                </button>
+                  className='absolute right-[15px] top-[2.8rem]'
+                />
               </section>
               <section className='flex flex-col w-full'>
                 <label
