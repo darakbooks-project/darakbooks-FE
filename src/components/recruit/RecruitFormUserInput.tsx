@@ -79,7 +79,7 @@ const RecruitFormUserInput = ({
               '지역'}
           </span>
           <SelectArrowIconImage
-            src={'/images/select-arrow.svg'}
+            src={'/images/not-select-arrow.svg'}
             width={12.5}
             height={12.5}
             alt='선택 화살표 입니다.'
@@ -118,7 +118,7 @@ const RecruitFormUserInput = ({
           >
             <span>{classStateObj.classDay || '요일'}</span>
             <SelectArrowIconImage
-              src={'/images/select-arrow.svg'}
+              src={'/images/not-select-arrow.svg'}
               width={12.5}
               height={12.5}
               alt='선택 화살표 입니다.'
@@ -149,7 +149,7 @@ const RecruitFormUserInput = ({
           >
             <span>{classStateObj.classTime || '시간'}</span>
             <SelectArrowIconImage
-              src={'/images/select-arrow.svg'}
+              src={'/images/not-select-arrow.svg'}
               width={12.5}
               height={12.5}
               alt='선택 화살표 입니다.'
