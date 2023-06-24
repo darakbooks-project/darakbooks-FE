@@ -18,8 +18,7 @@ const BottomNav = () => {
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
 
-  const router = useRouter();
-  const { pathname } = router;
+  const { pathname } = useRouter();
 
   const navItemPropertyArr: ButtonType[] = [
     {
@@ -60,7 +59,7 @@ const BottomNav = () => {
           const isClicked = path === pathname;
 
           return (
-            <Button key={src} onClick={onClick}>
+            <Button href={path} key={src}>
               <Image
                 width={45}
                 height={45}
@@ -68,10 +67,9 @@ const BottomNav = () => {
                 src={`../images/bottomNavBar/${src}-${
                   isClicked ? 'on' : 'off'
                 }.svg`}
+                onClick={onClick}
               />
-              <Text href={path} isclick={isClicked ? 'click' : ''}>
-                {text}
-              </Text>
+              <Text isclick={isClicked ? 'click' : ''}>{text}</Text>
             </Button>
           );
         })}
@@ -93,6 +91,9 @@ const Container = tw.nav`
   max-w-xl
   flex
   items-center
+  border-t
+  border-black
+  border-opacity-10
 `;
 
 const Wrap = tw.div`
@@ -102,14 +103,14 @@ const Wrap = tw.div`
   w-full
 `;
 
-const Button = tw.div`
+const Button = tw(Link)`
   flex
   flex-col
   items-center
   cursor-pointer
 `;
 
-const Text = tw(Link)<{ isclick: string }>`
+const Text = tw.div<{ isclick: string }>`
   text-xs	
   mt-[-5px]
   ${(props) => (props.isclick === 'click' ? 'text-[#60B28D]' : 'text-[#707070')}
