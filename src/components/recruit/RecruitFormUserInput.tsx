@@ -96,6 +96,7 @@ const RecruitFormUserInput = ({
               key={region}
               value={region}
               className='hover:bg-black hover:bg-opacity-10'
+              onClick={() => setOpenRegionStatus('hidden')}
             >
               {region}
             </ClassSelectListItem>
@@ -135,6 +136,7 @@ const RecruitFormUserInput = ({
                 key={day}
                 value={day}
                 className='hover:bg-black hover:bg-opacity-10'
+                onClick={() => setOpenDayStatus('hidden')}
               >
                 {day}요일
               </ClassSelectListItem>
@@ -166,6 +168,7 @@ const RecruitFormUserInput = ({
                 key={time}
                 value={time}
                 className='hover:bg-black hover:bg-opacity-10'
+                onClick={() => setOpenTimeStatus('hidden')}
               >
                 {time}
               </ClassSelectListItem>
