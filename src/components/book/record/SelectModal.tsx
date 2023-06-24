@@ -38,24 +38,24 @@ const ModalOverlay = ({ isbn, thumbnail, title, author }: selectBookProps) => {
         width='0'
         height='0'
         sizes='100vw'
-        className='absolute w-[8.5em] h-[12em] top-[-7rem] -translate-x-2/4 translate-y-[-5%] rounded-[0px_3px_3px_0px] left-2/4'
+        className='absolute w-[8.5em] h-[12em] top-[-7rem] -translate-x-2/4 translate-y-[-5%] rounded-[0px_3px_3px_0px] left-2/4 drop-shadow-[0_0_8px_rgba(0,0,0,0.25)]'
       />
-
       <button
         className='absolute right-8 top-6'
         onClick={() => setModal(false)}
       >
-        X
+        <Image src='/images/exit.svg' alt='exit' width={32} height={32} />
       </button>
       <article className='absolute -translate-x-2/4 translate-y-[-20%] flex flex-col items-center justify-center w-full leading-6 left-2/4 top-24'>
         <h4 className='text-lg text-[#242424]'>{title}</h4>
         <h5 className='text-[13px] text-[#707070]'>{author} 지음</h5>
       </article>
       <span
-        className='absolute -translate-x-2/4 -translate-y-1/4 text-[#707070] text-[13px] w-full text-center left-2/4 bottom-[7rem]'
+        className='flex items-center absolute -translate-x-2/4 -translate-y-1/4 text-[#707070] text-[13px]  text-center left-1/2 bottom-[5.8rem]'
         onClick={routeDetailPage}
       >
-        책 정보 보기
+        <Image src='/images/info.svg' alt='info' width={32} height={32} />책
+        정보
       </span>
       <button
         className='absolute w-[90%] h-[3.6rem] -translate-x-2/4 -translate-y-1/4 text-base text-white bg-main rounded-md border-[none] left-2/4 bottom-2'
