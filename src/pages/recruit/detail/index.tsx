@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -77,7 +78,17 @@ const RecruitDetailPage = () => {
   ];
 
   const moreMenu = (
-    <Link href={{ pathname: '/recruit/update', query: { groupId } }}>⏵</Link>
+    <Link
+      href={{ pathname: '/recruit/update', query: { groupId } }}
+      className='flex justify-end'
+    >
+      <Image
+        src={'/images/group/edit-pencil.svg'}
+        width={20}
+        height={20}
+        alt='수정하기 아이콘'
+      />
+    </Link>
   );
 
   return (
@@ -111,7 +122,6 @@ const RecruitDetailPage = () => {
             <div className='pl-4'>
               <h3 className='text-sm text-main'>
                 {recruitment_status ? '모집중' : '모집완료'}
-                {}
               </h3>
               <h1 className='text-xl font-bold'>{name}</h1>
             </div>
@@ -119,10 +129,15 @@ const RecruitDetailPage = () => {
           {is_group_lead && (
             <button
               onClick={() => setModal(true)}
-              className='w-[5.625rem] h-[2.1875rem] border border-solid border-[#DFDFDF] rounded mb-5 flex justify-center items-center'
+              className='w-[5.625rem] h-[2.1875rem] border border-solid border-[#DFDFDF] rounded mb-5 flex justify-around items-center'
             >
               {recruitment_status ? '모집중' : '모집완료'}
-              <p>&#x2193;</p>
+              <Image
+                src='/images/group/spread.svg'
+                width={20}
+                height={20}
+                alt='모집여부 변경 아이콘'
+              />
             </button>
           )}
           {modal && (
