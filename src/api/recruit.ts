@@ -64,13 +64,19 @@ export const postReadingClassOpen = async (
   };
 
   try {
-    const response = await axiosInstance.request({
+    const {
+      data: { group_id },
+    } = await axiosInstance.request<{ group_id: string }>({
       method: 'POST',
       url: `/groups`,
       data: body,
     });
 
-    console.log(response);
+    if (group_id) return group_id;
+
+    throw new Error(
+      '모임 추가 작업은 완료했지만 group_id를 조회할 수 없습니다.',
+    );
   } catch {
     throw new Error('모임 추가 작업 중 에러가 발생하였습니다.');
   }
