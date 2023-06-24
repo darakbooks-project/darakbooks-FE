@@ -55,7 +55,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
             <div className='flex items-center justify-end h-3/6'>
               {data.isMine && (
                 <Image
-                  src='images/profile/logout.svg'
+                  src='/images/profile/logout.svg'
                   alt='logout'
                   width={21}
                   height={19}
