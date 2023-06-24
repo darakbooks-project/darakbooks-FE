@@ -150,7 +150,7 @@ export const getGroupsApi = async (
   try {
     const { data } = await axiosInstance.request({
       method: 'GET',
-      url: `${userId ? '/groups/user-group' : `/groups/user-group/${userId}`}`,
+      url: `${userId ? `/groups/user-group/${userId}` : '/groups/user-group'}`,
     });
 
     return data;
