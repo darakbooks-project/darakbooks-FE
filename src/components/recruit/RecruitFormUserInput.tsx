@@ -61,7 +61,10 @@ const RecruitFormUserInput = ({
         <ClassTypeButton
           classtype='online'
           currenttype={classStateObj.classType}
-          onClick={() => classChangeStateObj.changeClassType('online')}
+          onClick={() => {
+            classChangeStateObj.changeClassType('online');
+            setOpenRegionStatus('hidden');
+          }}
         >
           온라인
         </ClassTypeButton>
