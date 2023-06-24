@@ -59,7 +59,9 @@ const Container = tw.div``;
 const BackGroundWrap = tw.div`
   fixed
   top-0
-  left-0
+  left-[50%]
+  translate-x-[-50%]
+  max-w-xl
   w-full
   h-[245px]
   bg-[#FFFCEA]
