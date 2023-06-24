@@ -33,6 +33,7 @@ const RecruitForm = ({
       ...classStateObj,
     };
     if (checkAllInputData(inputDataObj)) return setIsAllInputData(true);
+    isAllInputData && setIsAllInputData(false);
   }, [classStateObj, isAllInputData]);
 
   return (
