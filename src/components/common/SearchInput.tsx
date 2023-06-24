@@ -42,7 +42,7 @@ const SearchInput = ({ onSubmit }: Props) => {
         />
         <SearchButton type='submit' onClick={onClickSearchButton}>
           <Image
-            src='../images/search.svg'
+            src='/images/search.svg'
             width={20}
             height={20}
             alt='검색 아이콘'
@@ -50,7 +50,7 @@ const SearchInput = ({ onSubmit }: Props) => {
         </SearchButton>
         <CloseButton onClick={removeInputData}>
           <Image
-            src='../images/close.svg'
+            src='/images/close.svg'
             width={15}
             height={15}
             alt='닫기 아이콘'
