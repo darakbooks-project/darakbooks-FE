@@ -78,13 +78,12 @@ const RecruitFormUserInput = ({
               classStateObj.classRegion) ||
               '지역'}
           </span>
-          <Image
-            src={`../images/${
-              openRegionStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
-            }.svg`}
+          <SelectArrowIconImage
+            src={'/images/select-arrow.svg'}
             width={12.5}
             height={12.5}
             alt='선택 화살표 입니다.'
+            value={openRegionStatus}
           />
         </ClassSelectButton>
         <ClassSelectList
@@ -118,13 +117,12 @@ const RecruitFormUserInput = ({
             value={classStateObj.classDay}
           >
             <span>{classStateObj.classDay || '요일'}</span>
-            <Image
-              src={`../images/${
-                openDayStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
-              }.svg`}
+            <SelectArrowIconImage
+              src={'/images/select-arrow.svg'}
               width={12.5}
               height={12.5}
               alt='선택 화살표 입니다.'
+              value={openDayStatus}
             />
           </ClassSelectButton>
           <ClassSelectList
@@ -150,13 +148,12 @@ const RecruitFormUserInput = ({
             value={classStateObj.classTime}
           >
             <span>{classStateObj.classTime || '시간'}</span>
-            <Image
-              src={`../images/${
-                openTimeStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
-              }.svg`}
+            <SelectArrowIconImage
+              src={'/images/select-arrow.svg'}
               width={12.5}
               height={12.5}
               alt='선택 화살표 입니다.'
+              value={openTimeStatus}
             />
           </ClassSelectButton>
           <ClassSelectList
@@ -218,6 +215,14 @@ const CommonInputStyle = tw.input`
   outline-none
 
   ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
+`;
+
+const SelectArrowIconImage = tw(Image)<{ value: string }>`
+  transition-transform
+  duration-300
+  ease-in-out
+
+  ${(props) => props.value === 'view' && '-rotate-180'}
 `;
 
 const ClassName = tw(CommonInputStyle)``;
