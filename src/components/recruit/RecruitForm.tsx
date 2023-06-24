@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 
 import {
@@ -22,6 +23,18 @@ const RecruitForm = ({
   onClickButton,
   type,
 }: RecruitFormProps) => {
+  const [isAllInputData, setIsAllInputData] = useState(false);
+  const checkAllInputData = (inputDataObj: { [key: string]: string }) => {
+    return Object.keys(inputDataObj).every((key) => inputDataObj[key]);
+  };
+
+  useEffect(() => {
+    const inputDataObj: { [key: string]: string } = {
+      ...classStateObj,
+    };
+    if (checkAllInputData(inputDataObj)) return setIsAllInputData(true);
+  }, [classStateObj, isAllInputData]);
+
   return (
     <AuthRequiredPage>
       <Container>
@@ -46,7 +59,7 @@ const RecruitForm = ({
           </RecruitFormWrapper>
         </Wrapper>
         <ClassButtonWrap>
-          <ClassButton onClick={onClickButton}>
+          <ClassButton onClick={onClickButton} disabled={!isAllInputData}>
             {type === '개설' ? '만들기' : '수정하기'}
           </ClassButton>
         </ClassButtonWrap>
@@ -91,10 +104,11 @@ const ClassButtonWrap = tw.div`
 `;
 
 const ClassButton = tw.button`  
-  bg-[#67A68A]
   w-full
   h-[55px]
   text-white
   rounded
   font-bold
+
+  ${(props) => (props.disabled ? 'bg-[#DFDFDF]' : 'bg-[#67A68A]')}
 `;
