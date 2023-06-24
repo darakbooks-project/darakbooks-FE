@@ -70,6 +70,7 @@ const RecruitFormUserInput = ({
       <ClassRegionWrap isdisplay={openRegionStatus}>
         <ClassSelectButton
           onClick={() => changeSelectItemDisplayStatus('region')}
+          value={classStateObj.classRegion}
         >
           <span>{classStateObj.classRegion || '지역'}</span>
           <Image
@@ -108,6 +109,7 @@ const RecruitFormUserInput = ({
         <ClassDayWrap>
           <ClassSelectButton
             onClick={() => changeSelectItemDisplayStatus('day')}
+            value={classStateObj.classDay}
           >
             <span>{classStateObj.classDay || '요일'}</span>
             <Image
@@ -138,6 +140,7 @@ const RecruitFormUserInput = ({
         <ClassTimeWrap>
           <ClassSelectButton
             onClick={() => changeSelectItemDisplayStatus('time')}
+            value={classStateObj.classTime}
           >
             <span>{classStateObj.classTime || '시간'}</span>
             <Image
@@ -205,6 +208,8 @@ const CommonInputStyle = tw.input`
   text-sm
   mb-[30px]
   outline-none
+
+  ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
 `;
 
 const ClassName = tw(CommonInputStyle)``;
@@ -221,6 +226,8 @@ const ClassDescription = tw.textarea`
   text-sm
   mb-[30px]
   outline-none
+
+  ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
 `;
 
 const ClassType = tw.div`
@@ -257,6 +264,8 @@ const ClassSelectButton = tw.button`
   flex
   justify-between
   items-center
+
+  ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
 `;
 
 const ClassSelectList = tw.ul<{ isdisplay: string }>`
