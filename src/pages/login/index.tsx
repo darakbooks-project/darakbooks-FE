@@ -20,22 +20,13 @@ const LoginPage = () => {
     !isAuthorized && (
       <Container>
         <Wrap>
-          <Introduce>
-            <SiteDescrtion className='vertical-text'>
-              나만의
-              <span className='my-3' />
-              작은책방
-            </SiteDescrtion>
-            <SiteName className='vertical-text'>다락책방</SiteName>
-            {/* by 민형, 일러스트 넣기_230622 */}
-            {/* <SiteImage
-            src='./images/login-image.svg'
-            width={200}
-            height={400}
-            alt='로그인 페이지 사진'
-          /> */}
-          </Introduce>
-
+          <div></div>
+          <SiteLogo
+            src='./images/login-logo.svg'
+            width={160}
+            height={160}
+            alt='로그인 페이지 로고'
+          />
           <UserSelectWrapper>
             <QuestionText>
               3초만에 가입하고 <br /> 다락책방을 시작해볼까요?
@@ -80,25 +71,8 @@ const Wrap = tw.div`
   py-14
 `;
 
-const Introduce = tw.div`
-  flex
-  w-full
-  pt-7
-  pl-4
-`;
-
-const SiteImage = tw(Image)`
+const SiteLogo = tw(Image)`
   mx-auto
-`;
-
-const SiteDescrtion = tw.div`
-  text-[#707070]
-  mr-0.5
-`;
-
-const SiteName = tw.div`
-  text-[40px]	
-  text-[#60B28D]
 `;
 
 const UserSelectWrapper = tw.div`
