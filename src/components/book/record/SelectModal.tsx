@@ -11,7 +11,7 @@ const BackDrop = () => {
   const setModal = useSetRecoilState(selectModalStateAtom);
   return (
     <div
-      className='fixed w-full h-screen z-20 bg-[rgba(0,0,0,0.75)] left-0 top-0'
+      className='fixed w-full max-w-xl mx-auto h-screen z-20 bg-[rgba(0,0,0,0.6)] top-0'
       onClick={() => setModal(false)}
     />
   );
