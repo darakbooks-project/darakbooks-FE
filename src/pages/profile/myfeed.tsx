@@ -160,7 +160,7 @@ const MyFeed: NextPageWithLayout = () => {
                             width='0'
                             height='0'
                             sizes='100vw'
-                            className='h-32 w-full'
+                            className='h-32 w-full s:h-[12rem]'
                             onClick={() =>
                               push({
                                 pathname: '/book/feed',

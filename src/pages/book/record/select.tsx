@@ -54,7 +54,7 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
                   width='0'
                   height='0'
                   sizes='100vw'
-                  className='w-full h-[9.5rem] mb-2.5 rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0,0,0,0.25)]'
+                  className='w-full h-[9.5rem] s:h-[14rem] mb-2.5 rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0,0,0,0.25)]'
                 />
                 <h2 className='w-full text-[13px] text-[#333333] mx-0 my-[5px] text-center'>
                   {item.title}
