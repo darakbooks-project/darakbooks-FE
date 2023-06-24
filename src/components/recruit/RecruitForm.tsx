@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 
 import {
@@ -24,9 +24,13 @@ const RecruitForm = ({
   type,
 }: RecruitFormProps) => {
   const [isAllInputData, setIsAllInputData] = useState(false);
-  const checkAllInputData = (inputDataObj: { [key: string]: string }) => {
-    return Object.keys(inputDataObj).every((key) => inputDataObj[key]);
-  };
+
+  const checkAllInputData = useCallback(
+    (inputDataObj: { [key: string]: string }) => {
+      return Object.keys(inputDataObj).every((key) => inputDataObj[key]);
+    },
+    [],
+  );
 
   useEffect(() => {
     const inputDataObj: { [key: string]: string } = {
@@ -34,7 +38,7 @@ const RecruitForm = ({
     };
     if (checkAllInputData(inputDataObj)) return setIsAllInputData(true);
     isAllInputData && setIsAllInputData(false);
-  }, [classStateObj, isAllInputData]);
+  }, [classStateObj, isAllInputData, checkAllInputData]);
 
   return (
     <AuthRequiredPage>
