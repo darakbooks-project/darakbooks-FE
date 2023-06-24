@@ -191,7 +191,7 @@ const ProfilePage: NextPageWithLayout = () => {
                               width='0'
                               height='0'
                               sizes='100vw'
-                              className='w-full h-[9.5rem] rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
+                              className='w-full h-[9.5rem] s:h-[14rem] rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
                             />
                           </section>
                           <div className='flex flex-col items-center w-full'>
