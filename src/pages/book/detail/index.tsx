@@ -140,8 +140,14 @@ const BookDetailPage = () => {
       {getBookDataByIsnValid && (
         <>
           <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#ffffff] gap-5'>
-            <div className='w-full px-4' onClick={() => router.back()}>
-              &lt;
+            <div className='w-full px-4'>
+              <Image
+                src='/images/detail/left-arrow.svg'
+                alt='left-arrow'
+                width={8}
+                height={12}
+                onClick={() => router.back()}
+              />
             </div>
 
             <div className=' w-40 h-60 rounded-[0px_3px_3px_0px]  drop-shadow-xl'>
@@ -181,7 +187,21 @@ const BookDetailPage = () => {
             {showMore ? (
               <div className='border-t-[#ebeaea] border-t border-solid mt-4 flex justify-center pt-2'>
                 <button onClick={() => setIntroductionHeight((prev) => !prev)}>
-                  {introductionHeight ? '더보기' : '닫기'}
+                  {introductionHeight ? (
+                    <Image
+                      src='/images/detail/down-arrow.svg'
+                      alt='down-arrow'
+                      width={32}
+                      height={32}
+                    />
+                  ) : (
+                    <Image
+                      src='/images/detail/upper-arrow.svg'
+                      alt='upper-arrow'
+                      width={32}
+                      height={32}
+                    />
+                  )}
                 </button>
               </div>
             ) : null}

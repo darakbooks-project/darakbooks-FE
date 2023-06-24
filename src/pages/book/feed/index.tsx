@@ -329,31 +329,32 @@ const BookDetailFeed = () => {
               <h2 className='not-italic font-normal text-base text-[#242424] mb-4'>
                 도서 정보
               </h2>
-              <Link
-                href={{
-                  pathname: '/book/detail',
-                  query: { isbn },
-                }}
+              <article
+                className=' flex gap-4 p-4 rounded-md bg-[#ffffff] mb-3'
+                onClick={() =>
+                  push({
+                    pathname: '/book/detail',
+                    query: { isbn: currentData.book.bookIsbn },
+                  })
+                }
               >
-                <article className=' flex gap-4 p-4 rounded-md bg-[#ffffff] mb-3'>
-                  <div className='w-1/5'>
-                    <Image
-                      src={currentData.book.thumbnail}
-                      alt='책 표지'
-                      width='0'
-                      height='0'
-                      sizes='100vw'
-                      className='w-full h-auto'
-                    />
-                  </div>
-                  <div className='w-4/5 flex flex-col justify-evenly'>
-                    <h1 className='text-base'>{currentData.book.title}</h1>
-                    <h3 className='text-[13px] text-[#999797]'>
-                      {currentData.book.authors[0]}
-                    </h3>
-                  </div>
-                </article>
-              </Link>
+                <div className='w-1/5'>
+                  <Image
+                    src={currentData.book.thumbnail}
+                    alt='책 표지'
+                    width='0'
+                    height='0'
+                    sizes='100vw'
+                    className='w-full h-auto'
+                  />
+                </div>
+                <div className='w-4/5 flex flex-col justify-evenly'>
+                  <h1 className='text-base'>{currentData.book.title}</h1>
+                  <h3 className='text-[13px] text-[#999797]'>
+                    {currentData.book.authors[0]}
+                  </h3>
+                </div>
+              </article>
             </section>
           </>
         )}
