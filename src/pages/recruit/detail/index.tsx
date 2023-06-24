@@ -100,7 +100,7 @@ const RecruitDetailPage = () => {
           pathname='/recruit'
         />
         <div className='w-full h-[350px] bg-[#FFFCEA]' />
-        <main className='flex flex-col bg-white relative -top-10 px-5 rounded-t-[1.875rem] pb-20'>
+        <main className='flex flex-col bg-white relative -top-10 px-5 rounded-t-[1.875rem] pb-24 shadow-roundY'>
           <div className='flex py-6'>
             <Avatar
               src={groupLeader.photoUrl}
