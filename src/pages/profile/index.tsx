@@ -195,7 +195,7 @@ const ProfilePage: NextPageWithLayout = () => {
                             />
                           </section>
                           <div className='flex flex-col items-center w-full'>
-                            <h3 className='text-[13px] text-[#333333] mb-[5px]'>
+                            <h3 className='text-[13px] text-[#333333] mb-[5px] text-center'>
                               {data.title}
                             </h3>
                             <h4 className='text-[11px] text-[#707070]'>
@@ -214,7 +214,7 @@ const ProfilePage: NextPageWithLayout = () => {
                           X
                         </div>
                         <section className='flex flex-col items-center'>
-                          <h3 className='font-bold text-[21px] text-[#333333]'>
+                          <h3 className='font-bold text-[21px] text-[#333333] text-center'>
                             {certainBookTitle}
                           </h3>
                           <h4 className='font-normal text-[15px] text-[#333333]'>
