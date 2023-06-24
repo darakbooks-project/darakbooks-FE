@@ -71,8 +71,13 @@ const RecruitFormUserInput = ({
         <ClassSelectButton
           onClick={() => changeSelectItemDisplayStatus('region')}
           value={classStateObj.classRegion}
+          disabled={classStateObj.classType === 'online'}
         >
-          <span>{classStateObj.classRegion || '지역'}</span>
+          <span>
+            {(classStateObj.classType === 'offline' &&
+              classStateObj.classRegion) ||
+              '지역'}
+          </span>
           <Image
             src={`../images/${
               openRegionStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
