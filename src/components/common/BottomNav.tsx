@@ -12,6 +12,7 @@ interface ButtonType {
   text: string;
   path: string;
   as?: string;
+  scroll?: boolean;
   onClick?: () => void;
 }
 
@@ -37,6 +38,7 @@ const BottomNav = () => {
       path: isAuthorized ? '/book/record' : '/?isRendedOnboarding=true',
       as: '/',
       text: '기록',
+      scroll: isAuthorized,
       src: 'record',
       onClick: () => {
         isAuthorized || openAuthRequiredModal();
@@ -58,11 +60,11 @@ const BottomNav = () => {
     <Container>
       <Wrap>
         {navItemPropertyArr.map((button: ButtonType) => {
-          const { path, text, onClick, src, as } = button;
+          const { path, text, onClick, src, as, scroll = true } = button;
           const isClicked = path === pathname;
 
           return (
-            <Button href={path} as={as && as} key={src}>
+            <Button href={path} as={as && as} scroll={scroll} key={src}>
               <Image
                 width={45}
                 height={45}
