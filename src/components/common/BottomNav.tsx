@@ -11,6 +11,7 @@ interface ButtonType {
   src: string;
   text: string;
   path: string;
+  as?: string;
   onClick?: () => void;
 }
 
@@ -22,7 +23,8 @@ const BottomNav = () => {
 
   const navItemPropertyArr: ButtonType[] = [
     {
-      path: '/',
+      path: '/?isRendedOnboarding=true',
+      as: '/',
       text: '홈',
       src: 'home',
     },
@@ -32,7 +34,8 @@ const BottomNav = () => {
       src: 'search',
     },
     {
-      path: isAuthorized ? '/book/record' : '',
+      path: isAuthorized ? '/book/record' : '/?isRendedOnboarding=true',
+      as: '/',
       text: '기록',
       src: 'record',
       onClick: () => {
@@ -55,11 +58,11 @@ const BottomNav = () => {
     <Container>
       <Wrap>
         {navItemPropertyArr.map((button: ButtonType) => {
-          const { path, text, onClick, src } = button;
+          const { path, text, onClick, src, as } = button;
           const isClicked = path === pathname;
 
           return (
-            <Button href={path} key={src}>
+            <Button href={path} as={as && as} key={src}>
               <Image
                 width={45}
                 height={45}
