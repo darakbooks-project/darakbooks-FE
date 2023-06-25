@@ -16,7 +16,7 @@ const RecruitWritePage = () => {
       push({
         pathname: '/recruit',
         query: {
-          islistchange: true,
+          islistchange: 'open',
         },
       });
     },
