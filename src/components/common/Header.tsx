@@ -13,7 +13,7 @@ const Header = ({ title, moreMenu, className, pathname }: Props) => {
   const {
     push,
     back,
-    query: { islistchange },
+    query: { listchangetype },
   } = useRouter();
 
   return (
@@ -28,7 +28,7 @@ const Header = ({ title, moreMenu, className, pathname }: Props) => {
             pathname
               ? push({
                   pathname,
-                  query: islistchange && { islistchange },
+                  query: listchangetype && { listchangetype },
                 })
               : back();
           }}

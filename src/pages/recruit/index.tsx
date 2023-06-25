@@ -16,7 +16,7 @@ const RecruitPage = () => {
   );
   const {
     push,
-    query: { islistchange },
+    query: { listchangetype },
   } = useRouter();
 
   const clickGroupOpenButton = () => {
@@ -43,7 +43,9 @@ const RecruitPage = () => {
       <InfinityScrollListsWrap>
         <InfinityScrollLists>
           <RecruitInfinityScrollLists
-            islistchange={typeof islistchange === 'string' ? islistchange : ''}
+            listchangetype={
+              typeof listchangetype === 'string' ? listchangetype : ''
+            }
           />
         </InfinityScrollLists>
       </InfinityScrollListsWrap>

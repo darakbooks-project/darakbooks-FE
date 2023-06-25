@@ -19,7 +19,7 @@ const RecruitUpdatePage = () => {
         pathname: '/recruit/detail',
         query: {
           groupId,
-          islistchange: 'update',
+          listchangetype: 'update',
         },
       });
     },
