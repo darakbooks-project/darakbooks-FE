@@ -38,9 +38,9 @@ const RecruitInfinityScrollLists = ({
     {
       onError: (error) => console.error(error),
       getNextPageParam: (lastPage) => {
-        if (parseInt(lastPage.currentPage) === lastPage.totalPages) return;
+        if (lastPage.currentPage === lastPage.totalPages) return;
 
-        return parseInt(lastPage.currentPage) + 1;
+        return lastPage.currentPage + 1;
       },
       enabled: !readingGroupQueryData.current || !!islistchange,
     },
