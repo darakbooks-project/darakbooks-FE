@@ -32,6 +32,7 @@ const RecruitInfinityScrollLists = ({
     hasNextPage,
     isFetchingNextPage,
     status,
+    isRefetching,
   } = useInfiniteQuery(
     ['reading', 'group', 'list'],
     ({ pageParam = 1 }) => getReadingClassData(pageParam),
@@ -51,10 +52,20 @@ const RecruitInfinityScrollLists = ({
   }, [fetchNextPage, inView]);
 
   useEffect(() => {
-    if (infinityScrollPosition !== 0) {
-      window.scrollTo(0, infinityScrollPosition);
-    }
-  }, []);
+    if (infinityScrollPosition === 0 || (islistchange && isRefetching)) return;
+
+    window.scrollTo(0, infinityScrollPosition);
+  }, [isRefetching]);
+
+  if (isRefetching) {
+    return (
+      <div>
+        {islistchange === 'update'
+          ? '수정하신 내용을 기반으로 업데이트하고 있어요!'
+          : '새로운 모임이 추가되고 있어요!'}
+      </div>
+    );
+  }
 
   return (
     <Container>
