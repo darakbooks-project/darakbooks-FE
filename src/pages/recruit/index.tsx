@@ -1,15 +1,19 @@
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import BottomNav from '@/components/common/BottomNav';
 import RecruitInfinityScrollLists from '@/components/recruit/RecruitInfinityScrollLists';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
+import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
 
 const RecruitPage = () => {
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
+  const setInfinityScrollPosition = useSetRecoilState(
+    readingGroupInfinityScrollPositionAtom,
+  );
   const {
     push,
     query: { islistchange },
@@ -21,6 +25,7 @@ const RecruitPage = () => {
       return;
     }
 
+    setInfinityScrollPosition(window.scrollY);
     push('/recruit/write');
   };
 
