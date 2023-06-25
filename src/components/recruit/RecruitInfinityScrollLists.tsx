@@ -61,9 +61,8 @@ const RecruitInfinityScrollLists = ({
       {status === 'success' && (
         <>
           {readingGroupLists.pages.map(
-            ({ groups, currentPage }, index) =>
-              groups.length > 0 &&
-              groups[index] && (
+            ({ groups, currentPage }) =>
+              groups.length > 0 && (
                 <RecruitList key={currentPage} listData={groups} />
               ),
           )}
