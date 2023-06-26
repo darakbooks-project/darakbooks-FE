@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
@@ -12,15 +11,13 @@ interface ButtonType {
   text: string;
   path: string;
   as?: string;
-  scroll?: boolean;
-  onClick?: () => void;
 }
 
 const BottomNav = () => {
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
 
-  const { pathname } = useRouter();
+  const { push, pathname } = useRouter();
 
   const navItemPropertyArr: ButtonType[] = [
     {
@@ -35,14 +32,10 @@ const BottomNav = () => {
       src: 'search',
     },
     {
-      path: isAuthorized ? '/book/record' : '/?isRendedOnboarding=true',
+      path: '/book/record',
       as: '/',
       text: '기록',
-      scroll: isAuthorized,
       src: 'record',
-      onClick: () => {
-        isAuthorized || openAuthRequiredModal();
-      },
     },
     {
       path: '/recruit',
@@ -56,15 +49,21 @@ const BottomNav = () => {
     },
   ];
 
+  const moveBottomNavPage = (path: string, src: string, as?: string) => {
+    if (src === 'record' && !isAuthorized) return openAuthRequiredModal();
+    push(path, as && as);
+  };
+
   return (
     <Container>
       <Wrap>
         {navItemPropertyArr.map((button: ButtonType) => {
-          const { path, text, onClick, src, as, scroll = true } = button;
-          const isClicked = path === pathname;
+          const { path, text, src, as } = button;
+          const isClickedPath = src === 'home' ? '/' : path;
+          const isClicked = isClickedPath === pathname;
 
           return (
-            <Button href={path} as={as && as} scroll={scroll} key={src}>
+            <Button onClick={() => moveBottomNavPage(path, src, as)} key={src}>
               <Image
                 width={45}
                 height={45}
@@ -72,9 +71,8 @@ const BottomNav = () => {
                 src={`../images/bottomNavBar/${src}-${
                   isClicked ? 'on' : 'off'
                 }.svg`}
-                onClick={onClick}
               />
-              <Text isclick={isClicked ? 'click' : ''}>{text}</Text>
+              <Text isClick={isClicked ? 'click' : ''}>{text}</Text>
             </Button>
           );
         })}
@@ -108,15 +106,15 @@ const Wrap = tw.div`
   w-full
 `;
 
-const Button = tw(Link)`
+const Button = tw.button`
   flex
   flex-col
   items-center
   cursor-pointer
 `;
 
-const Text = tw.div<{ isclick: string }>`
+const Text = tw.div<{ isClick: string }>`
   text-xs	
   mt-[-5px]
-  ${(props) => (props.isclick === 'click' ? 'text-[#60B28D]' : 'text-[#707070')}
+  ${(props) => (props.isClick === 'click' ? 'text-[#60B28D]' : 'text-[#707070')}
 `;
