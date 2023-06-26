@@ -56,7 +56,9 @@ const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
   }, [fetchNextPage, inView]);
 
   useEffect(() => {
-    if (searchKeyword && !isBookSearchData) setPage(1);
+    if (isBookSearchData) return;
+
+    searchKeyword && setPage(1);
   }, [searchKeyword, setPage, isBookSearchData]);
 
   return (
