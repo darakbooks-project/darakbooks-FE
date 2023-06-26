@@ -37,7 +37,7 @@ const BookSearchPage = () => {
               찾고 계신가요?
             </Title>
             <SearchInputWrap>
-              <SearchInput onSubmit={onSubmit} />
+              <SearchInput onSubmit={onSubmit} inputText={searchBookTitle} />
             </SearchInputWrap>
           </BackGround>
         </BackGroundWrap>
