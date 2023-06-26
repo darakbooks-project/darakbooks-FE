@@ -63,7 +63,7 @@ const Edit = () => {
           <div className='flex flex-col items-center h-screen gap-12 px-6 py-12'>
             <section className='flex justify-between w-full'>
               <Image
-                src='/images/profile/back-arrow.svg'
+                src='/images/profile/edit/back.svg'
                 alt='back'
                 width={32}
                 height={32}
@@ -98,12 +98,12 @@ const Edit = () => {
                 )}
 
                 <label
-                  className='absolute w-7 h-7 bg-[#ebeaea] border rounded-[50%] border-solid border-[#c2c1c1] right-0 bottom-[0.4rem]'
+                  className='absolute w-[6.5rem] h-[6.5rem] rounded-[50%]  z-10 bottom-0 bg-black opacity-50 flex justify-center items-center'
                   htmlFor='edit-photo'
                 >
                   <Image
-                    src='/images/record/camera.svg'
-                    alt='photo'
+                    src='/images/profile/edit/image.svg'
+                    alt='image'
                     width={32}
                     height={32}
                   />
@@ -132,7 +132,7 @@ const Edit = () => {
                 />
 
                 <Image
-                  src='/images/record/delete.svg'
+                  src='/images/profile/edit/delete.svg'
                   alt='delete'
                   width={32}
                   height={32}
@@ -158,14 +158,14 @@ const Edit = () => {
                 ></textarea>
               </section>
               <section className='flex flex-col w-full'>
-                <h5 className='font-normal text-sm text-[#707070] mb-4 px-0 py-4 border-b-[#dfdfdf] border-b border-solid'>
+                <h5 className='font-normal text-sm text-[#707070] mb-4 px-0 py-2 border-b-[#dfdfdf] border-b border-solid'>
                   공개범위
                 </h5>
                 <div>
                   <article className='flex items-center justify-between mb-2'>
                     <div>
                       <input
-                        className='mr-4'
+                        className='mr-4 accent-[#60B28D]'
                         type='radio'
                         name='public-private'
                         defaultChecked={secretMode === 'PUBLIC'}
@@ -182,7 +182,7 @@ const Edit = () => {
                   <article className='flex items-center justify-between mb-2'>
                     <div>
                       <input
-                        className='mr-4'
+                        className='mr-4 accent-[#60B28D]'
                         type='radio'
                         name='public-private'
                         defaultChecked={secretMode === 'PRIVATE'}
