@@ -66,11 +66,8 @@ const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
       {status === 'success' && (
         <>
           {bookSearchResultLists.pages.map(({ documents }, index) =>
-            documents.length > 0 && documents[index] ? (
-              <SearchResultList
-                key={documents[index].isbn}
-                listData={documents}
-              />
+            documents.length > 0 ? (
+              <SearchResultList key={index} listData={documents} />
             ) : (
               <div key='not-search-result'>검색 결과가 없습니다.</div>
             ),
