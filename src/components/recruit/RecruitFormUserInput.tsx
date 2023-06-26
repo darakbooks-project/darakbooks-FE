@@ -61,7 +61,10 @@ const RecruitFormUserInput = ({
         <ClassTypeButton
           classtype='online'
           currenttype={classStateObj.classType}
-          onClick={() => classChangeStateObj.changeClassType('online')}
+          onClick={() => {
+            classChangeStateObj.changeClassType('online');
+            setOpenRegionStatus('hidden');
+          }}
         >
           온라인
         </ClassTypeButton>
@@ -70,15 +73,20 @@ const RecruitFormUserInput = ({
       <ClassRegionWrap isdisplay={openRegionStatus}>
         <ClassSelectButton
           onClick={() => changeSelectItemDisplayStatus('region')}
+          value={classStateObj.classRegion}
+          disabled={classStateObj.classType === 'online'}
         >
-          <span>{classStateObj.classRegion || '지역'}</span>
-          <Image
-            src={`../images/${
-              openRegionStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
-            }.svg`}
+          <span>
+            {(classStateObj.classType === 'offline' &&
+              classStateObj.classRegion) ||
+              '지역'}
+          </span>
+          <SelectArrowIconImage
+            src={'/images/not-select-arrow.svg'}
             width={12.5}
             height={12.5}
             alt='선택 화살표 입니다.'
+            value={openRegionStatus}
           />
         </ClassSelectButton>
         <ClassSelectList
@@ -90,6 +98,7 @@ const RecruitFormUserInput = ({
               key={region}
               value={region}
               className='hover:bg-black hover:bg-opacity-10'
+              onClick={() => setOpenRegionStatus('hidden')}
             >
               {region}
             </ClassSelectListItem>
@@ -108,15 +117,15 @@ const RecruitFormUserInput = ({
         <ClassDayWrap>
           <ClassSelectButton
             onClick={() => changeSelectItemDisplayStatus('day')}
+            value={classStateObj.classDay}
           >
             <span>{classStateObj.classDay || '요일'}</span>
-            <Image
-              src={`../images/${
-                openDayStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
-              }.svg`}
+            <SelectArrowIconImage
+              src={'/images/not-select-arrow.svg'}
               width={12.5}
               height={12.5}
               alt='선택 화살표 입니다.'
+              value={openDayStatus}
             />
           </ClassSelectButton>
           <ClassSelectList
@@ -128,6 +137,7 @@ const RecruitFormUserInput = ({
                 key={day}
                 value={day}
                 className='hover:bg-black hover:bg-opacity-10'
+                onClick={() => setOpenDayStatus('hidden')}
               >
                 {day}요일
               </ClassSelectListItem>
@@ -138,15 +148,15 @@ const RecruitFormUserInput = ({
         <ClassTimeWrap>
           <ClassSelectButton
             onClick={() => changeSelectItemDisplayStatus('time')}
+            value={classStateObj.classTime}
           >
             <span>{classStateObj.classTime || '시간'}</span>
-            <Image
-              src={`../images/${
-                openTimeStatus === 'view' ? 'not-select-arrow' : 'select-arrow'
-              }.svg`}
+            <SelectArrowIconImage
+              src={'/images/not-select-arrow.svg'}
               width={12.5}
               height={12.5}
               alt='선택 화살표 입니다.'
+              value={openTimeStatus}
             />
           </ClassSelectButton>
           <ClassSelectList
@@ -158,6 +168,7 @@ const RecruitFormUserInput = ({
                 key={time}
                 value={time}
                 className='hover:bg-black hover:bg-opacity-10'
+                onClick={() => setOpenTimeStatus('hidden')}
               >
                 {time}
               </ClassSelectListItem>
@@ -205,6 +216,16 @@ const CommonInputStyle = tw.input`
   text-sm
   mb-[30px]
   outline-none
+
+  ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
+`;
+
+const SelectArrowIconImage = tw(Image)<{ value: string }>`
+  transition-transform
+  duration-300
+  ease-in-out
+
+  ${(props) => props.value === 'view' && '-rotate-180'}
 `;
 
 const ClassName = tw(CommonInputStyle)``;
@@ -221,6 +242,8 @@ const ClassDescription = tw.textarea`
   text-sm
   mb-[30px]
   outline-none
+
+  ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
 `;
 
 const ClassType = tw.div`
@@ -257,6 +280,8 @@ const ClassSelectButton = tw.button`
   flex
   justify-between
   items-center
+
+  ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
 `;
 
 const ClassSelectList = tw.ul<{ isdisplay: string }>`
