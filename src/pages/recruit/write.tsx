@@ -16,7 +16,7 @@ const RecruitWritePage = () => {
         pathname: '/recruit/detail',
         query: {
           groupId,
-          islistchange: true,
+          listchangetype: 'open',
         },
       });
     },

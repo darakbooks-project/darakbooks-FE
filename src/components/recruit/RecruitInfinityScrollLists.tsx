@@ -10,11 +10,11 @@ import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
 import RecruitList from './RecruitList';
 
 interface RecruitInfinityScrollListsProps {
-  islistchange?: string;
+  listchangetype?: string;
 }
 
 const RecruitInfinityScrollLists = ({
-  islistchange,
+  listchangetype,
 }: RecruitInfinityScrollListsProps) => {
   const { ref, inView } = useInView();
   const infinityScrollPosition = useRecoilValue(
@@ -32,6 +32,7 @@ const RecruitInfinityScrollLists = ({
     hasNextPage,
     isFetchingNextPage,
     status,
+    isRefetching,
   } = useInfiniteQuery(
     ['reading', 'group', 'list'],
     ({ pageParam = 1 }) => getReadingClassData(pageParam),
@@ -42,7 +43,7 @@ const RecruitInfinityScrollLists = ({
 
         return lastPage.currentPage + 1;
       },
-      enabled: !readingGroupQueryData.current || !!islistchange,
+      enabled: !readingGroupQueryData.current || !!listchangetype,
     },
   );
 
@@ -53,10 +54,21 @@ const RecruitInfinityScrollLists = ({
   }, [fetchNextPage, inView, hasNextPage]);
 
   useEffect(() => {
-    if (infinityScrollPosition !== 0) {
-      window.scrollTo(0, infinityScrollPosition);
-    }
-  }, []);
+    if (infinityScrollPosition === 0 || (listchangetype && isRefetching))
+      return;
+
+    window.scrollTo(0, infinityScrollPosition);
+  }, [isRefetching]);
+
+  if (isRefetching) {
+    return (
+      <div>
+        {listchangetype === 'update'
+          ? '수정하신 내용을 기반으로 업데이트하고 있어요!'
+          : '새로운 모임이 추가되고 있어요!'}
+      </div>
+    );
+  }
 
   return (
     <Container>
