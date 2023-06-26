@@ -24,7 +24,7 @@ export interface GroupLists {
   groups: GroupList[];
   totalPages: number;
   totalGroups: number;
-  currentPage: string;
+  currentPage: number;
 }
 export interface GroupList {
   group_id: number;
