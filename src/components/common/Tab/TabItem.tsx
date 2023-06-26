@@ -10,7 +10,7 @@ interface Props {
 const TabItem = ({ title, active, navigatePath, tabPosition }: Props) => {
   return (
     <Link
-      className={`w-[50%] inline-flex justify-center items-end w-[140px] h-[60px] border-b-2 cursor-pointer ${
+      className={`w-[50%] inline-flex justify-center items-end w-36 h-[3.750rem] border-b-2 cursor-pointer ${
         active
           ? 'border-blue-800 text-blue-800'
           : 'border-gray-400 text-gray-400'
@@ -18,7 +18,7 @@ const TabItem = ({ title, active, navigatePath, tabPosition }: Props) => {
       data-position={tabPosition}
       href={navigatePath}
     >
-      <div className='pb-[7px]' data-position={tabPosition}>
+      <div className='pb-2' data-position={tabPosition}>
         {title}
       </div>
     </Link>

@@ -34,7 +34,7 @@ const BookShelfPreview = ({
   return (
     <div
       onClick={() => moveProfile(memberId)}
-      className='w-[100%] h-[187px] bg-[#FFFEF8] shadow-around rounded-t-md cursor-pointer xxs:h-[10rem]'
+      className='w-[100%] h-[11.688rem] bg-[#FFFEF8] shadow-around rounded-t-md cursor-pointer xxs:h-[10rem]'
       style={{
         perspective: '300px',
         transform: 'translate3d(0,0,0)',
@@ -42,7 +42,7 @@ const BookShelfPreview = ({
     >
       <div className='flex'>
         <div className='flex flex-col w-[100%]'>
-          <p className='text-xs ml-[calc((50%-(87.86px/2)-87.86px)/2)] relative top-3 xxs:ml-[calc((50%-87.86px)/2-0.5rem)]'>
+          <p className='text-xs ml-[calc((50%-(5.491rem/2)-5.491rem)/2)] relative top-3 xxs:ml-[calc((50%-5.491rem)/2-0.5rem)]'>
             {nickname}의 서재
           </p>
           <div className='flex justify-evenly items-center w-[100%] relative top-6 xs:p-1'>
@@ -56,7 +56,7 @@ const BookShelfPreview = ({
                     placeholder='blur'
                     blurDataURL={thumbnail}
                     alt='추천 책장 책 표지'
-                    className='rounded-r max-w-[97px] max-h-[130px] xxs:w-[74px] xxs:px-1 '
+                    className='rounded-r max-w-[6.063rem] max-h-[8.125rem] xxs:w-[4.625rem] xxs:px-1 '
                   />
                 </div>
               );
@@ -65,12 +65,12 @@ const BookShelfPreview = ({
         </div>
       </div>
       <div
-        className='bg-[#E2D6CA] w-[99%] h-[14px] relative top-4 mx-auto'
+        className='bg-[#E2D6CA] w-[99%] h-3.5 relative top-4 mx-auto'
         style={{
           transform: 'rotateX(40deg)',
         }}
       ></div>
-      <div className='w-[100%] h-[10px] bg-white relative top-[16px]'></div>
+      <div className='w-[100%] h-2.5 bg-white relative top-4'></div>
     </div>
   );
 };

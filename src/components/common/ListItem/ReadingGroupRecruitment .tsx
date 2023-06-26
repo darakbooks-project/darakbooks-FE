@@ -65,10 +65,10 @@ export default ReadingGroupRecruitment;
 
 const Container = tw.div`
   w-[100%]
-  p-[15px]
+  p-4
   relative
   cursor-pointer
-  mb-[30px]
+  mb-3.5
   border
   border-black
   border-opacity-10
@@ -77,22 +77,22 @@ const Container = tw.div`
 
 const GroupName = tw.span` 
   font-bold
-  text-[17px]
+  text-[1.063rem]
 `;
 
 const GroupInformation = tw.div`
-  text-[13px]
+  text-[0.765rem]
   text-black
   text-opacity-50
-  space-x-1
-  my-[5px]
+  space-x-1.5
+  my-1.5
   flex
   items-center
 `;
 
 const Divider = tw.div`
-  w-[4px]
-  h-[4px]
+  w-1
+  h-1
   bg-black
   bg-opacity-30
   border
@@ -109,8 +109,8 @@ const GroupRrecruitmentButton = tw.button<{ recruitmentstatus: string }>`
     
   bg-main
   text-white
-  text-[10px]
+  text-[0.588rem]
   rounded
-  px-[7.5px]
-  py-[5px]
+  px-1.5
+  py-1
 `;
