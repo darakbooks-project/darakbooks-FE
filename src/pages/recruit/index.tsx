@@ -70,28 +70,28 @@ const BackGroundWrap = tw.div`
   translate-x-[-50%]
   max-w-xl
   w-full
-  h-[245px]
+  h-[15.313rem]
   bg-[#FFFCEA]
   z-10
 `;
 const BackGround = tw.div`
   w-full
-  h-[245px]
+  h-[15.313rem]
   relative
   bg-[url('/images/reading-group-illustration.svg')]
 `;
 
 const Title = tw.h1`
   absolute
-  left-[20px]
-  bottom-[35px]
+  left-5
+  bottom-9
   text-xl
   font-bold
 `;
 
 const InfinityScrollListsWrap = tw.div`
-  pt-[290px]
-  pb-[60px]
+  pt-72
+  pb-24
   bg-white
 `;
 
@@ -102,7 +102,7 @@ const InfinityScrollLists = tw.div`
 
 const PersonnelRecruitButton = tw.div`
   fixed
-  bottom-[90px]
+  bottom-24
   left-[50%]
   translate-x-[-50%]
   py-2.5
