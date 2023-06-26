@@ -66,35 +66,35 @@ const BackGroundWrap = tw.div`
   translate-x-[-50%]
   max-w-xl
   w-full
-  h-[250px]
+  h-80
   bg-white
   z-10
 `;
 const BackGround = tw.div`
   w-full
-  h-[250px]
+  h-80
   relative
 `;
 
 const Title = tw.h1`
   absolute
-  left-[20px]
-  bottom-[70px]
-  text-2xl
+  left-5
+  bottom-20
+  text-3xl
   font-bold
 `;
 
 const SearchInputWrap = tw.div`
   absolute
   w-[90%]
-  left-[20px]
-  bottom-0
+  left-5
+  bottom-1.5
   mx-auto
 `;
 
 const BookSearchListsWrap = tw.div`
-  pt-[260px]
-  pb-[80px]
+  pt-[21.875rem]
+  pb-24
   bg-white
 `;
 
