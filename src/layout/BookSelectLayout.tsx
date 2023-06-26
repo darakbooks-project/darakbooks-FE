@@ -6,7 +6,7 @@ function BookSelectLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   return (
-    <section className='h-screen flex flex-col gap-6 pt-24 px-6 py-0 '>
+    <section className='min-h-screen flex flex-col gap-6 pt-24 px-6 py-0 bg-[#ffffff]'>
       <div className='flex'>
         <Link
           href='/book/record/select'
@@ -30,6 +30,14 @@ function BookSelectLayout({ children }: { children: ReactNode }) {
         </Link>
       </div>
       {children}
+      <div className='fixed flex s:w-[575px] h-[5.7rem] justify-center items-center w-full bg-[#ffffff]  -translate-x-2/4 left-2/4 bottom-0 border-t-[EBEAEA] border-t border-solid'>
+        <button
+          className='w-[90%] s:w-[517.5px] h-[3.6rem]  text-base text-white bg-[#DFDFDF] rounded-md border-[none]'
+          disabled
+        >
+          책 등록
+        </button>
+      </div>
     </section>
   );
 }

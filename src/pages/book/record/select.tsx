@@ -34,7 +34,7 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
               전체 <span className='text-main'>{data.length}</span>권
             </h5>
           </div>
-          <ul className='grid grid-cols-[repeat(3,1fr)] grid-rows-[repeat(4,1fr)] gap-4 overflow-scroll'>
+          <ul className='grid grid-cols-[repeat(3,1fr)] gap-4'>
             {data.map((item) => (
               <li
                 className='flex flex-col items-start justify-start h-64'
