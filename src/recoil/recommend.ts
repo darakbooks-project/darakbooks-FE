@@ -2,14 +2,15 @@ import { atom } from 'recoil';
 
 import { RecommendBookResultType } from '@/types/recommend';
 
-export const RecommendBookResult = atom<RecommendBookResultType>({
+interface RecommendBookAtomType extends RecommendBookResultType {
+  userRequest: string;
+}
+
+export const RecommendBookResult = atom<RecommendBookAtomType>({
   key: 'RecommendBookKey',
   default: {
-    Title: '',
-    Author: '',
-    ISBN: '',
-    Image: '',
-    Intro: '',
-    Reason: '',
+    userRequest: '',
+    reason: '',
+    title: '',
   },
 });
