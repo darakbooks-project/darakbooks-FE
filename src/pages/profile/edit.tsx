@@ -165,7 +165,7 @@ const Edit = () => {
                   <article className='flex items-center justify-between mb-2'>
                     <div>
                       <input
-                        className='mr-4 accent-[#60B28D]'
+                        className='mr-4 accent-main'
                         type='radio'
                         name='public-private'
                         defaultChecked={secretMode === 'PUBLIC'}
@@ -182,7 +182,7 @@ const Edit = () => {
                   <article className='flex items-center justify-between mb-2'>
                     <div>
                       <input
-                        className='mr-4 accent-[#60B28D]'
+                        className='mr-4 accent-main'
                         type='radio'
                         name='public-private'
                         defaultChecked={secretMode === 'PRIVATE'}
