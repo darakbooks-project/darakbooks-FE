@@ -89,8 +89,8 @@ const Wrapper = tw.div`
 const PageDescription = tw.h1`
   text-xl
   font-bold
-  mt-[10px]
-  mb-[20px]
+  mt-2.5
+  mb-5
 `;
 
 const RecruitFormWrapper = tw.div`
@@ -103,16 +103,16 @@ const ClassButtonWrap = tw.div`
   border-t-[black]
   border-opacity-10
   w-full
-  px-[15px]
-  py-[12.5px]
+  px-4
+  py-3
   bg-white
 `;
 
 const ClassButton = tw.button`  
   w-full
-  h-[55px]
+  h-14
   text-white
-  rounded
+  rounded-lg
   font-bold
 
   ${(props) => (props.disabled ? 'bg-[#DFDFDF]' : 'bg-[#67A68A]')}
