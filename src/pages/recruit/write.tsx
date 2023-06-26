@@ -10,12 +10,12 @@ const RecruitWritePage = () => {
 
   const queryClient = useQueryClient();
   const { mutate: openReadingClass } = useMutation(postReadingClassOpen, {
-    // by 민형, 현재 모임 개설 시 group id를 응답 받을 수 없으므로 임시로 조회 페이지로 redirect_230620
-    onSuccess: () => {
+    onSuccess: (groupId) => {
       queryClient.invalidateQueries(['reading', 'group', 'list']);
       push({
-        pathname: '/recruit',
+        pathname: '/recruit/detail',
         query: {
+          groupId,
           listchangetype: 'open',
         },
       });
