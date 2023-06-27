@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 interface RecruitNotificationProps {
@@ -5,6 +6,7 @@ interface RecruitNotificationProps {
   detail: string;
   meetingType: boolean;
   isMember: boolean;
+  iconSrc: string;
 }
 
 const RecruitNotification = ({
@@ -12,6 +14,7 @@ const RecruitNotification = ({
   detail,
   meetingType,
   isMember,
+  iconSrc,
 }: RecruitNotificationProps) => {
   const displayDetail = (title: string, isMember: boolean) => {
     switch (title) {
@@ -37,7 +40,7 @@ const RecruitNotification = ({
 
   return (
     <div className='flex items-center pb-3'>
-      <div className='w-6 h-6 bg-slate-300'></div> {/**아이콘 */}
+      <Image src={iconSrc} alt={title} width={24} height={24} />
       <p className='px-3 text-sm text-[#707070]'>{title}</p>
       <p className='text-sm font-bold'>{displayDetail(title, isMember)}</p>
     </div>

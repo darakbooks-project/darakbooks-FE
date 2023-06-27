@@ -68,13 +68,26 @@ const RecruitDetailPage = () => {
   } = groupData;
 
   const NotificationState = [
-    { title: '요일/시간', detail: `매주 ${day} ${time}` },
-    { title: '활동 장소', detail: `${region}` },
+    {
+      title: '요일/시간',
+      detail: `매주 ${day} ${time}`,
+      iconSrc: '/images/group/calendar.svg',
+    },
+    {
+      title: '활동 장소',
+      detail: `${region}`,
+      iconSrc: '/images/group/map-pin.svg',
+    },
     {
       title: '참여 인원',
       detail: `${userGroup.length}/${participant_limit}`,
+      iconSrc: '/images/group/people-gray.svg',
     },
-    { title: '소통 방법', detail: `${open_chat_link}` },
+    {
+      title: '소통 방법',
+      detail: `${open_chat_link}`,
+      iconSrc: '/images/group/link.svg',
+    },
   ];
 
   const moreMenu = (
@@ -84,8 +97,8 @@ const RecruitDetailPage = () => {
     >
       <Image
         src={'/images/group/edit-pencil.svg'}
-        width={20}
-        height={20}
+        width={32}
+        height={32}
         alt='수정하기 아이콘'
       />
     </Link>
@@ -158,11 +171,12 @@ const RecruitDetailPage = () => {
           <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
           <h3 className='text-sm text-main'>자세한 정보 알려드려요</h3>
           <h2 className='pt-1 pb-6 text-xl font-bold'>안내사항</h2>
-          {NotificationState.map(({ title, detail }) => (
+          {NotificationState.map(({ title, detail, iconSrc }) => (
             <RecruitNotification
               key={title}
               title={title}
               detail={detail}
+              iconSrc={iconSrc}
               meetingType={meeting_type === 'online'}
               isMember={is_participant}
             />

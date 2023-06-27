@@ -46,6 +46,12 @@ const MemberListItem = ({
 
   const groupKickOutModal = (
     <div className='flex flex-col items-center justify-center'>
+      <Image
+        src='/images/group/kick-out.svg'
+        alt='강퇴'
+        width={54}
+        height={54}
+      />
       <h3 className='text-xl font-bold'>정말 강퇴하시겠어요?</h3>
       <p className='pb-7'>{nickname}님을 강퇴하시겠어요?</p>
       <div>
