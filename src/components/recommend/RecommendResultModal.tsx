@@ -199,7 +199,7 @@ const ModalOverlay = ({
         </div>
         <div
           onClick={(e) => e.stopPropagation()}
-          className='fixed left-0 right-0 z-30 w-5/6 max-w-lg mx-auto bottom-8 animate-slideUp'
+          className='fixed left-0 right-0 z-30 w-5/6 max-w-lg mx-auto bottom-10 animate-slideUp'
         >
           {changeBookButton(isAuthorized)}
         </div>

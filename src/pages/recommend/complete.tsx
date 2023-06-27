@@ -78,7 +78,7 @@ const RecommendCompletePage = () => {
       </div>
       <button
         onClick={() => setModal(true)}
-        className='w-full flex-initial text-white rounded-lg h-14 bg-main disabled:bg-[#DFDFDF] shadow-round mb-8'
+        className='w-full flex-initial text-white rounded-lg h-14 bg-main disabled:bg-[#DFDFDF] mb-10'
       >
         확인하기
       </button>
