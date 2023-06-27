@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
 import { deleteGroupMember } from '@/api/recruit';
-import Avatar from '@/components/common/Avartar';
 import Modal from '@/components/common/Modal';
 import { modalStateAtom } from '@/recoil/modal';
 import { UserGroup } from '@/types/recruit';
@@ -46,6 +46,12 @@ const MemberListItem = ({
 
   const groupKickOutModal = (
     <div className='flex flex-col items-center justify-center'>
+      <Image
+        src='/images/group/kick-out.svg'
+        alt='강퇴'
+        width={54}
+        height={54}
+      />
       <h3 className='text-xl font-bold'>정말 강퇴하시겠어요?</h3>
       <p className='pb-7'>{nickname}님을 강퇴하시겠어요?</p>
       <div>
@@ -76,15 +82,25 @@ const MemberListItem = ({
         }}
         className='flex pb-4'
       >
-        <Avatar
-          src={photoUrl}
-          shape='circle'
-          placeholder=''
-          lazy={false}
-          alt='멤버 프로필 이미지'
-          width='w-[50px]'
-          height='h-[50px]'
-        />
+        <div className='relative'>
+          <Image
+            src={photoUrl}
+            alt='멤버 프로필 이미지'
+            width={50}
+            height={50}
+            sizes='100vw'
+            className='rounded-full'
+          />
+          {checkGroupReader && (
+            <Image
+              src='/images/group/group-leader.svg'
+              width={22}
+              height={22}
+              alt='모임장 아이콘'
+              className='absolute bottom-0 -right-1'
+            />
+          )}
+        </div>
         <div className='flex flex-col justify-center pl-3'>
           <h3 className='text-sm font-bold'>{nickname}</h3>
           <p className='text-[#999797]'>{userInfo}</p>

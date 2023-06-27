@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil';
 import { fetchReadingGroupLeader } from '@/api/main';
 import { fetchReadingGroupInfo } from '@/api/recruit';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
-import Avatar from '@/components/common/Avartar';
 import Header from '@/components/common/Header';
 import RecruitNotification from '@/components/recruit/detail/RecruitNotification';
 import RecruitParticipationControl from '@/components/recruit/detail/RecruitParticipationControl';
@@ -63,18 +62,32 @@ const RecruitDetailPage = () => {
     description,
     meeting_type,
     group_id,
+    group_lead,
     is_group_lead,
     is_participant,
   } = groupData;
 
   const NotificationState = [
-    { title: '요일/시간', detail: `매주 ${day} ${time}` },
-    { title: '활동 장소', detail: `${region}` },
+    {
+      title: '요일/시간',
+      detail: `매주 ${day} ${time}`,
+      iconSrc: '/images/group/calendar.svg',
+    },
+    {
+      title: '활동 장소',
+      detail: `${region}`,
+      iconSrc: '/images/group/map-pin.svg',
+    },
     {
       title: '참여 인원',
       detail: `${userGroup.length}/${participant_limit}`,
+      iconSrc: '/images/group/people-gray.svg',
     },
-    { title: '소통 방법', detail: `${open_chat_link}` },
+    {
+      title: '소통 방법',
+      detail: `${open_chat_link}`,
+      iconSrc: '/images/group/link.svg',
+    },
   ];
 
   const moreMenu = (
@@ -84,8 +97,8 @@ const RecruitDetailPage = () => {
     >
       <Image
         src={'/images/group/edit-pencil.svg'}
-        width={20}
-        height={20}
+        width={32}
+        height={32}
         alt='수정하기 아이콘'
       />
     </Link>
@@ -102,23 +115,31 @@ const RecruitDetailPage = () => {
         <div className='w-full h-[350px] bg-[#FFFCEA]' />
         <main className='flex flex-col bg-white relative -top-10 px-5 rounded-t-[1.875rem] pb-24 shadow-roundY'>
           <div className='flex py-6'>
-            <Avatar
-              src={groupLeader.photoUrl}
-              shape='circle'
-              placeholder=''
-              lazy={false}
-              alt='모임장 프로필 이미지'
-              width='w-[3.375rem]'
-              height='h-[3.375rem]'
-              onAvatarClick={() =>
-                push({
-                  pathname: '/profile',
-                  query: {
-                    ownerId: groupLeader.userId,
-                  },
-                })
-              }
-            />
+            <div className='relative'>
+              <Image
+                src={groupLeader.photoUrl}
+                alt='모임장 프로필 이미지'
+                width={54}
+                height={54}
+                sizes='100vw'
+                className='rounded-full'
+                onClick={() =>
+                  push({
+                    pathname: '/profile',
+                    query: {
+                      ownerId: groupLeader.userId,
+                    },
+                  })
+                }
+              />
+              <Image
+                src='/images/group/group-leader.svg'
+                width={22}
+                height={22}
+                alt='모임장 아이콘'
+                className='absolute bottom-0 -right-1'
+              />
+            </div>
             <div className='pl-4'>
               <h3 className='text-sm text-main'>
                 {recruitment_status ? '모집중' : '모집완료'}
@@ -150,11 +171,12 @@ const RecruitDetailPage = () => {
           <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
           <h3 className='text-sm text-main'>자세한 정보 알려드려요</h3>
           <h2 className='pt-1 pb-6 text-xl font-bold'>안내사항</h2>
-          {NotificationState.map(({ title, detail }) => (
+          {NotificationState.map(({ title, detail, iconSrc }) => (
             <RecruitNotification
               key={title}
               title={title}
               detail={detail}
+              iconSrc={iconSrc}
               meetingType={meeting_type === 'online'}
               isMember={is_participant}
             />
@@ -174,16 +196,15 @@ const RecruitDetailPage = () => {
           </div>
           <div className='flex'>
             {userGroup.map(({ userId, photoUrl }) => (
-              <div key={userId} className='pr-2'>
-                <Avatar
+              <div key={userId} className='relative pr-2'>
+                <Image
                   src={photoUrl}
-                  shape='circle'
                   alt='구성원 프로필 이미지'
-                  lazy={false}
-                  placeholder=''
-                  width='w-[3.1875rem]'
-                  height='h-[3.1875rem]'
-                  onAvatarClick={() =>
+                  width={51}
+                  height={51}
+                  sizes='100vw'
+                  className='rounded-full'
+                  onClick={() =>
                     push({
                       pathname: '/profile',
                       query: {
@@ -192,6 +213,15 @@ const RecruitDetailPage = () => {
                     })
                   }
                 />
+                {group_lead === userId && (
+                  <Image
+                    src='/images/group/group-leader.svg'
+                    width={22}
+                    height={22}
+                    alt='모임장 아이콘'
+                    className='absolute bottom-0 -right-1'
+                  />
+                )}
               </div>
             ))}
           </div>

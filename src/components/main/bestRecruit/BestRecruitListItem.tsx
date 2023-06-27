@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { fetchReadingGroupLeader } from '@/api/main';
-import Avatar from '@/components/common/Avartar';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { BestGroupListType } from '@/types/recruit';
@@ -59,14 +59,13 @@ const BestRecruitListItem = ({
       <div className='flex items-center mx-5 mb-7'>
         <div className='mr-3 text-lg font-bold text-main'>{index + 1}</div>
         <div className='mr-3'>
-          <Avatar
+          <Image
             src={groupLeader.photoUrl}
-            shape='circle'
             alt='모임장 프로필 이미지'
-            lazy={false}
-            placeholder=''
-            width='w-[45px]'
-            height='h-[45px]'
+            width='45'
+            height='45'
+            sizes='100vw'
+            className='rounded-full  w-11 h-11'
           />
         </div>
         <div className='flex-col justify-between'>
