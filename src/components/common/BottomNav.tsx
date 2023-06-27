@@ -33,7 +33,6 @@ const BottomNav = () => {
     },
     {
       path: '/book/record',
-      as: '/',
       text: '기록',
       src: 'record',
     },
