@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil';
 import { fetchReadingGroupLeader } from '@/api/main';
 import { fetchReadingGroupInfo } from '@/api/recruit';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
-import Avatar from '@/components/common/Avartar';
 import Header from '@/components/common/Header';
 import RecruitNotification from '@/components/recruit/detail/RecruitNotification';
 import RecruitParticipationControl from '@/components/recruit/detail/RecruitParticipationControl';
@@ -102,15 +101,14 @@ const RecruitDetailPage = () => {
         <div className='w-full h-[350px] bg-[#FFFCEA]' />
         <main className='flex flex-col bg-white relative -top-10 px-5 rounded-t-[1.875rem] pb-24 shadow-roundY'>
           <div className='flex py-6'>
-            <Avatar
+            <Image
               src={groupLeader.photoUrl}
-              shape='circle'
-              placeholder=''
-              lazy={false}
               alt='모임장 프로필 이미지'
-              width='w-[3.375rem]'
-              height='h-[3.375rem]'
-              onAvatarClick={() =>
+              width={54}
+              height={54}
+              sizes='100vw'
+              className='rounded-full'
+              onClick={() =>
                 push({
                   pathname: '/profile',
                   query: {
@@ -175,15 +173,14 @@ const RecruitDetailPage = () => {
           <div className='flex'>
             {userGroup.map(({ userId, photoUrl }) => (
               <div key={userId} className='pr-2'>
-                <Avatar
+                <Image
                   src={photoUrl}
-                  shape='circle'
                   alt='구성원 프로필 이미지'
-                  lazy={false}
-                  placeholder=''
-                  width='w-[3.1875rem]'
-                  height='h-[3.1875rem]'
-                  onAvatarClick={() =>
+                  width={51}
+                  height={51}
+                  sizes='100vw'
+                  className='rounded-full'
+                  onClick={() =>
                     push({
                       pathname: '/profile',
                       query: {

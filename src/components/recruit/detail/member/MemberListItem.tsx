@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
 import { deleteGroupMember } from '@/api/recruit';
-import Avatar from '@/components/common/Avartar';
 import Modal from '@/components/common/Modal';
 import { modalStateAtom } from '@/recoil/modal';
 import { UserGroup } from '@/types/recruit';
@@ -76,14 +76,13 @@ const MemberListItem = ({
         }}
         className='flex pb-4'
       >
-        <Avatar
+        <Image
           src={photoUrl}
-          shape='circle'
-          placeholder=''
-          lazy={false}
           alt='멤버 프로필 이미지'
-          width='w-[50px]'
-          height='h-[50px]'
+          width={50}
+          height={50}
+          sizes='100vw'
+          className='rounded-full'
         />
         <div className='flex flex-col justify-center pl-3'>
           <h3 className='text-sm font-bold'>{nickname}</h3>
