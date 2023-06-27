@@ -10,11 +10,11 @@ import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
 import RecruitList from './RecruitList';
 
 interface RecruitInfinityScrollListsProps {
-  islistchange?: string;
+  listchangetype?: string;
 }
 
 const RecruitInfinityScrollLists = ({
-  islistchange,
+  listchangetype,
 }: RecruitInfinityScrollListsProps) => {
   const { ref, inView } = useInView();
   const infinityScrollPosition = useRecoilValue(
@@ -32,38 +32,51 @@ const RecruitInfinityScrollLists = ({
     hasNextPage,
     isFetchingNextPage,
     status,
+    isRefetching,
   } = useInfiniteQuery(
     ['reading', 'group', 'list'],
     ({ pageParam = 1 }) => getReadingClassData(pageParam),
     {
       onError: (error) => console.error(error),
       getNextPageParam: (lastPage) => {
-        if (parseInt(lastPage.currentPage) === lastPage.totalPages) return;
+        if (lastPage.currentPage === lastPage.totalPages) return;
 
-        return parseInt(lastPage.currentPage) + 1;
+        return lastPage.currentPage + 1;
       },
-      enabled: !readingGroupQueryData.current || !!islistchange,
+      enabled: !readingGroupQueryData.current || !!listchangetype,
     },
   );
 
   useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [fetchNextPage, inView]);
+    if (!inView) return;
+
+    hasNextPage && fetchNextPage();
+  }, [fetchNextPage, inView, hasNextPage]);
 
   useEffect(() => {
-    if (infinityScrollPosition !== 0) {
-      window.scrollTo(0, infinityScrollPosition);
-    }
-  }, []);
+    if (infinityScrollPosition === 0 || (listchangetype && isRefetching))
+      return;
+
+    window.scrollTo(0, infinityScrollPosition);
+  }, [isRefetching]);
+
+  if (isRefetching) {
+    return (
+      <div>
+        {listchangetype === 'update'
+          ? '수정하신 내용을 기반으로 업데이트하고 있어요!'
+          : '새로운 모임이 추가되고 있어요!'}
+      </div>
+    );
+  }
 
   return (
     <Container>
       {status === 'success' && (
         <>
           {readingGroupLists.pages.map(
-            ({ groups, currentPage }, index) =>
-              groups.length > 0 &&
-              groups[index] && (
+            ({ groups, currentPage }) =>
+              groups.length > 0 && (
                 <RecruitList key={currentPage} listData={groups} />
               ),
           )}

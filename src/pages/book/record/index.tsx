@@ -259,15 +259,16 @@ const BookRecordPage = () => {
             {tagList.map((tag) => (
               <span
                 key={tag.id}
-                className='flex items-center border font-normal text-sm leading-[17px] text-[#333333] px-3 py-1.5 rounded-[50px] border-[#ebeaea] '
+                className='flex items-center border font-normal text-sm leading-[17px] text-[#333333] pl-3  rounded-[50px] border-[#ebeaea] '
               >
                 #{tag.data}
-                <span
-                  className='flex justify-center items-center ml-2 text-[0.5rem] bg-[#EBEAEA] rounded-[50%] w-4 h-4 cursor-pointer'
+                <Image
+                  src='/images/record/hashtag-delete.svg'
+                  alt='hashtag-delete'
+                  width={24}
+                  height={24}
                   onClick={() => deleteTag(tag.id)}
-                >
-                  X
-                </span>
+                />
               </span>
             ))}
           </div>
