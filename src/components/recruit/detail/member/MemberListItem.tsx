@@ -76,14 +76,25 @@ const MemberListItem = ({
         }}
         className='flex pb-4'
       >
-        <Image
-          src={photoUrl}
-          alt='멤버 프로필 이미지'
-          width={50}
-          height={50}
-          sizes='100vw'
-          className='rounded-full'
-        />
+        <div className='relative'>
+          <Image
+            src={photoUrl}
+            alt='멤버 프로필 이미지'
+            width={50}
+            height={50}
+            sizes='100vw'
+            className='rounded-full'
+          />
+          {checkGroupReader && (
+            <Image
+              src='/images/group/group-leader.svg'
+              width={22}
+              height={22}
+              alt='모임장 아이콘'
+              className='absolute bottom-0 -right-1'
+            />
+          )}
+        </div>
         <div className='flex flex-col justify-center pl-3'>
           <h3 className='text-sm font-bold'>{nickname}</h3>
           <p className='text-[#999797]'>{userInfo}</p>

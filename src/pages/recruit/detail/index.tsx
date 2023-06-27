@@ -62,6 +62,7 @@ const RecruitDetailPage = () => {
     description,
     meeting_type,
     group_id,
+    group_lead,
     is_group_lead,
     is_participant,
   } = groupData;
@@ -101,22 +102,31 @@ const RecruitDetailPage = () => {
         <div className='w-full h-[350px] bg-[#FFFCEA]' />
         <main className='flex flex-col bg-white relative -top-10 px-5 rounded-t-[1.875rem] pb-24 shadow-roundY'>
           <div className='flex py-6'>
-            <Image
-              src={groupLeader.photoUrl}
-              alt='모임장 프로필 이미지'
-              width={54}
-              height={54}
-              sizes='100vw'
-              className='rounded-full'
-              onClick={() =>
-                push({
-                  pathname: '/profile',
-                  query: {
-                    ownerId: groupLeader.userId,
-                  },
-                })
-              }
-            />
+            <div className='relative'>
+              <Image
+                src={groupLeader.photoUrl}
+                alt='모임장 프로필 이미지'
+                width={54}
+                height={54}
+                sizes='100vw'
+                className='rounded-full'
+                onClick={() =>
+                  push({
+                    pathname: '/profile',
+                    query: {
+                      ownerId: groupLeader.userId,
+                    },
+                  })
+                }
+              />
+              <Image
+                src='/images/group/group-leader.svg'
+                width={22}
+                height={22}
+                alt='모임장 아이콘'
+                className='absolute bottom-0 -right-1'
+              />
+            </div>
             <div className='pl-4'>
               <h3 className='text-sm text-main'>
                 {recruitment_status ? '모집중' : '모집완료'}
@@ -172,7 +182,7 @@ const RecruitDetailPage = () => {
           </div>
           <div className='flex'>
             {userGroup.map(({ userId, photoUrl }) => (
-              <div key={userId} className='pr-2'>
+              <div key={userId} className='relative pr-2'>
                 <Image
                   src={photoUrl}
                   alt='구성원 프로필 이미지'
@@ -189,6 +199,15 @@ const RecruitDetailPage = () => {
                     })
                   }
                 />
+                {group_lead === userId && (
+                  <Image
+                    src='/images/group/group-leader.svg'
+                    width={22}
+                    height={22}
+                    alt='모임장 아이콘'
+                    className='absolute bottom-0 -right-1'
+                  />
+                )}
               </div>
             ))}
           </div>
