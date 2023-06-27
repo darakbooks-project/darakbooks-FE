@@ -10,7 +10,14 @@ import tw from 'tailwind-styled-components';
 import { postBookshelfApi } from '@/api/bookshelf';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { selectRecommendResultModalAtom } from '@/recoil/modal';
-import { RecommendBookResult } from '@/recoil/recommend';
+
+interface RecommendResultType {
+  authors: string[];
+  isbn: string;
+  thumbnail: string;
+  title: string;
+  reason: string;
+}
 
 const BackDrop = () => {
   const setRecommendResultModal = useSetRecoilState(
@@ -25,14 +32,13 @@ const BackDrop = () => {
   );
 };
 
-const ModalOverlay = () => {
-  const {
-    Title,
-    Author,
-    ISBN,
-    Image: thumbnail,
-    Reason,
-  } = useRecoilValue(RecommendBookResult);
+const ModalOverlay = ({
+  title,
+  isbn,
+  thumbnail,
+  authors,
+  reason,
+}: RecommendResultType) => {
   const setRecommendResultModal = useSetRecoilState(
     selectRecommendResultModalAtom,
   );
@@ -43,15 +49,16 @@ const ModalOverlay = () => {
 
   const handleAddMyBookShelf = () => {
     const bookData = {
-      title: Title,
-      bookIsbn: ISBN,
+      title,
+      bookIsbn: isbn,
       thumbnail,
-      authors: [Author],
+      authors,
     };
     postMyBookshelf(bookData, {
       onSuccess: () => {
-        setRecommendResultModal(false);
         alert('내 책장에 책을 담았습니다.');
+        router.push('/profile');
+        setRecommendResultModal(false);
       },
       onError: (error) => {
         const { status } = error as AxiosError;
@@ -63,7 +70,7 @@ const ModalOverlay = () => {
   };
 
   const handleMoveBookDetailPage = () => {
-    router.push(`/book/detail?isbn=${ISBN}`);
+    router.push(`/book/detail?isbn=${isbn}`);
     setRecommendResultModal(false);
   };
 
@@ -85,7 +92,7 @@ const ModalOverlay = () => {
       <div className='flex justify-center mt-7'>
         <button
           onClick={handleAddMyBookShelf}
-          className='flex items-center justify-center w-1/4 mr-3 border-2 rounded-lg h-14 border-main shadow-round text-main bg-white'
+          className='flex items-center justify-center w-1/4 mr-3 bg-white border-2 rounded-lg h-14 border-main shadow-round text-main'
         >
           <Image
             src='/images/bookRecommend/bookshelfIcon.svg'
@@ -120,7 +127,7 @@ const ModalOverlay = () => {
     <>
       <button
         onClick={() => setRecommendResultModal(false)}
-        className='fixed top-16 z-30 inset-x-0 mx-auto w-5/6 max-w-lg'
+        className='fixed inset-x-0 z-30 w-5/6 max-w-lg mx-auto top-16'
       >
         <Image
           src='/images/header/back-button-white.svg'
@@ -172,10 +179,12 @@ const ModalOverlay = () => {
                 }}
               >
                 <div>
-                  <h1 className='pb-1 text-2xl text-center font-semibold text-main'>
-                    {Title}
+                  <h1 className='pb-1 text-2xl font-semibold text-center text-main'>
+                    {title}
                   </h1>
-                  <h5 className='text-[#707070] text-center'>{Author}</h5>
+                  <h5 className='text-[#707070] text-center'>
+                    {authors.join(', ')}
+                  </h5>
                 </div>
                 <Image
                   src='/images/bookRecommend/recommendCharacter.png'
@@ -183,7 +192,7 @@ const ModalOverlay = () => {
                   height={112}
                   alt='책 추천 캐릭터'
                 />
-                <p>{Reason}</p>
+                <p className='overflow-auto'>{reason}</p>
               </div>
             </Container>
           </div>
@@ -199,7 +208,11 @@ const ModalOverlay = () => {
   );
 };
 
-const RecommendResultModal = () => {
+const RecommendResultModal = ({
+  bookData,
+}: {
+  bookData: RecommendResultType;
+}) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -214,7 +227,7 @@ const RecommendResultModal = () => {
   return mounted && element ? (
     <>
       {ReactDOM.createPortal(<BackDrop />, element)}
-      {ReactDOM.createPortal(<ModalOverlay />, element)}
+      {ReactDOM.createPortal(<ModalOverlay {...bookData} />, element)}
     </>
   ) : null;
 };
