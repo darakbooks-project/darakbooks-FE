@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { deleteGroupMember } from '@/api/recruit';
@@ -9,14 +9,12 @@ import Modal from '@/components/common/Modal';
 import { modalStateAtom } from '@/recoil/modal';
 import { UserGroup } from '@/types/recruit';
 
-type MemberListProps = Pick<
-  UserGroup,
-  'photoUrl' | 'nickname' | 'userInfo' | 'userId'
-> & {
+interface MemberListProps
+  extends Pick<UserGroup, 'photoUrl' | 'nickname' | 'userInfo' | 'userId'> {
   groupId: string;
   groupLeader: boolean;
   groupLeaderId: string;
-};
+}
 
 const MemberListItem = ({
   photoUrl,
@@ -30,6 +28,7 @@ const MemberListItem = ({
   const checkGroupReader = groupLeaderId === userId;
   const [modal, setModal] = useRecoilState(modalStateAtom);
   const { mutate: kickOutMember } = useMutation(deleteGroupMember);
+  const [isClickedUser, setIsClickedUser] = useState(false);
   const queryClient = useQueryClient();
 
   const handleKickOutMember = (groupId: string, userId: string) => {
@@ -43,6 +42,10 @@ const MemberListItem = ({
       },
     );
   };
+
+  useEffect(() => {
+    if (modal.type === 'HIDDEN') setIsClickedUser(false);
+  }, [modal]);
 
   const groupKickOutModal = (
     <div className='flex flex-col items-center justify-center'>
@@ -108,13 +111,18 @@ const MemberListItem = ({
       </Link>
       {groupLeader && !checkGroupReader && (
         <button
-          onClick={() => setModal({ type: 'KICKOUT' })}
+          onClick={() => {
+            setIsClickedUser(true);
+            setModal({ type: 'KICKOUT' });
+          }}
           className='w-14 h-8 border border-[#EBEAEA] rounded-md text-xs font-semibold'
         >
           강퇴
         </button>
       )}
-      {modal.type === 'KICKOUT' && <Modal>{groupKickOutModal}</Modal>}
+      {modal.type === 'KICKOUT' && isClickedUser && (
+        <Modal>{groupKickOutModal}</Modal>
+      )}
     </li>
   );
 };
