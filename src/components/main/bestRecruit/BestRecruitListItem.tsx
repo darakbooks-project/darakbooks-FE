@@ -58,17 +58,15 @@ const BestRecruitListItem = ({
     <li onClick={() => moveGroupDetail(group_group_id)}>
       <div className='flex items-center mx-5 mb-7'>
         <div className='mr-3 text-lg font-bold text-main'>{index + 1}</div>
-        <div className='mr-3'>
-          <Image
-            src={groupLeader.photoUrl}
-            alt='모임장 프로필 이미지'
-            width='45'
-            height='45'
-            sizes='100vw'
-            className='rounded-full  w-11 h-11'
-          />
-        </div>
-        <div className='flex-col justify-between'>
+        <Image
+          src={groupLeader.photoUrl}
+          alt='모임장 프로필 이미지'
+          width='45'
+          height='45'
+          sizes='100% 100%'
+          className='rounded-full w-11 h-11'
+        />
+        <div className='flex-col justify-between ml-3'>
           <h3 className='text-base font-bold text-[#707070] truncate w-[60vw] max-w-sm xxs:w-[50vw]'>
             {group_name}
           </h3>
