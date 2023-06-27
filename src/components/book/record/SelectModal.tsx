@@ -44,21 +44,31 @@ const ModalOverlay = ({ isbn, thumbnail, title, author }: selectBookProps) => {
         className='absolute right-8 top-6'
         onClick={() => setModal(false)}
       >
-        <Image src='/images/exit.svg' alt='exit' width={32} height={32} />
+        <Image
+          src='/images/record/select/exit.svg'
+          alt='exit'
+          width={32}
+          height={32}
+        />
       </button>
       <article className='absolute -translate-x-2/4 translate-y-[-20%] flex flex-col items-center justify-center w-full leading-6 left-2/4 top-24'>
         <h4 className='text-lg text-[#242424]'>{title}</h4>
         <h5 className='text-[13px] text-[#707070]'>{author} 지음</h5>
       </article>
       <span
-        className='flex items-center absolute -translate-x-2/4 -translate-y-1/4 text-[#707070] text-[13px]  text-center left-1/2 bottom-[5.8rem]'
+        className='flex justify-center items-center absolute -translate-x-2/4 -translate-y-1/4 pb-3 text-[#707070] text-[13px]  text-center left-1/2 bottom-[5rem] w-full border-b-[#EBEAEA] border-b border-solid'
         onClick={routeDetailPage}
       >
-        <Image src='/images/info.svg' alt='info' width={32} height={32} />책
-        정보
+        <Image
+          src='/images/record/select/info.svg'
+          alt='info'
+          width={32}
+          height={32}
+        />
+        책 정보
       </span>
       <button
-        className='absolute w-[90%] h-[3.6rem] -translate-x-2/4 -translate-y-1/4 text-base text-white bg-main rounded-md border-[none] left-2/4 bottom-2'
+        className='absolute w-[90%] h-[3.6rem] -translate-x-2/4 -translate-y-1/4 text-base text-white bg-main rounded-md border-[none] left-2/4 bottom-[0.2rem]'
         onClick={routeRecordPage}
       >
         책 등록
