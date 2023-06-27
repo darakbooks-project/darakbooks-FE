@@ -9,14 +9,12 @@ import Modal from '@/components/common/Modal';
 import { modalStateAtom } from '@/recoil/modal';
 import { UserGroup } from '@/types/recruit';
 
-type MemberListProps = Pick<
-  UserGroup,
-  'photoUrl' | 'nickname' | 'userInfo' | 'userId'
-> & {
+interface MemberListProps
+  extends Pick<UserGroup, 'photoUrl' | 'nickname' | 'userInfo' | 'userId'> {
   groupId: string;
   groupLeader: boolean;
   groupLeaderId: string;
-};
+}
 
 const MemberListItem = ({
   photoUrl,
