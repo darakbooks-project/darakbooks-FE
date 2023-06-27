@@ -28,7 +28,7 @@ const MemberListItem = ({
   const checkGroupReader = groupLeaderId === userId;
   const [modal, setModal] = useRecoilState(modalStateAtom);
   const { mutate: kickOutMember } = useMutation(deleteGroupMember);
-  const [isClickedUser, setIsClickedUser] = useState('');
+  const [isClickedUser, setIsClickedUser] = useState(false);
   const queryClient = useQueryClient();
 
   const handleKickOutMember = (groupId: string, userId: string) => {
@@ -44,7 +44,7 @@ const MemberListItem = ({
   };
 
   useEffect(() => {
-    if (modal.type === 'HIDDEN') setIsClickedUser('');
+    if (modal.type === 'HIDDEN') setIsClickedUser(false);
   }, [modal]);
 
   const groupKickOutModal = (
@@ -96,7 +96,7 @@ const MemberListItem = ({
       {groupLeader && !checkGroupReader && (
         <button
           onClick={() => {
-            setIsClickedUser(userId);
+            setIsClickedUser(true);
             setModal({ type: 'KICKOUT' });
           }}
           className='w-14 h-8 border border-[#EBEAEA] rounded-md text-xs font-semibold'
@@ -104,7 +104,7 @@ const MemberListItem = ({
           강퇴
         </button>
       )}
-      {modal.type === 'KICKOUT' && userId === isClickedUser && (
+      {modal.type === 'KICKOUT' && isClickedUser && (
         <Modal>{groupKickOutModal}</Modal>
       )}
     </li>
