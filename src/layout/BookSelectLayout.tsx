@@ -2,11 +2,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
+import Header from '@/components/common/Header';
+
 function BookSelectLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   return (
-    <section className='min-h-screen flex flex-col gap-6 pt-24 px-6 py-0 bg-[#ffffff]'>
+    <section className='min-h-screen flex flex-col pt-12 px-6  bg-[#ffffff]'>
+      <Header className=' pl-0' />
       <div className='flex'>
         <Link
           href='/book/record/select'
