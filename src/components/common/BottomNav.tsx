@@ -71,7 +71,7 @@ const BottomNav = () => {
                   isClicked ? 'on' : 'off'
                 }.svg`}
               />
-              <Text isClick={isClicked ? 'click' : ''}>{text}</Text>
+              <Text $isClick={isClicked ? 'click' : ''}>{text}</Text>
             </Button>
           );
         })}
@@ -112,8 +112,9 @@ const Button = tw.button`
   cursor-pointer
 `;
 
-const Text = tw.div<{ isClick: string }>`
+const Text = tw.div<{ $isClick: string }>`
   text-xs	
   mt-[-5px]
-  ${(props) => (props.isClick === 'click' ? 'text-[#60B28D]' : 'text-[#707070')}
+  ${(props) =>
+    props.$isClick === 'click' ? 'text-[#60B28D]' : 'text-[#707070'}
 `;
