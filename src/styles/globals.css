@@ -80,7 +80,7 @@
 
 .dots_custom li button {
   border: none;
-  background: #50beab80;
+  background: #60b28d80;
   color: transparent;
   cursor: pointer;
   display: block;
@@ -91,7 +91,7 @@
 }
 
 .dots_custom li.slick-active button {
-  background-color: #50beab;
+  background-color: #60b28d;
   width: 36px;
   height: 10px;
   border-radius: 50px;
