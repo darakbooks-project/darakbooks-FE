@@ -213,7 +213,7 @@ const BookDetailPage = () => {
           관련 기록
         </h2>
         <ul className='flex flex-col '>
-          {status === 'success' && (
+          {status === 'success' && bookRelatedAllRecord!.length > 0 ? (
             <>
               {bookRelatedAllRecord?.map((item) => (
                 <Link
@@ -252,6 +252,15 @@ const BookDetailPage = () => {
                 </Link>
               ))}
             </>
+          ) : (
+            <div className='flex flex-col justify-center items-center h-[18rem]'>
+              <span className='text-lg text-[#333333]'>
+                관련 기록이 없어요.
+              </span>
+              <span className='text-sm text-[#707070]'>
+                가장 먼저 기록을 남겨보세요!
+              </span>
+            </div>
           )}
           <div ref={ref}></div>
         </ul>
