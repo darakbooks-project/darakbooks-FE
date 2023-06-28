@@ -187,9 +187,9 @@ const ModalOverlay = ({
                   </h5>
                 </div>
                 <Image
-                  src='/images/bookRecommend/recommendCharacter.png'
-                  width={140}
-                  height={112}
+                  src='/images/bookRecommend/recommendResultCharacter.svg'
+                  width={192}
+                  height={120}
                   alt='책 추천 캐릭터'
                 />
                 <p className='overflow-auto'>{reason}</p>
