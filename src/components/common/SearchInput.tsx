@@ -4,10 +4,11 @@ import tw from 'tailwind-styled-components';
 
 interface Props {
   onSubmit(keywrod: string): void;
+  inputText?: string;
 }
 
-const SearchInput = ({ onSubmit }: Props) => {
-  const [inputData, setInputData] = useState('');
+const SearchInput = ({ onSubmit, inputText }: Props) => {
+  const [inputData, setInputData] = useState(inputText);
   const [isError, setIsError] = useState(false);
 
   const updateInputData = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,16 +20,10 @@ const SearchInput = ({ onSubmit }: Props) => {
   };
 
   const onClickSearchButton = () => {
+    if (!inputData) return setIsError(true);
+
     onSubmit(inputData);
-
-    if (!inputData) {
-      setIsError(true);
-      return;
-    }
-
-    if (isError) {
-      setIsError(false);
-    }
+    if (isError) setIsError(false);
   };
 
   return (
