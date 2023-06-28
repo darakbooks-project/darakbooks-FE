@@ -142,10 +142,10 @@ const BookDetailPage = () => {
           <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#ffffff] gap-5'>
             <div className='w-full px-4'>
               <Image
-                src='/images/detail/left-arrow.svg'
-                alt='left-arrow'
-                width={8}
-                height={12}
+                src='/images/detail/back.svg'
+                alt='back'
+                width={32}
+                height={32}
                 onClick={() => router.back()}
               />
             </div>
@@ -213,7 +213,7 @@ const BookDetailPage = () => {
           관련 기록
         </h2>
         <ul className='flex flex-col '>
-          {status === 'success' && (
+          {status === 'success' && bookRelatedAllRecord!.length > 0 ? (
             <>
               {bookRelatedAllRecord?.map((item) => (
                 <Link
@@ -252,15 +252,30 @@ const BookDetailPage = () => {
                 </Link>
               ))}
             </>
+          ) : (
+            <div className='flex flex-col justify-center items-center h-[18rem]'>
+              <span className='text-lg text-[#333333]'>
+                관련 기록이 없어요.
+              </span>
+              <span className='text-sm text-[#707070]'>
+                가장 먼저 기록을 남겨보세요!
+              </span>
+            </div>
           )}
           <div ref={ref}></div>
         </ul>
       </section>
       <section className='flex justify-between items-center  w-full gap-2 p-2  bg-[#ffffff] border-solid border fixed bottom-0 s:w-[575px]'>
         <button
-          className='flex justify-center items-center box-border w-1/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-main rounded-md border-2 border-solid border-main'
+          className='flex justify-center items-center box-border w-1/3 h-16 shadow-[4px_4px_8px_rgba(0,0,0,0.15)] not-italic font-bold text-base leading-[19px] text-main rounded-md border-2 border-solid border-main pr-2'
           onClick={onPutBook}
         >
+          <Image
+            src='/images/detail/bookshelf.svg'
+            alt='bookshelf'
+            width={32}
+            height={32}
+          />
           담기
         </button>
         <button

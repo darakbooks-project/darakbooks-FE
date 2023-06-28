@@ -51,36 +51,19 @@ function ProfileLayout({ children }: { children: ReactNode }) {
     <div className='h-screen'>
       {status === 'success' && data && (
         <>
-          <section className='w-full h-[30%] bg-[#fffef8] flex flex-col px-6 py-0'>
+          <section className='w-full h-[30%] bg-[#ffffff] flex flex-col px-6 py-0'>
             <div className='flex items-center justify-end h-3/6'>
               {data.isMine && (
                 <Image
-                  src='/images/profile/logout.svg'
+                  src='/images/profile/layout/logout.svg'
                   alt='logout'
-                  width={21}
-                  height={19}
+                  width={32}
+                  height={32}
                   onClick={onLogout}
                 />
               )}
             </div>
-            <article className='h-3/6 flex items-center justify-between'>
-              <div>
-                <h1 className='text-2xl text-[#333333] font-[bold] mb-[5px]'>
-                  {data.nickname}
-                </h1>
-                <p className='text-[13px] text-[#707070] flex gap-4'>
-                  {data.userInfo ?? '좋아하는 것을 일고 기록해요 :)'}
-                  {data.isMine && (
-                    <Image
-                      src='/images/profile/pencil.svg'
-                      alt='edit'
-                      width={14}
-                      height={14}
-                      onClick={() => push('/profile/edit')}
-                    />
-                  )}
-                </p>
-              </div>
+            <article className='h-3/6 flex items-center gap-4'>
               <Image
                 src={data.photoUrl}
                 alt={data.nickname}
@@ -89,10 +72,32 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 sizes='100vw'
                 className='w-[4.5rem] h-[4.5rem]  rounded-[50%] '
               />
+              <div>
+                <h1 className='text-2xl text-[#333333] font-[bold] mb-[5px]'>
+                  {data.nickname}
+                </h1>
+                <p className='text-[13px] text-[#707070] flex gap-4'>
+                  {data.userInfo ?? '좋아하는 것을 일고 기록해요 :)'}
+                </p>
+              </div>
             </article>
+            {data.isMine && (
+              <button
+                className='flex justify-center items-center h-11 border rounded text-[13px] text-[#333333] border-solid border-[#dfdfdf]'
+                onClick={() => push('/profile/edit')}
+              >
+                <Image
+                  src='/images/profile/layout/edit.svg'
+                  alt='edit'
+                  width={24}
+                  height={24}
+                />
+                프로필 편집
+              </button>
+            )}
           </section>
-          <section className='h-[70%]'>
-            <nav className='grid grid-cols-[repeat(3,1fr)] h-14 border-t-[#ebeaea] border-t border-solid'>
+          <section className='h-[70%] bg-[#ffffff]'>
+            <nav className='grid grid-cols-[repeat(3,1fr)] h-14 '>
               <Link
                 href={routes('/profile')}
                 className={

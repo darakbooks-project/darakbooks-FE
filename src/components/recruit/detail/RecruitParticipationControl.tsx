@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -44,6 +45,7 @@ const RecruitUserManagement = ({
 
   const groupJoinModal = (
     <div className='flex flex-col items-center justify-center'>
+      <Image src='/images/group/join.svg' alt='참여' width={54} height={54} />
       <h3 className='text-xl font-bold'>{groupName}</h3>
       <p className='pb-7'>모임에 참여하시겠어요?</p>
       <div>
@@ -67,6 +69,7 @@ const RecruitUserManagement = ({
 
   const groupLeaveModal = (
     <div className='flex flex-col items-center justify-center'>
+      <Image src='/images/group/leave.svg' alt='탈퇴' width={54} height={54} />
       <h3 className='text-xl font-bold'>정말 탈퇴하시겠어요?</h3>
       <p className='pb-7'>더 이상 모임에 참여할 수 없어요</p>
       <div>

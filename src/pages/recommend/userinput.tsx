@@ -1,42 +1,50 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
-import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { ChangeEvent, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import { getGPTRecommendBook } from '@/api/recommend';
+import { postGPTRecommendBook } from '@/api/recommend';
 import Header from '@/components/common/Header';
-import RecommendComplete from '@/components/recommend/RecommendComplete';
 import RecommendLoading from '@/components/recommend/RecommendLoading';
-import RecommendLayout from '@/layout/RecommendLayout';
 import { RecommendBookResult } from '@/recoil/recommend';
 
 const RecommendInputPage = () => {
   const [userRequest, setUserRequest] = useState('');
-  const setBookRecommendResult = useSetRecoilState(RecommendBookResult);
-  const { data, refetch, isInitialLoading, isFetching, isSuccess } = useQuery(
-    ['recommendGPT'],
-    () => getGPTRecommendBook(userRequest),
-    {
-      enabled: false,
-      cacheTime: 0,
-    },
-  );
+  const router = useRouter();
+  const setRecommend = useSetRecoilState(RecommendBookResult);
 
-  useEffect(() => {
-    if (isSuccess) setBookRecommendResult(data);
-  }, [setBookRecommendResult, data, isSuccess]);
+  const {
+    mutate: postGPTRecommend,
+    isLoading,
+    isError,
+  } = useMutation(postGPTRecommendBook);
 
   const handleChangeRequestInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setUserRequest(e.target.value);
   };
 
-  if (isInitialLoading || isFetching) {
+  const handlePostGPTRecommend = () => {
+    const userInput = {
+      userInput: userRequest,
+    };
+
+    postGPTRecommend(userInput, {
+      onSuccess: (data) => {
+        setRecommend({
+          title: data.title,
+          reason: data.reason,
+          userRequest,
+        });
+        router.push('/recommend/complete', '/');
+      },
+    });
+  };
+
+  if (isLoading) {
     return <RecommendLoading />;
   }
-
-  if (isSuccess) {
-    return <RecommendComplete userRequest={userRequest} />;
-  }
+  if (isError) return <></>;
 
   return (
     <div className='flex flex-col items-center justify-between h-full p-5 bg-background'>
@@ -66,17 +74,13 @@ const RecommendInputPage = () => {
       </main>
       <button
         disabled={!userRequest}
-        onClick={() => refetch()}
+        onClick={handlePostGPTRecommend}
         className='w-full text-white rounded-lg h-14 bg-main disabled:bg-[#DFDFDF]'
       >
         추천 받기
       </button>
     </div>
   );
-};
-
-RecommendInputPage.getLayout = function getLayout(page: ReactElement) {
-  return <RecommendLayout>{page}</RecommendLayout>;
 };
 
 export default RecommendInputPage;

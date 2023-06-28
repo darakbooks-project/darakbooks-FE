@@ -64,7 +64,7 @@ export default RecruitPage;
 const Container = tw.div``;
 
 const BackGroundWrap = tw.div`
-  fixed
+  relative
   top-0
   left-[50%]
   translate-x-[-50%]
@@ -72,7 +72,6 @@ const BackGroundWrap = tw.div`
   w-full
   h-[15.313rem]
   bg-[#FFFCEA]
-  z-10
 `;
 const BackGround = tw.div`
   w-full
@@ -90,7 +89,7 @@ const Title = tw.h1`
 `;
 
 const InfinityScrollListsWrap = tw.div`
-  pt-72
+  pt-10
   pb-24
   bg-white
 `;

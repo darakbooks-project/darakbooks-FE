@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 import { KAKAO_REST_API_KEY } from '@/constants/auth';
-import { BookSearchResulListItem, getBookDataByIsbnProps } from '@/types/book';
+import {
+  BookDataByTitleProps,
+  BookSearchResulListItem,
+  getBookDataByIsbnProps,
+} from '@/types/book';
 
 const KAKAO_BOOK_SEARCH_API_URL =
   process.env.NEXT_PUBLIC_KAKAO_BOOK_SEARCH_API_URL;
@@ -47,6 +51,25 @@ export const getBookDataByIsbnApi = async (
   try {
     const { data } = await axios.get(
       `${KAKAO_BOOK_SEARCH_API_URL}?target=isbn&query=${isbn}`,
+      {
+        headers: {
+          Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`,
+        },
+      },
+    );
+    return data;
+  } catch (error) {
+    throw new Error('해당 도서를 찾을 수 없습니다.');
+  }
+};
+
+// 책 제목으로 특정 책 검색
+export const getBookDataByTitle = async (
+  title: string,
+): Promise<BookDataByTitleProps> => {
+  try {
+    const { data } = await axios.get(
+      `${KAKAO_BOOK_SEARCH_API_URL}?target=title&query=${title}`,
       {
         headers: {
           Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`,
