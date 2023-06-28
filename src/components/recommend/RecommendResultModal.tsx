@@ -187,9 +187,9 @@ const ModalOverlay = ({
                   </h5>
                 </div>
                 <Image
-                  src='/images/bookRecommend/recommendCharacter.png'
-                  width={140}
-                  height={112}
+                  src='/images/bookRecommend/recommendResultCharacter.svg'
+                  width={192}
+                  height={120}
                   alt='책 추천 캐릭터'
                 />
                 <p className='overflow-auto'>{reason}</p>
@@ -199,7 +199,7 @@ const ModalOverlay = ({
         </div>
         <div
           onClick={(e) => e.stopPropagation()}
-          className='fixed left-0 right-0 z-30 w-5/6 max-w-lg mx-auto bottom-8 animate-slideUp'
+          className='fixed left-0 right-0 z-30 w-5/6 max-w-lg mx-auto bottom-10 animate-slideUp'
         >
           {changeBookButton(isAuthorized)}
         </div>
