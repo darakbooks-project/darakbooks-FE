@@ -114,8 +114,8 @@ const RecruitDetailPage = () => {
         />
         <div className='w-full h-[350px] bg-[#FFFCEA]' />
         <main className='flex flex-col bg-white relative -top-10 px-5 rounded-t-[1.875rem] pb-24 shadow-roundY'>
-          <div className='flex py-6'>
-            <div className='relative'>
+          <div className='flex items-center py-6'>
+            <div className='relative flex-shrink-0'>
               <Image
                 src={groupLeader.photoUrl}
                 alt='모임장 프로필 이미지'
@@ -137,7 +137,7 @@ const RecruitDetailPage = () => {
                 width={22}
                 height={22}
                 alt='모임장 아이콘'
-                className='absolute bottom-0 -right-1'
+                className='absolute top-9 -right-1'
               />
             </div>
             <div className='pl-4'>

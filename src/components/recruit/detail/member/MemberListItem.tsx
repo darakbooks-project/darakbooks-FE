@@ -57,16 +57,16 @@ const MemberListItem = ({
       />
       <h3 className='text-xl font-bold'>정말 강퇴하시겠어요?</h3>
       <p className='pb-7'>{nickname}님을 강퇴하시겠어요?</p>
-      <div>
+      <div className='flex w-full'>
         <button
           onClick={() => setModal({ type: 'HIDDEN' })}
-          className='w-36 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
+          className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
         >
           취소
         </button>
         <button
           onClick={() => handleKickOutMember(groupId, userId)}
-          className='w-36 h-12 bg-[#F05050] rounded-lg text-white'
+          className='w-3/4 h-12 bg-[#F05050] rounded-lg text-white'
         >
           강퇴
         </button>
