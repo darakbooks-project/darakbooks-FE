@@ -144,7 +144,7 @@ const ProfilePage: NextPageWithLayout = () => {
                   <div className='flex items-center justify-between px-6 py-0 h-14'>
                     <span className='text-[15px] text-[#707070]'>
                       전체{' '}
-                      <span className='text-[15px] text-[#67a68a]'>
+                      <span className='text-[15px] text-main'>
                         {bookshelfData.length}
                       </span>
                       권

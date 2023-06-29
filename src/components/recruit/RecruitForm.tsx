@@ -115,5 +115,5 @@ const ClassButton = tw.button`
   rounded-lg
   font-bold
 
-  ${(props) => (props.disabled ? 'bg-[#DFDFDF]' : 'bg-[#67A68A]')}
+  ${(props) => (props.disabled ? 'bg-[#DFDFDF]' : 'bg-main')}
 `;
