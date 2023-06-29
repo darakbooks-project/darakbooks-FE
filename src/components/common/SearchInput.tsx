@@ -31,24 +31,24 @@ const SearchInput = ({ onSubmit, inputText }: Props) => {
       <Form onSubmit={(e) => e.preventDefault()}>
         <Input
           type='text'
-          placeholder='검색어를 입력해주세요'
+          placeholder='책 검색'
           onChange={updateInputData}
           value={inputData}
         />
         <SearchButton type='submit' onClick={onClickSearchButton}>
           <Image
-            src='/images/search.svg'
-            width={20}
-            height={20}
+            src='/images/bookSearch/search.svg'
+            width={32}
+            height={32}
             alt='검색 아이콘'
           />
         </SearchButton>
         <CloseButton onClick={removeInputData}>
           <Image
-            src='/images/close.svg'
-            width={15}
-            height={15}
-            alt='닫기 아이콘'
+            src='/images/bookSearch/clear.svg'
+            width={32}
+            height={32}
+            alt='입력 텍스트 제거 아이콘'
           />
         </CloseButton>
       </Form>
@@ -92,8 +92,8 @@ const SearchButton = tw.button`
 
 const CloseButton = tw.button`
   absolute
-  top-[1.094rem]
-  right-[1.094rem]
+  top-2
+  right-2.5
 `;
 
 const ErrorMessage = tw.div`
