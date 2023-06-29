@@ -85,11 +85,10 @@ const SearchResultListItem = ({
 export default SearchResultListItem;
 
 const Container = tw.div`
-  w-[100%]
+  w-full
   flex
   items-center
-  px-[20px]
-  py-[15px]
+  p-5
   cursor-pointer
   border-b-2	
 `;
@@ -102,12 +101,12 @@ const Introduce = tw.div`
   w-[70%]
   flex
   flex-col
-  pl-[10px]
+  pl-2.5
 `;
 
 const Title = tw.span`
   font-bold
-  mb-[5px]
+  mb-2.5
 `;
 
 const AuthorPublisher = tw.div`
@@ -118,5 +117,5 @@ const AuthorPublisher = tw.div`
 `;
 
 const Divider = tw.div`
-  px-[2.5px]
+  px-1
 `;

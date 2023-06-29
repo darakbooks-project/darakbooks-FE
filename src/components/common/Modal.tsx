@@ -17,7 +17,7 @@ const BackDrop = () => {
 
 const ModalOverlay = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='fixed bg-[white] shadow-[0_2px_8px_rgba(0,0,0,0.6)] z-30 p-4 rounded-[14px] inset-x-0 w-5/6 animate-slideDown overflow-hidden top-[50%] mx-auto translate-y-1/2'>
+    <div className='fixed bg-[white] shadow-[0_2px_8px_rgba(0,0,0,0.6)] z-30 p-4 rounded-[0.875rem] inset-x-0 w-[21rem] animate-slideDown overflow-hidden top-[50%] mx-auto translate-y-1/2'>
       {children}
     </div>
   );

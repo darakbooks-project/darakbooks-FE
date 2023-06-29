@@ -75,7 +75,7 @@ const Input = tw.input`
   rounded-r-lg
   outline-none
   pl-2
-  py-[12.5px]
+  py-[0.781rem]
   bg-[#F2F2F2]
   text-sm
 `;
@@ -92,8 +92,8 @@ const SearchButton = tw.button`
 
 const CloseButton = tw.button`
   absolute
-  top-[17.5px]
-  right-[17.5px]
+  top-[1.094rem]
+  right-[1.094rem]
 `;
 
 const ErrorMessage = tw.div`
