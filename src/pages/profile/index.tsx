@@ -151,7 +151,7 @@ const ProfilePage: NextPageWithLayout = () => {
                     </span>
                     {userData?.isMine && (
                       <span
-                        className='text-[15px] text-[#60B28D]'
+                        className='text-[15px] text-main'
                         onClick={() => setEdit((prev) => !prev)}
                       >
                         {edit ? '완료' : '편집'}
@@ -219,7 +219,7 @@ const ProfilePage: NextPageWithLayout = () => {
                           </h3>
                           <h4 className='font-normal text-[15px] text-[#333333]'>
                             총{' '}
-                            <span className='font-normal text-[15px] text-[#60b28d]'>
+                            <span className='font-normal text-[15px] text-main'>
                               {certainBookData?.records.length}개
                             </span>
                             의 도서 기록을 작성하셨어요!
@@ -265,7 +265,7 @@ const ProfilePage: NextPageWithLayout = () => {
                           )}
                         </ul>
                         <button
-                          className='flex w-full justify-center items-center h-[3.125rem] text-white rounded-[10px] bg-[#60b28d]'
+                          className='flex w-full justify-center items-center h-[3.125rem] text-white rounded-[10px] bg-main'
                           onClick={() =>
                             push({
                               pathname: '/book/detail',

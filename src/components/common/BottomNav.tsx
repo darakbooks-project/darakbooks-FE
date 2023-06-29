@@ -115,6 +115,5 @@ const Button = tw.button`
 const Text = tw.div<{ $isClick: string }>`
   text-xs	
   mt-[-5px]
-  ${(props) =>
-    props.$isClick === 'click' ? 'text-[#60B28D]' : 'text-[#707070'}
+  ${(props) => (props.$isClick === 'click' ? 'text-main' : 'text-[#707070]')}
 `;
