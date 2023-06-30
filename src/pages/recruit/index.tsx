@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
@@ -51,7 +52,13 @@ const RecruitPage = () => {
       </InfinityScrollListsWrap>
 
       <PersonnelRecruitButton onClick={clickGroupOpenButton}>
-        나만의 독서 모임 만들기
+        <Image
+          src='/images/group/people-white.svg'
+          width={32}
+          height={32}
+          alt='독서 모임 개설 아이콘'
+        />
+        <span>나만의 독서 모임 만들기</span>
       </PersonnelRecruitButton>
 
       <BottomNav />
@@ -110,7 +117,12 @@ const PersonnelRecruitButton = tw.div`
   text-sm
   text-center
   text-white
-  rounded-lg
+  rounded-xl
   cursor-pointer
   shadow-lg
+
+  flex
+  justify-center
+  items-center
+  w-[60%]
 `;
