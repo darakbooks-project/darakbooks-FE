@@ -4,6 +4,7 @@ import tw from 'tailwind-styled-components';
 
 import InfinityScrollLists from '@/components/book/search/InfinityScrollLists';
 import BottomNav from '@/components/common/BottomNav';
+import Header from '@/components/common/Header';
 import SearchInput from '@/components/common/SearchInput';
 import {
   searchBookTitleAtom,
@@ -31,6 +32,7 @@ const BookSearchPage = () => {
     <>
       <Container>
         <BackGroundWrap>
+          <HeaderStyle />
           <BackGround>
             <Title>
               어떤 책을 <br />
@@ -66,13 +68,19 @@ const BackGroundWrap = tw.div`
   translate-x-[-50%]
   max-w-xl
   w-full
-  h-80
+  h-[18.75rem]
   bg-white
+`;
+
+const HeaderStyle = tw(Header)`
+  absolute
+  top-12
   z-10
 `;
+
 const BackGround = tw.div`
   w-full
-  h-80
+  h-[18.75rem]
   relative
 `;
 
@@ -81,19 +89,19 @@ const Title = tw.h1`
   left-5
   bottom-20
   text-3xl
-  font-bold
+  leading-normal
 `;
 
 const SearchInputWrap = tw.div`
   absolute
   w-[90%]
   left-5
-  bottom-1.5
+  bottom-2
   mx-auto
 `;
 
 const BookSearchListsWrap = tw.div`
-  pt-[21.875rem]
+  pt-[19.5rem]
   pb-24
   bg-white
 `;
