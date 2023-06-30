@@ -22,7 +22,7 @@ const ONBOADINGDATA = [
         비슷한 취향의 사람들과 함께 소통해보세요
       </h3>
     ),
-    image: '/images/onboarding/onboarding1.svg',
+    image: '/images/onboarding/onboarding2.svg',
   },
   {
     title: '더많은 책과 친해지기',
@@ -75,9 +75,11 @@ const OnboardingPage = () => {
         <Slider {...settings}>
           {ONBOADINGDATA.map((item) => (
             <Fragment key={item.title}>
-              <div className='flex flex-col justify-center w-5/6 pb-3'>
-                <h2 className='mb-3 text-2xl font-bold'>{item.title}</h2>
-                {item.desc}
+              <div className='flex flex-col justify-center w-5/6 pb-11'>
+                <h2 className='mb-3 text-2xl font-bold text-main xxs:text-xl'>
+                  {item.title}
+                </h2>
+                <p className='text-[#707070] xxs:text-sm'>{item.desc}</p>
               </div>
               <Image
                 key={item.title}
