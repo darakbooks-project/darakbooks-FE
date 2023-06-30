@@ -11,13 +11,13 @@
 }
 
 .selectedDay {
-  background-color: #67a68a;
+  background-color: #60b28d;
   border-radius: 50%;
 }
 
 .selectedDay:hover {
   border-radius: 50%;
-  background-color: #67a68a;
+  background-color: #60b28d;
 }
 
 @media (min-width: 575px) {
