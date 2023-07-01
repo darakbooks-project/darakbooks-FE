@@ -10,7 +10,8 @@ export interface ModalStateProps {
     | 'GROUPLEAVE'
     | 'BOOKSHELF'
     | 'HIDDEN'
-    | 'KICKOUT';
+    | 'KICKOUT'
+    | 'DELETEBOOKSHELF';
 }
 
 export const modalStateAtom = atom<ModalStateProps>({

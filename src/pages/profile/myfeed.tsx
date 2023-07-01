@@ -146,10 +146,10 @@ const MyFeed: NextPageWithLayout = () => {
                         <div key={item.recordId} className='relative'>
                           {edit && (
                             <Image
-                              src='/images/record/delete.svg'
+                              src='/images/profile/delete.svg'
                               alt='delete'
-                              width={34}
-                              height={34}
+                              width={32}
+                              height={32}
                               className='absolute -right-1 -bottom-1'
                               onClick={() => removeRecord(item.recordId + '')}
                             />

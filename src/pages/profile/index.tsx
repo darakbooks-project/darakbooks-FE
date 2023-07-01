@@ -31,6 +31,7 @@ const ProfilePage: NextPageWithLayout = () => {
   const [modal, setModal] = useRecoilState(modalStateAtom);
   const [bookId, setBookId] = useState('');
   const [certainBookTitle, setCertainBookTitle] = useState('');
+  const [deleteBookShelfItem, setDeleteBookShelftItem] = useState('');
 
   const { data: myCertainBookData } = useQuery(
     ['getCertainBookRecords', 'profile', bookId, 'mine'],
@@ -92,7 +93,6 @@ const ProfilePage: NextPageWithLayout = () => {
   const removeBook = (bookId: string) => {
     deleteBookShelf.mutate(bookId, {
       onSuccess: () => {
-        alert('삭제 되었습니다.');
         myBookShelfRefetch();
       },
       onError: (error) => {
@@ -107,9 +107,16 @@ const ProfilePage: NextPageWithLayout = () => {
   };
 
   const openBookShelf = (bookIsbn: string, title: string) => {
-    setModal({ type: 'BOOKSHELF' });
-    setCertainBookTitle(title);
-    setBookId(bookIsbn);
+    if (!edit) {
+      setModal({ type: 'BOOKSHELF' });
+      setCertainBookTitle(title);
+      setBookId(bookIsbn);
+    }
+  };
+
+  const openBookShelfDelete = (bookIsbn: string) => {
+    setModal({ type: 'DELETEBOOKSHELF' });
+    setDeleteBookShelftItem(bookIsbn);
   };
 
   useEffect(() => {
@@ -170,16 +177,16 @@ const ProfilePage: NextPageWithLayout = () => {
                         >
                           {edit && (
                             <Image
-                              src='/images/record/delete.svg'
+                              src='/images/profile/delete.svg'
                               alt='delete'
-                              width={34}
-                              height={34}
+                              width={32}
+                              height={32}
                               className='absolute -right-3 -top-3'
                               onClick={(
                                 event: React.MouseEvent<HTMLImageElement>,
                               ) => {
                                 event.stopPropagation();
-                                removeBook(data.bookIsbn);
+                                openBookShelfDelete(data.bookIsbn);
                               }}
                             />
                           )}
@@ -277,6 +284,39 @@ const ProfilePage: NextPageWithLayout = () => {
                         >
                           책정보
                         </button>
+                      </Modal>
+                    )}
+                    {modal.type === 'DELETEBOOKSHELF' && (
+                      <Modal>
+                        <div className='flex flex-col items-center justify-center'>
+                          <Image
+                            src='/images/profile/bin.svg'
+                            alt='bin'
+                            width={54}
+                            height={54}
+                            className='my-2 mb-4'
+                          />
+                          <h3 className='text-xl font-bold'>
+                            기록을 삭제하시겠어요?
+                          </h3>
+                          <p className='pb-7'>
+                            선택한 기록은 삭제되어 복구되지 않습니다.
+                          </p>
+                          <div className='flex w-full'>
+                            <button
+                              onClick={() => setModal({ type: 'HIDDEN' })}
+                              className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
+                            >
+                              취소
+                            </button>
+                            <button
+                              onClick={() => removeBook(deleteBookShelfItem)}
+                              className='w-3/4 h-12 bg-[#F05050] rounded-lg text-white disabled:bg-zinc-300'
+                            >
+                              삭제
+                            </button>
+                          </div>
+                        </div>
                       </Modal>
                     )}
                   </section>
