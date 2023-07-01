@@ -11,7 +11,8 @@ export interface ModalStateProps {
     | 'BOOKSHELF'
     | 'HIDDEN'
     | 'KICKOUT'
-    | 'DELETEBOOKSHELF';
+    | 'DELETEBOOKSHELF'
+    | 'DELETERECORD';
 }
 
 export const modalStateAtom = atom<ModalStateProps>({
