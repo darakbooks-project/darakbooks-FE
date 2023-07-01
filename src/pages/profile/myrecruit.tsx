@@ -54,6 +54,15 @@ const MyRecruit: NextPageWithLayout = () => {
     (data) => !data.is_group_lead && data.is_participant,
   );
 
+  const onRecruitClick = (groupId: string) => {
+    push({
+      pathname: '/recruit/detail',
+      query: {
+        groupId,
+      },
+    });
+  };
+
   return (
     <>
       {recruitStatus === 'success' && recruitData && (
@@ -79,19 +88,24 @@ const MyRecruit: NextPageWithLayout = () => {
                       <article
                         className='w-full h-full bg-white border flex flex-col gap-2 p-6 rounded-[10px] border-solid border-[#dfdfdf]'
                         key={item.group_id}
+                        onClick={() => onRecruitClick(item.group_id + '')}
                       >
                         <h4 className='text-[15px] text-[#333333] font-[bold]'>
                           {item.name}
                         </h4>
                         <div>
                           <p className='text-[13px] text-[#707070]'>
-                            {item.meeting_type} - 매주 {item.day} {item.time}
+                            {item.meeting_type === 'offline'
+                              ? '오프라인'
+                              : '온라인'}{' '}
+                            - 매주 {item.day} {item.time}
                           </p>
                         </div>
                         <div className='flex justify-between items-center'>
-                          <div className='h-full flex'>
-                            {item.userGroup.map(
-                              ({ photoId, photoUrl, nickname }) => (
+                          <div className='h-full flex items-center'>
+                            {item.userGroup
+                              .slice(0, 3)
+                              .map(({ photoId, photoUrl, nickname }) => (
                                 <Image
                                   key={photoId}
                                   src={photoUrl}
@@ -100,10 +114,25 @@ const MyRecruit: NextPageWithLayout = () => {
                                   height='0'
                                   className='w-6 h-6 bg-[#d9d9d9] border rounded-[50%] border-solid border-white'
                                 />
-                              ),
+                              ))}
+                            {item.userGroup.length > 3 && (
+                              <span className='ml-1 text-[11px] text-[#707070]'>
+                                외
+                                {
+                                  item.userGroup.slice(3, item.userGroup.length)
+                                    .length
+                                }
+                                명
+                              </span>
                             )}
                           </div>
-                          <span className='flex justify-center items-center w-[2.8rem] h-5 bg-main text-[11px] text-white rounded-[3px]'>
+                          <span
+                            className={
+                              item.recruitment_status
+                                ? 'flex justify-center items-center w-[2.8rem] h-5 bg-main text-[11px] text-white rounded-[3px]'
+                                : 'flex justify-center items-center w-[2.8rem] h-5 bg-[#C2C1C1] text-[11px] text-white rounded-[3px]'
+                            }
+                          >
                             {item.recruitment_status ? '모집중' : '모집완료'}
                           </span>
                         </div>
@@ -136,19 +165,24 @@ const MyRecruit: NextPageWithLayout = () => {
                       <article
                         className='w-full bg-white border flex flex-col gap-2 p-6 rounded-[10px] border-solid border-[#dfdfdf]'
                         key={item.group_id}
+                        onClick={() => onRecruitClick(item.group_id + '')}
                       >
                         <h4 className='text-[15px] text-[#333333] font-[bold]'>
                           {item.name}
                         </h4>
                         <div>
                           <p className='text-[13px] text-[#707070]'>
-                            {item.meeting_type} - 매주 {item.day} {item.time}
+                            {item.meeting_type === 'offline'
+                              ? '오프라인'
+                              : '온라인'}{' '}
+                            - 매주 {item.day} {item.time}
                           </p>
                         </div>
                         <div className='flex justify-between items-center'>
                           <div className='h-full flex'>
-                            {item.userGroup.map(
-                              ({ photoId, photoUrl, nickname }) => (
+                            {item.userGroup
+                              .slice(0, 3)
+                              .map(({ photoId, photoUrl, nickname }) => (
                                 <Image
                                   key={photoId}
                                   src={photoUrl}
@@ -157,10 +191,25 @@ const MyRecruit: NextPageWithLayout = () => {
                                   height='0'
                                   className='w-6 h-6 bg-[#d9d9d9] border rounded-[50%] border-solid border-white'
                                 />
-                              ),
+                              ))}
+                            {item.userGroup.length > 3 && (
+                              <span className='ml-1 text-[11px] text-[#707070]'>
+                                외
+                                {
+                                  item.userGroup.slice(3, item.userGroup.length)
+                                    .length
+                                }
+                                명
+                              </span>
                             )}
                           </div>
-                          <span className='flex justify-center items-center w-[2.8rem] h-5 bg-main text-[11px] text-white rounded-[3px]'>
+                          <span
+                            className={
+                              item.recruitment_status
+                                ? 'flex justify-center items-center w-[2.8rem] h-5 bg-main text-[11px] text-white rounded-[3px]'
+                                : 'flex justify-center items-center w-[2.8rem] h-5 bg-[#C2C1C1] text-[11px] text-white rounded-[3px]'
+                            }
+                          >
                             {item.recruitment_status ? '모집중' : '모집완료'}
                           </span>
                         </div>
