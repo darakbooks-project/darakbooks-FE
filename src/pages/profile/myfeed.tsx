@@ -168,7 +168,7 @@ const MyFeed: NextPageWithLayout = () => {
                         <div key={item.recordId} className='relative'>
                           {edit && (
                             <Image
-                              src='/images/profile/red-delete.svg'
+                              src='/images/profile/delete.svg'
                               alt='delete'
                               width={32}
                               height={32}
