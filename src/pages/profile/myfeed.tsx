@@ -10,11 +10,14 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useRecoilState } from 'recoil';
 
 import { getProfileApi } from '@/api/profile';
 import { deleteRecordApi, getAllRecordsApi } from '@/api/record';
 import BottomNav from '@/components/common/BottomNav';
+import Modal from '@/components/common/Modal';
 import ProfileLayout from '@/layout/ProfileLayout';
+import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
 
 const MyFeed: NextPageWithLayout = () => {
@@ -22,7 +25,9 @@ const MyFeed: NextPageWithLayout = () => {
     query: { ownerId },
     push,
   } = useRouter();
+  const [modal, setModal] = useRecoilState(modalStateAtom);
   const [edit, setEdit] = useState(false);
+  const [deleteRecordItem, setDeleteItem] = useState('');
   const deleteRecord = useMutation(deleteRecordApi);
   const { data: someoneData } = useQuery(
     ['getUserProfile', 'profile', ownerId],
@@ -94,10 +99,27 @@ const MyFeed: NextPageWithLayout = () => {
   const removeRecord = (id: string) => {
     deleteRecord.mutate(id, {
       onSuccess: () => {
-        alert('독서기록을 삭제하였습니다.');
         refetch();
       },
     });
+  };
+
+  const openRecordDelete = (recordId: string) => {
+    setModal({ type: 'DELETERECORD' });
+    setDeleteItem(recordId);
+  };
+
+  const onRecordClick = (recordId: string) => {
+    if (!edit) {
+      push({
+        pathname: '/book/feed',
+        query: {
+          recordId: recordId,
+          type: 'RECORDS',
+          ownerId,
+        },
+      });
+    }
   };
 
   return (
@@ -118,7 +140,7 @@ const MyFeed: NextPageWithLayout = () => {
               {allRecords.length < 1 ? (
                 <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
                   <h5 className='text-base font-medium text-[#333333]'>
-                    기록이 없어요.
+                    기록이 없어요
                   </h5>
                 </div>
               ) : (
@@ -146,12 +168,14 @@ const MyFeed: NextPageWithLayout = () => {
                         <div key={item.recordId} className='relative'>
                           {edit && (
                             <Image
-                              src='/images/record/delete.svg'
+                              src='/images/profile/delete.svg'
                               alt='delete'
-                              width={34}
-                              height={34}
+                              width={32}
+                              height={32}
                               className='absolute -right-1 -bottom-1'
-                              onClick={() => removeRecord(item.recordId + '')}
+                              onClick={() =>
+                                openRecordDelete(item.recordId + '')
+                              }
                             />
                           )}
                           <Image
@@ -161,22 +185,46 @@ const MyFeed: NextPageWithLayout = () => {
                             height='0'
                             sizes='100vw'
                             className='h-32 w-full s:h-[12rem]'
-                            onClick={() =>
-                              push({
-                                pathname: '/book/feed',
-                                query: {
-                                  recordId: item.recordId,
-                                  type: 'RECORDS',
-                                  ownerId,
-                                },
-                              })
-                            }
+                            onClick={() => onRecordClick(item.recordId + '')}
                           />
                         </div>
                       ))}
                     </>
                   </section>
                   <div ref={ref}></div>
+                  {modal.type === 'DELETERECORD' && (
+                    <Modal>
+                      <div className='flex flex-col items-center justify-center'>
+                        <Image
+                          src='/images/profile/bin.svg'
+                          alt='bin'
+                          width={54}
+                          height={54}
+                          className='my-2 mb-4'
+                        />
+                        <h3 className='text-xl font-bold'>
+                          기록을 삭제하시겠어요?
+                        </h3>
+                        <p className='pb-7'>
+                          선택한 기록은 삭제되어 복구되지 않습니다.
+                        </p>
+                        <div className='flex w-full'>
+                          <button
+                            onClick={() => setModal({ type: 'HIDDEN' })}
+                            className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
+                          >
+                            취소
+                          </button>
+                          <button
+                            onClick={() => removeRecord(deleteRecordItem)}
+                            className='w-3/4 h-12 bg-[#F05050] rounded-lg text-white disabled:bg-zinc-300'
+                          >
+                            삭제
+                          </button>
+                        </div>
+                      </div>
+                    </Modal>
+                  )}
                 </>
               )}
             </>
