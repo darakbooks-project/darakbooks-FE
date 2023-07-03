@@ -92,7 +92,7 @@ const ModalOverlay = ({
       <div className='flex justify-center mt-7'>
         <button
           onClick={handleAddMyBookShelf}
-          className='flex items-center justify-center w-1/4 mr-3 bg-white border-2 rounded-lg h-14 border-main shadow-round text-main'
+          className='flex items-center justify-center w-2/5 mr-3 bg-white border-2 rounded-lg h-14 border-main shadow-round text-main'
         >
           <Image
             src='/images/bookRecommend/bookshelfIcon.svg'
@@ -104,7 +104,7 @@ const ModalOverlay = ({
         </button>
         <button
           onClick={handleMoveBookDetailPage}
-          className=' w-3/4 h-14 text-white rounded-lg bg-main disabled:bg-[#DFDFDF] shadow-round'
+          className=' w-3/5 h-14 text-white rounded-lg bg-main disabled:bg-[#DFDFDF] shadow-round'
         >
           책 상세보기
         </button>
@@ -160,7 +160,9 @@ const ModalOverlay = ({
               className='z-40'
               style={{ backfaceVisibility: 'hidden' }}
             >
-              <h3 className='pb-2 text-main'>카드를 눌러 뒤집어 보세요!</h3>
+              <h3 className='pb-2 text-main text-clampBase'>
+                카드를 눌러 뒤집어 보세요!
+              </h3>
               <Image
                 src={thumbnail}
                 width={317}
@@ -168,7 +170,7 @@ const ModalOverlay = ({
                 placeholder='blur'
                 blurDataURL={thumbnail}
                 alt='추천 책 표지'
-                className='rounded-r max-w-[10.9375rem] h-full max-h-[16.625rem] w-full xs:px-1 drop-shadow-around'
+                className='rounded-r max-w-[10.9375rem] h-full max-h-[16.625rem] w-full xs:px-1 drop-shadow-around xxs:w-[160px] xxs:h-[240px]'
               />
             </Container>
             <Container>
@@ -179,7 +181,7 @@ const ModalOverlay = ({
                 }}
               >
                 <div>
-                  <h1 className='pb-1 text-2xl font-semibold text-center text-main'>
+                  <h1 className='pb-1 text-clamp2xl font-semibold text-center text-main'>
                     {title}
                   </h1>
                   <h5 className='text-[#707070] text-center'>
@@ -192,7 +194,7 @@ const ModalOverlay = ({
                   height={120}
                   alt='책 추천 캐릭터'
                 />
-                <p className='overflow-auto'>{reason}</p>
+                <p className='overflow-auto text-clampSm'>{reason}</p>
               </div>
             </Container>
           </div>
