@@ -18,7 +18,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
 
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
 
-  const handleMoveRecrdFeed = () => {
+  const handleMoveRecordFeed = () => {
     if (!isAuthorized) {
       openAuthRequiredModal();
       return;
@@ -36,7 +36,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
   const handleGetImgColor = (image: HTMLImageElement) => {
     const colorThief = new ColorThief();
     const colorHex = colorThief
-      .getPalette(image, 2)[0]
+      .getColor(image)
       .map((x) => {
         const hex = x.toString(16);
         return hex.length === 1 ? '0' + hex : hex;
@@ -47,26 +47,26 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
 
   return (
     <div
-      onClick={handleMoveRecrdFeed}
+      onClick={handleMoveRecordFeed}
       className='w-full h-[108px] flex justify-between border border-solid border-[#DFDFDF] rounded-md mb-4 px-6 overflow-hidden '
       style={{
         backgroundColor: `${bookCoverBgColor}20`,
       }}
     >
       <div className='py-4 '>
-        <h1 className='h-6 text-base font-bold truncate max-w-[45vw]'>
+        <h1 className='h-6 text-clampBase font-bold truncate max-w-[45vw]'>
           #{title}
         </h1>
-        <p className='text-xs pb-3 pt-2 truncate w-[50vw] max-w-sm'>{text}</p>
+        <p className='text-xs pb-3 pt-2 truncate w-[45vw] max-w-sm'>{text}</p>
         <p className='text-xs text-[#707070]'>@{nickname}</p>
       </div>
-      <div className='mt-4'>
+      <div className='mt-4 flex-none xxs:mt-5'>
         <Image
           src={thumbnail}
           width={80}
           height={110}
           alt='책 표지'
-          className='w-[80px] h-[110px]'
+          className='w-[5rem] h-[6.875rem] xxs:w-[3.75rem] xxs:h-[5.625rem]'
           crossOrigin='anonymous'
           onLoadingComplete={handleGetImgColor}
         />
