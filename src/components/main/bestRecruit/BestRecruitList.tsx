@@ -11,7 +11,9 @@ const BestRecruitList = ({
 }) => {
   return (
     <section className='bg-white border border-solid border-[#DFDFDF] rounded-md mx-5 mt-14'>
-      <h2 className=' mx-5 my-7 text-lg font-bold'>인기 모임</h2>
+      <h2 className=' mx-5 my-7 text-clampLg font-bold'>
+        지금 가장 인기있는 모임
+      </h2>
       <ul>
         {BestGroupList.map((group, i) => (
           <BestRecruitListItem

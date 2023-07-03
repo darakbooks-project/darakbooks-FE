@@ -1,5 +1,6 @@
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
@@ -49,17 +50,31 @@ export default function Home({ bestGroup }: MainSSRProps) {
 
   return (
     <main className='pb-20 bg-white'>
-      <section className='bg-[#C6BDA4] h-[17.125rem]'>
-        <div className='relative ml-5 text-white top-44'>
-          <p className='text-3xl font-bold'>어서오세요</p>
-          <p className='text-base'>오늘은 어떤 책을 읽으셨나요?</p>
+      <section className='relative w-full'>
+        <Image
+          src='/images/main/main-banner.svg'
+          width={390}
+          height={274}
+          alt='메인 안내 배너'
+          className='w-full'
+        />
+        <Image
+          src='/images/main/main-logo.svg'
+          width={67}
+          height={20}
+          alt='메인 로고'
+          className='absolute w-[18%] max-w-[6.25rem] ml-5 top-12'
+        />
+        <div className='absolute ml-5 bottom-6 left-12%'>
+          <p className='text-clamp2xl font-bold text-main'>어서오세요</p>
+          <p className='text-clampSm'>오늘은 어떤 책을 읽으셨나요?</p>
         </div>
       </section>
       <section className='mx-5 mt-14'>
-        <p className='text-sm font-bold text-main'>
+        <p className='text-clampSm font-bold text-main'>
           오늘의 나를 위한 도서 선택
         </p>
-        <h1 className='mb-5 text-xl font-bold'>인기서재 추천</h1>
+        <h1 className='mb-5 text-clampXl font-bold'>인기서재 추천</h1>
         {isBookshelfLoading ? (
           <div className='w-[100%] h-[187px] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'>
             <h3 className='flex items-center justify-center h-full'>
@@ -76,16 +91,41 @@ export default function Home({ bestGroup }: MainSSRProps) {
         )}
       </section>
       <BestRecruitList BestGroupList={bestGroup} />
-      <section>
-        <div onClick={handleMoveRecommendPage} className='mx-5 bg-white'>
-          추천 페이지로 이동
+      <section className='mt-12 relative'>
+        <Image
+          src='/images/main/gpt-recommend.svg'
+          width={390}
+          height={314}
+          alt='메인 안내 배너'
+          className='w-full'
+        />
+        <div className='absolute bottom-[calc(50%-6.25rem)] flex flex-col justify-center items-center w-full xxs:bottom-7'>
+          <h2 className=' text-clampLg font-bold text-[#333]'>
+            무슨 책을 읽을지 고민이신가요?
+          </h2>
+          <p className=' text-clampBase text-[#707070] pb-4'>
+            나만의 특별한 북 큐레이팅을 경험해보세요.
+          </p>
+          <button
+            onClick={handleMoveRecommendPage}
+            className='flex justify-center items-center text-main border rounded-[50px] pl-2 py-2 border-main text-clampSm'
+          >
+            북 큐레이팅 시작하기
+            <Image
+              src='/images/main/gpt-move.svg'
+              width={32}
+              height={32}
+              alt='gpt 페이지 이동 아이콘'
+              className='xxs:w-5'
+            />
+          </button>
         </div>
       </section>
       <section className='mt-10'>
         <p className='mx-5 text-sm font-bold text-main'>
           요즘 푹 빠져있는 관심사
         </p>
-        <h1 className='mx-5 mb-5 text-xl font-bold'>콘텐츠 추천</h1>
+        <h1 className='mx-5 mb-5 text-clampXl font-bold'>따끈따끈한 기록들</h1>
         <RecordFeedList />
       </section>
       <BottomNav />

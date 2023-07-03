@@ -67,7 +67,7 @@ const BestRecruitListItem = ({
           className='rounded-full w-11 h-11'
         />
         <div className='flex-col justify-between ml-3'>
-          <h3 className='text-base font-bold text-[#707070] truncate w-[60vw] max-w-sm xxs:w-[50vw]'>
+          <h3 className='text-clampBase font-bold text-[#707070] truncate w-[60vw] max-w-sm xxs:w-[50vw]'>
             {group_name}
           </h3>
           <p className='text-sm text-[#707070] truncate w-[60vw] max-w-sm xxs:w-[50vw]'>
