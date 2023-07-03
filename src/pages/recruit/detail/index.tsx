@@ -109,11 +109,17 @@ const RecruitDetailPage = () => {
       <div className='h-full bg-white'>
         <Header
           moreMenu={is_group_lead && moreMenu}
-          className='absolute mt-14'
+          className='absolute mt-14 z-10'
           pathname='/recruit'
         />
-        <div className='w-full h-[350px] bg-[#FFFCEA]' />
-        <main className='flex flex-col bg-white relative -top-10 px-5 rounded-t-[1.875rem] pb-24 shadow-roundY'>
+        <Image
+          src='/images/group/group-detail-illust.svg'
+          width={390}
+          height={270}
+          alt='독서 모임 상세 일러스트'
+          className='w-full'
+        />
+        <main className='flex flex-col relative -top-6 bg-white px-5 rounded-t-[1.875rem] pb-24 shadow-roundY'>
           <div className='flex items-center py-6'>
             <div className='relative flex-shrink-0'>
               <Image
@@ -150,7 +156,7 @@ const RecruitDetailPage = () => {
           {is_group_lead && (
             <button
               onClick={() => setModal(true)}
-              className='w-[5.625rem] h-[2.1875rem] border border-solid border-[#DFDFDF] rounded mb-5 flex justify-around items-center'
+              className='w-[5.625rem] h-[2.1875rem] border border-solid border-[#DFDFDF] rounded mb-5 flex justify-around items-center text-main'
             >
               {recruitment_status ? '모집중' : '모집완료'}
               <Image
