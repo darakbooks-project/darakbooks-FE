@@ -44,6 +44,14 @@ module.exports = {
       dropShadow: {
         around: '0 0 7px rgba(0, 0, 0, 0.25)',
       },
+      fontSize: {
+        clampSm: 'clamp(0.75rem, 4vw, 0.875rem)' /**14px */,
+        clampBase: 'clamp(0.875rem, 4vw, 1rem)' /**16px */,
+        clampLg: 'clamp(0.875rem, 5vw, 1.125rem)' /**18px */,
+        clampXl: 'clamp(1.125rem, 5vw, 1.25rem)' /**20px */,
+        clamp2xl: 'clamp(18px, 6vw, 1.5rem)' /**24px */,
+        clamp3xl: 'clamp(24px, 6vw, 30px)' /**30px */,
+      },
     },
     screens: {
       s: '575px',
