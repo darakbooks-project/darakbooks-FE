@@ -178,7 +178,7 @@ const Edit = () => {
                           : 'font-normal text-[11px] text-[#999797]'
                       }
                     >
-                      마이페이지 공개
+                      마이페이지 전체 공개
                     </p>
                   </article>
                   <article className='flex items-center justify-between mb-2'>
@@ -201,7 +201,7 @@ const Edit = () => {
                           : 'font-normal text-[11px] text-[#999797]'
                       }
                     >
-                      마이페이지 비공개
+                      마이페이지 전체 비공개
                     </p>
                   </article>
                 </div>
