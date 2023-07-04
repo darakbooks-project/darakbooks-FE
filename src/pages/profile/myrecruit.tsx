@@ -66,7 +66,7 @@ const MyRecruit: NextPageWithLayout = () => {
   return (
     <>
       {recruitStatus === 'success' && recruitData && (
-        <main className='flex flex-col mt-2 gap-12 px-6 py-5  h-[calc(100%_-_8.5rem)]'>
+        <main className='flex flex-col gap-12 px-6 py-5  h-[calc(100%_-_8.5rem)]'>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
             <div className='h-full flex flex-col justify-center items-center '>
               <h5 className='text-base font-medium text-[#333333]'>
