@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useRecoilState } from 'recoil';
@@ -16,6 +17,7 @@ interface InfinityScrollListsProps {
 const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
   const { ref, inView } = useInView();
   const [page, setPage] = useRecoilState(searchInfinityScrollPageAtom);
+  const { pathname } = useRouter();
   const queryClient = useQueryClient();
   const isBookSearchData = !!queryClient.getQueryData([
     'book',
@@ -32,7 +34,7 @@ const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery(
-    ['book', 'search', 'result', 'list', searchKeyword],
+    ['book', 'search', 'result', 'list', searchKeyword, pathname],
     ({ pageParam = 1 }) => getBookSearchResultData(searchKeyword, pageParam),
     {
       onSuccess: () => setPage((prev) => prev + 1),
