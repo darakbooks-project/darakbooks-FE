@@ -37,7 +37,7 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
           <ul className='grid grid-cols-[repeat(3,1fr)] gap-4'>
             {data.map((item) => (
               <li
-                className='flex flex-col items-start justify-start h-64'
+                className='flex flex-col items-start justify-start'
                 key={item.bookIsbn}
                 onClick={() =>
                   selectBook({
