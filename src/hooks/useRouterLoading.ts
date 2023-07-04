@@ -2,7 +2,7 @@ import Router from 'next/router';
 import { useEffect, useState } from 'react';
 
 export const useLoading = () => {
-  const [nowLoading, setNowLoading] = useState<boolean>(false);
+  const [nowLoading, setNowLoading] = useState(false);
   useEffect(() => {
     const start = () => {
       setNowLoading(true);
