@@ -37,7 +37,9 @@ const RecruitMemberPage = () => {
         </div>
         <div className=' border border-[#EBEAEA]' />
         <section className='px-5 '>
-          <p className='py-4 text-sm text-main'>멤버 {userGroup.length}</p>
+          <p className='py-4 text-[0.75rem] text-main'>
+            멤버 {userGroup.length}
+          </p>
           <ul>
             {userGroup.map((user) => (
               <MemberListItem
