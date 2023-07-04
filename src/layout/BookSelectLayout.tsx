@@ -8,7 +8,7 @@ function BookSelectLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   return (
-    <section className='min-h-screen flex flex-col pt-12 px-6  bg-[#ffffff]'>
+    <section className='min-h-screen flex flex-col gap-5 pt-12 px-6  bg-[#ffffff]'>
       <Header className=' pl-0' />
       <div className='flex'>
         <Link

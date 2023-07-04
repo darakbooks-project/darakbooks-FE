@@ -30,7 +30,7 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
       {status === 'success' && (
         <>
           <div>
-            <h5 className='text-[13px] py-6'>
+            <h5 className='text-[13px]'>
               전체 <span className='text-main'>{data.length}</span>권
             </h5>
           </div>
