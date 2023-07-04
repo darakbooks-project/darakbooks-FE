@@ -100,6 +100,7 @@ const MyFeed: NextPageWithLayout = () => {
     deleteRecord.mutate(id, {
       onSuccess: () => {
         refetch();
+        setModal({ type: 'HIDDEN' });
       },
     });
   };

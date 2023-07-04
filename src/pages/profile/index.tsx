@@ -94,6 +94,7 @@ const ProfilePage: NextPageWithLayout = () => {
     deleteBookShelf.mutate(bookId, {
       onSuccess: () => {
         myBookShelfRefetch();
+        setModal({ type: 'HIDDEN' });
       },
       onError: (error) => {
         const { status } = error as AxiosError;
