@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { logout } from '@/api/auth';
@@ -22,7 +22,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
     { enabled: !!ownerId },
   );
   const { data: myData, status: myStatus } = useQuery(
-    ['getUserProfile', 'profile', 'myprofile'],
+    ['getMyProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
     { enabled: !ownerId },
   );

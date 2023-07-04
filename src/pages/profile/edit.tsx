@@ -20,10 +20,6 @@ const Edit = () => {
   const { data: getMyProfile, status } = useQuery(
     ['getMyProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
-    {
-      staleTime: 1000 * 60 * 60 * 24,
-      cacheTime: 1000 * 60 * 60 * 24,
-    },
   );
 
   const [secretMode, setSecretMode] = useState<'PUBLIC' | 'PRIVATE'>(
