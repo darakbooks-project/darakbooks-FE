@@ -2,7 +2,8 @@ import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { getRecommendBookShelf } from '@/api/bookshelf';
 import { fetchBestGroup } from '@/api/main';
@@ -12,6 +13,7 @@ import BestRecruitList from '@/components/main/bestRecruit/BestRecruitList';
 import RecordFeedList from '@/components/main/mainRecordFeed/RecordFeedList';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
+import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 import { BestGroupListType } from '@/types/recruit';
 
 interface MainSSRProps {
@@ -30,10 +32,15 @@ export default function Home({ bestGroup }: MainSSRProps) {
     getRecommendBookShelf(isAuthorized),
   );
 
-  const {
-    query: { isRendedOnboarding },
-    push,
-  } = useRouter();
+  const { push } = useRouter();
+
+  const [isRendedOnboarding, setIsRendedOnboarding] = useRecoilState(
+    isRendedOnboardingAtom,
+  );
+
+  useEffect(() => {
+    moveOnboardingPage();
+  }, []);
 
   const handleMoveRecommendPage = () => {
     if (!isAuthorized) return openAuthRequiredModal();
@@ -41,10 +48,14 @@ export default function Home({ bestGroup }: MainSSRProps) {
     push('/recommend');
   };
 
-  if (!isAuthorized && !isRendedOnboarding) {
-    push('/onboarding');
-    return <></>;
-  }
+  const moveOnboardingPage = () => {
+    if (!isAuthorized && !isRendedOnboarding) {
+      push('/onboarding');
+      return <></>;
+    }
+
+    setIsRendedOnboarding(false);
+  };
 
   if (isBookshelfError) return <></>;
 

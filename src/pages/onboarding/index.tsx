@@ -2,6 +2,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
 import Slider from 'react-slick';
+import { useSetRecoilState } from 'recoil';
+
+import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
 const ONBOADINGDATA = [
   {
@@ -38,6 +41,7 @@ const ONBOADINGDATA = [
 
 const OnboardingPage = () => {
   const [lastSlide, setLastSlide] = useState(false);
+  const setIsRendedOnboarding = useSetRecoilState(isRendedOnboardingAtom);
   const router = useRouter();
 
   const settings = {
@@ -54,15 +58,8 @@ const OnboardingPage = () => {
   };
 
   const handleMoveMain = () => {
-    router.push(
-      {
-        pathname: '/',
-        query: {
-          isRendedOnboarding: 'true',
-        },
-      },
-      '/',
-    );
+    router.push('/');
+    setIsRendedOnboarding(true);
   };
 
   const handleMoveRecommend = () => {
