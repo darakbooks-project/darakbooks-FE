@@ -163,7 +163,7 @@ const MyFeed: NextPageWithLayout = () => {
                       </span>
                     ) : null}
                   </div>
-                  <section className='grid grid-cols-[repeat(3,1fr)] gap-0.5'>
+                  <section className='grid grid-cols-[repeat(3,1fr)] gap-0.5 bg-[#ffffff]'>
                     <>
                       {allRecords.map((item) => (
                         <div key={item.recordId} className='relative'>

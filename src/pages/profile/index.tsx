@@ -166,7 +166,7 @@ const ProfilePage: NextPageWithLayout = () => {
                       </span>
                     )}
                   </div>
-                  <section className='grid grid-cols-[repeat(3,1fr)] px-4 py-0 pb-16'>
+                  <section className='grid grid-cols-[repeat(3,1fr)] px-4 pb-20 bg-[#ffffff]'>
                     {bookshelfData.map((data) => (
                       <article
                         className='relative flex flex-col items-center mb-4'
