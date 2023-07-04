@@ -34,37 +34,41 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
               전체 <span className='text-main'>{data.length}</span>권
             </h5>
           </div>
-          <ul className='grid grid-cols-[repeat(3,1fr)] gap-4'>
-            {data.map((item) => (
-              <li
-                className='flex flex-col items-start justify-start'
-                key={item.bookIsbn}
-                onClick={() =>
-                  selectBook({
-                    isbn: item.bookIsbn,
-                    thumbnail: item.thumbnail,
-                    title: item.title,
-                    author: item.authors[0],
-                  })
-                }
-              >
-                <Image
-                  src={item.thumbnail}
-                  alt={item.title}
-                  width='0'
-                  height='0'
-                  sizes='100vw'
-                  className='w-full h-[9.5rem] s:h-[14rem] mb-2.5 rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0,0,0,0.25)]'
-                />
-                <h2 className='w-full text-[13px] text-[#333333] mx-0 my-[5px] text-center'>
-                  {item.title}
-                </h2>
-                <h3 className='w-full text-[11px] text-[#707070] text-center'>
-                  {item.authors[0]}
-                </h3>
-              </li>
-            ))}
-          </ul>
+          {data.length > 0 ? (
+            <ul className='grid grid-cols-[repeat(3,1fr)] gap-4'>
+              {data.map((item) => (
+                <li
+                  className='flex flex-col items-start justify-start'
+                  key={item.bookIsbn}
+                  onClick={() =>
+                    selectBook({
+                      isbn: item.bookIsbn,
+                      thumbnail: item.thumbnail,
+                      title: item.title,
+                      author: item.authors[0],
+                    })
+                  }
+                >
+                  <Image
+                    src={item.thumbnail}
+                    alt={item.title}
+                    width='0'
+                    height='0'
+                    sizes='100vw'
+                    className='w-full h-[9.5rem] s:h-[14rem] mb-2.5 rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0,0,0,0.25)]'
+                  />
+                  <h2 className='w-full text-[13px] text-[#333333] mx-0 my-[5px] text-center'>
+                    {item.title}
+                  </h2>
+                  <h3 className='w-full text-[11px] text-[#707070] text-center'>
+                    {item.authors[0]}
+                  </h3>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className='p-10 text-center'>등록된 책이 없습니다.</div>
+          )}
           {modal && (
             <SelectModal
               isbn={sendData.isbn}
