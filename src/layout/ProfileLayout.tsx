@@ -8,6 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import { logout } from '@/api/auth';
 import { getProfileApi } from '@/api/profile';
 import { isAuthorizedSelector } from '@/recoil/auth';
+import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
 function ProfileLayout({ children }: { children: ReactNode }) {
   const {
@@ -15,6 +16,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
     push,
     pathname,
   } = useRouter();
+  const setIsRendedOnboarding = useSetRecoilState(isRendedOnboardingAtom);
   const mine = !ownerId;
   const { data: someoneData, status: someoneStatus } = useQuery(
     ['getUserProfile', 'profile', ownerId],
@@ -34,8 +36,8 @@ function ProfileLayout({ children }: { children: ReactNode }) {
 
   const onLogout = () => {
     logout();
-    push('/');
     setIsAuthorized(false);
+    setIsRendedOnboarding(true);
   };
 
   const routes = (pathname: string) => {
