@@ -159,10 +159,14 @@ const ProfilePage: NextPageWithLayout = () => {
                     </span>
                     {userData?.isMine && (
                       <span
-                        className='text-[15px] text-main'
+                        className={
+                          edit
+                            ? 'text-[15px] text-[#F05050]'
+                            : 'text-[15px] text-main'
+                        }
                         onClick={() => setEdit((prev) => !prev)}
                       >
-                        {edit ? '완료' : '편집'}
+                        {edit ? '삭제' : '편집'}
                       </span>
                     )}
                   </div>
