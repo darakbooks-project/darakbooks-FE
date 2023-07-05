@@ -148,7 +148,7 @@ const BookDetailPage = () => {
   }, [getBookDataByIsnValid, router]);
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col gap-1.5'>
       {getBookDataByIsnValid && (
         <>
           <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#ffffff] gap-5'>
