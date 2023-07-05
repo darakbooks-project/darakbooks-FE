@@ -67,7 +67,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <main
-            className={`${notoSans.className} ${lato.variable} ${prettyNight.variable}`}
+            className={`${notoSans.className} ${lato.variable} ${prettyNight.variable} h-full`}
           >
             {nowLoading && <LoadingSpinner />}
             {getLayout(<Component {...pageProps} />)}
