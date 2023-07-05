@@ -94,6 +94,7 @@ const ProfilePage: NextPageWithLayout = () => {
     deleteBookShelf.mutate(bookId, {
       onSuccess: () => {
         myBookShelfRefetch();
+        setModal({ type: 'HIDDEN' });
       },
       onError: (error) => {
         const { status } = error as AxiosError;
@@ -158,59 +159,59 @@ const ProfilePage: NextPageWithLayout = () => {
                     </span>
                     {userData?.isMine && (
                       <span
-                        className='text-[15px] text-main'
+                        className={
+                          edit
+                            ? 'text-[15px] text-[#F05050]'
+                            : 'text-[15px] text-main'
+                        }
                         onClick={() => setEdit((prev) => !prev)}
                       >
-                        {edit ? '완료' : '편집'}
+                        {edit ? '삭제' : '편집'}
                       </span>
                     )}
                   </div>
-                  <section className='grid grid-cols-[repeat(3,1fr)] px-4 py-0 pb-16'>
+                  <section className='grid grid-cols-[repeat(3,1fr)] px-4 pb-20 bg-[#ffffff]'>
                     {bookshelfData.map((data) => (
-                      <>
-                        <article
-                          className='relative flex flex-col items-center mb-4'
-                          key={data.bookIsbn}
-                          onClick={() =>
-                            openBookShelf(data.bookIsbn, data.title)
-                          }
-                        >
-                          {edit && (
-                            <Image
-                              src='/images/profile/delete.svg'
-                              alt='delete'
-                              width={32}
-                              height={32}
-                              className='absolute -right-3 -top-3'
-                              onClick={(
-                                event: React.MouseEvent<HTMLImageElement>,
-                              ) => {
-                                event.stopPropagation();
-                                openBookShelfDelete(data.bookIsbn);
-                              }}
-                            />
-                          )}
+                      <article
+                        className='relative flex flex-col items-center mb-4'
+                        key={data.bookIsbn}
+                        onClick={() => openBookShelf(data.bookIsbn, data.title)}
+                      >
+                        {edit && (
+                          <Image
+                            src='/images/profile/delete.svg'
+                            alt='delete'
+                            width={32}
+                            height={32}
+                            className='absolute -right-3 -top-3'
+                            onClick={(
+                              event: React.MouseEvent<HTMLImageElement>,
+                            ) => {
+                              event.stopPropagation();
+                              openBookShelfDelete(data.bookIsbn);
+                            }}
+                          />
+                        )}
 
-                          <section className='w-full shadow-[0px_4px_8px_rgba(0,0,0,0.15)] mb-4 p-[7px]'>
-                            <Image
-                              src={data.thumbnail}
-                              alt={data.title}
-                              width='0'
-                              height='0'
-                              sizes='100vw'
-                              className='w-full h-[9.5rem] s:h-[14rem] rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
-                            />
-                          </section>
-                          <div className='flex flex-col items-center w-full'>
-                            <h3 className='text-[13px] text-[#333333] mb-[5px] text-center'>
-                              {data.title}
-                            </h3>
-                            <h4 className='text-[11px] text-[#707070]'>
-                              {data.authors[0]}
-                            </h4>
-                          </div>
-                        </article>
-                      </>
+                        <section className='w-full shadow-[0px_4px_8px_rgba(0,0,0,0.15)] mb-4 p-[7px]'>
+                          <Image
+                            src={data.thumbnail}
+                            alt={data.title}
+                            width='0'
+                            height='0'
+                            sizes='100vw'
+                            className='w-full h-[9.5rem] s:h-[14rem] rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
+                          />
+                        </section>
+                        <div className='flex flex-col items-center w-full'>
+                          <h3 className='text-[13px] text-[#333333] mb-[5px] text-center'>
+                            {data.title}
+                          </h3>
+                          <h4 className='text-[11px] text-[#707070]'>
+                            {data.authors[0]}
+                          </h4>
+                        </div>
+                      </article>
                     ))}
                     {modal.type === 'BOOKSHELF' && (
                       <Modal>
