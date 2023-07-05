@@ -236,16 +236,14 @@ const BookDetailPage = () => {
                         @ {item.user.nickname}
                       </h3>
                     </div>
-                    <div className='w-16 h-16 '>
-                      <Image
-                        src={item.recordImgUrl}
-                        alt='테스트2'
-                        width='0'
-                        height='0'
-                        sizes='100vw'
-                        className='w-full h-auto'
-                      />
-                    </div>
+
+                    <Image
+                      src={item.recordImgUrl}
+                      alt='테스트2'
+                      width={64}
+                      height={64}
+                      className='w-16 h-16'
+                    />
                   </li>
                 </Link>
               ))}
