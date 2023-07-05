@@ -35,6 +35,7 @@ module.exports = {
       colors: {
         main: '#60B28D',
         background: '#FFFEF8',
+        textBlack: '#333333',
       },
       boxShadow: {
         round: '4px 4px 8px rgba(0, 0, 0, 0.15)',
@@ -49,8 +50,8 @@ module.exports = {
         clampBase: 'clamp(0.875rem, 4vw, 1rem)' /**16px */,
         clampLg: 'clamp(0.875rem, 5vw, 1.125rem)' /**18px */,
         clampXl: 'clamp(1.125rem, 6vw, 1.25rem)' /**20px */,
-        clamp2xl: 'clamp(18px, 6vw, 1.5rem)' /**24px */,
-        clamp3xl: 'clamp(24px, 6vw, 30px)' /**30px */,
+        clamp2xl: 'clamp(1.125rem, 6vw, 1.5rem)' /**24px */,
+        clamp3xl: 'clamp(1.5rem, 6vw, 1.875rem)' /**30px */,
       },
     },
     screens: {
