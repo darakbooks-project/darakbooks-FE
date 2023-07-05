@@ -120,6 +120,22 @@ const BookDetailPage = () => {
     });
   };
 
+  const onRecordClick = (recordId: number, isbn: string, type: string) => {
+    if (!isAuthorized) {
+      openAuthRequiredModal();
+      return;
+    }
+
+    router.push({
+      pathname: '/book/feed',
+      query: {
+        recordId,
+        isbn,
+        type,
+      },
+    });
+  };
+
   useEffect(() => {
     if (!getAllDetailRecords) return;
     if (hasNextPage && inView) fetchNextPage();
@@ -131,15 +147,11 @@ const BookDetailPage = () => {
     }
   }, [getBookDataByIsnValid, router]);
 
-  if (isLoading) {
-    return <div>로딩 중</div>;
-  }
-
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col gap-1.5'>
       {getBookDataByIsnValid && (
         <>
-          <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#ffffff] gap-5'>
+          <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#FFFEF8] gap-5'>
             <div className='w-full px-4'>
               <Image
                 src='/images/detail/back.svg'
@@ -165,7 +177,9 @@ const BookDetailPage = () => {
                 {getBookDataByIsbn?.documents[0].title}
               </h1>
               <h3 className='text-[13px]'>
-                {getBookDataByIsbn?.documents[0].authors[0]} 지음
+                {getBookDataByIsbn?.documents[0].authors[0]
+                  ? getBookDataByIsbn?.documents[0].authors[0] + ' 지음'
+                  : ''}
               </h3>
               <h4 className='text-[13px] text-[#999797]'>
                 {getBookDataByIsbn?.documents[0].publisher}
@@ -182,7 +196,7 @@ const BookDetailPage = () => {
                 introductionHeight ? 'h-[45px]' : null
               }`}
             >
-              {getBookDataByIsbn?.documents[0].contents}
+              {getBookDataByIsbn?.documents[0].contents}...
             </p>
             {showMore ? (
               <div className='border-t-[#ebeaea] border-t border-solid mt-4 flex justify-center pt-2'>
@@ -210,22 +224,21 @@ const BookDetailPage = () => {
       )}
       <section className='border p-5 pb-20 border-solid bg-[#ffffff]'>
         <h2 className='not-italic font-bold text-xl leading-[29px] mb-4'>
-          관련 기록
+          이 책을 읽고
         </h2>
         <ul className='flex flex-col '>
           {status === 'success' && bookRelatedAllRecord!.length > 0 ? (
             <>
               {bookRelatedAllRecord?.map((item) => (
-                <Link
+                <div
                   key={item.recordId}
-                  href={{
-                    pathname: '/book/feed',
-                    query: {
-                      recordId: item.recordId,
-                      isbn: router.query.isbn as string,
-                      type: 'DETAIL',
-                    },
-                  }}
+                  onClick={() =>
+                    onRecordClick(
+                      item.recordId,
+                      router.query.isbn as string,
+                      'DETAIL',
+                    )
+                  }
                 >
                   <li className='w-full flex justify-between px-0 py-4 border-b-[#ebeaea] border-b border-solid'>
                     <div className='flex flex-col justify-between w-9/12'>
@@ -238,24 +251,22 @@ const BookDetailPage = () => {
                         @ {item.user.nickname}
                       </h3>
                     </div>
-                    <div className='w-16 h-16 '>
-                      <Image
-                        src={item.recordImgUrl}
-                        alt='테스트2'
-                        width='0'
-                        height='0'
-                        sizes='100vw'
-                        className='w-full h-auto'
-                      />
-                    </div>
+
+                    <Image
+                      src={item.recordImgUrl}
+                      alt='테스트2'
+                      width={64}
+                      height={64}
+                      className='w-16 h-16'
+                    />
                   </li>
-                </Link>
+                </div>
               ))}
             </>
           ) : (
             <div className='flex flex-col justify-center items-center h-[18rem]'>
               <span className='text-lg text-[#333333]'>
-                관련 기록이 없어요.
+                독서 기록이 없어요.
               </span>
               <span className='text-sm text-[#707070]'>
                 가장 먼저 기록을 남겨보세요!
