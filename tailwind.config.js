@@ -58,6 +58,10 @@ module.exports = {
       xs: { max: '390px' },
       xxs: { max: '280px' },
     },
+    fontFamily: {
+      lato: ['var(--lato)'],
+      prettyNight: ['var(--prettyNight)'],
+    },
   },
   plugins: [],
 };
