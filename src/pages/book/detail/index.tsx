@@ -161,7 +161,9 @@ const BookDetailPage = () => {
                 {getBookDataByIsbn?.documents[0].title}
               </h1>
               <h3 className='text-[13px]'>
-                {getBookDataByIsbn?.documents[0].authors[0]} 지음
+                {getBookDataByIsbn?.documents[0].authors[0]
+                  ? getBookDataByIsbn?.documents[0].authors[0] + ' 지음'
+                  : ''}
               </h3>
               <h4 className='text-[13px] text-[#999797]'>
                 {getBookDataByIsbn?.documents[0].publisher}
