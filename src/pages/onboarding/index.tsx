@@ -10,30 +10,30 @@ const ONBOADINGDATA = [
   {
     title: '책으로 채우는 일상',
     desc: (
-      <h3>
+      <>
         오늘은 무슨 책을 읽으셨나요?
         <br /> 좋아하는 책, 인상깊은 구절을 기록해보세요
-      </h3>
+      </>
     ),
     image: '/images/onboarding/onboarding1.svg',
   },
   {
     title: '함께하는 지적 대화',
     desc: (
-      <h3>
+      <>
         누군가와 같은 책을 읽고 함께 하는 이야기, <br />
         비슷한 취향의 사람들과 함께 소통해보세요
-      </h3>
+      </>
     ),
     image: '/images/onboarding/onboarding2.svg',
   },
   {
     title: '더많은 책과 친해지기',
     desc: (
-      <h3>
+      <>
         수많은 책들 사이 나에게 딱! 맞는 책 한 권<br />
         다락책방이 차근차근 골라드릴게요
-      </h3>
+      </>
     ),
     image: '/images/onboarding/onboarding3.svg',
   },
@@ -78,7 +78,7 @@ const OnboardingPage = () => {
           {ONBOADINGDATA.map((item) => (
             <Fragment key={item.title}>
               <div className='flex flex-col justify-center w-full pb-11'>
-                <h2 className='mb-3 text-2xl font-bold text-main xxs:text-xl'>
+                <h2 className='mb-3 text-[1.625rem] font-medium text-main xxs:text-xl'>
                   {item.title}
                 </h2>
                 <p className='text-[#707070] xxs:text-sm'>{item.desc}</p>
@@ -114,7 +114,7 @@ const OnboardingPage = () => {
           <div className='absolute right-0 flex flex-row-reverse bottom-2'>
             <button
               onClick={handleMoveSkip}
-              className='pt-4 pb-0 pr-3 text-[#999797]'
+              className='pt-4 pb-0 pr-3 text-[#999797] font-prettyNight'
             >
               Skip
             </button>
