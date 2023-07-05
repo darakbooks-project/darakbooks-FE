@@ -27,10 +27,9 @@ const RecommendCompletePage = () => {
     cacheTime: 0,
   });
 
-  if (isError) return <>로딩중입니다.</>;
-  if (isLoading) return <>실패했습니다.</>;
+  if (isLoading) return <></>;
 
-  if (!recommendBookData.documents.length)
+  if (isError || !recommendBookData.documents.length)
     return (
       <div className='flex flex-col items-center justify-center h-full'>
         <p>책을 찾지 못했어요! 다시 시도해주세요</p>
@@ -59,7 +58,7 @@ const RecommendCompletePage = () => {
     <div className='flex flex-col items-center justify-between h-full px-8 bg-[url(/images/bookRecommend/background3.svg)] bg-no-repeat bg-cover bg-center'>
       <Header className='flex-initial pl-0 mt-14' />
       <div className='flex-initial w-full'>
-        <h2 className='mb-5 text-clampLg font-semibold text-center'>
+        <h2 className='mb-5 font-semibold text-center text-clampLg'>
           나의 답변
         </h2>
         <p className='w-full text-center border-b'>
