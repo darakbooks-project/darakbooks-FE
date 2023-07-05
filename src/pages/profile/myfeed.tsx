@@ -100,6 +100,7 @@ const MyFeed: NextPageWithLayout = () => {
     deleteRecord.mutate(id, {
       onSuccess: () => {
         refetch();
+        setModal({ type: 'HIDDEN' });
       },
     });
   };
@@ -155,41 +156,41 @@ const MyFeed: NextPageWithLayout = () => {
                     </span>
                     {userData?.isMine ? (
                       <span
-                        className='text-[15px] text-[#333333]'
+                        className={
+                          edit
+                            ? 'text-[15px] text-[#F05050]'
+                            : 'text-[15px] text-main'
+                        }
                         onClick={() => setEdit((prev) => !prev)}
                       >
-                        {edit ? '완료' : '편집'}
+                        {edit ? '삭제' : '편집'}
                       </span>
                     ) : null}
                   </div>
-                  <section className='grid grid-cols-[repeat(3,1fr)] gap-0.5'>
-                    <>
-                      {allRecords.map((item) => (
-                        <div key={item.recordId} className='relative'>
-                          {edit && (
-                            <Image
-                              src='/images/profile/red-delete.svg'
-                              alt='delete'
-                              width={32}
-                              height={32}
-                              className='absolute -right-1 -bottom-1'
-                              onClick={() =>
-                                openRecordDelete(item.recordId + '')
-                              }
-                            />
-                          )}
+                  <section className='grid grid-cols-[repeat(3,1fr)] gap-0.5 bg-[#ffffff] pb-20'>
+                    {allRecords.map((item) => (
+                      <div key={item.recordId} className='relative'>
+                        {edit && (
                           <Image
-                            src={item.recordImgUrl}
-                            alt={item.book.title}
-                            width='0'
-                            height='0'
-                            sizes='100vw'
-                            className='h-32 w-full s:h-[12rem]'
-                            onClick={() => onRecordClick(item.recordId + '')}
+                            src='/images/profile/red-delete.svg'
+                            alt='delete'
+                            width={32}
+                            height={32}
+                            className='absolute -right-1 -bottom-1'
+                            onClick={() => openRecordDelete(item.recordId + '')}
                           />
-                        </div>
-                      ))}
-                    </>
+                        )}
+                        <Image
+                          src={item.recordImgUrl}
+                          alt={item.book.title}
+                          width='0'
+                          height='0'
+                          sizes='100vw'
+                          className='h-32 w-full s:h-[12rem]'
+                          onClick={() => onRecordClick(item.recordId + '')}
+                        />
+                      </div>
+                    ))}
                   </section>
                   <div ref={ref}></div>
                   {modal.type === 'DELETERECORD' && (

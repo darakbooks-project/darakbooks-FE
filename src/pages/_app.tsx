@@ -12,6 +12,8 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 
 import LoginModal from '@/components/auth/LoginModal';
+import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { useLoading } from '@/hooks/useRouterLoading';
 import Layout from '@/layout/Layout';
 import { NextPageWithLayout } from '@/types/layout';
 
@@ -37,6 +39,7 @@ const prettyNight = localFont({
 });
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const { nowLoading } = useLoading();
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -66,6 +69,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           <main
             className={`${notoSans.className} ${lato.variable} ${prettyNight.variable}`}
           >
+            {nowLoading && <LoadingSpinner />}
             {getLayout(<Component {...pageProps} />)}
             <LoginModal />
           </main>

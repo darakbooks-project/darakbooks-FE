@@ -20,10 +20,6 @@ const Edit = () => {
   const { data: getMyProfile, status } = useQuery(
     ['getMyProfile', 'profile', 'myprofile'],
     () => getProfileApi(),
-    {
-      staleTime: 1000 * 60 * 60 * 24,
-      cacheTime: 1000 * 60 * 60 * 24,
-    },
   );
 
   const [secretMode, setSecretMode] = useState<'PUBLIC' | 'PRIVATE'>(
@@ -175,8 +171,14 @@ const Edit = () => {
                         공개
                       </span>
                     </div>
-                    <p className='not-italic font-normal text-[11px] text-[#999797]'>
-                      나의 모든 게시글, 책장, 기록 전체 공개
+                    <p
+                      className={
+                        secretMode === 'PUBLIC'
+                          ? 'font-normal text-[11px] text-[#60B28D]'
+                          : 'font-normal text-[11px] text-[#999797]'
+                      }
+                    >
+                      마이페이지 전체 공개
                     </p>
                   </article>
                   <article className='flex items-center justify-between mb-2'>
@@ -192,8 +194,14 @@ const Edit = () => {
                         비공개
                       </span>
                     </div>
-                    <p className='not-italic font-normal text-[11px] text-[#999797]'>
-                      나의 모든 게시글, 책장, 기록 전체 비공개
+                    <p
+                      className={
+                        secretMode === 'PRIVATE'
+                          ? 'font-normal text-[11px] text-[#60B28D]'
+                          : 'font-normal text-[11px] text-[#999797]'
+                      }
+                    >
+                      마이페이지 전체 비공개
                     </p>
                   </article>
                 </div>
