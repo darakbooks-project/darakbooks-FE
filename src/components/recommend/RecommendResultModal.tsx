@@ -10,6 +10,7 @@ import tw from 'tailwind-styled-components';
 import { postBookshelfApi } from '@/api/bookshelf';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { selectRecommendResultModalAtom } from '@/recoil/modal';
+import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
 interface RecommendResultType {
   authors: string[];
@@ -46,6 +47,7 @@ const ModalOverlay = ({
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
   const router = useRouter();
   const [flip, setFlip] = useState(false);
+  const setIsRendedOnboarding = useSetRecoilState(isRendedOnboardingAtom);
 
   const handleAddMyBookShelf = () => {
     const bookData = {
@@ -75,15 +77,8 @@ const ModalOverlay = ({
   };
 
   const handleMoveMain = () => {
-    router.push(
-      {
-        pathname: '/',
-        query: {
-          isRendedOnboarding: 'true',
-        },
-      },
-      '/',
-    );
+    router.push('/');
+    setIsRendedOnboarding(true);
     setRecommendResultModal(false);
   };
 

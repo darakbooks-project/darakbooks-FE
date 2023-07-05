@@ -46,20 +46,20 @@ const RecruitUserManagement = ({
   const groupJoinModal = (
     <div className='flex flex-col items-center justify-center'>
       <Image src='/images/group/join.svg' alt='참여' width={54} height={54} />
-      <h3 className='text-xl font-bold'>{groupName}</h3>
-      <p className='pb-7'>모임에 참여하시겠어요?</p>
+      <h3 className='text-clampLg font-bold'>{groupName}</h3>
+      <p className='pb-7 text-clampSm'>모임에 참여하시겠어요?</p>
       <div className='flex w-full'>
         <button
           onClick={() => setModal({ type: 'HIDDEN' })}
           disabled={isJoinLoading}
-          className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
+          className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333] text-clampSm'
         >
           취소
         </button>
         <button
           onClick={() => joinGroupUser(groupId)}
           disabled={isJoinLoading}
-          className='w-3/4 h-12 text-white rounded-lg bg-main disabled:bg-zinc-300'
+          className='w-3/4 h-12 text-white rounded-lg bg-main disabled:bg-zinc-300 text-clampSm'
         >
           {isJoinLoading ? '로딩중' : '참여'}
         </button>
@@ -70,20 +70,20 @@ const RecruitUserManagement = ({
   const groupLeaveModal = (
     <div className='flex flex-col items-center justify-center'>
       <Image src='/images/group/leave.svg' alt='탈퇴' width={54} height={54} />
-      <h3 className='text-xl font-bold'>정말 탈퇴하시겠어요?</h3>
-      <p className='pb-7'>더 이상 모임에 참여할 수 없어요</p>
+      <h3 className='text-clampLg font-bold'>정말 탈퇴하시겠어요?</h3>
+      <p className='pb-7 text-clampSm'>더 이상 모임에 참여할 수 없어요</p>
       <div className='flex w-full'>
         <button
           onClick={() => setModal({ type: 'HIDDEN' })}
           disabled={isLeaveLoading}
-          className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
+          className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333] text-clampSm'
         >
           취소
         </button>
         <button
           onClick={() => leaveGroupUser(groupId)}
           disabled={isLeaveLoading}
-          className='w-3/4 h-12 bg-[#F05050] rounded-lg text-white disabled:bg-zinc-300'
+          className='w-3/4 h-12 bg-[#F05050] rounded-lg text-white disabled:bg-zinc-300 text-clampSm'
         >
           {isLeaveLoading ? '로딩중' : '탈퇴'}
         </button>

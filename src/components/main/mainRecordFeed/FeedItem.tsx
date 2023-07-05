@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { useAuth } from '@/hooks/useAuth';
+import useRememberScroll from '@/hooks/useRememberScroll';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { RecordType } from '@/types/record';
 
@@ -15,6 +16,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
   const router = useRouter();
 
   const { openAuthRequiredModal } = useAuth();
+  const { setScroll } = useRememberScroll('mainFeed');
 
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
 
@@ -23,7 +25,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
       openAuthRequiredModal();
       return;
     }
-
+    setScroll();
     router.push({
       pathname: 'book/feed',
       query: {

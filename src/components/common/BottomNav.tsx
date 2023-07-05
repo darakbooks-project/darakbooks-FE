@@ -1,28 +1,28 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
+import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
 interface ButtonType {
   src: string;
   text: string;
   path: string;
-  as?: string;
 }
 
 const BottomNav = () => {
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
+  const setIsRendedOnboarding = useSetRecoilState(isRendedOnboardingAtom);
 
   const { push, pathname } = useRouter();
 
   const navItemPropertyArr: ButtonType[] = [
     {
-      path: '/?isRendedOnboarding=true',
-      as: '/',
+      path: '/',
       text: '홈',
       src: 'home',
     },
@@ -48,21 +48,21 @@ const BottomNav = () => {
     },
   ];
 
-  const moveBottomNavPage = (path: string, src: string, as?: string) => {
+  const moveBottomNavPage = (path: string, src: string) => {
     if (src === 'record' && !isAuthorized) return openAuthRequiredModal();
-    push(path, as && as);
+    if (src === 'home') setIsRendedOnboarding(true);
+    push(path);
   };
 
   return (
     <Container>
       <Wrap>
         {navItemPropertyArr.map((button: ButtonType) => {
-          const { path, text, src, as } = button;
-          const isClickedPath = src === 'home' ? '/' : path;
-          const isClicked = isClickedPath === pathname;
+          const { path, text, src } = button;
+          const isClicked = path === pathname;
 
           return (
-            <Button onClick={() => moveBottomNavPage(path, src, as)} key={src}>
+            <Button onClick={() => moveBottomNavPage(path, src)} key={src}>
               <Image
                 width={45}
                 height={45}
