@@ -42,7 +42,7 @@ const BookShelfPreview = ({
     >
       <div className='flex'>
         <div className='flex flex-col w-[100%]'>
-          <p className='text-xs ml-[calc((50%-(5.491rem/2)-5.491rem)/2)] relative top-3 xxs:ml-[calc((50%-5.491rem)/2-0.5rem)]'>
+          <p className='text-xs font-medium ml-[calc((50%-(5.491rem/2)-5.491rem)/2)] relative top-3 xxs:ml-[calc((50%-5.491rem)/2-0.5rem)]'>
             {nickname}의 서재
           </p>
           <div className='flex justify-evenly items-center w-[100%] relative top-6 xs:p-1'>

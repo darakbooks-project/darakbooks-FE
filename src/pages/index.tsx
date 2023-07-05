@@ -60,7 +60,7 @@ export default function Home({ bestGroup }: MainSSRProps) {
   if (isBookshelfError) return <></>;
 
   return (
-    <main className='pb-20 bg-white'>
+    <div className='pb-20 bg-white text-textBlack'>
       <section className='relative w-full'>
         <Image
           src='/images/main/main-banner.svg'
@@ -77,17 +77,19 @@ export default function Home({ bestGroup }: MainSSRProps) {
           className='absolute w-[18%] max-w-[6.25rem] ml-5 top-12'
         />
         <div className='absolute ml-5 bottom-6 left-12%'>
-          <p className='text-clamp2xl font-bold text-main'>어서오세요</p>
+          <p className='font-bold text-[1.75rem] text-main xxs:text-lg'>
+            어서오세요
+          </p>
           <p className='text-clampSm'>오늘은 어떤 책을 읽으셨나요?</p>
         </div>
       </section>
       <section className='mx-5 mt-14'>
-        <p className='text-clampSm font-bold text-main'>
+        <p className='font-medium text-clampSm text-main'>
           오늘의 나를 위한 도서 선택
         </p>
-        <h1 className='mb-5 text-clampXl font-bold'>인기서재 추천</h1>
+        <h1 className='mb-5 font-bold text-clampXl'>맞춤 서재 추천</h1>
         {isBookshelfLoading ? (
-          <div className='w-[100%] h-[187px] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'>
+          <div className='w-[100%] h-[11.6875rem] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'>
             <h3 className='flex items-center justify-center h-full'>
               추천 책장을 찾고 있어요!
             </h3>
@@ -102,7 +104,7 @@ export default function Home({ bestGroup }: MainSSRProps) {
         )}
       </section>
       <BestRecruitList BestGroupList={bestGroup} />
-      <section className='mt-12 relative'>
+      <section className='relative mt-12'>
         <Image
           src='/images/main/gpt-recommend.svg'
           width={390}
@@ -111,7 +113,7 @@ export default function Home({ bestGroup }: MainSSRProps) {
           className='w-full'
         />
         <div className='absolute bottom-[calc(50%-6.25rem)] flex flex-col justify-center items-center w-full xxs:bottom-7'>
-          <h2 className=' text-clampLg font-bold text-[#333]'>
+          <h2 className='font-bold text-clampLg]'>
             무슨 책을 읽을지 고민이신가요?
           </h2>
           <p className=' text-clampBase text-[#707070] pb-4'>
@@ -133,14 +135,14 @@ export default function Home({ bestGroup }: MainSSRProps) {
         </div>
       </section>
       <section className='mt-10'>
-        <p className='mx-5 text-sm font-bold text-main'>
+        <p className='mx-5 text-sm font-medium text-main'>
           요즘 푹 빠져있는 관심사
         </p>
-        <h1 className='mx-5 mb-5 text-clampXl font-bold'>따끈따끈한 기록들</h1>
+        <h1 className='mx-5 mb-5 font-bold text-clampXl'>따끈따끈한 기록들</h1>
         <RecordFeedList />
       </section>
       <BottomNav />
-    </main>
+    </div>
   );
 }
 
