@@ -208,7 +208,7 @@ const BookDetailPage = () => {
       )}
       <section className='border p-5 pb-20 border-solid bg-[#ffffff]'>
         <h2 className='not-italic font-bold text-xl leading-[29px] mb-4'>
-          관련 기록
+          이 책을 읽고
         </h2>
         <ul className='flex flex-col '>
           {status === 'success' && bookRelatedAllRecord!.length > 0 ? (
@@ -253,7 +253,7 @@ const BookDetailPage = () => {
           ) : (
             <div className='flex flex-col justify-center items-center h-[18rem]'>
               <span className='text-lg text-[#333333]'>
-                관련 기록이 없어요.
+                독서 기록이 없어요.
               </span>
               <span className='text-sm text-[#707070]'>
                 가장 먼저 기록을 남겨보세요!
