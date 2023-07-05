@@ -120,6 +120,22 @@ const BookDetailPage = () => {
     });
   };
 
+  const onRecordClick = (recordId: number, isbn: string, type: string) => {
+    if (!isAuthorized) {
+      openAuthRequiredModal();
+      return;
+    }
+
+    router.push({
+      pathname: '/book/feed',
+      query: {
+        recordId,
+        isbn,
+        type,
+      },
+    });
+  };
+
   useEffect(() => {
     if (!getAllDetailRecords) return;
     if (hasNextPage && inView) fetchNextPage();
@@ -214,16 +230,15 @@ const BookDetailPage = () => {
           {status === 'success' && bookRelatedAllRecord!.length > 0 ? (
             <>
               {bookRelatedAllRecord?.map((item) => (
-                <Link
+                <div
                   key={item.recordId}
-                  href={{
-                    pathname: '/book/feed',
-                    query: {
-                      recordId: item.recordId,
-                      isbn: router.query.isbn as string,
-                      type: 'DETAIL',
-                    },
-                  }}
+                  onClick={() =>
+                    onRecordClick(
+                      item.recordId,
+                      router.query.isbn as string,
+                      'DETAIL',
+                    )
+                  }
                 >
                   <li className='w-full flex justify-between px-0 py-4 border-b-[#ebeaea] border-b border-solid'>
                     <div className='flex flex-col justify-between w-9/12'>
@@ -245,7 +260,7 @@ const BookDetailPage = () => {
                       className='w-16 h-16'
                     />
                   </li>
-                </Link>
+                </div>
               ))}
             </>
           ) : (
