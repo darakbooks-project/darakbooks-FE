@@ -41,8 +41,7 @@ const RecruitNotification = ({
   return (
     <div className='flex items-center pb-3'>
       <Image src={iconSrc} alt={title} width={24} height={24} />
-      <p className='px-3 text-sm text-[#707070]'>{title}</p>
-      <p className='text-sm font-bold'>{displayDetail(title, isMember)}</p>
+      <p className='text-sm font-bold pl-4'>{displayDetail(title, isMember)}</p>
     </div>
   );
 };

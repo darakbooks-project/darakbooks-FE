@@ -39,7 +39,7 @@ const Header = ({ title, moreMenu, className, pathname }: Props) => {
           alt='뒤로 가기 버튼입니다'
         />
       </div>
-      <div className='text-xl text-center flex-[4_4_0%]'>{title}</div>
+      <div className='text-clampXl text-center flex-[4_4_0%]'>{title}</div>
       <div className='flex-1 text-right'>{moreMenu && moreMenu}</div>
       {/**수정버튼 등 오른쪽 메뉴 추가 */}
     </div>
