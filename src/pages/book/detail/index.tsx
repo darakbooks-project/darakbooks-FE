@@ -151,7 +151,7 @@ const BookDetailPage = () => {
     <div className='flex flex-col gap-1.5'>
       {getBookDataByIsnValid && (
         <>
-          <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#ffffff] gap-5'>
+          <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#FFFEF8] gap-5'>
             <div className='w-full px-4'>
               <Image
                 src='/images/detail/back.svg'
