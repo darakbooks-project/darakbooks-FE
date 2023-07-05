@@ -180,7 +180,7 @@ const BookDetailPage = () => {
                 introductionHeight ? 'h-[45px]' : null
               }`}
             >
-              {getBookDataByIsbn?.documents[0].contents}
+              {getBookDataByIsbn?.documents[0].contents}...
             </p>
             {showMore ? (
               <div className='border-t-[#ebeaea] border-t border-solid mt-4 flex justify-center pt-2'>
