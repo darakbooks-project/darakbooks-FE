@@ -33,7 +33,7 @@ const lato = Lato({
 });
 
 const prettyNight = localFont({
-  src: './../../public/fonts/Cafe24Oneprettynight-v2.0.woff2',
+  src: '../../public/fonts/Cafe24Oneprettynight-v2.0.woff2',
   weight: '400',
   variable: '--prettyNight',
 });
