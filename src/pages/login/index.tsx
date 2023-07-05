@@ -1,20 +1,26 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import LoginButton from '@/components/auth/LoginButton';
 import { isAuthorizedSelector } from '@/recoil/auth';
+import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
 const LoginPage = () => {
-  const { back } = useRouter();
+  const { back, push } = useRouter();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
+  const setIsRendedOnboarding = useSetRecoilState(isRendedOnboardingAtom);
 
   useEffect(() => {
     if (isAuthorized) back();
   }, [isAuthorized, back]);
+
+  const moveMainPage = () => {
+    push('/');
+    setIsRendedOnboarding(true);
+  };
 
   return (
     !isAuthorized && (
@@ -45,7 +51,7 @@ const LoginPage = () => {
               </ButtonItem>
               <ButtonItem></ButtonItem>
             </LoginButton>
-            <LinkStyles href='/'>일단 둘러보기</LinkStyles>
+            <LinkStyles onClick={moveMainPage}>일단 둘러보기</LinkStyles>
           </UserSelectWrapper>
         </Wrap>
       </Container>
@@ -87,7 +93,7 @@ const ButtonItem = tw.div`
   w-[25%]
 `;
 
-const LinkStyles = tw(Link)`
+const LinkStyles = tw.button`
   text-sm	
   text-[#707070]
   border-b	
