@@ -3,6 +3,7 @@ import {
   QueryClient,
   useMutation,
   useQuery,
+  useQueryClient,
 } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
@@ -30,6 +31,7 @@ const BookRecordPage = () => {
   const router = useRouter();
   const registerImage = useMutation(registerImageApi);
   const registerBookRecord = useMutation(registerBookRecordApi);
+  const queryClient = useQueryClient();
   const { data: getBookDataByIsbn } = useQuery<getBookDataByIsbnProps>(
     ['getBookDataByIsbn', 'record'],
     () => getBookDataByIsbnApi(router.query.isbn as string),
@@ -113,6 +115,7 @@ const BookRecordPage = () => {
     registerBookRecord.mutate(data, {
       onSuccess: () => {
         alert('독서 기록 성공');
+        queryClient.invalidateQueries(['feed']);
         router.push('/');
       },
       onError: (error) => {
