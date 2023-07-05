@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 const useRememberScroll = (key: string) => {
-  const [currentScroll, setCurrentScroll] = useState(() => {
+  const [currentScroll, setCurrentScroll] = useState<number>(() => {
     const saveScroll = localStorage.getItem(key);
-    return saveScroll ? JSON.parse(saveScroll) : '0';
+    return saveScroll ? JSON.parse(saveScroll) : 0;
   });
 
   const setScroll = () => {
@@ -13,7 +13,7 @@ const useRememberScroll = (key: string) => {
   };
 
   const resetScroll = () => {
-    setCurrentScroll('0');
+    setCurrentScroll(0);
     localStorage.removeItem(key);
   };
   return { currentScroll, setScroll, resetScroll };

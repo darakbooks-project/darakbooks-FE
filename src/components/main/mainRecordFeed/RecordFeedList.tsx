@@ -34,7 +34,7 @@ const RecordFeedList = () => {
   }, [inView, hasNextPage, fetchNextPage]);
 
   useEffect(() => {
-    if (currentScroll !== '0') {
+    if (currentScroll) {
       window.scrollTo(0, Number(currentScroll));
       resetScroll();
     }
@@ -54,7 +54,7 @@ const RecordFeedList = () => {
           <FeedItem {...feed} />
         </Fragment>
       ))}
-      <div ref={ref} className=' h-4'></div>
+      <div ref={ref} className='h-4 '></div>
     </div>
   );
 };
