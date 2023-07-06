@@ -69,7 +69,7 @@ export const getBookDataByTitle = async (
 ): Promise<BookDataByTitleProps> => {
   try {
     const { data } = await axios.get(
-      `${KAKAO_BOOK_SEARCH_API_URL}?target=title&query=${title}`,
+      `${KAKAO_BOOK_SEARCH_API_URL}?target=title&size=1&query=${title}`,
       {
         headers: {
           Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`,
