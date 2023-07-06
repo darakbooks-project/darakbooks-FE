@@ -141,7 +141,7 @@ const BookRecordPage = () => {
 
   return (
     <AuthRequiredPage>
-      <div className='flex flex-col pb-20'>
+      <div className='flex flex-col pb-20 bg-[url("/images/record/record-background.svg")]'>
         <section className='flex flex-col gap-8 p-4 border-solid pt-28'>
           <article className='flex flex-col gap-2'>
             <h3 className='font-normal text-base leading-[19px] text-[#333333]'>
