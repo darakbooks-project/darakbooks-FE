@@ -113,10 +113,17 @@ const BookRecordPage = () => {
     };
 
     registerBookRecord.mutate(data, {
-      onSuccess: () => {
+      onSuccess: ({ recordId }) => {
         alert('독서 기록 성공');
         queryClient.invalidateQueries(['feed']);
-        router.push('/');
+        router.push({
+          pathname: '/book/feed',
+          query: {
+            recordId,
+            type: 'RECORDS',
+            ownerId: undefined,
+          },
+        });
       },
       onError: (error) => {
         alert(error);
