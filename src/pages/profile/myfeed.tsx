@@ -176,7 +176,7 @@ const MyFeed: NextPageWithLayout = () => {
                             alt='delete'
                             width={32}
                             height={32}
-                            className='absolute -right-1 -bottom-1'
+                            className='absolute right-0 bottom-0'
                             onClick={() => openRecordDelete(item.recordId + '')}
                           />
                         )}
