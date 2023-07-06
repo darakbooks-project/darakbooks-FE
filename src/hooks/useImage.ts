@@ -25,7 +25,7 @@ const useImage = (
       const formData = new FormData();
       const limit = MAX_FILE_SIZE / (1204 * 1204);
 
-      if (!files) {
+      if (!files || !files[0]) {
         return;
       }
       if (files[0]?.size > MAX_FILE_SIZE) {
