@@ -48,7 +48,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
   };
 
   return (
-    <div
+    <li
       onClick={handleMoveRecordFeed}
       className='w-full h-[108px] flex justify-between border border-solid border-[#DFDFDF] rounded-md mb-4 px-6 overflow-hidden '
       style={{
@@ -56,13 +56,13 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
       }}
     >
       <div className='py-4 '>
-        <h1 className='h-6 text-clampBase font-bold truncate max-w-[45vw]'>
+        <h3 className='h-6 text-clampBase font-bold truncate max-w-[50vw]'>
           #{title}
-        </h1>
+        </h3>
         <p className='text-xs pb-3 pt-2 truncate w-[45vw] max-w-sm'>{text}</p>
-        <p className='text-xs text-[#707070]'>@{nickname}</p>
+        <p className='text-xs text-[#707070] truncate w-[45vw]'>@{nickname}</p>
       </div>
-      <div className='mt-4 flex-none xxs:mt-5'>
+      <div className='flex-none mt-4 xxs:mt-5'>
         <Image
           src={thumbnail}
           width={80}
@@ -73,7 +73,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
           onLoadingComplete={handleGetImgColor}
         />
       </div>
-    </div>
+    </li>
   );
 };
 

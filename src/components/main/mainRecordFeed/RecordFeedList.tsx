@@ -48,14 +48,14 @@ const RecordFeedList = () => {
   );
 
   return (
-    <div className='mx-5'>
+    <ul className='mx-5'>
       {mainFeedList.map((feed) => (
         <Fragment key={feed.recordId}>
           <FeedItem {...feed} />
         </Fragment>
       ))}
       <div ref={ref} className='h-4 '></div>
-    </div>
+    </ul>
   );
 };
 
