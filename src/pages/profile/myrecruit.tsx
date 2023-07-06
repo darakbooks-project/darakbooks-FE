@@ -193,7 +193,7 @@ const MyRecruit: NextPageWithLayout = () => {
                                 />
                               ))}
                             {item.userGroup.length > 3 && (
-                              <span className='ml-1 text-[11px] text-[#707070]'>
+                              <span className='flex items-center ml-1 text-[11px] text-[#707070]'>
                                 외
                                 {
                                   item.userGroup.slice(3, item.userGroup.length)
