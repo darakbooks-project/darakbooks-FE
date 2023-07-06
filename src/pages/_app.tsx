@@ -33,7 +33,7 @@ const lato = Lato({
 });
 
 const prettyNight = localFont({
-  src: './../../public/fonts/Cafe24Oneprettynight-v2.0.woff2',
+  src: '../../public/fonts/Cafe24Oneprettynight-v2.0.woff2',
   weight: '400',
   variable: '--prettyNight',
 });
@@ -67,7 +67,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <main
-            className={`${notoSans.className} ${lato.variable} ${prettyNight.variable}`}
+            className={`${notoSans.className} ${lato.variable} ${prettyNight.variable} h-full`}
           >
             {nowLoading && <LoadingSpinner />}
             {getLayout(<Component {...pageProps} />)}
