@@ -252,7 +252,7 @@ const BookRecordPage = () => {
         <section className='flex flex-col justify-center gap-4 p-4'>
           <input
             className='border-b border-solid border-b-[#C2C1C1] bg-inherit p-1'
-            placeholder='# 태그입력'
+            placeholder='# 엔터를 입력하여 태그를 등록할 수 있습니다.'
             onChange={setTag}
             value={tag}
             onKeyDown={keyPress}
