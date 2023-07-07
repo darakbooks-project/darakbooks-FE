@@ -23,7 +23,6 @@ const LinkStyle = tw(Link)`
   flex 
   items-center 
   bg-[#F9E000] 
-  border 
   cursor-pointer
   rounded-lg
   px-4
