@@ -36,13 +36,11 @@ const Kakao = () => {
   if (isReady) {
     return (
       <>
-        {error ? (
+        {error && (
           <div>
             <h1>로그인에 실패했습니다</h1>
             <LoginButton>다시 로그인</LoginButton>
           </div>
-        ) : (
-          <div>로그인 중이에요~~</div>
         )}
       </>
     );
