@@ -75,11 +75,20 @@ const RecruitFormUserInput = ({
           onClick={() => changeSelectItemDisplayStatus('region')}
           value={classStateObj.classRegion}
           disabled={classStateObj.classType === 'online'}
+          className='relative pl-11'
         >
+          <Image
+            src='/images/group/map-pin.svg'
+            width={24}
+            height={24}
+            alt='지역 아이콘'
+            className='absolute top-2.5 left-4'
+          />
+
           <span>
             {(classStateObj.classType === 'offline' &&
               classStateObj.classRegion) ||
-              '지역'}
+              '지역을 선택해주세요.'}
           </span>
           <SelectArrowIconImage
             src={'/images/not-select-arrow.svg'}
@@ -186,12 +195,20 @@ const RecruitFormUserInput = ({
       />
 
       <ItemDescription>오픈채팅 URL을 입력해주세요</ItemDescription>
-      <ClassKakaoLink
-        type='text'
-        onChange={classChangeStateObj.changeClassKakaoLink}
-        value={classStateObj.classKakaoLink}
-        placeholder='링크 정보'
-      />
+      <ClassKakaoLinkWrap>
+        <ClassKakaoLinkInput
+          type='text'
+          onChange={classChangeStateObj.changeClassKakaoLink}
+          value={classStateObj.classKakaoLink}
+          placeholder='링크 정보'
+        />
+        <ClassKakaoLinkIcon
+          src='/images/group/link.svg'
+          width={24}
+          height={24}
+          alt='링크 아이콘'
+        />
+      </ClassKakaoLinkWrap>
     </Container>
   );
 };
@@ -329,4 +346,16 @@ const ClassTimeWrap = tw.div`
 
 const ClassPeopleNumber = tw(CommonInputStyle)``;
 
-const ClassKakaoLink = tw(CommonInputStyle)``;
+const ClassKakaoLinkWrap = tw.div`
+  relative
+`;
+
+const ClassKakaoLinkInput = tw(CommonInputStyle)`
+  pl-11
+`;
+
+const ClassKakaoLinkIcon = tw(Image)`
+  absolute
+  top-2.5
+  left-4
+`;
