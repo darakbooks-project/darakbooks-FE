@@ -35,7 +35,7 @@ const LoginPage = () => {
           />
           <UserSelectWrapper>
             <QuestionText>
-              3초만에 가입하고 <br /> 다락책방을 시작해볼까요?
+              발견하고 기록하고 소통하는 <br /> 나만의 작은 책방
             </QuestionText>
             <LoginButton>
               <ButtonItem>
