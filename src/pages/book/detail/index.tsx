@@ -8,7 +8,6 @@ import {
 import { AxiosError } from 'axios';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -18,6 +17,7 @@ import { getBookDataByIsbnApi } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
 import { fetchRecord } from '@/api/record';
 import { useAuth } from '@/hooks/useAuth';
+import useRememberScroll from '@/hooks/useRememberScroll';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { bookshelfDataProps } from '@/types/bookshelf';
 
@@ -29,6 +29,7 @@ const BookDetailPage = () => {
   const router = useRouter();
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
+  const { currentScroll, resetScroll, setScroll } = useRememberScroll('detail');
   const { data: getBookDataByIsbn } = useQuery(
     ['getBookDataByIsbn', 'detail'],
     () => getBookDataByIsbnApi(router.query.isbn as string),
@@ -84,6 +85,18 @@ const BookDetailPage = () => {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (currentScroll) {
+      resetScroll();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (currentScroll) {
+      window.scrollTo(0, Number(currentScroll));
+    }
+  }, [currentScroll]);
+
   const getBookDataByIsnValid =
     getBookDataByIsbn &&
     getBookDataByIsbn.documents &&
@@ -125,7 +138,7 @@ const BookDetailPage = () => {
       openAuthRequiredModal();
       return;
     }
-
+    setScroll();
     router.push({
       pathname: '/book/feed',
       query: {
