@@ -128,7 +128,7 @@ const MyFeed: NextPageWithLayout = () => {
       {recordsStatus === 'success' && allRecords && (
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
-            <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center leading-[1.3rem]'>
+            <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
               <h5 className='text-base font-medium text-[#333333]'>
                 비공개 계정입니다.
               </h5>
@@ -176,7 +176,7 @@ const MyFeed: NextPageWithLayout = () => {
                             alt='delete'
                             width={32}
                             height={32}
-                            className='absolute -right-1 -bottom-1'
+                            className='absolute right-0 bottom-0'
                             onClick={() => openRecordDelete(item.recordId + '')}
                           />
                         )}
