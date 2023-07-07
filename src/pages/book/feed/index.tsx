@@ -275,7 +275,7 @@ const BookDetailFeed = () => {
                   height={32}
                 />
               </button>
-              <div className='text-[15px] text-[#232323] px-4'>
+              <div className='text-[15px] text-[#232323] px-4 font-prettyNight'>
                 {currentData.readAt.substring(0, 10).replaceAll('-', '.')}
               </div>
               <button onClick={nextPage}>
@@ -300,7 +300,9 @@ const BookDetailFeed = () => {
                   sizes='100vw'
                   className='h-10 w-10 mr-2 rounded-[50%] '
                 />
-                <h3 className='text-[#232323]'>{currentData.user.nickname}</h3>
+                <h3 className='text-[#232323] font-prettyNight'>
+                  {currentData.user.nickname}
+                </h3>
               </article>
             </section>
             <Image
@@ -311,13 +313,13 @@ const BookDetailFeed = () => {
               sizes='100vw'
               className='w-full h-[22rem]'
             />
-            <article className='w-full leading-[160%] text-[15px] rounded-md px-6'>
+            <article className='w-full leading-[160%] text-[15px] rounded-md px-6 font-prettyNight'>
               {currentData.text}
             </article>
             <ul className='inline-flex w-full flex-wrap px-6'>
               {currentData.tags.map((tag) => (
                 <li
-                  className='flex justify-center items-center border font-normal text-[13px] text-[#333333] mr-2 px-3 py-[5px] rounded-[50px] border-solid border-[#ebeaea]'
+                  className='flex justify-center items-center border font-normal text-[13px] text-[#333333] mr-2 px-3 py-[5px] rounded-[50px] border-solid border-[#ebeaea] font-prettyNight'
                   key={tag.id}
                 >
                   #{tag.data}
