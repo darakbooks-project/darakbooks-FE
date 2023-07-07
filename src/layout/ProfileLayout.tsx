@@ -2,12 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { logout } from '@/api/auth';
 import { getProfileApi } from '@/api/profile';
 import { isAuthorizedSelector } from '@/recoil/auth';
+import { searchBookTitleAtom } from '@/recoil/book';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
 function ProfileLayout({ children }: { children: ReactNode }) {
@@ -33,11 +34,13 @@ function ProfileLayout({ children }: { children: ReactNode }) {
   const status = mine ? myStatus : someoneStatus;
 
   const setIsAuthorized = useSetRecoilState(isAuthorizedSelector);
+  const setSearchBookTitle = useSetRecoilState(searchBookTitleAtom);
 
   const onLogout = () => {
     logout();
     setIsAuthorized(false);
     setIsRendedOnboarding(true);
+    setSearchBookTitle('');
   };
 
   const routes = (pathname: string) => {
