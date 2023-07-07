@@ -70,11 +70,13 @@ const RecruitFormUserInput = ({
         </ClassTypeButton>
       </ClassType>
 
-      <ClassRegionWrap isdisplay={openRegionStatus}>
+      <ClassRegionWrap
+        isdisplay={openRegionStatus}
+        className={classStateObj.classType === 'online' ? 'hidden' : 'block'}
+      >
         <ClassSelectButton
           onClick={() => changeSelectItemDisplayStatus('region')}
           value={classStateObj.classRegion}
-          disabled={classStateObj.classType === 'online'}
           className='relative pl-11'
         >
           <Image
