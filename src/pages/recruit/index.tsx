@@ -78,13 +78,13 @@ const BackGroundWrap = tw.div`
   max-w-xl
   w-full
   h-[15.313rem]
-  bg-[#FFFCEA]
 `;
+
 const BackGround = tw.div`
   w-full
   h-[15.313rem]
   relative
-  bg-[url('/images/reading-group-illustration.svg')]
+  bg-[url('/images/group/reading-group-illustration.svg')]
 `;
 
 const Title = tw.h1`
