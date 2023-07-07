@@ -71,7 +71,9 @@ const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
             documents.length > 0 ? (
               <SearchResultList key={index} listData={documents} />
             ) : (
-              <div key='not-search-result'>검색 결과가 없습니다.</div>
+              <NoSearchResult key='not-search-result'>
+                검색 결과가 없습니다.
+              </NoSearchResult>
             ),
           )}
           <Bottom ref={ref}>
@@ -88,3 +90,13 @@ export default InfinityScrollLists;
 const Container = tw.div``;
 
 const Bottom = tw.div``;
+
+const NoSearchResult = tw.div`
+  fixed
+  top-[50%]
+  translate-y-[-50%]
+  left-[50%]
+  translate-x-[-50%]
+  text-[#707070]
+  text-[0.9375rem]
+`;
