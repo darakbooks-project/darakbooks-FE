@@ -70,7 +70,10 @@ const RecruitFormUserInput = ({
         </ClassTypeButton>
       </ClassType>
 
-      <ClassRegionWrap $islistdisplay={openRegionStatus}>
+      <ClassRegionWrap
+        $islistdisplay={openRegionStatus}
+        $isbuttondisplay={classStateObj.classType}
+      >
         <ClassSelectButton
           onClick={() => changeSelectItemDisplayStatus('region')}
           value={classStateObj.classRegion}
@@ -323,8 +326,10 @@ const ClassSelectListItem = tw.li`
 
 const ClassRegionWrap = tw.div<{
   $islistdisplay: string;
+  $isbuttondisplay: string;
 }>`
   ${(props) => (props.$islistdisplay === 'view' ? 'mb-40' : 'mb-8')}
+  ${(props) => props.$isbuttondisplay === 'online' && 'hidden'}
   relative
 `;
 
