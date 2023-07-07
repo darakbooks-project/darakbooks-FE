@@ -113,10 +113,17 @@ const BookRecordPage = () => {
     };
 
     registerBookRecord.mutate(data, {
-      onSuccess: () => {
+      onSuccess: ({ recordId }) => {
         alert('독서 기록 성공');
         queryClient.invalidateQueries(['feed']);
-        router.push('/');
+        router.push({
+          pathname: '/book/feed',
+          query: {
+            recordId,
+            type: 'RECORDS',
+            ownerId: undefined,
+          },
+        });
       },
       onError: (error) => {
         alert(error);
@@ -134,7 +141,7 @@ const BookRecordPage = () => {
 
   return (
     <AuthRequiredPage>
-      <div className='flex flex-col pb-20'>
+      <div className='flex flex-col pb-20 bg-[url("/images/record/record-background.svg")]'>
         <section className='flex flex-col gap-8 p-4 border-solid pt-28'>
           <article className='flex flex-col gap-2'>
             <h3 className='font-normal text-base leading-[19px] text-[#333333]'>
@@ -232,7 +239,7 @@ const BookRecordPage = () => {
               <label htmlFor='calendar'>
                 {startDate ? (
                   <div className='w-[12rem] flex justify-end h-8 text-[14px] text-[#333333] cursor-pointer'>
-                    완독일_ {startDate.toLocaleDateString('ko')}
+                    읽은 날짜 {startDate.toLocaleDateString('ko')}
                   </div>
                 ) : (
                   <div className='w-[6.5rem] text-[14px] text-[#333333] flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] cursor-pointer'>
@@ -252,7 +259,7 @@ const BookRecordPage = () => {
         <section className='flex flex-col justify-center gap-4 p-4'>
           <input
             className='border-b border-solid border-b-[#C2C1C1] bg-inherit p-1'
-            placeholder='# 태그입력'
+            placeholder='# 엔터를 입력하여 태그를 등록할 수 있습니다.'
             onChange={setTag}
             value={tag}
             onKeyDown={keyPress}
