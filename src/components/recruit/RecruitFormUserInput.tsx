@@ -70,11 +70,13 @@ const RecruitFormUserInput = ({
         </ClassTypeButton>
       </ClassType>
 
-      <ClassRegionWrap isdisplay={openRegionStatus}>
+      <ClassRegionWrap
+        $islistdisplay={openRegionStatus}
+        $isbuttondisplay={classStateObj.classType}
+      >
         <ClassSelectButton
           onClick={() => changeSelectItemDisplayStatus('region')}
           value={classStateObj.classRegion}
-          disabled={classStateObj.classType === 'online'}
           className='relative pl-11'
         >
           <Image
@@ -100,7 +102,7 @@ const RecruitFormUserInput = ({
         </ClassSelectButton>
         <ClassSelectList
           onClick={classChangeStateObj.changeClassRegion}
-          isdisplay={openRegionStatus}
+          $islistdisplay={openRegionStatus}
         >
           {REGION_DATA.map((region) => (
             <ClassSelectListItem
@@ -117,7 +119,7 @@ const RecruitFormUserInput = ({
 
       <ItemDescription>요일/시간을 선택해주세요</ItemDescription>
       <ClassDayTimeWrap
-        isdisplay={
+        $islistdisplay={
           openDayStatus === 'view' || openTimeStatus === 'view'
             ? 'view'
             : 'hidden'
@@ -139,7 +141,7 @@ const RecruitFormUserInput = ({
           </ClassSelectButton>
           <ClassSelectList
             onClick={classChangeStateObj.changeClassDay}
-            isdisplay={openDayStatus}
+            $islistdisplay={openDayStatus}
           >
             {DAY_DATA.map((day) => (
               <ClassSelectListItem
@@ -170,7 +172,7 @@ const RecruitFormUserInput = ({
           </ClassSelectButton>
           <ClassSelectList
             onClick={classChangeStateObj.changeClassTime}
-            isdisplay={openTimeStatus}
+            $islistdisplay={openTimeStatus}
           >
             {TIME_DATA.map((time) => (
               <ClassSelectListItem
@@ -301,8 +303,8 @@ const ClassSelectButton = tw.button`
   ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
 `;
 
-const ClassSelectList = tw.ul<{ isdisplay: string }>`
- ${(props) => (props.isdisplay === 'view' ? 'block' : 'hidden')}
+const ClassSelectList = tw.ul<{ $islistdisplay: string }>`
+ ${(props) => (props.$islistdisplay === 'view' ? 'block' : 'hidden')}
 
   border
   w-full
@@ -322,13 +324,17 @@ const ClassSelectListItem = tw.li`
   cursor-pointer
 `;
 
-const ClassRegionWrap = tw.div<{ isdisplay: string }>`
-  ${(props) => (props.isdisplay === 'view' ? 'mb-40' : 'mb-8')}
+const ClassRegionWrap = tw.div<{
+  $islistdisplay: string;
+  $isbuttondisplay: string;
+}>`
+  ${(props) => (props.$islistdisplay === 'view' ? 'mb-40' : 'mb-8')}
+  ${(props) => props.$isbuttondisplay === 'online' && 'hidden'}
   relative
 `;
 
-const ClassDayTimeWrap = tw.div<{ isdisplay: string }>`
-  ${(props) => (props.isdisplay === 'view' ? 'mb-40' : 'mb-8')}
+const ClassDayTimeWrap = tw.div<{ $islistdisplay: string }>`
+  ${(props) => (props.$islistdisplay === 'view' ? 'mb-40' : 'mb-8')}
 
   flex
   justify-between	
