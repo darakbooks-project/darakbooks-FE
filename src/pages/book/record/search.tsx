@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ReactElement } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -18,6 +18,10 @@ const BookRecordSearchPage: NextPageWithLayout = () => {
   const onSubmit = (keyword: string) => {
     setSearchBookTitle(keyword);
   };
+
+  useEffect(() => {
+    setSearchBookTitle('');
+  }, [setSearchBookTitle]);
 
   return (
     <>
