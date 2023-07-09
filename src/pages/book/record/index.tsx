@@ -144,10 +144,10 @@ const BookRecordPage = () => {
       <div className='flex flex-col pb-20 bg-[url("/images/record/record-background.svg")]'>
         <section className='flex flex-col gap-8 p-4 border-solid pt-28'>
           <article className='flex flex-col gap-2'>
-            <h3 className='font-normal text-base leading-[19px] text-[#333333]'>
+            <h3 className='font-normal text-base leading-[19px] text-[#333333] font-prettyNight'>
               {today}
             </h3>
-            <h1 className='font-normal text-[32px] leading-[38px] text-[#333333]'>
+            <h1 className='font-normal text-[32px] leading-[38px] text-[#333333] font-prettyNight'>
               독서 기록
             </h1>
           </article>
@@ -238,18 +238,18 @@ const BookRecordPage = () => {
               />
               <label htmlFor='calendar'>
                 {startDate ? (
-                  <div className='w-[12rem] flex justify-end h-8 text-[14px] text-[#333333] cursor-pointer'>
+                  <div className='w-[12rem] flex justify-end h-8 text-[14px] text-[#333333] cursor-pointer font-prettyNight'>
                     읽은 날짜 {startDate.toLocaleDateString('ko')}
                   </div>
                 ) : (
-                  <div className='w-[6.5rem] text-[14px] text-[#333333] flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] cursor-pointer'>
-                    완독일 기록
+                  <div className='w-[6.5rem] text-[14px] text-[#333333] flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] cursor-pointer font-prettyNight'>
+                    읽은 날짜 기록
                   </div>
                 )}
               </label>
             </div>
             <textarea
-              className='flex min-h-[19rem] p-4 rounded-md resize-none bg-[#fff8cb33]'
+              className='flex min-h-[19rem] p-4 rounded-md resize-none bg-[#fff8cb33] font-prettyNight'
               placeholder='나의 독서 기록을 공유해보세요.'
               value={description}
               onChange={changeDescription}
@@ -258,7 +258,7 @@ const BookRecordPage = () => {
         </section>
         <section className='flex flex-col justify-center gap-4 p-4'>
           <input
-            className='border-b border-solid border-b-[#C2C1C1] bg-inherit p-1'
+            className='border-b border-solid border-b-[#C2C1C1] bg-inherit p-1 font-prettyNight'
             placeholder='# 엔터를 입력하여 태그를 등록할 수 있습니다.'
             onChange={setTag}
             value={tag}
@@ -269,7 +269,7 @@ const BookRecordPage = () => {
             {tagList.map((tag) => (
               <span
                 key={tag.id}
-                className='flex items-center border font-normal text-sm leading-[17px] text-[#333333] pl-3  rounded-[50px] border-[#ebeaea] '
+                className='flex items-center border font-normal text-sm leading-[17px] text-[#333333] pl-3  rounded-[50px] border-[#ebeaea] font-prettyNight'
               >
                 #{tag.data}
                 <Image
