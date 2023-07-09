@@ -55,12 +55,14 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
         backgroundColor: `${bookCoverBgColor}20`,
       }}
     >
-      <div className='py-4 '>
+      <div className='py-4'>
         <h3 className='h-6 text-clampBase font-bold truncate max-w-[50vw]'>
           #{title}
         </h3>
         <p className='text-xs pb-3 pt-2 truncate w-[45vw] max-w-sm'>{text}</p>
-        <p className='text-xs text-[#707070] truncate w-[45vw]'>@{nickname}</p>
+        <p className='text-xs text-[#707070] truncate w-[45vw] max-w-sm'>
+          @{nickname}
+        </p>
       </div>
       <div className='flex-none mt-4 xxs:mt-5'>
         <Image
