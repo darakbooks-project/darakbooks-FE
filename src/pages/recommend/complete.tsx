@@ -79,7 +79,7 @@ const RecommendCompletePage = () => {
 
   const changeBookButton = (isAuthorized: boolean): React.ReactNode => {
     const loginUserButton = (
-      <div className='flex justify-center mt-7'>
+      <div className='flex justify-center'>
         <button
           onClick={handleAddMyBookShelf}
           className='flex items-center justify-center w-2/5 mr-3 font-medium bg-white border-2 rounded-lg h-14 border-main shadow-round text-main'
@@ -104,7 +104,7 @@ const RecommendCompletePage = () => {
     const guestButton = (
       <button
         onClick={handleMoveMain}
-        className='w-full font-medium text-white rounded-lg h-14 mt-7 bg-main shadow-round'
+        className='w-full font-medium text-white rounded-lg h-14 bg-main shadow-round'
       >
         책방 들어가기
       </button>
@@ -115,7 +115,7 @@ const RecommendCompletePage = () => {
 
   return (
     <div className='h-full bg-[url(/images/bookRecommend/background3.svg)] bg-no-repeat bg-cover bg-center'>
-      <div className='flex items-center justify-center h-[482px]'>
+      <div className='flex items-center justify-center h-[30.125rem]'>
         <Image
           src={thumbnail}
           width={187}
@@ -126,16 +126,14 @@ const RecommendCompletePage = () => {
           className='max-w-[11.6875rem] h-full max-h-[17.75rem] w-full rounded-r-md xs:px-1 drop-shadow-around xxs:w-[160px] xxs:h-[15rem]'
         />
       </div>
-      <div className='absolute bottom-0 top-[482px] w-full bg-white shadow-roundY min-h-[22.625rem] rounded-t-[1.875rem] max-w-xl'>
-        <div className='flex flex-col items-center px-11 mb-14'>
-          <h2 className='pt-8 pb-1 font-bold text-clamp2xl text-main'>
-            {title}
-          </h2>
+      <div className='absolute bottom-0 top-[30.125rem] w-ful shadow-roundY rounded-t-[1.875rem] max-w-xl '>
+        <div className='flex flex-col items-center pt-8 bg-white rounded-t-[1.875rem] px-11 pb-14'>
+          <h2 className='pb-1 font-bold text-clamp2xl text-main'>{title}</h2>
           <h3 className='text-[#707070] text-clampBase'>{authors}</h3>
-          <div className='h-1 w-7 bg-[#60B28D80] my-5 ' />
-          <p className=''>{reason}</p>
+          <div className='h-1 w-7 bg-[#60B28D80] my-6 ' />
+          <p>{reason}</p>
         </div>
-        <div className='absolute w-full px-5 bottom-10'>
+        <div className='w-full px-5 pb-10 bg-white'>
           {changeBookButton(isAuthorized)}
         </div>
       </div>
