@@ -12,6 +12,7 @@ import {
 } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
+import Header from '@/components/common/Header';
 
 const BookDetailFeed = () => {
   const {
@@ -263,7 +264,8 @@ const BookDetailFeed = () => {
 
   return (
     <AuthRequiredPage>
-      <div className='flex flex-col bg-[#fbfbfb] gap-4 py-16'>
+      <div className='flex flex-col gap-4 pt-8 pb-16 bg-[url("/images/record/record-background.svg")]'>
+        <Header />
         {status === 'success' && currentData && (
           <>
             <section className='flex items-center justify-center '>
