@@ -4,7 +4,7 @@ const RecommendLoading = () => {
   return (
     <div className='flex flex-col items-center justify-center h-full bg-background text-textBlack'>
       <Image
-        src='/images/bookRecommend/recommendResultCharacter.svg'
+        src='/images/bookRecommend/recommendLoadingCharacter.svg'
         width={162}
         height={102}
         alt='책 추천 캐릭터'
