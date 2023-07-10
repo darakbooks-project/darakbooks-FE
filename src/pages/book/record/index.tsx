@@ -21,6 +21,7 @@ import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
+import Header from '@/components/common/Header';
 
 interface TagProps {
   id: number;
@@ -142,7 +143,8 @@ const BookRecordPage = () => {
   return (
     <AuthRequiredPage>
       <div className='flex flex-col pb-20 bg-[url("/images/record/record-background.svg")]'>
-        <section className='flex flex-col gap-8 p-4 border-solid pt-28'>
+        <Header className='mt-12' />
+        <section className='flex flex-col gap-8 p-4 border-solid pt-16'>
           <article className='flex flex-col gap-2'>
             <h3 className='font-normal text-base leading-[19px] text-[#333333] font-prettyNight'>
               {today}
@@ -212,7 +214,12 @@ const BookRecordPage = () => {
                       className='text-[#242424] text-xl'
                       onClick={decreaseMonth}
                     >
-                      &lt;
+                      <Image
+                        src='/images/record/calendar-left.svg'
+                        alt='left-arrow'
+                        width={32}
+                        height={32}
+                      />
                     </div>
                     <div>
                       <div className='text-base text-[#242424]'>
@@ -226,7 +233,12 @@ const BookRecordPage = () => {
                       className='text-[#242424] text-xl'
                       onClick={increaseMonth}
                     >
-                      &gt;
+                      <Image
+                        src='/images/record/calendar-right.svg'
+                        alt='right-arrow'
+                        width={32}
+                        height={32}
+                      />
                     </div>
                   </div>
                 )}
