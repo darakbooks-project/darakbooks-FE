@@ -34,7 +34,6 @@ const RecommendInputPage = () => {
         setRecommend({
           title: data.title,
           reason: data.reason,
-          userRequest,
         });
         router.push('/recommend/complete', '/');
       },

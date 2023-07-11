@@ -34,8 +34,3 @@ export const selectRecruitStatusAtom = atom<boolean>({
   key: 'selectRecruitStatus',
   default: false,
 });
-
-export const selectRecommendResultModalAtom = atom<boolean>({
-  key: 'selectRecommendResultModal',
-  default: false,
-});
