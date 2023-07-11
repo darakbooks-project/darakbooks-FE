@@ -87,7 +87,7 @@ const Wrapper = tw.div`
 `;
 
 const PageDescription = tw.h1`
-  text-xl
+  text-clampXl
   mt-2.5
   mb-5
 `;

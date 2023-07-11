@@ -88,7 +88,7 @@ const Title = tw.h1`
   absolute
   left-5
   bottom-20
-  text-3xl
+  text-clamp3xl
   leading-normal
 `;
 

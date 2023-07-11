@@ -221,7 +221,7 @@ const Container = tw.div`
 `;
 
 const ItemDescription = tw.h1`
-  text-lg
+  text-clampLg
   mb-[10px]
 `;
 
@@ -232,7 +232,7 @@ const CommonInputStyle = tw.input`
   border-opacity-10
   rounded
   p-[10px]
-  text-sm
+  text-clampSm
   mb-[30px]
   outline-none
 
@@ -260,7 +260,7 @@ const ClassDescription = tw.textarea`
   resize-none 
   h-48 
   p-[10px]
-  text-sm
+  text-clampSm
   mb-[30px]
   outline-none
 

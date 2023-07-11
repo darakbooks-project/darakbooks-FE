@@ -58,7 +58,7 @@ const RecruitPage = () => {
           height={32}
           alt='독서 모임 개설 아이콘'
         />
-        <span>나만의 독서 모임 만들기</span>
+        <span className='text-clampSm'>나만의 독서 모임 만들기</span>
       </PersonnelRecruitButton>
 
       <BottomNav />
@@ -91,7 +91,7 @@ const Title = tw.h1`
   absolute
   left-5
   bottom-9
-  text-xl
+  text-clampXl
   font-semibold
 `;
 
@@ -114,7 +114,6 @@ const PersonnelRecruitButton = tw.div`
   py-2
   px-5
   bg-main
-  text-sm
   text-center
   text-white
   rounded-[0.6rem]
