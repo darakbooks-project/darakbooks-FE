@@ -48,7 +48,7 @@ const RecruitForm = ({
           <PageDescription>
             {type === '개설' ? (
               <>
-                <span className='text-main'>모임 만들기</span>
+                <span className='text-main font-semibold'>모임 만들기</span>
                 <br />
                 독서 모임을 개설해 볼까요?
               </>
@@ -88,7 +88,6 @@ const Wrapper = tw.div`
 
 const PageDescription = tw.h1`
   text-xl
-  font-bold
   mt-2.5
   mb-5
 `;

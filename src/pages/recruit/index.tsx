@@ -92,7 +92,7 @@ const Title = tw.h1`
   left-5
   bottom-9
   text-xl
-  font-bold
+  font-semibold
 `;
 
 const InfinityScrollListsWrap = tw.div`
@@ -120,6 +120,7 @@ const PersonnelRecruitButton = tw.div`
   rounded-[0.6rem]
   cursor-pointer
   shadow-lg
+  font-medium
 
   flex
   justify-center

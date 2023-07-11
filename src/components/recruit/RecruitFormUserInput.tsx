@@ -281,7 +281,7 @@ const ClassTypeButton = tw.button<{ classtype: string; currenttype: string }>`
       ? 'border border-main text-main'
       : 'bg-[#F3F3F3] text-[#707070]'}
 
-  font-bold
+  font-semibold
   text-sm
   w-[47.5%]
   py-[10px]
