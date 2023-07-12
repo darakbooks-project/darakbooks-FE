@@ -33,7 +33,7 @@ export const useGroupForm = (classData: GroupFormStateObjProps) => {
   const classStateObj: GroupFormStateObjProps = {
     className,
     classType,
-    classRegion,
+    classRegion: classType === 'offline' ? classRegion : 'not region data',
     classDescription,
     classDay,
     classTime,
