@@ -221,7 +221,7 @@ const Container = tw.div`
 `;
 
 const ItemDescription = tw.h1`
-  text-lg
+  text-clampLg
   mb-[10px]
 `;
 
@@ -232,11 +232,13 @@ const CommonInputStyle = tw.input`
   border-opacity-10
   rounded
   p-[10px]
-  text-sm
+  text-clampSm
   mb-[30px]
   outline-none
 
   ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
+
+  placeholder:text-[#707070]
 `;
 
 const SelectArrowIconImage = tw(Image)<{ value: string }>`
@@ -258,11 +260,13 @@ const ClassDescription = tw.textarea`
   resize-none 
   h-48 
   p-[10px]
-  text-sm
+  text-clampSm
   mb-[30px]
   outline-none
 
   ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
+
+  placeholder:text-[#707070]
 `;
 
 const ClassType = tw.div`
@@ -274,12 +278,11 @@ const ClassType = tw.div`
 const ClassTypeButton = tw.button<{ classtype: string; currenttype: string }>`
   ${(props) =>
     props.classtype === props.currenttype
-      ? 'border border-main'
-      : 'bg-[#F3F3F3]'}
+      ? 'border border-main text-main'
+      : 'bg-[#F3F3F3] text-[#707070]'}
 
-  font-bold
+  font-semibold
   text-sm
-  text-main
   w-[47.5%]
   py-[10px]
   rounded
@@ -290,7 +293,7 @@ const ClassSelectButton = tw.button`
   w-full
   border 
   border-main
-  text-main
+  text-[#707070]
   rounded
   p-[10px]
   pr-[20px]
@@ -310,7 +313,7 @@ const ClassSelectList = tw.ul<{ $islistdisplay: string }>`
   w-full
   border 
   border-main
-  text-main
+  text-[#707070]
   rounded
   p-[10px]
   absolute

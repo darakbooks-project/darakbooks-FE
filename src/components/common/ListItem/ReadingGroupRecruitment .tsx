@@ -82,8 +82,7 @@ const GroupName = tw.span`
 
 const GroupInformation = tw.div`
   text-[0.765rem]
-  text-black
-  text-opacity-50
+  text-[#707070]
   space-x-1.5
   my-1.5
   flex

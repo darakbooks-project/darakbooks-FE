@@ -90,6 +90,7 @@ const QuestionText = tw.div`
 `;
 
 const ButtonItem = tw.div`
+  font-semibold
   w-[25%]
 `;
 
