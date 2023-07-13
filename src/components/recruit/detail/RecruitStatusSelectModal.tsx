@@ -51,12 +51,6 @@ const ModalOverlay = ({ groupId, recruitmentStatus }: RecruitmentModalType) => {
       onError: (error, variable, rollback) => {
         if (rollback) return rollback();
       },
-      onSuccess: () => {
-        return queryClient.invalidateQueries([
-          'recruitDetail',
-          String(groupId),
-        ]);
-      },
     },
   );
 
