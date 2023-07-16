@@ -61,6 +61,12 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   }, []);
 
   useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  useEffect(() => {
     const handleRouteChange = (url: URL) => {
       pageview(url);
     };
