@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import tw from 'tailwind-styled-components';
 
 import { getRecommendBookShelf } from '@/api/bookshelf';
 import { fetchBestGroup } from '@/api/main';
@@ -14,6 +15,7 @@ import RecordFeedList from '@/components/main/mainRecordFeed/RecordFeedList';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
+import { RecommendBookShelfType } from '@/types/bookshelf';
 import { BestGroupListType } from '@/types/recruit';
 
 interface MainSSRProps {
@@ -59,6 +61,25 @@ export default function Home({ bestGroup }: MainSSRProps) {
 
   if (isBookshelfError) return <></>;
 
+  const bookshelfComponent = (currentBookshelfData: RecommendBookShelfType) => {
+    if (!currentBookshelfData.users) {
+      return (
+        <BookshelfContainer>
+          <BookshelfCommend>추천 책장을 찾지 못했어요🥲</BookshelfCommend>
+        </BookshelfContainer>
+      );
+    }
+
+    return (
+      <BookShelfPreview
+        key={currentBookshelfData.users.userId}
+        nickname={currentBookshelfData.users.nickname}
+        imageSrcArr={currentBookshelfData.bookshelves}
+        memberId={currentBookshelfData.users.userId}
+      />
+    );
+  };
+
   return (
     <div className='pb-20 bg-white text-textBlack'>
       <section className='relative w-full'>
@@ -89,18 +110,11 @@ export default function Home({ bestGroup }: MainSSRProps) {
         </p>
         <h1 className='mb-5 font-bold text-clampXl'>맞춤 서재 추천</h1>
         {isBookshelfLoading ? (
-          <div className='w-[100%] h-[11.6875rem] bg-[#FFFEF8] drop-shadow-md rounded-t-md cursor-pointer xxs:h-[10rem]'>
-            <h3 className='flex items-center justify-center h-full'>
-              추천 책장을 찾고 있어요!
-            </h3>
-          </div>
+          <BookshelfContainer>
+            <BookshelfCommend>추천 책장을 찾고 있어요!</BookshelfCommend>
+          </BookshelfContainer>
         ) : (
-          <BookShelfPreview
-            key={currentBookshelfData.users.userId}
-            nickname={currentBookshelfData.users.nickname}
-            imageSrcArr={currentBookshelfData.bookshelves}
-            memberId={currentBookshelfData.users.userId}
-          />
+          bookshelfComponent(currentBookshelfData)
         )}
       </section>
       <BestRecruitList BestGroupList={bestGroup} />
@@ -160,3 +174,20 @@ export const getServerSideProps: GetServerSideProps<{
     },
   };
 };
+
+const BookshelfContainer = tw.div`
+w-[100%] 
+h-[11.6875rem] 
+bg-[#FFFEF8] 
+drop-shadow-md 
+rounded-t-md 
+cursor-pointer 
+xxs:h-[10rem]
+`;
+
+const BookshelfCommend = tw.h3`
+flex 
+items-center 
+justify-center
+h-full
+`;
