@@ -49,11 +49,20 @@ const RecordFeedList = () => {
 
   return (
     <ul className='mx-5'>
-      {mainFeedList.map((feed) => (
-        <Fragment key={feed.recordId}>
-          <FeedItem {...feed} />
-        </Fragment>
-      ))}
+      {mainFeedList.length ? (
+        mainFeedList.map((feed) => (
+          <Fragment key={feed.recordId}>
+            <FeedItem {...feed} />
+          </Fragment>
+        ))
+      ) : (
+        <div className='flex flex-col items-center justify-center text-center'>
+          <h4 className='font-medium text-clampBase'>작성된 기록이 없어요.</h4>
+          <p className=' text-clampSm text-[#707070] pt-1'>
+            독서 기록을 작성하여 공유해보세요!
+          </p>
+        </div>
+      )}
       <div ref={ref} className='h-4 '></div>
     </ul>
   );
