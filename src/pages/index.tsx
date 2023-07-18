@@ -59,8 +59,6 @@ export default function Home({ bestGroup }: MainSSRProps) {
     setIsRendedOnboarding(false);
   };
 
-  if (isBookshelfError) return <></>;
-
   const bookshelfComponent = (currentBookshelfData: RecommendBookShelfType) => {
     if (!currentBookshelfData.users) {
       return (
@@ -109,9 +107,13 @@ export default function Home({ bestGroup }: MainSSRProps) {
           오늘의 나를 위한 도서 선택
         </p>
         <h1 className='mb-5 font-bold text-clampXl'>맞춤 서재 추천</h1>
-        {isBookshelfLoading ? (
+        {isBookshelfLoading || isBookshelfError ? (
           <BookshelfContainer>
-            <BookshelfCommend>추천 책장을 찾고 있어요!</BookshelfCommend>
+            <BookshelfCommend>
+              {isBookshelfError
+                ? '추천 책장을 찾지 못했어요.'
+                : '추천 책장을 찾고 있어요!'}
+            </BookshelfCommend>
           </BookshelfContainer>
         ) : (
           bookshelfComponent(currentBookshelfData)
