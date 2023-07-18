@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const RecommendLoading = () => {
   return (
-    <div className='flex flex-col items-center justify-center h-full bg-background text-textBlack'>
+    <div className='flex flex-col items-center justify-center h-full bg-background text-textBlack bg-[url(/images/bookRecommend/background-loading.svg)] bg-no-repeat bg-cover bg-center'>
       <Image
         src='/images/bookRecommend/recommendLoadingCharacter.svg'
         width={162}
