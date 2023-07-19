@@ -68,7 +68,9 @@ const RecruitPage = () => {
 
 export default RecruitPage;
 
-const Container = tw.div``;
+const Container = tw.div`
+  h-full
+`;
 
 const BackGroundWrap = tw.div`
   relative
@@ -99,6 +101,7 @@ const InfinityScrollListsWrap = tw.div`
   pt-10
   pb-28
   bg-white
+  h-4/6
 `;
 
 const InfinityScrollLists = tw.div`
