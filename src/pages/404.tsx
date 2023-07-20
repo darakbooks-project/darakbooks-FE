@@ -12,7 +12,7 @@ function NotFound() {
       <div className='flex flex-col items-center justify-between w-full h-[29rem]'>
         <Image
           src='/images/notfound/not-found.svg'
-          alt='not-founc'
+          alt='not-found'
           width={180}
           height={237}
         />
