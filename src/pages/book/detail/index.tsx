@@ -186,7 +186,7 @@ const BookDetailPage = () => {
               />
             </div>
             <article className='flex flex-col items-center gap-1 '>
-              <h1 className='text-xl font-semibold text-[#242424]'>
+              <h1 className='text-xl font-semibold text-[#242424] text-center px-5'>
                 {getBookDataByIsbn?.documents[0].title}
               </h1>
               <h3 className='text-[13px]'>
