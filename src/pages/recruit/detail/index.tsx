@@ -109,7 +109,7 @@ const RecruitDetailPage = () => {
       <div className='h-full bg-white'>
         <Header
           moreMenu={is_group_lead && moreMenu}
-          className='absolute mt-14 z-10'
+          className='absolute z-10 mt-14'
           pathname='/recruit'
         />
         <Image
@@ -128,7 +128,7 @@ const RecruitDetailPage = () => {
                 width={54}
                 height={54}
                 sizes='100vw'
-                className='rounded-full'
+                className='rounded-full w-[3.375rem] h-[3.375rem]'
                 onClick={() =>
                   push({
                     pathname: '/profile',
@@ -150,7 +150,7 @@ const RecruitDetailPage = () => {
               <h3 className='text-sm text-main'>
                 {recruitment_status ? '모집중' : '모집완료'}
               </h3>
-              <h1 className='text-clampXl font-bold'>{name}</h1>
+              <h1 className='font-bold text-clampXl'>{name}</h1>
             </div>
           </div>
           {is_group_lead && (
@@ -176,7 +176,7 @@ const RecruitDetailPage = () => {
           <p className='text-sm'>{description}</p>
           <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
           <h3 className='text-sm text-main'>자세한 정보 알려드려요</h3>
-          <h2 className='pt-1 pb-6 text-clampXl font-bold'>안내사항</h2>
+          <h2 className='pt-1 pb-6 font-bold text-clampXl'>안내사항</h2>
           {NotificationState.map(({ title, detail, iconSrc }) => (
             <RecruitNotification
               key={title}
@@ -190,7 +190,7 @@ const RecruitDetailPage = () => {
           <div className='w-full h-[1px] bg-[#EBEAEA] my-8' />
           <h3 className='text-sm text-main'>함께 독서하며 소통하고 있어요</h3>
           <div className='flex items-center justify-between pb-5'>
-            <h2 className='pt-1 text-clampXl font-bold'>멤버 소개</h2>
+            <h2 className='pt-1 font-bold text-clampXl'>멤버 소개</h2>
             <Link
               href={{
                 pathname: `/recruit/detail/member`,
@@ -210,7 +210,7 @@ const RecruitDetailPage = () => {
                   width={51}
                   height={51}
                   sizes='100vw'
-                  className='rounded-full'
+                  className='rounded-full w-[3.1875rem] h-[3.1875rem]'
                   onClick={() =>
                     push({
                       pathname: '/profile',

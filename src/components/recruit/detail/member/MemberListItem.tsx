@@ -55,7 +55,7 @@ const MemberListItem = ({
         width={54}
         height={54}
       />
-      <h3 className='text-clampLg font-bold'>정말 강퇴하시겠어요?</h3>
+      <h3 className='font-bold text-clampLg'>정말 강퇴하시겠어요?</h3>
       <p className='pb-7 text-clampSm'>{nickname}님을 강퇴하시겠어요?</p>
       <div className='flex w-full'>
         <button
@@ -92,7 +92,7 @@ const MemberListItem = ({
             width={50}
             height={50}
             sizes='100vw'
-            className='rounded-full'
+            className='rounded-full w-[3.1875rem] h-[3.1875rem]'
           />
           {checkGroupReader && (
             <Image
