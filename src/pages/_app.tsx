@@ -8,7 +8,9 @@ import {
 import type { AppProps } from 'next/app';
 import { Lato, Noto_Sans_KR } from 'next/font/google';
 import localFont from 'next/font/local';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 
@@ -16,7 +18,7 @@ import LoginModal from '@/components/auth/LoginModal';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import { useLoading } from '@/hooks/useRouterLoading';
 import Layout from '@/layout/Layout';
-import { pageview } from '@/lib/gtag';
+import { GA_TRACKING_ID, pageview } from '@/lib/gtag';
 import { NextPageWithLayout } from '@/types/layout';
 
 interface AppPropsWithLayout extends AppProps {
@@ -82,18 +84,40 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     Component.getLayout || ((page: ReactElement) => <Layout>{page}</Layout>);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <RecoilRoot>
-          <main
-            className={`${notoSans.className} ${lato.variable} ${prettyNight.variable} h-full`}
-          >
-            {nowLoading && <LoadingSpinner />}
-            {getLayout(<Component {...pageProps} />)}
-            <LoginModal />
-          </main>
-        </RecoilRoot>
-      </Hydrate>
-    </QueryClientProvider>
+    <>
+      <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+          }}
+        />
+      </Head>
+      {/* Global Site Tag (gtag.js) - Google Analytics */}
+      <Script
+        strategy='afterInteractive'
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+      />
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <RecoilRoot>
+            <main
+              className={`${notoSans.className} ${lato.variable} ${prettyNight.variable} h-full`}
+            >
+              {nowLoading && <LoadingSpinner />}
+              {getLayout(<Component {...pageProps} />)}
+              <LoginModal />
+            </main>
+          </RecoilRoot>
+        </Hydrate>
+      </QueryClientProvider>
+    </>
   );
 }
