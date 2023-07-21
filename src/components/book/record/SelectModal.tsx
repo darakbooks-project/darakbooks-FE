@@ -40,19 +40,16 @@ const ModalOverlay = ({ isbn, thumbnail, title, author }: selectBookProps) => {
         sizes='100vw'
         className='absolute w-[8.5em] h-[12em] top-[-7rem] -translate-x-2/4 translate-y-[-5%] rounded-[0px_3px_3px_0px] left-2/4 drop-shadow-[0_0_8px_rgba(0,0,0,0.25)]'
       />
-      <button
+      <Image
+        src='/images/record/select/exit.svg'
+        alt='exit'
+        width={32}
+        height={32}
         className='absolute right-8 top-6'
         onClick={() => setModal(false)}
-      >
-        <Image
-          src='/images/record/select/exit.svg'
-          alt='exit'
-          width={32}
-          height={32}
-        />
-      </button>
+      />
       <article className='absolute -translate-x-2/4 translate-y-[-20%] flex flex-col items-center justify-center w-full leading-6 left-2/4 top-24'>
-        <h4 className='text-lg text-[#242424]'>{title}</h4>
+        <h4 className='text-lg text-[#242424] text-center'>{title}</h4>
         <h5 className='text-[13px] text-[#707070]'>{author} 지음</h5>
       </article>
       <span
