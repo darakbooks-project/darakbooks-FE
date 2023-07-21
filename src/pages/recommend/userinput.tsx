@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { postGPTRecommendBook } from '@/api/recommend';
@@ -18,6 +18,7 @@ const RecommendInputPage = () => {
     mutate: postGPTRecommend,
     isLoading,
     isError,
+    isSuccess,
   } = useMutation(postGPTRecommendBook);
 
   const handleChangeRequestInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -35,7 +36,7 @@ const RecommendInputPage = () => {
           title: data.title,
           reason: data.reason,
         });
-        router.push('/recommend/complete', '/');
+        router.push('/recommend/complete', '/recommend');
       },
     });
   };
@@ -44,6 +45,7 @@ const RecommendInputPage = () => {
     return <RecommendLoading />;
   }
   if (isError) return <></>;
+  if (isSuccess) return null;
 
   return (
     <div className='flex flex-col items-center justify-between h-full p-5 bg-[url(/images/bookRecommend/background2.svg)] bg-no-repeat bg-cover bg-center'>

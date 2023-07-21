@@ -2,11 +2,11 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { getBookDataByTitle } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
+import Header from '@/components/common/Header';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 import { RecommendBookResult } from '@/recoil/recommend';
@@ -17,7 +17,6 @@ const RecommendCompletePage = () => {
   const { mutate: postMyBookshelf } = useMutation(postBookshelfApi);
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
   const setIsRendedOnboarding = useSetRecoilState(isRendedOnboardingAtom);
-
   const {
     data: recommendBookData,
     isError,
@@ -27,23 +26,20 @@ const RecommendCompletePage = () => {
     cacheTime: 0,
   });
 
-  if (isLoading) return <></>;
-
-  if (isError || !recommendBookData.documents.length)
+  if (isError || !bookTitle || !recommendBookData?.documents.length)
     return (
       <div className='flex flex-col items-center justify-center h-full bg-[#FFFEF8] text-textBlack'>
         <h3 className='font-medium text-clamp2xl'>책을 찾지 못했어요!</h3>
         <p>다시 시도해주세요😥</p>
         <button
           className='p-2 mt-4 text-white rounded bg-main'
-          onClick={() => {
-            router.back();
-          }}
+          onClick={() => router.push('/recommend/userinput')}
         >
           돌아가기
         </button>
       </div>
     );
+  if (isLoading) return <></>;
 
   const { authors, isbn, thumbnail, title } = recommendBookData.documents[0];
 
@@ -115,7 +111,8 @@ const RecommendCompletePage = () => {
 
   return (
     <div className='h-full bg-[url(/images/bookRecommend/background3.svg)] bg-no-repeat bg-cover bg-center'>
-      <div className='flex items-center justify-center h-[30.125rem]'>
+      <Header />
+      <div className='flex items-center justify-center h-[26.375rem]'>
         <Image
           src={thumbnail}
           width={187}

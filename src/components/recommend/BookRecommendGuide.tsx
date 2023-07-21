@@ -24,7 +24,7 @@ const BookRecommendGuide = () => {
             어떤 책을 추천해드릴까요?
           </h1>
           <h3 className='text-[#707070] text-center pb-5 text-clampSm'>
-            안녕하세요! 똑똑한 독서 메이트 00 입니다. <br /> 나에게 맞는 책을
+            안녕하세요! 똑똑한 독서 메이트입니다. <br /> 나에게 맞는 책을
             추천해드릴게요!
           </h3>
           <div className='flex justify-center'>
@@ -38,7 +38,7 @@ const BookRecommendGuide = () => {
         </section>
         <div className='w-full'>
           <button
-            onClick={() => router.push('/recommend/userinput', '/recommend')}
+            onClick={() => router.push('/recommend/userinput')}
             className='w-full mb-10 text-white rounded-lg h-14 bg-main'
           >
             시작하기
