@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { fetchBestGroup } from '@/api/main';
-import BookShelfPreview from '@/components/common/BookShelfPreview';
 import BottomNav from '@/components/common/BottomNav';
 import BestRecruitList from '@/components/main/bestRecruit/BestRecruitList';
+import BookShelfPreview from '@/components/main/recommendBookShelf/BookShelfPreview';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
