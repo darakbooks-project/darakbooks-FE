@@ -6,22 +6,25 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
-import DatePicker from 'react-datepicker';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
-import styles from '@/components/book/record/Calendar.module.css';
-import BottomNav from '@/components/common/BottomNav';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
-import Header from '@/components/common/Header';
+
+const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
+const Header = dynamic(() => import('@/components/common/Header'));
+const DatePickerComponent = dynamic(
+  () => import('@/components/book/record/DatePickerComponent'),
+);
 
 interface TagProps {
   id: number;
@@ -47,13 +50,6 @@ const BookRecordPage = () => {
   const [postImage, setPostImage] = useImage({}, registerImage);
 
   const today = new Intl.DateTimeFormat('kr').format(new Date());
-
-  const getMonth = (date: Date) => {
-    return new Date(date).toString().substring(4, 7).toUpperCase();
-  };
-  const getYear = (date: Date) => {
-    return new Date(date).getFullYear();
-  };
 
   const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(event.target.value);
@@ -196,69 +192,10 @@ const BookRecordPage = () => {
               </Link>
             </div>
             <div className='flex items-center justify-end'>
-              <DatePicker
-                id='calendar'
-                className='hidden'
-                fixedHeight
-                selected={startDate}
-                shouldCloseOnSelect
-                calendarClassName={styles.calenderWrapper}
-                onChange={(date) => setStartDate(date)}
-                renderCustomHeader={({
-                  date,
-                  decreaseMonth,
-                  increaseMonth,
-                }) => (
-                  <div className='flex items-center justify-between px-4'>
-                    <div
-                      className='text-[#242424] text-xl'
-                      onClick={decreaseMonth}
-                    >
-                      <Image
-                        src='/images/record/calendar-left.svg'
-                        alt='left-arrow'
-                        width={32}
-                        height={32}
-                      />
-                    </div>
-                    <div>
-                      <div className='text-base text-[#242424]'>
-                        {getYear(date)}
-                      </div>
-                      <div className='text-xl text-[#242424]'>
-                        {getMonth(date)}
-                      </div>
-                    </div>
-                    <div
-                      className='text-[#242424] text-xl'
-                      onClick={increaseMonth}
-                    >
-                      <Image
-                        src='/images/record/calendar-right.svg'
-                        alt='right-arrow'
-                        width={32}
-                        height={32}
-                      />
-                    </div>
-                  </div>
-                )}
-                dayClassName={(d) =>
-                  d.getDate() === startDate?.getDate()
-                    ? styles.selectedDay
-                    : styles.unselectedDay
-                }
+              <DatePickerComponent
+                startDate={startDate}
+                setStartDate={setStartDate}
               />
-              <label htmlFor='calendar'>
-                {startDate ? (
-                  <div className='w-[12rem] flex justify-end h-8 text-[14px] text-[#333333] cursor-pointer font-prettyNight'>
-                    읽은 날짜 {startDate.toLocaleDateString('ko')}
-                  </div>
-                ) : (
-                  <div className='w-[6.5rem] text-[14px] text-[#333333] flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] cursor-pointer font-prettyNight'>
-                    읽은 날짜 기록
-                  </div>
-                )}
-              </label>
             </div>
             <textarea
               className='flex min-h-[19rem] p-4 rounded-md resize-none bg-[#fff8cb33] font-prettyNight'
@@ -310,7 +247,7 @@ const BookRecordPage = () => {
                   width='0'
                   height='0'
                   sizes='100vw'
-                  className='w-full h-auto cursor-pointer'
+                  className='w-full h-auto'
                 />
               ) : (
                 <>

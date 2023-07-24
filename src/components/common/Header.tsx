@@ -32,7 +32,6 @@ const Header = ({ title, moreMenu, className, pathname }: Props) => {
                 })
               : back();
           }}
-          className='cursor-pointer'
           src='/images/header/back-button.svg'
           width={32}
           height={32}
