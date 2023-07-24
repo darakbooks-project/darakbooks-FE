@@ -14,24 +14,16 @@ import React, { useRef, useState } from 'react';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { registerBookRecordApi, registerImageApi } from '@/api/record';
+import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
 
-const BottomNav = dynamic(() => import('@/components/common/BottomNav'), {
-  ssr: false,
-});
-const Header = dynamic(() => import('@/components/common/Header'), {
-  ssr: false,
-});
-const AuthRequiredPage = dynamic(
-  () => import('@/components/auth/AuthRequiredPage'),
-  { ssr: false },
-);
+const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
+const Header = dynamic(() => import('@/components/common/Header'));
 const DatePickerComponent = dynamic(
   () => import('@/components/book/record/DatePickerComponent'),
-  { ssr: false },
 );
 
 interface TagProps {
