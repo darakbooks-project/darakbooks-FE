@@ -21,6 +21,7 @@ import { useAuth } from '@/hooks/useAuth';
 import useRememberScroll from '@/hooks/useRememberScroll';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { bookshelfDataProps } from '@/types/bookshelf';
+import { suitableDescriptionHandler } from '@/utils/helpers/suitableDescriptionHandler';
 
 const BookDetailPage = () => {
   const [ref, inView] = useInView();
@@ -164,7 +165,7 @@ const BookDetailPage = () => {
   const { title, contents, thumbnail, authors, publisher } =
     getBookDataByIsbn!.documents[0];
 
-  const suitableDescription = contents.slice(0, 100);
+  const suitableDescription = suitableDescriptionHandler(contents);
 
   return (
     <div className='flex flex-col gap-1.5'>
