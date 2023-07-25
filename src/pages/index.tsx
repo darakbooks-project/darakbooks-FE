@@ -10,6 +10,7 @@ import { getRecommendBookShelf } from '@/api/bookshelf';
 import { fetchBestGroup } from '@/api/main';
 import BookShelfPreview from '@/components/common/BookShelfPreview';
 import BottomNav from '@/components/common/BottomNav';
+import Seo from '@/components/common/Seo';
 import BestRecruitList from '@/components/main/bestRecruit/BestRecruitList';
 import RecordFeedList from '@/components/main/mainRecordFeed/RecordFeedList';
 import { useAuth } from '@/hooks/useAuth';
@@ -80,6 +81,7 @@ export default function Home({ bestGroup }: MainSSRProps) {
 
   return (
     <div className='pb-20 bg-white text-textBlack'>
+      <Seo />
       <section className='relative w-full'>
         <Image
           src='/images/main/main-banner.svg'

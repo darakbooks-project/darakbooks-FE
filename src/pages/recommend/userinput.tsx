@@ -6,6 +6,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { postGPTRecommendBook } from '@/api/recommend';
 import Header from '@/components/common/Header';
+import Seo from '@/components/common/Seo';
 import RecommendLoading from '@/components/recommend/RecommendLoading';
 import { RecommendBookResult } from '@/recoil/recommend';
 
@@ -49,6 +50,7 @@ const RecommendInputPage = () => {
 
   return (
     <div className='flex flex-col items-center justify-between h-full p-5 bg-[url(/images/bookRecommend/background2.svg)] bg-no-repeat bg-cover bg-center'>
+      <Seo title='다락책방 | 추천' />
       <Header className='pt-2 pl-0' />
       <main className='relative w-full h-[78%] m-3'>
         <h2 className='mb-5 font-medium text-clampLg'>
