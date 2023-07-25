@@ -31,6 +31,7 @@ const LoginPage = () => {
             src='./images/login-logo.svg'
             width={160}
             height={160}
+            priority={true}
             alt='로그인 페이지 로고'
           />
           <UserSelectWrapper>
