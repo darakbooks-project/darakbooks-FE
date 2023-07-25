@@ -10,13 +10,14 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
+import React, { ReactElement, useRef, useState } from 'react';
 
 import { getBookDataByIsbnApi } from '@/api/book';
 import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
+import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
 
@@ -140,7 +141,7 @@ const BookRecordPage = () => {
     <AuthRequiredPage>
       <div className='flex flex-col pb-20 bg-[url("/images/record/record-background.svg")]'>
         <Header className='mt-12' />
-        <section className='flex flex-col gap-8 p-4 border-solid pt-16'>
+        <section className='flex flex-col gap-8 p-4 pt-16 border-solid'>
           <article className='flex flex-col gap-2'>
             <h3 className='font-normal text-base leading-[19px] text-[#333333] font-prettyNight'>
               {today}
@@ -305,6 +306,10 @@ export const getServerSideProps: GetServerSideProps = async (
       dehydratedState: dehydrate(queryClient),
     },
   };
+};
+
+BookRecordPage.getLayout = function getLayout(page: ReactElement) {
+  return <PrettyNightFontLayout>{page}</PrettyNightFontLayout>;
 };
 
 export default BookRecordPage;
