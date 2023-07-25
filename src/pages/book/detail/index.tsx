@@ -16,6 +16,7 @@ import { useRecoilValue } from 'recoil';
 import { getBookDataByIsbnApi } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
 import { fetchRecord } from '@/api/record';
+import Seo from '@/components/common/Seo';
 import { useAuth } from '@/hooks/useAuth';
 import useRememberScroll from '@/hooks/useRememberScroll';
 import { isAuthorizedSelector } from '@/recoil/auth';
@@ -160,8 +161,18 @@ const BookDetailPage = () => {
     }
   }, [getBookDataByIsnValid, router]);
 
+  const { title, contents, thumbnail, authors, publisher } =
+    getBookDataByIsbn!.documents[0];
+
+  const suitableDescription = contents.slice(0, 100);
+
   return (
     <div className='flex flex-col gap-1.5'>
+      <Seo
+        title={`다락책방 | ${title}`}
+        description={`${suitableDescription}...`}
+        image={thumbnail}
+      />
       {getBookDataByIsnValid && (
         <>
           <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#FFFEF8] gap-5'>
@@ -177,7 +188,7 @@ const BookDetailPage = () => {
 
             <div className=' w-40 h-60 rounded-[0px_3px_3px_0px]  drop-shadow-xl'>
               <Image
-                src={getBookDataByIsbn?.documents[0].thumbnail}
+                src={thumbnail}
                 alt='테스트'
                 width='0'
                 height='0'
@@ -187,16 +198,12 @@ const BookDetailPage = () => {
             </div>
             <article className='flex flex-col items-center gap-1 '>
               <h1 className='text-xl font-semibold text-[#242424] text-center px-5'>
-                {getBookDataByIsbn?.documents[0].title}
+                {title}
               </h1>
               <h3 className='text-[13px]'>
-                {getBookDataByIsbn?.documents[0].authors[0]
-                  ? getBookDataByIsbn?.documents[0].authors[0] + ' 지음'
-                  : ''}
+                {authors[0] ? authors[0] + ' 지음' : ''}
               </h3>
-              <h4 className='text-[13px] text-[#999797]'>
-                {getBookDataByIsbn?.documents[0].publisher}
-              </h4>
+              <h4 className='text-[13px] text-[#999797]'>{publisher}</h4>
             </article>
           </section>
           <section className='border p-5 pb-2 border-solid bg-[#ffffff]'>
@@ -209,7 +216,7 @@ const BookDetailPage = () => {
                 introductionHeight ? 'h-[45px]' : null
               }`}
             >
-              {getBookDataByIsbn?.documents[0].contents}...
+              {contents}...
             </p>
             {showMore ? (
               <div className='border-t-[#ebeaea] border-t border-solid mt-4 flex justify-center pt-2'>
