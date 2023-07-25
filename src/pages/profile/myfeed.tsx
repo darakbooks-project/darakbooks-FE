@@ -16,6 +16,7 @@ import { getProfileApi } from '@/api/profile';
 import { deleteRecordApi, getAllRecordsApi } from '@/api/record';
 import BottomNav from '@/components/common/BottomNav';
 import Modal from '@/components/common/Modal';
+import Seo from '@/components/common/Seo';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
@@ -125,6 +126,11 @@ const MyFeed: NextPageWithLayout = () => {
 
   return (
     <>
+      <Seo
+        title={`다락책방 | ${userData?.nickname}`}
+        description={`${userData?.nickname}님의 독서기록입니다`}
+        image={userData?.photoUrl}
+      />
       {recordsStatus === 'success' && allRecords && (
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (

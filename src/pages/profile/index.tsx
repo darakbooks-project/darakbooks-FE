@@ -17,6 +17,7 @@ import { getCertainBookRecordsApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 import Modal from '@/components/common/Modal';
+import Seo from '@/components/common/Seo';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
@@ -128,6 +129,11 @@ const ProfilePage: NextPageWithLayout = () => {
 
   return (
     <AuthRequiredPage>
+      <Seo
+        title={`다락책방 | ${userData?.nickname}`}
+        description={`${userData?.nickname}님의 책장입니다`}
+        image={userData?.photoUrl}
+      />
       {bookshelfStatus === 'success' && bookshelfData && (
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
