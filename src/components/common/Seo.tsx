@@ -24,10 +24,7 @@ function Seo({ title, description, url, image }: SeoProps) {
       <meta name='author' content='다락책방' />
       <meta property='og:title' content={title || '다락책방'} />
       <meta property='og:type' content='website' />
-      <meta
-        property='og:url'
-        content={url || 'frontend-book-platform.vercel.app/'}
-      />
+      <meta property='og:url' content={url || 'darakbooks.vercel.app/'} />
       <meta
         property='og:image'
         content={
