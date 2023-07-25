@@ -13,7 +13,7 @@ import {
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
-import PrettyNightFontLayout from '@/layout/prettyNightFontLayout';
+import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 
 const BookDetailFeed = () => {
   const {

@@ -17,7 +17,7 @@ import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
-import PrettyNightFontLayout from '@/layout/prettyNightFontLayout';
+import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
 

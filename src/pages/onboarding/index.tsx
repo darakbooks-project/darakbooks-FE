@@ -4,7 +4,7 @@ import React, { Fragment, ReactElement, useRef, useState } from 'react';
 import Slider, { Settings } from 'react-slick';
 import { useSetRecoilState } from 'recoil';
 
-import PrettyNightFontLayout from '@/layout/prettyNightFontLayout';
+import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
 const ONBOADINGDATA = [
