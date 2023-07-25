@@ -3,16 +3,19 @@ import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { useRecoilState } from 'recoil';
+import React, { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { fetchReadingGroupLeader } from '@/api/main';
 import { fetchReadingGroupInfo } from '@/api/recruit';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Header from '@/components/common/Header';
+import Seo from '@/components/common/Seo';
 import RecruitNotification from '@/components/recruit/detail/RecruitNotification';
 import RecruitParticipationControl from '@/components/recruit/detail/RecruitParticipationControl';
 import RecruitStatusSelectModal from '@/components/recruit/detail/RecruitStatusSelectModal';
+import { useAuth } from '@/hooks/useAuth';
+import { isAuthorizedSelector } from '@/recoil/auth';
 import { selectRecruitStatusAtom } from '@/recoil/modal';
 
 const RecruitDetailPage = () => {
@@ -21,6 +24,12 @@ const RecruitDetailPage = () => {
     push,
   } = useRouter();
   const [modal, setModal] = useRecoilState(selectRecruitStatusAtom);
+  const isAuthorized = useRecoilValue(isAuthorizedSelector);
+  const { openAuthRequiredModal } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthorized) openAuthRequiredModal();
+  }, []);
 
   const {
     data: groupData,
@@ -106,6 +115,7 @@ const RecruitDetailPage = () => {
 
   return (
     <AuthRequiredPage>
+      <Seo title={`다락책방 | ${name}`} description={description} />
       <div className='h-full bg-white'>
         <Header
           moreMenu={is_group_lead && moreMenu}
