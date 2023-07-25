@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { BestGroupListType } from '@/types/recruit';
 
 import BestRecruitListItem from './BestRecruitListItem';

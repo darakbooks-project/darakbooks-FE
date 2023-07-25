@@ -1,22 +1,22 @@
-import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import tw from 'tailwind-styled-components';
 
-import { getRecommendBookShelf } from '@/api/bookshelf';
 import { fetchBestGroup } from '@/api/main';
-import BookShelfPreview from '@/components/common/BookShelfPreview';
 import BottomNav from '@/components/common/BottomNav';
 import BestRecruitList from '@/components/main/bestRecruit/BestRecruitList';
-import RecordFeedList from '@/components/main/mainRecordFeed/RecordFeedList';
+import BookShelfPreview from '@/components/main/recommendBookShelf/BookShelfPreview';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
-import { RecommendBookShelfType } from '@/types/bookshelf';
 import { BestGroupListType } from '@/types/recruit';
+const RecordFeedList = dynamic(
+  () => import('@/components/main/mainRecordFeed/RecordFeedList'),
+);
 
 interface MainSSRProps {
   bestGroup: BestGroupListType[];
@@ -25,14 +25,6 @@ interface MainSSRProps {
 export default function Home({ bestGroup }: MainSSRProps) {
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
   const { openAuthRequiredModal } = useAuth();
-
-  const {
-    data: currentBookshelfData,
-    isLoading: isBookshelfLoading,
-    isError: isBookshelfError,
-  } = useQuery(['customRecommendBookshelf'], () =>
-    getRecommendBookShelf(isAuthorized),
-  );
 
   const { push } = useRouter();
 
@@ -59,25 +51,6 @@ export default function Home({ bestGroup }: MainSSRProps) {
     setIsRendedOnboarding(false);
   };
 
-  const bookshelfComponent = (currentBookshelfData: RecommendBookShelfType) => {
-    if (!currentBookshelfData.users) {
-      return (
-        <BookshelfContainer>
-          <BookshelfCommend>추천 책장을 찾지 못했어요🥲</BookshelfCommend>
-        </BookshelfContainer>
-      );
-    }
-
-    return (
-      <BookShelfPreview
-        key={currentBookshelfData.users.userId}
-        nickname={currentBookshelfData.users.nickname}
-        imageSrcArr={currentBookshelfData.bookshelves}
-        memberId={currentBookshelfData.users.userId}
-      />
-    );
-  };
-
   return (
     <div className='pb-20 bg-white text-textBlack'>
       <section className='relative w-full'>
@@ -87,6 +60,7 @@ export default function Home({ bestGroup }: MainSSRProps) {
           height={274}
           alt='메인 안내 배너'
           className='w-full'
+          priority
         />
         <Image
           src='/images/main/main-logo.svg'
@@ -94,6 +68,7 @@ export default function Home({ bestGroup }: MainSSRProps) {
           height={20}
           alt='메인 로고'
           className='absolute w-[18%] max-w-[6.25rem] ml-5 top-12'
+          priority
         />
         <div className='absolute ml-5 bottom-6 left-12%'>
           <p className='font-bold text-[1.75rem] text-main xxs:text-lg'>
@@ -107,17 +82,7 @@ export default function Home({ bestGroup }: MainSSRProps) {
           오늘의 나를 위한 도서 선택
         </p>
         <h1 className='mb-5 font-bold text-clampXl'>맞춤 서재 추천</h1>
-        {isBookshelfLoading || isBookshelfError ? (
-          <BookshelfContainer>
-            <BookshelfCommend>
-              {isBookshelfError
-                ? '추천 책장을 찾지 못했어요.'
-                : '추천 책장을 찾고 있어요!'}
-            </BookshelfCommend>
-          </BookshelfContainer>
-        ) : (
-          bookshelfComponent(currentBookshelfData)
-        )}
+        <BookShelfPreview />
       </section>
       <BestRecruitList BestGroupList={bestGroup} />
       <section className='relative mt-12'>
@@ -176,20 +141,3 @@ export const getServerSideProps: GetServerSideProps<{
     },
   };
 };
-
-const BookshelfContainer = tw.div`
-w-[100%] 
-h-[11.6875rem] 
-bg-[#FFFEF8] 
-drop-shadow-md 
-rounded-t-md 
-cursor-pointer 
-xxs:h-[10rem]
-`;
-
-const BookshelfCommend = tw.h3`
-flex 
-items-center 
-justify-center
-h-full
-`;

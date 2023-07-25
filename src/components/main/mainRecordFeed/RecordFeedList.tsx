@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import React, { Fragment, useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { fetchRecord } from '@/api/record';
@@ -63,7 +63,7 @@ const RecordFeedList = () => {
           </p>
         </div>
       )}
-      <div ref={ref} className='h-4 '></div>
+      <li ref={ref} className='h-4 '></li>
     </ul>
   );
 };
