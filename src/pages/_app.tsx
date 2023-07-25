@@ -7,7 +7,6 @@ import {
 } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import { Lato, Noto_Sans_KR } from 'next/font/google';
-import localFont from 'next/font/local';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -34,12 +33,6 @@ const lato = Lato({
   preload: false,
   weight: ['400', '700'],
   variable: '--lato',
-});
-
-const prettyNight = localFont({
-  src: '../../public/fonts/Cafe24Oneprettynight-v2.0.woff2',
-  weight: '400',
-  variable: '--prettyNight',
 });
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
@@ -108,9 +101,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <RecoilRoot>
-            <main
-              className={`${notoSans.className} ${lato.variable} ${prettyNight.variable} h-full`}
-            >
+            <main className={`${notoSans.className} ${lato.variable} h-full`}>
               {nowLoading && <LoadingSpinner />}
               {getLayout(<Component {...pageProps} />)}
               <LoginModal />
