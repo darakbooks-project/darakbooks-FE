@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { Fragment, ReactElement, useRef, useState } from 'react';
+import { Fragment, ReactElement, useRef, useState } from 'react';
 import Slider, { Settings } from 'react-slick';
 import { useSetRecoilState } from 'recoil';
 
@@ -89,6 +89,7 @@ const OnboardingPage = () => {
                 src={item.image}
                 width={350}
                 height={350}
+                priority={true}
                 alt='온보딩 이미지'
                 className='max-h-96'
               />
