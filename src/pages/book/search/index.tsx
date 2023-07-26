@@ -1,15 +1,19 @@
+import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
-import InfinityScrollLists from '@/components/book/search/InfinityScrollLists';
-import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import SearchInput from '@/components/common/SearchInput';
 import {
   searchBookTitleAtom,
   searchInfinityScrollPositionAtom,
 } from '@/recoil/book';
+
+const InfinityScrollLists = dynamic(
+  () => import('@/components/book/search/InfinityScrollLists'),
+);
+const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 
 const BookSearchPage = () => {
   const [searchBookTitle, setSearchBookTitle] =

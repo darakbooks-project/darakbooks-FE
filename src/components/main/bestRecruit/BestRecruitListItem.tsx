@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { fetchReadingGroupLeader } from '@/api/main';
@@ -65,8 +64,8 @@ const BestRecruitListItem = ({
           alt='모임장 프로필 이미지'
           width='45'
           height='45'
-          sizes='100% 100%'
-          className='rounded-full w-11 h-11'
+          sizes='100vw'
+          className='object-cover rounded-full w-[2.8125rem] h-[2.8125rem]'
         />
         <div className='flex-col justify-between ml-3'>
           <h3 className='text-clampBase font-medium truncate w-[60vw] max-w-sm xxs:w-[45vw]'>

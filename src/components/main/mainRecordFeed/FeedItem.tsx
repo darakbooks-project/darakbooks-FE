@@ -1,7 +1,7 @@
 import ColorThief from 'colorthief';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { useAuth } from '@/hooks/useAuth';
@@ -56,7 +56,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
       }}
     >
       <div className='max-w-[65%] py-4 '>
-        <h3 className='h-6 font-bold truncate text-clampBase'>#{title}</h3>
+        <h1 className='h-6 font-bold truncate text-clampBase'>#{title}</h1>
         <p className='pt-2 pb-3 text-xs truncate'>{text}</p>
         <p className='text-xs text-[#707070] truncate'>@{nickname}</p>
       </div>
@@ -66,7 +66,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
           width={80}
           height={110}
           alt='책 표지'
-          className='w-[5rem] h-[6.875rem] xxs:w-[3.75rem] xxs:h-[5.625rem]'
+          className='w-[5rem] h-[6.875rem] xxs:w-[3.75rem] xxs:h-[5.625rem] object-cover'
           crossOrigin='anonymous'
           onLoadingComplete={handleGetImgColor}
         />

@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, ReactElement, useRef, useState } from 'react';
 import Slider, { Settings } from 'react-slick';
 import { useSetRecoilState } from 'recoil';
 
 import Seo from '@/components/common/Seo';
+import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
 const ONBOADINGDATA = [
@@ -125,6 +126,10 @@ const OnboardingPage = () => {
       </div>
     </div>
   );
+};
+
+OnboardingPage.getLayout = function getLayout(page: ReactElement) {
+  return <PrettyNightFontLayout>{page}</PrettyNightFontLayout>;
 };
 
 export default OnboardingPage;

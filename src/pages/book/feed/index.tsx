@@ -2,7 +2,7 @@ import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React, { ReactElement, useMemo } from 'react';
 
 import { getProfileApi } from '@/api/profile';
 import {
@@ -13,6 +13,7 @@ import {
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
+import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 
 const BookDetailFeed = () => {
   const {
@@ -289,7 +290,7 @@ const BookDetailFeed = () => {
                 />
               </button>
             </section>
-            <section className='w-full h-10 flex justify-between items-center px-6'>
+            <section className='flex items-center justify-between w-full h-10 px-6'>
               <article
                 className='flex items-center'
                 onClick={() => onProfile(currentData.user.userId)}
@@ -318,7 +319,7 @@ const BookDetailFeed = () => {
             <article className='w-full leading-[160%] text-[15px] rounded-md px-6 font-prettyNight'>
               {currentData.text}
             </article>
-            <ul className='inline-flex w-full flex-wrap px-6'>
+            <ul className='inline-flex flex-wrap w-full px-6'>
               {currentData.tags.map((tag) => (
                 <li
                   className='flex justify-center items-center border font-normal text-[13px] text-[#333333] mr-2 px-3 py-[5px] rounded-[50px] border-solid border-[#ebeaea] font-prettyNight'
@@ -351,7 +352,7 @@ const BookDetailFeed = () => {
                     className='w-full h-auto'
                   />
                 </div>
-                <div className='w-4/5 flex flex-col justify-evenly'>
+                <div className='flex flex-col w-4/5 justify-evenly'>
                   <h1 className='text-base'>{currentData.book.title}</h1>
                   <h3 className='text-[13px] text-[#999797]'>
                     {currentData.book.authors[0]}
@@ -425,6 +426,10 @@ export const getServerSideProps: GetServerSideProps = async (
       dehydratedState: dehydrate(queryClient),
     },
   };
+};
+
+BookDetailFeed.getLayout = function getLayout(page: ReactElement) {
+  return <PrettyNightFontLayout>{page}</PrettyNightFontLayout>;
 };
 
 export default BookDetailFeed;

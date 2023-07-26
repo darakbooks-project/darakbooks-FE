@@ -6,20 +6,22 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import { Lato, Noto_Sans_KR } from 'next/font/google';
-import localFont from 'next/font/local';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import React, { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 
-import LoginModal from '@/components/auth/LoginModal';
-import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import { useLoading } from '@/hooks/useRouterLoading';
-import Layout from '@/layout/Layout';
 import { GA_TRACKING_ID, pageview } from '@/lib/gtag';
 import { NextPageWithLayout } from '@/types/layout';
+
+const LoginModal = dynamic(() => import('@/components/auth/LoginModal'));
+const LoadingSpinner = dynamic(
+  () => import('@/components/common/LoadingSpinner'),
+);
 
 interface AppPropsWithLayout extends AppProps {
   Component: NextPageWithLayout;
@@ -34,12 +36,6 @@ const lato = Lato({
   preload: false,
   weight: ['400', '700'],
   variable: '--lato',
-});
-
-const prettyNight = localFont({
-  src: '../../public/fonts/Cafe24Oneprettynight-v2.0.woff2',
-  weight: '400',
-  variable: '--prettyNight',
 });
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
@@ -81,7 +77,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   if (!hydrated) return null;
 
   const getLayout =
-    Component.getLayout || ((page: ReactElement) => <Layout>{page}</Layout>);
+    Component.getLayout || ((page: ReactElement) => <>{page}</>);
 
   return (
     <>
@@ -108,9 +104,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <RecoilRoot>
-            <main
-              className={`${notoSans.className} ${lato.variable} ${prettyNight.variable} h-full`}
-            >
+            <main className={`${notoSans.className} ${lato.variable} h-full`}>
               {nowLoading && <LoadingSpinner />}
               {getLayout(<Component {...pageProps} />)}
               <LoginModal />
