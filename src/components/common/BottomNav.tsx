@@ -70,6 +70,7 @@ const BottomNav = () => {
                 src={`../images/bottomNavBar/${src}-${
                   isClicked ? 'on' : 'off'
                 }.svg`}
+                priority
               />
               <Text $isClick={isClicked ? 'click' : ''}>{text}</Text>
             </Button>
