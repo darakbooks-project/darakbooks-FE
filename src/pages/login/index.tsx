@@ -5,6 +5,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import LoginButton from '@/components/auth/LoginButton';
+import Seo from '@/components/common/Seo';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
@@ -24,38 +25,44 @@ const LoginPage = () => {
 
   return (
     !isAuthorized && (
-      <Container>
-        <Wrap>
-          <div></div>
-          <SiteLogo
-            src='./images/login-logo.svg'
-            width={160}
-            height={160}
-            priority={true}
-            alt='로그인 페이지 로고'
-          />
-          <UserSelectWrapper>
-            <QuestionText>
-              발견하고 기록하고 소통하는 <br /> 나만의 작은 책방
-            </QuestionText>
-            <LoginButton>
-              <ButtonItem>
-                <Image
-                  src='./images/kakao-logo.svg'
-                  width={17.5}
-                  height={17.5}
-                  alt='카카오 로고 사진'
-                />
-              </ButtonItem>
-              <ButtonItem className='text-center w-[50%]'>
-                카카오로 시작하기
-              </ButtonItem>
-              <ButtonItem></ButtonItem>
-            </LoginButton>
-            <LinkStyles onClick={moveMainPage}>일단 둘러보기</LinkStyles>
-          </UserSelectWrapper>
-        </Wrap>
-      </Container>
+      <>
+        <Seo
+          title='다락책방 | 로그인'
+          description='간편한 소셜 로그인을 통해 다락책방을 이용해보세요'
+        />
+        <Container>
+          <Wrap>
+            <div></div>
+            <SiteLogo
+              src='./images/login-logo.svg'
+              width={160}
+              height={160}
+              priority={true}
+              alt='로그인 페이지 로고'
+            />
+            <UserSelectWrapper>
+              <QuestionText>
+                발견하고 기록하고 소통하는 <br /> 나만의 작은 책방
+              </QuestionText>
+              <LoginButton>
+                <ButtonItem>
+                  <Image
+                    src='./images/kakao-logo.svg'
+                    width={17.5}
+                    height={17.5}
+                    alt='카카오 로고 사진'
+                  />
+                </ButtonItem>
+                <ButtonItem className='text-center w-[50%]'>
+                  카카오로 시작하기
+                </ButtonItem>
+                <ButtonItem></ButtonItem>
+              </LoginButton>
+              <LinkStyles onClick={moveMainPage}>일단 둘러보기</LinkStyles>
+            </UserSelectWrapper>
+          </Wrap>
+        </Container>
+      </>
     )
   );
 };

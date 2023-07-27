@@ -8,6 +8,7 @@ import {
 
 import AuthRequiredPage from '../auth/AuthRequiredPage';
 import Header from '../common/Header';
+import Seo from '../common/Seo';
 import RecruitFormUserInput from './RecruitFormUserInput';
 
 interface RecruitFormProps {
@@ -42,6 +43,10 @@ const RecruitForm = ({
 
   return (
     <AuthRequiredPage>
+      <Seo
+        title={`다락책방 | 모임 ${type}`}
+        description={`모임을 ${type}할 수 있는 공간`}
+      />
       <Container>
         <Header pathname={type === '개설' ? '/recruit' : ''} />
         <Wrapper>

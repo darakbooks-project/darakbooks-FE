@@ -4,6 +4,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import BottomNav from '@/components/common/BottomNav';
+import Seo from '@/components/common/Seo';
 import RecruitInfinityScrollLists from '@/components/recruit/RecruitInfinityScrollLists';
 import { useAuth } from '@/hooks/useAuth';
 import { isAuthorizedSelector } from '@/recoil/auth';
@@ -31,38 +32,44 @@ const RecruitPage = () => {
   };
 
   return (
-    <Container>
-      <BackGroundWrap>
-        <BackGround>
-          <Title>
-            독서모임 시작하기 <br /> 참 좋은 하루에요
-            <span className='ml-1'>:)</span>
-          </Title>
-        </BackGround>
-      </BackGroundWrap>
+    <>
+      <Seo
+        title='다락책방 | 독서 모임 조회'
+        description='독서인들의 모임 생성 및 조회를 위한 공간'
+      />
+      <Container>
+        <BackGroundWrap>
+          <BackGround>
+            <Title>
+              독서모임 시작하기 <br /> 참 좋은 하루에요
+              <span className='ml-1'>:)</span>
+            </Title>
+          </BackGround>
+        </BackGroundWrap>
 
-      <InfinityScrollListsWrap>
-        <InfinityScrollLists>
-          <RecruitInfinityScrollLists
-            listchangetype={
-              typeof listchangetype === 'string' ? listchangetype : ''
-            }
+        <InfinityScrollListsWrap>
+          <InfinityScrollLists>
+            <RecruitInfinityScrollLists
+              listchangetype={
+                typeof listchangetype === 'string' ? listchangetype : ''
+              }
+            />
+          </InfinityScrollLists>
+        </InfinityScrollListsWrap>
+
+        <PersonnelRecruitButton onClick={clickGroupOpenButton}>
+          <Image
+            src='/images/group/people-white.svg'
+            width={32}
+            height={32}
+            alt='독서 모임 개설 아이콘'
           />
-        </InfinityScrollLists>
-      </InfinityScrollListsWrap>
+          <span className='text-clampSm'>나만의 독서 모임 만들기</span>
+        </PersonnelRecruitButton>
 
-      <PersonnelRecruitButton onClick={clickGroupOpenButton}>
-        <Image
-          src='/images/group/people-white.svg'
-          width={32}
-          height={32}
-          alt='독서 모임 개설 아이콘'
-        />
-        <span className='text-clampSm'>나만의 독서 모임 만들기</span>
-      </PersonnelRecruitButton>
-
-      <BottomNav />
-    </Container>
+        <BottomNav />
+      </Container>
+    </>
   );
 };
 
