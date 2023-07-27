@@ -62,7 +62,7 @@ const LoginPage = () => {
 
 export default LoginPage;
 
-const Container = tw.div`
+const Container = tw.main`
   bg-[#FFFEF8]
   h-full
 `;
@@ -82,7 +82,7 @@ const SiteLogo = tw(Image)`
   mx-auto
 `;
 
-const UserSelectWrapper = tw.div`
+const UserSelectWrapper = tw.section`
   w-full
   text-center
 `;
