@@ -92,6 +92,6 @@ const RecruitInfinityScrollLists = ({
 
 export default RecruitInfinityScrollLists;
 
-const Container = tw.div``;
+const Container = tw.section``;
 
 const Bottom = tw.div``;
