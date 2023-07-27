@@ -89,7 +89,7 @@ const OnboardingPage = () => {
                 src={item.image}
                 width={350}
                 height={350}
-                priority={true}
+                priority
                 alt='온보딩 이미지'
                 className='max-h-96'
               />
