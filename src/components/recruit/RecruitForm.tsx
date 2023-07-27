@@ -80,7 +80,7 @@ const Container = tw.div`
   bg-white
 `;
 
-const Wrapper = tw.div`
+const Wrapper = tw.main`
   px-[5%]
   mx-auto
   bg-white
@@ -97,7 +97,7 @@ const RecruitFormWrapper = tw.div`
   flex-col
 `;
 
-const ClassButtonWrap = tw.div`  
+const ClassButtonWrap = tw.section`  
   border 
   border-t-[black]
   border-opacity-10

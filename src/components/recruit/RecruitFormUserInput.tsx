@@ -217,7 +217,7 @@ const RecruitFormUserInput = ({
 
 export default RecruitFormUserInput;
 
-const Container = tw.div`
+const Container = tw.section`
 `;
 
 const ItemDescription = tw.h1`
@@ -327,7 +327,7 @@ const ClassSelectListItem = tw.li`
   cursor-pointer
 `;
 
-const ClassRegionWrap = tw.div<{
+const ClassRegionWrap = tw.article<{
   $islistdisplay: string;
   $isbuttondisplay: string;
 }>`
@@ -336,26 +336,26 @@ const ClassRegionWrap = tw.div<{
   relative
 `;
 
-const ClassDayTimeWrap = tw.div<{ $islistdisplay: string }>`
+const ClassDayTimeWrap = tw.article<{ $islistdisplay: string }>`
   ${(props) => (props.$islistdisplay === 'view' ? 'mb-40' : 'mb-8')}
 
   flex
   justify-between	
 `;
 
-const ClassDayWrap = tw.div`
+const ClassDayWrap = tw.article`
   relative
   w-[48.5%]
 `;
 
-const ClassTimeWrap = tw.div`
+const ClassTimeWrap = tw.article`
   relative
   w-[48.5%]
 `;
 
 const ClassPeopleNumber = tw(CommonInputStyle)``;
 
-const ClassKakaoLinkWrap = tw.div`
+const ClassKakaoLinkWrap = tw.article`
   relative
 `;
 
