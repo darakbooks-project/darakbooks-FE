@@ -1,16 +1,14 @@
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import SearchInput from '@/components/common/SearchInput';
 import Seo from '@/components/common/Seo';
-import {
-  searchBookTitleAtom,
-  searchInfinityScrollPositionAtom,
-} from '@/recoil/book';
+import useRememberScroll from '@/hooks/useRememberScroll';
+import { searchBookTitleAtom } from '@/recoil/book';
 
 const InfinityScrollLists = dynamic(
   () => import('@/components/book/search/InfinityScrollLists'),
@@ -19,18 +17,17 @@ const InfinityScrollLists = dynamic(
 const BookSearchPage = () => {
   const [searchBookTitle, setSearchBookTitle] =
     useRecoilState(searchBookTitleAtom);
-  const infinityScrollPosition = useRecoilValue(
-    searchInfinityScrollPositionAtom,
-  );
+  const { currentScroll, resetScroll } = useRememberScroll('bookSearch');
 
   const onSubmit = (keyword: string) => {
     setSearchBookTitle(keyword);
   };
 
   useEffect(() => {
-    if (infinityScrollPosition !== 0) {
-      window.scrollTo(0, infinityScrollPosition);
-    }
+    if (currentScroll === 0) return;
+
+    window.scrollTo(0, Number(currentScroll));
+    resetScroll();
   }, []);
 
   return (

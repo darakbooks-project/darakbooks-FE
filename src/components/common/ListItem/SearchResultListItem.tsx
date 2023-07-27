@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
 
-import { searchInfinityScrollPositionAtom } from '@/recoil/book';
+import useRememberScroll from '@/hooks/useRememberScroll';
 import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
 
 interface SearchResultListItemProps {
@@ -25,9 +25,7 @@ const SearchResultListItem = ({
   const setModal = useSetRecoilState(selectModalStateAtom);
   const setSendData = useSetRecoilState(selectModalDataAtom);
   const router = useRouter();
-  const setInfinityScrollPosition = useSetRecoilState(
-    searchInfinityScrollPositionAtom,
-  );
+  const { setScroll } = useRememberScroll('bookSearch');
 
   const shiftPage = () => {
     const isbnArr = isbn.split(' ');
@@ -37,7 +35,7 @@ const SearchResultListItem = ({
   };
 
   const clickBookListItem = () => {
-    setInfinityScrollPosition(window.scrollY);
+    setScroll();
     if (router.pathname !== '/book/record/search') {
       shiftPage();
       return;
