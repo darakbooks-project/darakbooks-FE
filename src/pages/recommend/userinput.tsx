@@ -58,8 +58,8 @@ const RecommendInputPage = () => {
         </h2>
         <Image
           src='/images/bookRecommend/recommendCharacter.svg'
-          width={73}
-          height={90}
+          width={80}
+          height={79}
           alt='책 추천 캐릭터'
           className='absolute right-0 -top-5 xxs:hidden'
         />
