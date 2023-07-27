@@ -13,12 +13,9 @@ import {
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
-<<<<<<< HEAD
 import Seo from '@/components/common/Seo';
-import { suitableDescriptionHandler } from '@/utils/helpers/suitableDescriptionHandler';
-=======
 import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
->>>>>>> main
+import { suitableDescriptionHandler } from '@/utils/helpers/suitableDescriptionHandler';
 
 const BookDetailFeed = () => {
   const {
