@@ -19,7 +19,7 @@ export default function ConfirmModal({
 }: ConfirmModalProps) {
   return (
     <ModalWrapper isOpen={isOpen}>
-      <div className='absolute flex flex-col items-center w-[66%] max-w-2xl gap-8 p-6 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg top-1/2 left-1/2 rounded-2xl'>
+      <div className='absolute flex flex-col items-center w-[66%] max-w-lg gap-8 p-6 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg top-1/2 left-1/2 rounded-2xl'>
         <div className='text-sm text-center whitespace-pre-line'>{text}</div>
         <div className='flex gap-4'>
           <Button size='small' color='blue' onButtonClick={onClickConfirm}>
