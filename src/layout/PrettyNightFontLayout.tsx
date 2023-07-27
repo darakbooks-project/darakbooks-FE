@@ -8,7 +8,7 @@ const prettyNight = localFont({
 });
 
 function PrettyNightFontLayout({ children }: { children: ReactNode }) {
-  return <div className={`${prettyNight.variable}`}>{children}</div>;
+  return <div className={`${prettyNight.variable} h-full`}>{children}</div>;
 }
 
 export default PrettyNightFontLayout;
