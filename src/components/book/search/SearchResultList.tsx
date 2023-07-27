@@ -18,7 +18,6 @@ const SearchResultList = ({ listData }: SearchResultListProps) => {
         <SearchResultListItem
           key={isbn}
           src={thumbnail}
-          imageSize='not-feed-small'
           title={title}
           author={authors.slice(0, 2)}
           publisher={publisher}

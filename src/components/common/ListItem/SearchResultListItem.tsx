@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import tw from 'tailwind-styled-components';
@@ -5,11 +6,8 @@ import tw from 'tailwind-styled-components';
 import { searchInfinityScrollPositionAtom } from '@/recoil/book';
 import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
 
-import BookImage from '../ImageComponent';
-
 interface SearchResultListItemProps {
   src: string;
-  imageSize: string;
   title: string;
   author: string[];
   publisher: string;
@@ -19,7 +17,6 @@ interface SearchResultListItemProps {
 
 const SearchResultListItem = ({
   src,
-  imageSize,
   title,
   author,
   publisher,
@@ -58,12 +55,11 @@ const SearchResultListItem = ({
   return (
     <Container onClick={clickBookListItem}>
       <BookImageWrap>
-        <BookImage
-          lazy={true}
+        <Image
           src={src}
-          placeholder='스켈레톤'
+          width={72}
+          height={96}
           alt='책 선택 리스트 아이템의 사진 입니다.'
-          size={imageSize}
         />
       </BookImageWrap>
       <Introduce>
