@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
+import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
 import SearchInput from '@/components/common/SearchInput';
 import Seo from '@/components/common/Seo';
@@ -14,7 +15,6 @@ import {
 const InfinityScrollLists = dynamic(
   () => import('@/components/book/search/InfinityScrollLists'),
 );
-const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 
 const BookSearchPage = () => {
   const [searchBookTitle, setSearchBookTitle] =
