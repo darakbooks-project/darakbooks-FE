@@ -78,7 +78,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 className='w-[4.5rem] h-[4.5rem]  rounded-[50%] '
               />
               <div>
-                <h1 className='text-2xl text-[#333333] font-[bold] mb-[5px]'>
+                <h1 className='text-2xl text-textBlack font-[bold] mb-[5px]'>
                   {data.nickname}
                 </h1>
                 <p className='text-[13px] text-textGray flex gap-4'>
@@ -88,7 +88,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
             </article>
             {data.isMine && (
               <button
-                className='flex justify-center items-center h-11 border rounded text-[13px] text-[#333333] border-solid border-[#dfdfdf]'
+                className='flex justify-center items-center h-11 border rounded text-[13px] text-textBlack border-solid border-[#dfdfdf]'
                 onClick={() => push('/profile/edit')}
               >
                 <Image

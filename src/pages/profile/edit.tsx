@@ -70,7 +70,7 @@ const Edit = () => {
                 }}
               />
 
-              <h1 className='text-base text-[#333333]'>프로필 수정</h1>
+              <h1 className='text-base text-textBlack'>프로필 수정</h1>
               <div className='invisible w-[32px]'></div>
             </section>
             <main className='flex flex-col items-center w-full gap-6 s:pb-36'>
@@ -122,7 +122,7 @@ const Edit = () => {
                   닉네임
                 </label>
                 <input
-                  className='h-14 border font-normal text-sm text-[#333333] p-4 rounded-md border-solid border-[#c2c1c1]'
+                  className='h-14 border font-normal text-sm text-textBlack p-4 rounded-md border-solid border-[#c2c1c1]'
                   id='nickname'
                   placeholder={getMyProfile.nickname}
                   value={nickname}
@@ -146,7 +146,7 @@ const Edit = () => {
                   소개
                 </label>
                 <textarea
-                  className='h-[7.5rem] border font-normal text-sm text-[#333333] resize-none p-4 rounded-md border-solid border-[#c2c1c1]'
+                  className='h-[7.5rem] border font-normal text-sm text-textBlack resize-none p-4 rounded-md border-solid border-[#c2c1c1]'
                   id='bio'
                   placeholder={
                     getMyProfile.userInfo || '좋아하는 것을 일고 기록해요 :)'
@@ -176,7 +176,7 @@ const Edit = () => {
                     <p
                       className={
                         secretMode === 'PUBLIC'
-                          ? 'font-normal text-[11px] text-[#60B28D]'
+                          ? 'font-normal text-[11px] text-main'
                           : 'font-normal text-[11px] text-[#999797]'
                       }
                     >
@@ -199,7 +199,7 @@ const Edit = () => {
                     <p
                       className={
                         secretMode === 'PRIVATE'
-                          ? 'font-normal text-[11px] text-[#60B28D]'
+                          ? 'font-normal text-[11px] text-main'
                           : 'font-normal text-[11px] text-[#999797]'
                       }
                     >

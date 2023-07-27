@@ -75,7 +75,7 @@ const MyRecruit: NextPageWithLayout = () => {
         <main className='flex flex-col gap-12 px-6 py-5  h-[calc(100%_-_8.5rem)]'>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
             <div className='h-full flex flex-col justify-center items-center '>
-              <h5 className='text-base font-medium text-[#333333]'>
+              <h5 className='text-base font-medium text-textBlack'>
                 비공개 계정입니다.
               </h5>
               <p className='text-[13px] text-textGray'>
@@ -85,7 +85,7 @@ const MyRecruit: NextPageWithLayout = () => {
           ) : (
             <>
               <section className='flex flex-col justify-center h-3/6'>
-                <h3 className='font-medium text-[17px] text-[#333333] mb-2'>
+                <h3 className='font-medium text-[17px] text-textBlack mb-2'>
                   운영중인 모임
                 </h3>
                 <div className='w-full h-36 flex flex-col overflow-scroll gap-3.5'>
@@ -96,7 +96,7 @@ const MyRecruit: NextPageWithLayout = () => {
                         key={item.group_id}
                         onClick={() => onRecruitClick(item.group_id + '')}
                       >
-                        <h4 className='text-[15px] text-[#333333] font-[bold]'>
+                        <h4 className='text-[15px] text-textBlack font-[bold]'>
                           {item.name}
                         </h4>
                         <div>
@@ -162,7 +162,7 @@ const MyRecruit: NextPageWithLayout = () => {
                 </div>
               </section>
               <section className='flex flex-col justify-center h-3/6 pb-10'>
-                <h3 className='font-medium text-[17px] text-[#333333] mb-2'>
+                <h3 className='font-medium text-[17px] text-textBlack mb-2'>
                   참여중인 모임
                 </h3>
                 <div className='w-full h-36 flex flex-col overflow-scroll gap-3.5'>
@@ -173,7 +173,7 @@ const MyRecruit: NextPageWithLayout = () => {
                         key={item.group_id}
                         onClick={() => onRecruitClick(item.group_id + '')}
                       >
-                        <h4 className='text-[15px] text-[#333333] font-[bold]'>
+                        <h4 className='text-[15px] text-textBlack font-[bold]'>
                           {item.name}
                         </h4>
                         <div>

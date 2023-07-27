@@ -138,7 +138,7 @@ const ProfilePage: NextPageWithLayout = () => {
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
             <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
-              <h5 className='text-base font-medium text-[#333333]'>
+              <h5 className='text-base font-medium text-textBlack'>
                 비공개 계정입니다.
               </h5>
               <p className='text-[13px] text-textGray'>
@@ -149,7 +149,7 @@ const ProfilePage: NextPageWithLayout = () => {
             <>
               {bookshelfData.length < 1 ? (
                 <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
-                  <h5 className='text-base font-medium text-[#333333]'>
+                  <h5 className='text-base font-medium text-textBlack'>
                     책장이 비어있어요
                   </h5>
                 </div>
@@ -210,7 +210,7 @@ const ProfilePage: NextPageWithLayout = () => {
                           />
                         </section>
                         <div className='flex flex-col items-center w-full'>
-                          <h3 className='text-[13px] text-[#333333] mb-[5px] text-center'>
+                          <h3 className='text-[13px] text-textBlack mb-[5px] text-center'>
                             {data.title}
                           </h3>
                           <h4 className='text-[11px] text-textGray'>
@@ -228,10 +228,10 @@ const ProfilePage: NextPageWithLayout = () => {
                           X
                         </div>
                         <section className='flex flex-col items-center'>
-                          <h3 className='font-bold text-[21px] text-[#333333] text-center'>
+                          <h3 className='font-bold text-[21px] text-textBlack text-center'>
                             {certainBookTitle}
                           </h3>
-                          <h4 className='font-normal text-[15px] text-[#333333]'>
+                          <h4 className='font-normal text-[15px] text-textBlack'>
                             총{' '}
                             <span className='font-normal text-[15px] text-main'>
                               {certainBookData?.records.length}개
@@ -312,7 +312,7 @@ const ProfilePage: NextPageWithLayout = () => {
                           <div className='flex w-full'>
                             <button
                               onClick={() => setModal({ type: 'HIDDEN' })}
-                              className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
+                              className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-textBlack'
                             >
                               취소
                             </button>

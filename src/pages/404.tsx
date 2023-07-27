@@ -8,7 +8,7 @@ function NotFound() {
     push('/');
   };
   return (
-    <div className='h-screen flex items-center bg-[#FFFEF8]'>
+    <div className='h-screen flex items-center bg-background'>
       <div className='flex flex-col items-center justify-between w-full h-[29rem]'>
         <Image
           src='/images/notfound/not-found.svg'
@@ -16,7 +16,7 @@ function NotFound() {
           width={180}
           height={237}
         />
-        <h5 className='text-2xl font-[bold] text-[#60b28d]'>
+        <h5 className='text-2xl font-[bold] text-main'>
           이곳은 들어갈 수 없어요!
         </h5>
         <p className='flex text-center text-[15px] text-textGray'>
@@ -25,7 +25,7 @@ function NotFound() {
         </p>
         <button
           onClick={goHome}
-          className='flex justify-center items-center text-white w-[21.875rem] h-[3.625rem] bg-[#60b28d] rounded-[10px]'
+          className='flex justify-center items-center text-white w-[21.875rem] h-[3.625rem] bg-main rounded-[10px]'
         >
           홈으로 가기
         </button>

@@ -176,7 +176,7 @@ const BookDetailPage = () => {
       />
       {getBookDataByIsnValid && (
         <>
-          <section className='flex flex-col items-center justify-center h-[30rem] border border-solid  bg-[#FFFEF8] gap-5'>
+          <section className='flex flex-col items-center justify-center h-[30rem] border border-solid bg-background gap-5'>
             <div className='w-full px-4'>
               <Image
                 src='/images/detail/back.svg'
@@ -263,7 +263,7 @@ const BookDetailPage = () => {
                 >
                   <li className='w-full flex justify-between px-0 py-4 border-b-[#ebeaea] border-b border-solid'>
                     <div className='flex flex-col justify-between w-9/12'>
-                      <p className='text-[#333333] text-[13px]'>
+                      <p className='text-textBlack text-[13px]'>
                         {item.text.length >= 69
                           ? item.text.substring(0, 68) + '...'
                           : item.text}
@@ -286,7 +286,7 @@ const BookDetailPage = () => {
             </>
           ) : (
             <div className='flex flex-col justify-center items-center h-[18rem]'>
-              <span className='text-lg text-[#333333]'>
+              <span className='text-lg text-textBlack'>
                 독서 기록이 없어요.
               </span>
               <span className='text-sm text-textGray'>

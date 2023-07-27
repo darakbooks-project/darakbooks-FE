@@ -135,7 +135,7 @@ const MyFeed: NextPageWithLayout = () => {
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
             <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
-              <h5 className='text-base font-medium text-[#333333]'>
+              <h5 className='text-base font-medium text-textBlack'>
                 비공개 계정입니다.
               </h5>
               <p className='text-[13px] text-textGray'>
@@ -146,7 +146,7 @@ const MyFeed: NextPageWithLayout = () => {
             <>
               {allRecords.length < 1 ? (
                 <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
-                  <h5 className='text-base font-medium text-[#333333]'>
+                  <h5 className='text-base font-medium text-textBlack'>
                     기록이 없어요
                   </h5>
                 </div>
@@ -218,7 +218,7 @@ const MyFeed: NextPageWithLayout = () => {
                         <div className='flex w-full'>
                           <button
                             onClick={() => setModal({ type: 'HIDDEN' })}
-                            className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
+                            className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-textBlack'
                           >
                             취소
                           </button>

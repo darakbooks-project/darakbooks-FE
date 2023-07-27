@@ -28,7 +28,7 @@ const RecommendCompletePage = () => {
 
   if (isError || !bookTitle || !recommendBookData?.documents.length)
     return (
-      <div className='flex flex-col items-center justify-center h-full bg-[#FFFEF8] text-textBlack'>
+      <div className='flex flex-col items-center justify-center h-full bg-background text-textBlack'>
         <h3 className='font-medium text-clamp2xl'>책을 찾지 못했어요!</h3>
         <p>다시 시도해주세요😥</p>
         <button
@@ -127,7 +127,7 @@ const RecommendCompletePage = () => {
         <div className='flex flex-col items-center pt-8 bg-white rounded-t-[1.875rem] px-11 pb-14'>
           <h2 className='pb-1 font-bold text-clamp2xl text-main'>{title}</h2>
           <h3 className='text-textGray text-clampBase'>{authors}</h3>
-          <div className='h-1 w-7 bg-[#60B28D80] my-6 ' />
+          <div className='h-1 w-7 bg-main my-6 ' />
           <p>{reason}</p>
         </div>
         <div className='w-full px-5 pb-10 bg-white'>
