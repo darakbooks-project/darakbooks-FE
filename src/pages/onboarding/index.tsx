@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { Fragment, useRef, useState } from 'react';
+import { Fragment, ReactElement, useRef, useState } from 'react';
 import Slider, { Settings } from 'react-slick';
 import { useSetRecoilState } from 'recoil';
 
+import Seo from '@/components/common/Seo';
+import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
 const ONBOADINGDATA = [
@@ -73,6 +75,7 @@ const OnboardingPage = () => {
 
   return (
     <div className='min-h-[100%] bg-background pb-4'>
+      <Seo />
       <div className='relative w-5/6 mx-auto'>
         <Slider {...settings} ref={sliderRef}>
           {ONBOADINGDATA.map((item) => (
@@ -88,6 +91,7 @@ const OnboardingPage = () => {
                 src={item.image}
                 width={350}
                 height={350}
+                priority
                 alt='온보딩 이미지'
                 className='max-h-96'
               />
@@ -123,6 +127,10 @@ const OnboardingPage = () => {
       </div>
     </div>
   );
+};
+
+OnboardingPage.getLayout = function getLayout(page: ReactElement) {
+  return <PrettyNightFontLayout>{page}</PrettyNightFontLayout>;
 };
 
 export default OnboardingPage;

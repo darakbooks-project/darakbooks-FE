@@ -5,6 +5,7 @@ import React from 'react';
 import { fetchReadingGroupInfo } from '@/api/recruit';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Header from '@/components/common/Header';
+import Seo from '@/components/common/Seo';
 import MemberListItem from '@/components/recruit/detail/member/MemberListItem';
 
 const RecruitMemberPage = () => {
@@ -27,10 +28,11 @@ const RecruitMemberPage = () => {
   if (isGroupError) return <></>;
   if (isGroupLoading) return <></>;
 
-  const { is_group_lead, group_lead, userGroup } = groupData;
+  const { is_group_lead, group_lead, userGroup, name } = groupData;
 
   return (
     <AuthRequiredPage>
+      <Seo title={`다락책방 | ${name}`} />
       <div className='h-full bg-white'>
         <div className='pb-5 pt-14'>
           <Header title='참여인원' />
