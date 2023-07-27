@@ -4,6 +4,7 @@ import React, { Fragment, ReactElement, useRef, useState } from 'react';
 import Slider, { Settings } from 'react-slick';
 import { useSetRecoilState } from 'recoil';
 
+import Seo from '@/components/common/Seo';
 import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 
@@ -74,6 +75,7 @@ const OnboardingPage = () => {
 
   return (
     <div className='min-h-[100%] bg-background pb-4'>
+      <Seo />
       <div className='relative w-5/6 mx-auto'>
         <Slider {...settings} ref={sliderRef}>
           {ONBOADINGDATA.map((item) => (

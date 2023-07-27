@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { fetchBestGroup } from '@/api/main';
 import BottomNav from '@/components/common/BottomNav';
+import Seo from '@/components/common/Seo';
 import BestRecruitList from '@/components/main/bestRecruit/BestRecruitList';
 import BookShelfPreview from '@/components/main/recommendBookShelf/BookShelfPreview';
 import { useAuth } from '@/hooks/useAuth';
@@ -53,6 +54,7 @@ export default function Home({ bestGroup }: MainSSRProps) {
 
   return (
     <div className='pb-20 bg-white text-textBlack'>
+      <Seo />
       <section className='relative w-full'>
         <Image
           src='/images/main/main-banner.svg'
