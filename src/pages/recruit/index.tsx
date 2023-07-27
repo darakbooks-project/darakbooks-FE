@@ -94,7 +94,7 @@ const Title = tw.h1`
   left-5
   bottom-9
   text-clampXl
-  font-semibold
+  font-medium	
 `;
 
 const InfinityScrollListsWrap = tw.div`
