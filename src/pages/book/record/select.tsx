@@ -12,6 +12,7 @@ import BookSelectLayout from '@/layout/BookSelectLayout';
 import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
 import { selectBookProps } from '@/types/modal';
+import Seo from '@/components/common/Seo';
 
 const BookRecordSelectPage: NextPageWithLayout = () => {
   const { data, status } = useQuery(['getMyBookShelf', 'select'], () =>
@@ -27,6 +28,7 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
 
   return (
     <AuthRequiredPage>
+      <Seo title='다락책방 | 도서선택' />
       {status === 'success' && (
         <>
           <div>

@@ -7,6 +7,7 @@ import React, { ReactElement } from 'react';
 import { getProfileApi } from '@/api/profile';
 import { getGroupsApi } from '@/api/recruit';
 import BottomNav from '@/components/common/BottomNav';
+import Seo from '@/components/common/Seo';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { NextPageWithLayout } from '@/types/layout';
 
@@ -65,6 +66,11 @@ const MyRecruit: NextPageWithLayout = () => {
 
   return (
     <>
+      <Seo
+        title={`다락책방 | ${userData?.nickname}`}
+        description={`${userData?.nickname}님의 독서모임입니다`}
+        image={userData?.photoUrl}
+      />
       {recruitStatus === 'success' && recruitData && (
         <main className='flex flex-col gap-12 px-6 py-5  h-[calc(100%_-_8.5rem)]'>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (

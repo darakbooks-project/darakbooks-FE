@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import SelectModal from '@/components/book/record/SelectModal';
 import InfinityScrollLists from '@/components/book/search/InfinityScrollLists';
 import SearchInput from '@/components/common/SearchInput';
+import Seo from '@/components/common/Seo';
 import BookSelectLayout from '@/layout/BookSelectLayout';
 import { searchBookTitleAtom } from '@/recoil/book';
 import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
@@ -25,6 +26,7 @@ const BookRecordSearchPage: NextPageWithLayout = () => {
 
   return (
     <>
+      <Seo title='다락책방 | 검색' />
       <SearchInput onSubmit={onSubmit} />
       <InfinityScrollLists searchKeyword={searchBookTitle} />
       {modal && (

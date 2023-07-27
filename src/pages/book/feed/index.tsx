@@ -13,7 +13,9 @@ import {
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import BottomNav from '@/components/common/BottomNav';
 import Header from '@/components/common/Header';
+import Seo from '@/components/common/Seo';
 import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
+import { suitableDescriptionHandler } from '@/utils/helpers/suitableDescriptionHandler';
 
 const BookDetailFeed = () => {
   const {
@@ -263,8 +265,21 @@ const BookDetailFeed = () => {
     }
   };
 
+  const {
+    book: { title },
+    text,
+    recordImgUrl,
+  } = currentData!;
+
+  const suitableDescription = suitableDescriptionHandler(text);
+
   return (
     <AuthRequiredPage>
+      <Seo
+        title={`다락책방 | ${title}를 읽고`}
+        description={suitableDescription}
+        image={recordImgUrl}
+      />
       <div className='flex flex-col gap-4 pt-8 pb-16 bg-[url("/images/record/record-background.svg")]'>
         <Header />
         {status === 'success' && currentData && (
