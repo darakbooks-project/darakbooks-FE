@@ -63,7 +63,7 @@ const ReadingGroupRecruitment = ({
 
 export default ReadingGroupRecruitment;
 
-const Container = tw.div`
+const Container = tw.section`
   w-[100%]
   p-4
   relative
