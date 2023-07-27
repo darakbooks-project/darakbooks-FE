@@ -5,6 +5,7 @@ import tw from 'tailwind-styled-components';
 
 import Header from '@/components/common/Header';
 import SearchInput from '@/components/common/SearchInput';
+import Seo from '@/components/common/Seo';
 import {
   searchBookTitleAtom,
   searchInfinityScrollPositionAtom,
@@ -34,6 +35,10 @@ const BookSearchPage = () => {
 
   return (
     <>
+      <Seo
+        title='다락책방 | 도서 검색'
+        description='책을 검색할 수 있는 공간'
+      />
       <Container>
         <BackGroundWrap>
           <HeaderStyle />
