@@ -4,11 +4,10 @@ import React from 'react';
 interface SeoProps {
   title?: string;
   description?: string;
-  url?: string;
   image?: string;
 }
 
-function Seo({ title, description, url, image }: SeoProps) {
+function Seo({ title, description, image }: SeoProps) {
   return (
     <Head>
       <title>{title || '다락책방'}</title>
@@ -24,10 +23,7 @@ function Seo({ title, description, url, image }: SeoProps) {
       <meta name='author' content='다락책방' />
       <meta property='og:title' content={title || '다락책방'} />
       <meta property='og:type' content='website' />
-      <meta
-        property='og:url'
-        content={url || 'frontend-book-platform.vercel.app/'}
-      />
+      <meta property='og:url' content='darakbooks.vercel.app/' />
       <meta
         property='og:image'
         content={

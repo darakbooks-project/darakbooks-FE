@@ -95,6 +95,7 @@ const UserSelectWrapper = tw.div`
 `;
 
 const QuestionText = tw.div`
+  text-[0.9375rem]
 `;
 
 const ButtonItem = tw.div`

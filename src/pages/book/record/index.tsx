@@ -20,6 +20,7 @@ import useInput from '@/hooks/useInput';
 import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
+import Seo from '@/components/common/Seo';
 
 const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 const Header = dynamic(() => import('@/components/common/Header'));
@@ -139,6 +140,7 @@ const BookRecordPage = () => {
 
   return (
     <AuthRequiredPage>
+      <Seo title='다락책방 | 기록' />
       <div className='flex flex-col pb-20 bg-[url("/images/record/record-background.svg")]'>
         <Header className='mt-12' />
         <section className='flex flex-col gap-8 p-4 pt-16 border-solid'>

@@ -8,6 +8,7 @@ import { registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
+import Seo from '@/components/common/Seo';
 
 const Edit = () => {
   const router = useRouter();
@@ -54,6 +55,7 @@ const Edit = () => {
 
   return (
     <AuthRequiredPage>
+      <Seo title='다락책방 | 프로필 편집' />
       {status === 'success' && (
         <>
           <div className='flex flex-col items-center h-screen gap-12 px-6 py-12'>
