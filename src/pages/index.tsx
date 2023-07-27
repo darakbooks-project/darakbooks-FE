@@ -96,23 +96,23 @@ export default function Home({ bestGroup }: MainSSRProps) {
           className='w-full'
         />
         <div className='absolute bottom-[calc(50%-6.25rem)] flex flex-col justify-center items-center w-full xxs:bottom-7'>
-          <h2 className='font-bold text-clampLg]'>
+          <h2 className='font-bold text-clampLg'>
             무슨 책을 읽을지 고민이신가요?
           </h2>
-          <p className=' text-clampBase text-[#707070] pb-4'>
+          <p className=' text-clampMedium text-[#707070] pb-4'>
             나만의 특별한 북 큐레이팅을 경험해보세요.
           </p>
           <button
             onClick={handleMoveRecommendPage}
-            className='flex justify-center items-center text-main border rounded-[50px] pl-2 py-2 border-main text-clampSm'
+            className='flex justify-center items-center text-main border rounded-[50px] pl-4 border-main text-[0.8125rem]'
           >
-            북 큐레이팅 시작하기
+            <p className='py-2 '>북 큐레이팅 시작하기</p>
             <Image
               src='/images/main/gpt-move.svg'
               width={32}
               height={32}
               alt='gpt 페이지 이동 아이콘'
-              className='xxs:w-5'
+              className='relative -left-1 xxs:w-5'
             />
           </button>
         </div>
