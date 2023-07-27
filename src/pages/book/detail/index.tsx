@@ -191,10 +191,9 @@ const BookDetailPage = () => {
               <Image
                 src={thumbnail}
                 alt='테스트'
-                width='0'
-                height='0'
-                sizes='100vw'
-                className='w-full h-auto'
+                width='160'
+                height='232'
+                priority
               />
             </div>
             <article className='flex flex-col items-center gap-1 '>
