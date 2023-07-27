@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useSetRecoilState } from 'recoil';
 
-import { patchReadingClassChange } from '@/api/recruit';
+import { patchReadingGroupChange } from '@/api/recruit';
 import { selectRecruitStatusAtom } from '@/recoil/modal';
 import { GroupList } from '@/types/recruit';
 
@@ -27,7 +27,7 @@ const ModalOverlay = ({ groupId, recruitmentStatus }: RecruitmentModalType) => {
   const queryClient = useQueryClient();
 
   const { mutate: updateRecruitmentStatus } = useMutation(
-    patchReadingClassChange,
+    patchReadingGroupChange,
     {
       onMutate: async ({ groupData }) => {
         const oldData: GroupList | undefined = queryClient.getQueryData([

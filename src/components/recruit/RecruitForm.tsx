@@ -12,15 +12,15 @@ import Seo from '../common/Seo';
 import RecruitFormUserInput from './RecruitFormUserInput';
 
 interface RecruitFormProps {
-  classStateObj: GroupFormStateObjProps;
-  classChangeStateObj: GroupFormChangeStateObjProps;
+  groupStateObj: GroupFormStateObjProps;
+  groupChangeStateObj: GroupFormChangeStateObjProps;
   onClickButton: () => void;
   type: string;
 }
 
 const RecruitForm = ({
-  classStateObj,
-  classChangeStateObj,
+  groupStateObj,
+  groupChangeStateObj,
   onClickButton,
   type,
 }: RecruitFormProps) => {
@@ -35,11 +35,11 @@ const RecruitForm = ({
 
   useEffect(() => {
     const inputDataObj: { [key: string]: string } = {
-      ...classStateObj,
+      ...groupStateObj,
     };
     if (checkAllInputData(inputDataObj)) return setIsAllInputData(true);
     isAllInputData && setIsAllInputData(false);
-  }, [classStateObj, isAllInputData, checkAllInputData]);
+  }, [groupStateObj, isAllInputData, checkAllInputData]);
 
   return (
     <AuthRequiredPage>
@@ -63,16 +63,16 @@ const RecruitForm = ({
           </PageDescription>
           <RecruitFormWrapper>
             <RecruitFormUserInput
-              classStateObj={classStateObj}
-              classChangeStateObj={classChangeStateObj}
+              groupStateObj={groupStateObj}
+              groupChangeStateObj={groupChangeStateObj}
             />
           </RecruitFormWrapper>
         </Wrapper>
-        <ClassButtonWrap>
-          <ClassButton onClick={onClickButton} disabled={!isAllInputData}>
+        <GroupButtonWrap>
+          <GroupButton onClick={onClickButton} disabled={!isAllInputData}>
             {type === '개설' ? '만들기' : '수정하기'}
-          </ClassButton>
-        </ClassButtonWrap>
+          </GroupButton>
+        </GroupButtonWrap>
       </Container>
     </AuthRequiredPage>
   );
@@ -102,7 +102,7 @@ const RecruitFormWrapper = tw.div`
   flex-col
 `;
 
-const ClassButtonWrap = tw.div`  
+const GroupButtonWrap = tw.div`  
   border 
   border-t-[black]
   border-opacity-10
@@ -112,7 +112,7 @@ const ClassButtonWrap = tw.div`
   bg-white
 `;
 
-const ClassButton = tw.button`  
+const GroupButton = tw.button`  
   w-full
   h-14
   text-white
