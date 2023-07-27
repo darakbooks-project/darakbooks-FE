@@ -104,7 +104,7 @@ const SearchInputWrap = tw.div`
   mx-auto
 `;
 
-const BookSearchListsWrap = tw.div`
+const BookSearchListsWrap = tw.main`
   pt-[19.5rem]
   pb-24
   bg-white
