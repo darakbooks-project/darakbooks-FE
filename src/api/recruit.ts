@@ -48,19 +48,26 @@ export const getReadingGroupData = async (
 };
 
 //독서모임 개설
-export const postReadingGroupOpen = async (
-  openReadingGroupData: GroupFormStateObjProps,
-) => {
+export const postReadingGroupOpen = async ({
+  groupName,
+  groupType,
+  groupDay,
+  groupTime,
+  groupRegion,
+  groupDescription,
+  groupPeopleNumber,
+  groupKakaoLink,
+}: GroupFormStateObjProps) => {
   const body = {
-    name: openReadingGroupData.groupName,
+    name: groupName,
     recruitment_status: true,
-    meeting_type: openReadingGroupData.groupType,
-    day: openReadingGroupData.groupDay,
-    time: openReadingGroupData.groupTime,
-    region: openReadingGroupData.groupRegion,
-    description: openReadingGroupData.groupDescription,
-    participant_limit: parseInt(openReadingGroupData.groupPeopleNumber),
-    open_chat_link: openReadingGroupData.groupKakaoLink,
+    meeting_type: groupType,
+    day: groupDay,
+    time: groupTime,
+    region: groupRegion,
+    description: groupDescription,
+    participant_limit: parseInt(groupPeopleNumber),
+    open_chat_link: groupKakaoLink,
   };
 
   try {
