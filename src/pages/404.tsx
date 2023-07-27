@@ -19,7 +19,7 @@ function NotFound() {
         <h5 className='text-2xl font-[bold] text-[#60b28d]'>
           이곳은 들어갈 수 없어요!
         </h5>
-        <p className='flex text-center text-[15px] text-[#707070]'>
+        <p className='flex text-center text-[15px] text-textGray'>
           불편을 드려 죄송합니다. <br />
           홈페이지로 이동해 다양한 콘텐츠를 만나보세요:)
         </p>

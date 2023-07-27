@@ -26,7 +26,7 @@ const BestRecruitList = ({
             <h4 className='font-medium text-clampBase'>
               생성된 모임이 없어요.
             </h4>
-            <p className=' text-clampSm text-[#707070] pt-1'>
+            <p className=' text-clampSm text-textGray pt-1'>
               지금 독서 모임을 생성해보세요!
             </p>
           </div>

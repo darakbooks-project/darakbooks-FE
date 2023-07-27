@@ -141,7 +141,7 @@ const ProfilePage: NextPageWithLayout = () => {
               <h5 className='text-base font-medium text-[#333333]'>
                 비공개 계정입니다.
               </h5>
-              <p className='text-[13px] text-[#707070]'>
+              <p className='text-[13px] text-textGray'>
                 이 계정은 확인할 수 없습니다.
               </p>
             </div>
@@ -156,7 +156,7 @@ const ProfilePage: NextPageWithLayout = () => {
               ) : (
                 <>
                   <div className='flex items-center justify-between px-6 py-0 h-14'>
-                    <span className='text-[15px] text-[#707070]'>
+                    <span className='text-[15px] text-textGray'>
                       전체{' '}
                       <span className='text-[15px] text-main'>
                         {bookshelfData.length}
@@ -213,7 +213,7 @@ const ProfilePage: NextPageWithLayout = () => {
                           <h3 className='text-[13px] text-[#333333] mb-[5px] text-center'>
                             {data.title}
                           </h3>
-                          <h4 className='text-[11px] text-[#707070]'>
+                          <h4 className='text-[11px] text-textGray'>
                             {data.authors[0]}
                           </h4>
                         </div>

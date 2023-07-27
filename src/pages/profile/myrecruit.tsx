@@ -78,7 +78,7 @@ const MyRecruit: NextPageWithLayout = () => {
               <h5 className='text-base font-medium text-[#333333]'>
                 비공개 계정입니다.
               </h5>
-              <p className='text-[13px] text-[#707070]'>
+              <p className='text-[13px] text-textGray'>
                 이 계정은 확인할 수 없습니다.
               </p>
             </div>
@@ -100,7 +100,7 @@ const MyRecruit: NextPageWithLayout = () => {
                           {item.name}
                         </h4>
                         <div>
-                          <p className='text-[13px] text-[#707070]'>
+                          <p className='text-[13px] text-textGray'>
                             {item.meeting_type === 'offline'
                               ? '오프라인'
                               : '온라인'}{' '}
@@ -122,7 +122,7 @@ const MyRecruit: NextPageWithLayout = () => {
                                 />
                               ))}
                             {item.userGroup.length > 3 && (
-                              <span className='ml-1 text-[11px] text-[#707070]'>
+                              <span className='ml-1 text-[11px] text-textGray'>
                                 외
                                 {
                                   item.userGroup.slice(3, item.userGroup.length)
@@ -177,7 +177,7 @@ const MyRecruit: NextPageWithLayout = () => {
                           {item.name}
                         </h4>
                         <div>
-                          <p className='text-[13px] text-[#707070]'>
+                          <p className='text-[13px] text-textGray'>
                             {item.meeting_type === 'offline'
                               ? '오프라인'
                               : '온라인'}{' '}
@@ -199,7 +199,7 @@ const MyRecruit: NextPageWithLayout = () => {
                                 />
                               ))}
                             {item.userGroup.length > 3 && (
-                              <span className='flex items-center ml-1 text-[11px] text-[#707070]'>
+                              <span className='flex items-center ml-1 text-[11px] text-textGray'>
                                 외
                                 {
                                   item.userGroup.slice(3, item.userGroup.length)

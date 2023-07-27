@@ -6,9 +6,9 @@ import React, { useState } from 'react';
 import { changeProfileApi, getProfileApi } from '@/api/profile';
 import { registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
+import Seo from '@/components/common/Seo';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
-import Seo from '@/components/common/Seo';
 
 const Edit = () => {
   const router = useRouter();
@@ -116,7 +116,7 @@ const Edit = () => {
               </section>
               <section className='relative flex flex-col w-full'>
                 <label
-                  className='text-[15px] text-[#707070] mb-2.5'
+                  className='text-[15px] text-textGray mb-2.5'
                   htmlFor='nickname'
                 >
                   닉네임
@@ -140,7 +140,7 @@ const Edit = () => {
               </section>
               <section className='flex flex-col w-full'>
                 <label
-                  className='text-[15px] text-[#707070] mb-2.5'
+                  className='text-[15px] text-textGray mb-2.5'
                   htmlFor='bio'
                 >
                   소개
@@ -156,7 +156,7 @@ const Edit = () => {
                 ></textarea>
               </section>
               <section className='flex flex-col w-full'>
-                <h5 className='font-normal text-sm text-[#707070] mb-4 px-0 py-2 border-b-[#dfdfdf] border-b border-solid'>
+                <h5 className='font-normal text-sm text-textGray mb-4 px-0 py-2 border-b-[#dfdfdf] border-b border-solid'>
                   공개범위
                 </h5>
                 <div>
@@ -169,7 +169,7 @@ const Edit = () => {
                         defaultChecked={secretMode === 'PUBLIC'}
                         onClick={() => setSecretMode('PUBLIC')}
                       />
-                      <span className='font-medium text-sm text-[#707070]'>
+                      <span className='font-medium text-sm text-textGray'>
                         공개
                       </span>
                     </div>
@@ -192,7 +192,7 @@ const Edit = () => {
                         defaultChecked={secretMode === 'PRIVATE'}
                         onClick={() => setSecretMode('PRIVATE')}
                       />
-                      <span className='font-medium text-sm text-[#707070]'>
+                      <span className='font-medium text-sm text-textGray'>
                         비공개
                       </span>
                     </div>

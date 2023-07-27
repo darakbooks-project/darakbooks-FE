@@ -50,10 +50,10 @@ const ModalOverlay = ({ isbn, thumbnail, title, author }: selectBookProps) => {
       />
       <article className='absolute -translate-x-2/4 translate-y-[-20%] flex flex-col items-center justify-center w-full leading-6 left-2/4 top-24'>
         <h4 className='text-lg text-[#242424] text-center'>{title}</h4>
-        <h5 className='text-[13px] text-[#707070]'>{author} 지음</h5>
+        <h5 className='text-[13px] text-textGray'>{author} 지음</h5>
       </article>
       <span
-        className='flex justify-center items-center absolute -translate-x-2/4 -translate-y-1/4 pb-3 text-[#707070] text-[13px]  text-center left-1/2 bottom-[5rem] w-full border-b-[#EBEAEA] border-b border-solid'
+        className='flex justify-center items-center absolute -translate-x-2/4 -translate-y-1/4 pb-3 text-textGray text-[13px]  text-center left-1/2 bottom-[5rem] w-full border-b-[#EBEAEA] border-b border-solid'
         onClick={routeDetailPage}
       >
         <Image

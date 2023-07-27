@@ -126,7 +126,7 @@ const RecommendCompletePage = () => {
       <div className='absolute bottom-0 top-[30.125rem] w-ful shadow-roundY rounded-t-[1.875rem] max-w-xl '>
         <div className='flex flex-col items-center pt-8 bg-white rounded-t-[1.875rem] px-11 pb-14'>
           <h2 className='pb-1 font-bold text-clamp2xl text-main'>{title}</h2>
-          <h3 className='text-[#707070] text-clampBase'>{authors}</h3>
+          <h3 className='text-textGray text-clampBase'>{authors}</h3>
           <div className='h-1 w-7 bg-[#60B28D80] my-6 ' />
           <p>{reason}</p>
         </div>

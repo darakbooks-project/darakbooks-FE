@@ -81,7 +81,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
                 <h1 className='text-2xl text-[#333333] font-[bold] mb-[5px]'>
                   {data.nickname}
                 </h1>
-                <p className='text-[13px] text-[#707070] flex gap-4'>
+                <p className='text-[13px] text-textGray flex gap-4'>
                   {data.userInfo ?? '좋아하는 것을 일고 기록해요 :)'}
                 </p>
               </div>

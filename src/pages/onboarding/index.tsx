@@ -84,7 +84,7 @@ const OnboardingPage = () => {
                 <h2 className='mb-3 text-[1.625rem] font-medium text-main xxs:text-xl'>
                   {item.title}
                 </h2>
-                <p className='text-[#707070] xxs:text-sm'>{item.desc}</p>
+                <p className='text-textGray xxs:text-sm'>{item.desc}</p>
               </div>
               <Image
                 key={item.title}

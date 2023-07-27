@@ -117,5 +117,5 @@ const Text = tw.div<{ $isClick: string }>`
   text-xs	
   mt-[-5px]
   font-semibold
-  ${(props) => (props.$isClick === 'click' ? 'text-main' : 'text-[#707070]')}
+  ${(props) => (props.$isClick === 'click' ? 'text-main' : 'text-textGray')}
 `;

@@ -108,7 +108,7 @@ const Title = tw.span`
 const AuthorPublisher = tw.div`
   flex
   text-xs
-  text-[#707070]
+  text-textGray
 `;
 
 const Divider = tw.div`

@@ -8,11 +8,11 @@ import { useRecoilState } from 'recoil';
 import { getBookShelfApi } from '@/api/bookshelf';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import SelectModal from '@/components/book/record/SelectModal';
+import Seo from '@/components/common/Seo';
 import BookSelectLayout from '@/layout/BookSelectLayout';
 import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
 import { selectBookProps } from '@/types/modal';
-import Seo from '@/components/common/Seo';
 
 const BookRecordSelectPage: NextPageWithLayout = () => {
   const { data, status } = useQuery(['getMyBookShelf', 'select'], () =>
@@ -62,7 +62,7 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
                   <h2 className='w-full text-[13px] text-[#333333] mx-0 my-[5px] text-center'>
                     {item.title}
                   </h2>
-                  <h3 className='w-full text-[11px] text-[#707070] text-center'>
+                  <h3 className='w-full text-[11px] text-textGray text-center'>
                     {item.authors[0]}
                   </h3>
                 </li>

@@ -138,7 +138,7 @@ const MyFeed: NextPageWithLayout = () => {
               <h5 className='text-base font-medium text-[#333333]'>
                 비공개 계정입니다.
               </h5>
-              <p className='text-[13px] text-[#707070]'>
+              <p className='text-[13px] text-textGray'>
                 이 계정은 확인할 수 없습니다.
               </p>
             </div>
@@ -153,7 +153,7 @@ const MyFeed: NextPageWithLayout = () => {
               ) : (
                 <>
                   <div className='flex items-center justify-between px-6 py-0 h-14'>
-                    <span className='text-[15px] text-[#707070]'>
+                    <span className='text-[15px] text-textGray'>
                       전체{' '}
                       <span className='text-[15px] text-main'>
                         {allRecords.length}
