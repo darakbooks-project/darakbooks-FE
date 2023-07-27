@@ -31,7 +31,7 @@ const LoginPage = () => {
             src='./images/login-logo.svg'
             width={160}
             height={160}
-            priority={true}
+            priority
             alt='로그인 페이지 로고'
           />
           <UserSelectWrapper>
@@ -45,6 +45,7 @@ const LoginPage = () => {
                   width={17.5}
                   height={17.5}
                   alt='카카오 로고 사진'
+                  priority
                 />
               </ButtonItem>
               <ButtonItem className='text-center w-[50%]'>
