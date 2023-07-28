@@ -265,6 +265,10 @@ const BookDetailFeed = () => {
     }
   };
 
+  if (!currentData) {
+    return null;
+  }
+
   const {
     book: { title },
     text,
@@ -337,7 +341,7 @@ const BookDetailFeed = () => {
             <ul className='inline-flex flex-wrap w-full px-6'>
               {currentData.tags.map((tag) => (
                 <li
-                  className='flex justify-center items-center border font-normal text-[13px] text-[#333333] mr-2 px-3 py-[5px] rounded-[50px] border-solid border-[#ebeaea] font-prettyNight'
+                  className='flex justify-center items-center border font-normal text-[13px] text-textBlack mr-2 px-3 py-[5px] rounded-[50px] border-solid border-[#ebeaea] font-prettyNight'
                   key={tag.id}
                 >
                   #{tag.data}

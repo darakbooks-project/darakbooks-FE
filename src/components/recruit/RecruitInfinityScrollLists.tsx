@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
-import { getReadingClassData } from '@/api/recruit';
+import { getReadingGroupData } from '@/api/recruit';
 import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
 
 import RecruitList from './RecruitList';
@@ -35,7 +35,7 @@ const RecruitInfinityScrollLists = ({
     isRefetching,
   } = useInfiniteQuery(
     ['reading', 'group', 'list'],
-    ({ pageParam = 1 }) => getReadingClassData(pageParam),
+    ({ pageParam = 1 }) => getReadingGroupData(pageParam),
     {
       onError: (error) => console.error(error),
       getNextPageParam: (lastPage) => {
@@ -92,6 +92,6 @@ const RecruitInfinityScrollLists = ({
 
 export default RecruitInfinityScrollLists;
 
-const Container = tw.div``;
+const Container = tw.section``;
 
 const Bottom = tw.div``;

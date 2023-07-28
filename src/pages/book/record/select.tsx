@@ -64,10 +64,10 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
                     className='w-full h-[9.5rem] s:h-[14rem] mb-2.5 rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0,0,0,0.25)]'
                     loading='lazy'
                   />
-                  <h2 className='w-full text-[13px] text-[#333333] mx-0 my-[5px] text-center'>
+                  <h2 className='w-full text-[13px] text-textBlack mx-0 my-[5px] text-center'>
                     {item.title}
                   </h2>
-                  <h3 className='w-full text-[11px] text-[#707070] text-center'>
+                  <h3 className='w-full text-[11px] text-textGray text-center'>
                     {item.authors[0]}
                   </h3>
                 </li>

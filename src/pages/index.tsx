@@ -99,7 +99,7 @@ export default function Home({ bestGroup }: MainSSRProps) {
           <h2 className='font-bold text-clampLg]'>
             무슨 책을 읽을지 고민이신가요?
           </h2>
-          <p className=' text-clampBase text-[#707070] pb-4'>
+          <p className=' text-clampBase text-textGray pb-4'>
             나만의 특별한 북 큐레이팅을 경험해보세요.
           </p>
           <button

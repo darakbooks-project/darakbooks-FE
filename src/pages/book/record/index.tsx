@@ -15,12 +15,12 @@ import React, { ReactElement, useRef, useState } from 'react';
 import { getBookDataByIsbnApi } from '@/api/book';
 import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
+import Seo from '@/components/common/Seo';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 import { getBookDataByIsbnProps } from '@/types/book';
 import { bookRecordDataProps } from '@/types/record';
-import Seo from '@/components/common/Seo';
 
 const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 const Header = dynamic(() => import('@/components/common/Header'));
@@ -145,10 +145,10 @@ const BookRecordPage = () => {
         <Header className='mt-12' />
         <section className='flex flex-col gap-8 p-4 pt-16 border-solid'>
           <article className='flex flex-col gap-2'>
-            <h3 className='font-normal text-base leading-[19px] text-[#333333] font-prettyNight'>
+            <h3 className='font-normal text-base leading-[19px] text-textBlack font-prettyNight'>
               {today}
             </h3>
-            <h1 className='font-normal text-[32px] leading-[38px] text-[#333333] font-prettyNight'>
+            <h1 className='font-normal text-[32px] leading-[38px] text-textBlack font-prettyNight'>
               독서 기록
             </h1>
           </article>
@@ -216,12 +216,12 @@ const BookRecordPage = () => {
             value={tag}
             onKeyDown={keyPress}
           />
-          <h2 className='font-bold text-sm text-[#333333]'>추가한 태그</h2>
+          <h2 className='font-bold text-sm text-textBlack'>추가한 태그</h2>
           <div className='flex flex-wrap w-full gap-2'>
             {tagList.map((tag) => (
               <span
                 key={tag.id}
-                className='flex items-center border font-normal text-sm leading-[17px] text-[#333333] pl-3  rounded-[50px] border-[#ebeaea] font-prettyNight'
+                className='flex items-center border font-normal text-sm leading-[17px] text-textBlack pl-3  rounded-[50px] border-[#ebeaea] font-prettyNight'
               >
                 #{tag.data}
                 <Image
@@ -260,7 +260,7 @@ const BookRecordPage = () => {
                     width={32}
                     height={32}
                   />
-                  <span className='text-[13px] text-[#333333]'>
+                  <span className='text-[13px] text-textBlack'>
                     사진 추가하기
                   </span>
                   <span className='text-[10px] text-[#999797]'>

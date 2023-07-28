@@ -71,7 +71,7 @@ const BestRecruitListItem = ({
           <h3 className='text-clampBase font-medium truncate w-[60vw] max-w-sm xxs:w-[45vw]'>
             {group_name}
           </h3>
-          <p className='text-xs text-[#707070] truncate w-[60vw] max-w-sm xxs:w-[45vw]'>
+          <p className='text-xs text-textGray truncate w-[60vw] max-w-sm xxs:w-[45vw]'>
             {group_description}
           </p>
         </div>

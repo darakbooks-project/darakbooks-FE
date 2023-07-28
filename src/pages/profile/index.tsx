@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
@@ -15,12 +16,13 @@ import { deleteBookShelfApi, getBookShelfApi } from '@/api/bookshelf';
 import { getProfileApi } from '@/api/profile';
 import { getCertainBookRecordsApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
-import BottomNav from '@/components/common/BottomNav';
-import Modal from '@/components/common/Modal';
 import Seo from '@/components/common/Seo';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
+
+const Modal = dynamic(() => import('@/components/common/Modal'));
+const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 
 const ProfilePage: NextPageWithLayout = () => {
   const {
@@ -138,10 +140,10 @@ const ProfilePage: NextPageWithLayout = () => {
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
             <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
-              <h5 className='text-base font-medium text-[#333333]'>
+              <h5 className='text-base font-medium text-textBlack'>
                 비공개 계정입니다.
               </h5>
-              <p className='text-[13px] text-[#707070]'>
+              <p className='text-[13px] text-textGray'>
                 이 계정은 확인할 수 없습니다.
               </p>
             </div>
@@ -149,14 +151,14 @@ const ProfilePage: NextPageWithLayout = () => {
             <>
               {bookshelfData.length < 1 ? (
                 <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
-                  <h5 className='text-base font-medium text-[#333333]'>
+                  <h5 className='text-base font-medium text-textBlack'>
                     책장이 비어있어요
                   </h5>
                 </div>
               ) : (
                 <>
                   <div className='flex items-center justify-between px-6 py-0 h-14'>
-                    <span className='text-[15px] text-[#707070]'>
+                    <span className='text-[15px] text-textGray'>
                       전체{' '}
                       <span className='text-[15px] text-main'>
                         {bookshelfData.length}
@@ -203,17 +205,17 @@ const ProfilePage: NextPageWithLayout = () => {
                           <Image
                             src={data.thumbnail}
                             alt={data.title}
-                            width='0'
-                            height='0'
-                            sizes='100vw'
+                            width='120'
+                            height='152'
                             className='w-full h-[9.5rem] s:h-[14rem] rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
+                            loading='lazy'
                           />
                         </section>
                         <div className='flex flex-col items-center w-full'>
-                          <h3 className='text-[13px] text-[#333333] mb-[5px] text-center'>
+                          <h3 className='text-[13px] text-textBlack mb-[5px] text-center'>
                             {data.title}
                           </h3>
-                          <h4 className='text-[11px] text-[#707070]'>
+                          <h4 className='text-[11px] text-textGray'>
                             {data.authors[0]}
                           </h4>
                         </div>
@@ -228,10 +230,10 @@ const ProfilePage: NextPageWithLayout = () => {
                           X
                         </div>
                         <section className='flex flex-col items-center'>
-                          <h3 className='font-bold text-[21px] text-[#333333] text-center'>
+                          <h3 className='font-bold text-[21px] text-textBlack text-center'>
                             {certainBookTitle}
                           </h3>
-                          <h4 className='font-normal text-[15px] text-[#333333]'>
+                          <h4 className='font-normal text-[15px] text-textBlack'>
                             총{' '}
                             <span className='font-normal text-[15px] text-main'>
                               {certainBookData?.records.length}개
@@ -245,10 +247,10 @@ const ProfilePage: NextPageWithLayout = () => {
                               key={record.recordId}
                               src={record.recordImgUrl}
                               alt={record.text}
-                              width='0'
-                              height='0'
-                              sizes='100vw'
-                              className='flex justify-center items-center w-[6.125rem] h-[6.125rem]  rounded-lg'
+                              width='98'
+                              height='98'
+                              className='w-[6.125rem] h-[6.125rem] rounded-lg'
+                              loading='lazy'
                               onClick={() =>
                                 push({
                                   pathname: '/book/feed',
@@ -312,7 +314,7 @@ const ProfilePage: NextPageWithLayout = () => {
                           <div className='flex w-full'>
                             <button
                               onClick={() => setModal({ type: 'HIDDEN' })}
-                              className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
+                              className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-textBlack'
                             >
                               취소
                             </button>

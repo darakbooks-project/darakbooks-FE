@@ -100,7 +100,7 @@ export default BookShelfPreview;
 const BookshelfContainer = tw.div`
 w-[100%] 
 h-[11.6875rem] 
-bg-[#FFFEF8] 
+bg-background 
 drop-shadow-md 
 rounded-t-md 
 cursor-pointer 
