@@ -17,7 +17,7 @@ const Header = ({ title, moreMenu, className, pathname }: Props) => {
   } = useRouter();
 
   return (
-    <div
+    <header
       className={`flex items-center justify-between w-full max-w-xl px-5 h-14 ${
         className ?? ''
       }`}
@@ -41,7 +41,7 @@ const Header = ({ title, moreMenu, className, pathname }: Props) => {
       <div className='text-clampXl text-center flex-[4_4_0%]'>{title}</div>
       <div className='flex-1 text-right'>{moreMenu && moreMenu}</div>
       {/**수정버튼 등 오른쪽 메뉴 추가 */}
-    </div>
+    </header>
   );
 };
 

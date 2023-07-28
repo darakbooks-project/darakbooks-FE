@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
-import { postReadingClassOpen } from '@/api/recruit';
+import { postReadingGroupOpen } from '@/api/recruit';
 import RecruitForm from '@/components/recruit/RecruitForm';
 import { useGroupForm } from '@/hooks/useGroupForm';
 
@@ -9,7 +9,7 @@ const RecruitWritePage = () => {
   const { push } = useRouter();
 
   const queryClient = useQueryClient();
-  const { mutate: openReadingClass } = useMutation(postReadingClassOpen, {
+  const { mutate: openReadingGroup } = useMutation(postReadingGroupOpen, {
     onSuccess: (groupId) => {
       queryClient.invalidateQueries(['reading', 'group', 'list']);
       push({
@@ -23,25 +23,25 @@ const RecruitWritePage = () => {
   });
 
   const onClickOpenButton = () => {
-    openReadingClass(classStateObj);
+    openReadingGroup(groupStateObj);
   };
 
-  const classDataObj = {
-    className: '',
-    classType: 'online',
-    classRegion: '',
-    classDescription: '',
-    classDay: '',
-    classTime: '',
-    classPeopleNumber: '',
-    classKakaoLink: '',
+  const groupDataObj = {
+    groupName: '',
+    groupType: 'online',
+    groupRegion: '',
+    groupDescription: '',
+    groupDay: '',
+    groupTime: '',
+    groupPeopleNumber: '',
+    groupKakaoLink: '',
   };
-  const { classStateObj, classChangeStateObj } = useGroupForm(classDataObj);
+  const { groupStateObj, groupChangeStateObj } = useGroupForm(groupDataObj);
 
   return (
     <RecruitForm
-      classStateObj={classStateObj}
-      classChangeStateObj={classChangeStateObj}
+      groupStateObj={groupStateObj}
+      groupChangeStateObj={groupChangeStateObj}
       onClickButton={onClickOpenButton}
       type='개설'
     />
