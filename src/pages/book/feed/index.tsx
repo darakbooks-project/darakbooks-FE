@@ -265,6 +265,10 @@ const BookDetailFeed = () => {
     }
   };
 
+  if (!currentData) {
+    return null;
+  }
+
   const {
     book: { title },
     text,

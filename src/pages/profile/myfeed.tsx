@@ -6,6 +6,7 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
@@ -14,12 +15,13 @@ import { useRecoilState } from 'recoil';
 
 import { getProfileApi } from '@/api/profile';
 import { deleteRecordApi, getAllRecordsApi } from '@/api/record';
-import BottomNav from '@/components/common/BottomNav';
-import Modal from '@/components/common/Modal';
 import Seo from '@/components/common/Seo';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
+
+const Modal = dynamic(() => import('@/components/common/Modal'));
+const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 
 const MyFeed: NextPageWithLayout = () => {
   const {
@@ -194,6 +196,7 @@ const MyFeed: NextPageWithLayout = () => {
                           sizes='100vw'
                           className='h-32 w-full s:h-[12rem]'
                           onClick={() => onRecordClick(item.recordId + '')}
+                          loading='lazy'
                         />
                       </div>
                     ))}
