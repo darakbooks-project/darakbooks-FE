@@ -176,8 +176,8 @@ const Edit = () => {
                     <p
                       className={
                         secretMode === 'PUBLIC'
-                          ? 'font-normal text-[11px] text-[#60B28D]'
-                          : 'font-normal text-[11px] text-[#999797]'
+                          ? 'font-normal text-[12px] text-[#60B28D]'
+                          : 'font-normal text-[12px] text-[#999797]'
                       }
                     >
                       마이페이지 전체 공개
@@ -199,8 +199,8 @@ const Edit = () => {
                     <p
                       className={
                         secretMode === 'PRIVATE'
-                          ? 'font-normal text-[11px] text-[#60B28D]'
-                          : 'font-normal text-[11px] text-[#999797]'
+                          ? 'font-normal text-[12px] text-[#60B28D]'
+                          : 'font-normal text-[12px] text-[#999797]'
                       }
                     >
                       마이페이지 전체 비공개
