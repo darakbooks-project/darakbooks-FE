@@ -183,6 +183,7 @@ const BookDetailPage = () => {
                 alt='back'
                 width={32}
                 height={32}
+                priority
                 onClick={() => router.back()}
               />
             </div>
@@ -190,7 +191,7 @@ const BookDetailPage = () => {
             <div className=' w-40 h-60 rounded-[0px_3px_3px_0px]  drop-shadow-xl'>
               <Image
                 src={thumbnail}
-                alt='테스트'
+                alt={thumbnail}
                 width='160'
                 height='232'
                 priority
@@ -271,12 +272,12 @@ const BookDetailPage = () => {
                         @ {item.user.nickname}
                       </h3>
                     </div>
-
                     <Image
                       src={item.recordImgUrl}
-                      alt='테스트2'
+                      alt={item.recordImgUrl}
                       width={64}
                       height={64}
+                      loading='lazy'
                       className='w-16 h-16'
                     />
                   </li>
