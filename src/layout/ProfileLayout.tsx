@@ -72,10 +72,10 @@ function ProfileLayout({ children }: { children: ReactNode }) {
               <Image
                 src={data.photoUrl}
                 alt={data.nickname}
-                width='0'
-                height='0'
-                sizes='100vw'
-                className='w-[4.5rem] h-[4.5rem]  rounded-[50%] '
+                width='72'
+                height='72'
+                className='w-[4.5rem] h-[4.5rem] rounded-[50%]'
+                priority
               />
               <div>
                 <h1 className='text-2xl text-textBlack font-[bold] mb-[5px]'>

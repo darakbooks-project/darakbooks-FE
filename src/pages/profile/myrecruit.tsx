@@ -1,15 +1,17 @@
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import { getProfileApi } from '@/api/profile';
 import { getGroupsApi } from '@/api/recruit';
-import BottomNav from '@/components/common/BottomNav';
 import Seo from '@/components/common/Seo';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { NextPageWithLayout } from '@/types/layout';
+
+const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 
 const MyRecruit: NextPageWithLayout = () => {
   const {

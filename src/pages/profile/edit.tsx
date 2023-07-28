@@ -83,6 +83,7 @@ const Edit = () => {
                     height='0'
                     sizes='100vw'
                     className='w-[6.5rem] h-[6.5rem] bg-[#ebeaea] border rounded-[50%] border-solid border-[#c2c1c1]'
+                    priority
                   />
                 ) : (
                   <Image
@@ -92,6 +93,7 @@ const Edit = () => {
                     height='0'
                     sizes='100vw'
                     className='w-[6.5rem] h-[6.5rem] bg-[#ebeaea] border rounded-[50%] border-solid border-[#c2c1c1]'
+                    priority
                   />
                 )}
 

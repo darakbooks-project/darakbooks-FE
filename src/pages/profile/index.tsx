@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
@@ -15,12 +16,13 @@ import { deleteBookShelfApi, getBookShelfApi } from '@/api/bookshelf';
 import { getProfileApi } from '@/api/profile';
 import { getCertainBookRecordsApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
-import BottomNav from '@/components/common/BottomNav';
-import Modal from '@/components/common/Modal';
 import Seo from '@/components/common/Seo';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
+
+const Modal = dynamic(() => import('@/components/common/Modal'));
+const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 
 const ProfilePage: NextPageWithLayout = () => {
   const {
@@ -203,10 +205,10 @@ const ProfilePage: NextPageWithLayout = () => {
                           <Image
                             src={data.thumbnail}
                             alt={data.title}
-                            width='0'
-                            height='0'
-                            sizes='100vw'
+                            width='120'
+                            height='152'
                             className='w-full h-[9.5rem] s:h-[14rem] rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0, 0, 0, 0.25)]'
+                            loading='lazy'
                           />
                         </section>
                         <div className='flex flex-col items-center w-full'>
@@ -245,10 +247,10 @@ const ProfilePage: NextPageWithLayout = () => {
                               key={record.recordId}
                               src={record.recordImgUrl}
                               alt={record.text}
-                              width='0'
-                              height='0'
-                              sizes='100vw'
-                              className='flex justify-center items-center w-[6.125rem] h-[6.125rem]  rounded-lg'
+                              width='98'
+                              height='98'
+                              className='w-[6.125rem] h-[6.125rem] rounded-lg'
+                              loading='lazy'
                               onClick={() =>
                                 push({
                                   pathname: '/book/feed',
