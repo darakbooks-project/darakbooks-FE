@@ -327,7 +327,7 @@ const ClassSelectListItem = tw.li`
   cursor-pointer
 `;
 
-const ClassRegionWrap = tw.article<{
+const ClassRegionWrap = tw.div<{
   $islistdisplay: string;
   $isbuttondisplay: string;
 }>`
@@ -336,26 +336,26 @@ const ClassRegionWrap = tw.article<{
   relative
 `;
 
-const ClassDayTimeWrap = tw.article<{ $islistdisplay: string }>`
+const ClassDayTimeWrap = tw.div<{ $islistdisplay: string }>`
   ${(props) => (props.$islistdisplay === 'view' ? 'mb-40' : 'mb-8')}
 
   flex
   justify-between	
 `;
 
-const ClassDayWrap = tw.article`
+const ClassDayWrap = tw.div`
   relative
   w-[48.5%]
 `;
 
-const ClassTimeWrap = tw.article`
+const ClassTimeWrap = tw.div`
   relative
   w-[48.5%]
 `;
 
 const ClassPeopleNumber = tw(CommonInputStyle)``;
 
-const ClassKakaoLinkWrap = tw.article`
+const ClassKakaoLinkWrap = tw.div`
   relative
 `;
 

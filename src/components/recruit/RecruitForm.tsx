@@ -97,7 +97,7 @@ const RecruitFormWrapper = tw.div`
   flex-col
 `;
 
-const ClassButtonWrap = tw.section`  
+const ClassButtonWrap = tw.div`  
   border 
   border-t-[black]
   border-opacity-10

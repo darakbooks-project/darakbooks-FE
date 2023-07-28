@@ -82,7 +82,7 @@ const SiteLogo = tw(Image)`
   mx-auto
 `;
 
-const UserSelectWrapper = tw.section`
+const UserSelectWrapper = tw.div`
   w-full
   text-center
 `;
