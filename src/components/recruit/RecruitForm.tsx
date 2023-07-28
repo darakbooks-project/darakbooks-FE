@@ -85,7 +85,7 @@ const Container = tw.div`
   bg-white
 `;
 
-const Wrapper = tw.div`
+const Wrapper = tw.main`
   px-[5%]
   mx-auto
   bg-white
