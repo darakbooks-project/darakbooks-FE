@@ -217,7 +217,7 @@ const RecruitFormUserInput = ({
 
 export default RecruitFormUserInput;
 
-const Container = tw.div`
+const Container = tw.section`
 `;
 
 const ItemDescription = tw.h1`

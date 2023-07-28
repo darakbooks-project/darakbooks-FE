@@ -69,7 +69,7 @@ const LoginPage = () => {
 
 export default LoginPage;
 
-const Container = tw.div`
+const Container = tw.main`
   bg-[#FFFEF8]
   h-full
 `;

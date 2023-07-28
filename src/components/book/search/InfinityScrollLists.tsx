@@ -85,7 +85,7 @@ const InfinityScrollLists = ({ searchKeyword }: InfinityScrollListsProps) => {
 
 export default InfinityScrollLists;
 
-const Container = tw.div``;
+const Container = tw.section``;
 
 const Bottom = tw.div``;
 

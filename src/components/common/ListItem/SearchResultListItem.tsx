@@ -80,7 +80,7 @@ const SearchResultListItem = ({
 
 export default SearchResultListItem;
 
-const Container = tw.div`
+const Container = tw.article`
   w-full
   flex
   items-center
