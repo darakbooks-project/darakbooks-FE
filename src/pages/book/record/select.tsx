@@ -1,5 +1,6 @@
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React from 'react';
 import { ReactElement } from 'react';
@@ -7,12 +8,15 @@ import { useRecoilState } from 'recoil';
 
 import { getBookShelfApi } from '@/api/bookshelf';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
-import SelectModal from '@/components/book/record/SelectModal';
 import Seo from '@/components/common/Seo';
 import BookSelectLayout from '@/layout/BookSelectLayout';
 import { selectModalDataAtom, selectModalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
 import { selectBookProps } from '@/types/modal';
+
+const SelectModal = dynamic(
+  () => import('@/components/book/record/SelectModal'),
+);
 
 const BookRecordSelectPage: NextPageWithLayout = () => {
   const { data, status } = useQuery(['getMyBookShelf', 'select'], () =>
@@ -58,6 +62,7 @@ const BookRecordSelectPage: NextPageWithLayout = () => {
                     height='0'
                     sizes='100vw'
                     className='w-full h-[9.5rem] s:h-[14rem] mb-2.5 rounded-[0px_3px_3px_0px] shadow-[0px_0px_7px_rgba(0,0,0,0.25)]'
+                    loading='lazy'
                   />
                   <h2 className='w-full text-[13px] text-textBlack mx-0 my-[5px] text-center'>
                     {item.title}
