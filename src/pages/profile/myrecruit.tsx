@@ -75,17 +75,17 @@ const MyRecruit: NextPageWithLayout = () => {
         <main className='flex flex-col gap-12 px-6 py-5  h-[calc(100%_-_8.5rem)]'>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
             <div className='h-full flex flex-col justify-center items-center '>
-              <h5 className='text-base font-medium text-[#333333]'>
+              <h5 className='text-base font-medium text-textBlack'>
                 비공개 계정입니다.
               </h5>
-              <p className='text-[13px] text-[#707070]'>
+              <p className='text-[13px] text-textGray'>
                 이 계정은 확인할 수 없습니다.
               </p>
             </div>
           ) : (
             <>
               <section className='flex flex-col justify-center h-3/6'>
-                <h3 className='font-medium text-[17px] text-[#333333] mb-2'>
+                <h3 className='font-medium text-[17px] text-textBlack mb-2'>
                   운영중인 모임
                 </h3>
                 <div className='w-full h-36 flex flex-col overflow-scroll gap-3.5'>
@@ -96,11 +96,11 @@ const MyRecruit: NextPageWithLayout = () => {
                         key={item.group_id}
                         onClick={() => onRecruitClick(item.group_id + '')}
                       >
-                        <h4 className='text-[15px] text-[#333333] font-[bold]'>
+                        <h4 className='text-[15px] text-textBlack font-[bold]'>
                           {item.name}
                         </h4>
                         <div>
-                          <p className='text-[13px] text-[#707070]'>
+                          <p className='text-[13px] text-textGray'>
                             {item.meeting_type === 'offline'
                               ? '오프라인'
                               : '온라인'}{' '}
@@ -122,7 +122,7 @@ const MyRecruit: NextPageWithLayout = () => {
                                 />
                               ))}
                             {item.userGroup.length > 3 && (
-                              <span className='ml-1 text-[11px] text-[#707070]'>
+                              <span className='ml-1 text-[11px] text-textGray'>
                                 외
                                 {
                                   item.userGroup.slice(3, item.userGroup.length)
@@ -162,7 +162,7 @@ const MyRecruit: NextPageWithLayout = () => {
                 </div>
               </section>
               <section className='flex flex-col justify-center h-3/6 pb-10'>
-                <h3 className='font-medium text-[17px] text-[#333333] mb-2'>
+                <h3 className='font-medium text-[17px] text-textBlack mb-2'>
                   참여중인 모임
                 </h3>
                 <div className='w-full h-36 flex flex-col overflow-scroll gap-3.5'>
@@ -173,11 +173,11 @@ const MyRecruit: NextPageWithLayout = () => {
                         key={item.group_id}
                         onClick={() => onRecruitClick(item.group_id + '')}
                       >
-                        <h4 className='text-[15px] text-[#333333] font-[bold]'>
+                        <h4 className='text-[15px] text-textBlack font-[bold]'>
                           {item.name}
                         </h4>
                         <div>
-                          <p className='text-[13px] text-[#707070]'>
+                          <p className='text-[13px] text-textGray'>
                             {item.meeting_type === 'offline'
                               ? '오프라인'
                               : '온라인'}{' '}
@@ -199,7 +199,7 @@ const MyRecruit: NextPageWithLayout = () => {
                                 />
                               ))}
                             {item.userGroup.length > 3 && (
-                              <span className='flex items-center ml-1 text-[11px] text-[#707070]'>
+                              <span className='flex items-center ml-1 text-[11px] text-textGray'>
                                 외
                                 {
                                   item.userGroup.slice(3, item.userGroup.length)

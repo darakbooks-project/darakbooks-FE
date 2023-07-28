@@ -58,7 +58,7 @@ const RecordFeedList = () => {
       ) : (
         <div className='flex flex-col items-center justify-center text-center'>
           <h4 className='font-medium text-clampBase'>작성된 기록이 없어요.</h4>
-          <p className=' text-clampSm text-[#707070] pt-1'>
+          <p className=' text-clampSm text-textGray pt-1'>
             독서 기록을 작성하여 공유해보세요!
           </p>
         </div>

@@ -95,6 +95,6 @@ const NoSearchResult = tw.div`
   translate-y-[-50%]
   left-[50%]
   translate-x-[-50%]
-  text-[#707070]
+  text-textGray
   text-[0.9375rem]
 `;

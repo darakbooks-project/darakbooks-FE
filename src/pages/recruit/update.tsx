@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
-import { fetchReadingGroupInfo, patchReadingClassChange } from '@/api/recruit';
+import { fetchReadingGroupInfo, patchReadingGroupChange } from '@/api/recruit';
 import RecruitForm from '@/components/recruit/RecruitForm';
 import { useGroupForm } from '@/hooks/useGroupForm';
 
@@ -12,7 +12,7 @@ const RecruitUpdatePage = () => {
   } = useRouter();
 
   const queryClient = useQueryClient();
-  const { mutate: updateReadingGroup } = useMutation(patchReadingClassChange, {
+  const { mutate: updateReadingGroup } = useMutation(patchReadingGroupChange, {
     onSuccess: () => {
       queryClient.invalidateQueries(['reading', 'group', 'list']);
       push({
@@ -31,15 +31,15 @@ const RecruitUpdatePage = () => {
     updateReadingGroup({
       groupId: parseInt(groupId),
       groupData: {
-        name: classStateObj.className,
+        name: groupStateObj.groupName,
         recruitment_status: true,
-        meeting_type: classStateObj.classType,
-        day: classStateObj.classDay,
-        time: classStateObj.classTime,
-        region: classStateObj.classRegion,
-        description: classStateObj.classDescription,
-        participant_limit: parseInt(classStateObj.classPeopleNumber),
-        open_chat_link: classStateObj.classKakaoLink,
+        meeting_type: groupStateObj.groupType,
+        day: groupStateObj.groupDay,
+        time: groupStateObj.groupTime,
+        region: groupStateObj.groupRegion,
+        description: groupStateObj.groupDescription,
+        participant_limit: parseInt(groupStateObj.groupPeopleNumber),
+        open_chat_link: groupStateObj.groupKakaoLink,
       },
     });
   };
@@ -56,15 +56,15 @@ const RecruitUpdatePage = () => {
     },
   );
 
-  const { classStateObj, classChangeStateObj } = useGroupForm({
-    className: groupData?.name ?? '',
-    classType: groupData?.meeting_type ?? '',
-    classRegion: groupData?.region ?? '',
-    classDescription: groupData?.description ?? '',
-    classDay: groupData?.day ?? '',
-    classTime: groupData?.time ?? '',
-    classPeopleNumber: String(groupData?.participant_limit ?? ''),
-    classKakaoLink: groupData?.open_chat_link ?? '',
+  const { groupStateObj, groupChangeStateObj } = useGroupForm({
+    groupName: groupData?.name ?? '',
+    groupType: groupData?.meeting_type ?? '',
+    groupRegion: groupData?.region ?? '',
+    groupDescription: groupData?.description ?? '',
+    groupDay: groupData?.day ?? '',
+    groupTime: groupData?.time ?? '',
+    groupPeopleNumber: String(groupData?.participant_limit ?? ''),
+    groupKakaoLink: groupData?.open_chat_link ?? '',
   });
 
   if (isGroupLoading) return <></>;
@@ -72,8 +72,8 @@ const RecruitUpdatePage = () => {
 
   return (
     <RecruitForm
-      classStateObj={classStateObj}
-      classChangeStateObj={classChangeStateObj}
+      groupStateObj={groupStateObj}
+      groupChangeStateObj={groupChangeStateObj}
       onClickButton={onClickUpdateButton}
       type='수정'
     />

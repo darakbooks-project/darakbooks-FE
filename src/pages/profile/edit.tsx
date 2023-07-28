@@ -6,9 +6,9 @@ import React, { useState } from 'react';
 import { changeProfileApi, getProfileApi } from '@/api/profile';
 import { registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
+import Seo from '@/components/common/Seo';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
-import Seo from '@/components/common/Seo';
 
 const Edit = () => {
   const router = useRouter();
@@ -70,7 +70,7 @@ const Edit = () => {
                 }}
               />
 
-              <h1 className='text-base text-[#333333]'>프로필 수정</h1>
+              <h1 className='text-base text-textBlack'>프로필 수정</h1>
               <div className='invisible w-[32px]'></div>
             </section>
             <main className='flex flex-col items-center w-full gap-6 s:pb-36'>
@@ -116,13 +116,13 @@ const Edit = () => {
               </section>
               <section className='relative flex flex-col w-full'>
                 <label
-                  className='text-[15px] text-[#707070] mb-2.5'
+                  className='text-[15px] text-textGray mb-2.5'
                   htmlFor='nickname'
                 >
                   닉네임
                 </label>
                 <input
-                  className='h-14 border font-normal text-sm text-[#333333] p-4 rounded-md border-solid border-[#c2c1c1]'
+                  className='h-14 border font-normal text-sm text-textBlack p-4 rounded-md border-solid border-[#c2c1c1]'
                   id='nickname'
                   placeholder={getMyProfile.nickname}
                   value={nickname}
@@ -140,13 +140,13 @@ const Edit = () => {
               </section>
               <section className='flex flex-col w-full'>
                 <label
-                  className='text-[15px] text-[#707070] mb-2.5'
+                  className='text-[15px] text-textGray mb-2.5'
                   htmlFor='bio'
                 >
                   소개
                 </label>
                 <textarea
-                  className='h-[7.5rem] border font-normal text-sm text-[#333333] resize-none p-4 rounded-md border-solid border-[#c2c1c1]'
+                  className='h-[7.5rem] border font-normal text-sm text-textBlack resize-none p-4 rounded-md border-solid border-[#c2c1c1]'
                   id='bio'
                   placeholder={
                     getMyProfile.userInfo || '좋아하는 것을 일고 기록해요 :)'
@@ -156,7 +156,7 @@ const Edit = () => {
                 ></textarea>
               </section>
               <section className='flex flex-col w-full'>
-                <h5 className='font-normal text-sm text-[#707070] mb-4 px-0 py-2 border-b-[#dfdfdf] border-b border-solid'>
+                <h5 className='font-normal text-sm text-textGray mb-4 px-0 py-2 border-b-[#dfdfdf] border-b border-solid'>
                   공개범위
                 </h5>
                 <div>
@@ -169,14 +169,14 @@ const Edit = () => {
                         defaultChecked={secretMode === 'PUBLIC'}
                         onClick={() => setSecretMode('PUBLIC')}
                       />
-                      <span className='font-medium text-sm text-[#707070]'>
+                      <span className='font-medium text-sm text-textGray'>
                         공개
                       </span>
                     </div>
                     <p
                       className={
                         secretMode === 'PUBLIC'
-                          ? 'font-normal text-[11px] text-[#60B28D]'
+                          ? 'font-normal text-[11px] text-main'
                           : 'font-normal text-[11px] text-[#999797]'
                       }
                     >
@@ -192,14 +192,14 @@ const Edit = () => {
                         defaultChecked={secretMode === 'PRIVATE'}
                         onClick={() => setSecretMode('PRIVATE')}
                       />
-                      <span className='font-medium text-sm text-[#707070]'>
+                      <span className='font-medium text-sm text-textGray'>
                         비공개
                       </span>
                     </div>
                     <p
                       className={
                         secretMode === 'PRIVATE'
-                          ? 'font-normal text-[11px] text-[#60B28D]'
+                          ? 'font-normal text-[11px] text-main'
                           : 'font-normal text-[11px] text-[#999797]'
                       }
                     >

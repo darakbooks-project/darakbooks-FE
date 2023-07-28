@@ -1,23 +1,23 @@
 export interface GroupFormStateObjProps {
-  className: string;
-  classType: string;
-  classRegion: string;
-  classDescription: string;
-  classDay: string;
-  classTime: string;
-  classPeopleNumber: string;
-  classKakaoLink: string;
+  groupName: string;
+  groupType: string;
+  groupRegion: string;
+  groupDescription: string;
+  groupDay: string;
+  groupTime: string;
+  groupPeopleNumber: string;
+  groupKakaoLink: string;
 }
 
 export interface GroupFormChangeStateObjProps {
-  changeClassName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  changeClassType: (type: string) => void;
-  changeClassRegion: (e: React.MouseEvent<HTMLUListElement>) => void;
-  changeClassDescription: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  changeClassDay: (e: React.MouseEvent<HTMLUListElement>) => void;
-  changeClassTime: (e: React.MouseEvent<HTMLUListElement>) => void;
-  changeClassPeopleNumber: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  changeClassKakaoLink: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeGroupName: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeGroupType: (type: string) => void;
+  changeGroupRegion: (e: React.MouseEvent<HTMLUListElement>) => void;
+  changeGroupDescription: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  changeGroupDay: (e: React.MouseEvent<HTMLUListElement>) => void;
+  changeGroupTime: (e: React.MouseEvent<HTMLUListElement>) => void;
+  changeGroupPeopleNumber: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeGroupKakaoLink: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface GroupLists {

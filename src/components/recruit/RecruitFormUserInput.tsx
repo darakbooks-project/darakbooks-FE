@@ -9,13 +9,13 @@ import {
 } from '@/types/recruit';
 
 interface RecruitFormUserInputProps {
-  classStateObj: GroupFormStateObjProps;
-  classChangeStateObj: GroupFormChangeStateObjProps;
+  groupStateObj: GroupFormStateObjProps;
+  groupChangeStateObj: GroupFormChangeStateObjProps;
 }
 
 const RecruitFormUserInput = ({
-  classStateObj,
-  classChangeStateObj,
+  groupStateObj,
+  groupChangeStateObj,
 }: RecruitFormUserInputProps) => {
   const [openRegionStatus, setOpenRegionStatus] = useState('hidden');
   const [openDayStatus, setOpenDayStatus] = useState('hidden');
@@ -34,49 +34,49 @@ const RecruitFormUserInput = ({
   return (
     <Container>
       <ItemDescription>모임 이름</ItemDescription>
-      <ClassName
+      <GroupName
         type='text'
-        onChange={classChangeStateObj.changeClassName}
-        value={classStateObj.className}
+        onChange={groupChangeStateObj.changeGroupName}
+        value={groupStateObj.groupName}
         placeholder='이름을 작성해주세요.'
       />
 
       <ItemDescription>모임을 소개해 볼까요?</ItemDescription>
-      <ClassDescription
-        value={classStateObj.classDescription}
-        onChange={classChangeStateObj.changeClassDescription}
+      <GroupDescription
+        value={groupStateObj.groupDescription}
+        onChange={groupChangeStateObj.changeGroupDescription}
         maxLength={1500}
         placeholder='소개 내용을 작성해주세요.'
       />
 
       <ItemDescription>어디에서 주로 활동하나요?</ItemDescription>
-      <ClassType>
-        <ClassTypeButton
-          classtype='offline'
-          currenttype={classStateObj.classType}
-          onClick={() => classChangeStateObj.changeClassType('offline')}
+      <GroupType>
+        <GroupTypeButton
+          grouptype='offline'
+          currenttype={groupStateObj.groupType}
+          onClick={() => groupChangeStateObj.changeGroupType('offline')}
         >
           오프라인
-        </ClassTypeButton>
-        <ClassTypeButton
-          classtype='online'
-          currenttype={classStateObj.classType}
+        </GroupTypeButton>
+        <GroupTypeButton
+          grouptype='online'
+          currenttype={groupStateObj.groupType}
           onClick={() => {
-            classChangeStateObj.changeClassType('online');
+            groupChangeStateObj.changeGroupType('online');
             setOpenRegionStatus('hidden');
           }}
         >
           온라인
-        </ClassTypeButton>
-      </ClassType>
+        </GroupTypeButton>
+      </GroupType>
 
-      <ClassRegionWrap
+      <GroupRegionWrap
         $islistdisplay={openRegionStatus}
-        $isbuttondisplay={classStateObj.classType}
+        $isbuttondisplay={groupStateObj.groupType}
       >
-        <ClassSelectButton
+        <GroupSelectButton
           onClick={() => changeSelectItemDisplayStatus('region')}
-          value={classStateObj.classRegion}
+          value={groupStateObj.groupRegion}
           className='relative pl-11'
         >
           <Image
@@ -88,8 +88,8 @@ const RecruitFormUserInput = ({
           />
 
           <span>
-            {(classStateObj.classType === 'offline' &&
-              classStateObj.classRegion) ||
+            {(groupStateObj.groupType === 'offline' &&
+              groupStateObj.groupRegion) ||
               '지역을 선택해주세요.'}
           </span>
           <SelectArrowIconImage
@@ -99,38 +99,38 @@ const RecruitFormUserInput = ({
             alt='선택 화살표 입니다.'
             value={openRegionStatus}
           />
-        </ClassSelectButton>
-        <ClassSelectList
-          onClick={classChangeStateObj.changeClassRegion}
+        </GroupSelectButton>
+        <GroupSelectList
+          onClick={groupChangeStateObj.changeGroupRegion}
           $islistdisplay={openRegionStatus}
         >
           {REGION_DATA.map((region) => (
-            <ClassSelectListItem
+            <GroupSelectListItem
               key={region}
               value={region}
               className='hover:bg-black hover:bg-opacity-10'
               onClick={() => setOpenRegionStatus('hidden')}
             >
               {region}
-            </ClassSelectListItem>
+            </GroupSelectListItem>
           ))}
-        </ClassSelectList>
-      </ClassRegionWrap>
+        </GroupSelectList>
+      </GroupRegionWrap>
 
       <ItemDescription>요일/시간을 선택해주세요</ItemDescription>
-      <ClassDayTimeWrap
+      <GroupDayTimeWrap
         $islistdisplay={
           openDayStatus === 'view' || openTimeStatus === 'view'
             ? 'view'
             : 'hidden'
         }
       >
-        <ClassDayWrap>
-          <ClassSelectButton
+        <GroupDayWrap>
+          <GroupSelectButton
             onClick={() => changeSelectItemDisplayStatus('day')}
-            value={classStateObj.classDay}
+            value={groupStateObj.groupDay}
           >
-            <span>{classStateObj.classDay || '요일'}</span>
+            <span>{groupStateObj.groupDay || '요일'}</span>
             <SelectArrowIconImage
               src={'/images/not-select-arrow.svg'}
               width={12.5}
@@ -138,30 +138,30 @@ const RecruitFormUserInput = ({
               alt='선택 화살표 입니다.'
               value={openDayStatus}
             />
-          </ClassSelectButton>
-          <ClassSelectList
-            onClick={classChangeStateObj.changeClassDay}
+          </GroupSelectButton>
+          <GroupSelectList
+            onClick={groupChangeStateObj.changeGroupDay}
             $islistdisplay={openDayStatus}
           >
             {DAY_DATA.map((day) => (
-              <ClassSelectListItem
+              <GroupSelectListItem
                 key={day}
                 value={day}
                 className='hover:bg-black hover:bg-opacity-10'
                 onClick={() => setOpenDayStatus('hidden')}
               >
                 {day}요일
-              </ClassSelectListItem>
+              </GroupSelectListItem>
             ))}
-          </ClassSelectList>
-        </ClassDayWrap>
+          </GroupSelectList>
+        </GroupDayWrap>
 
-        <ClassTimeWrap>
-          <ClassSelectButton
+        <GroupTimeWrap>
+          <GroupSelectButton
             onClick={() => changeSelectItemDisplayStatus('time')}
-            value={classStateObj.classTime}
+            value={groupStateObj.groupTime}
           >
-            <span>{classStateObj.classTime || '시간'}</span>
+            <span>{groupStateObj.groupTime || '시간'}</span>
             <SelectArrowIconImage
               src={'/images/not-select-arrow.svg'}
               width={12.5}
@@ -169,48 +169,48 @@ const RecruitFormUserInput = ({
               alt='선택 화살표 입니다.'
               value={openTimeStatus}
             />
-          </ClassSelectButton>
-          <ClassSelectList
-            onClick={classChangeStateObj.changeClassTime}
+          </GroupSelectButton>
+          <GroupSelectList
+            onClick={groupChangeStateObj.changeGroupTime}
             $islistdisplay={openTimeStatus}
           >
             {TIME_DATA.map((time) => (
-              <ClassSelectListItem
+              <GroupSelectListItem
                 key={time}
                 value={time}
                 className='hover:bg-black hover:bg-opacity-10'
                 onClick={() => setOpenTimeStatus('hidden')}
               >
                 {time}
-              </ClassSelectListItem>
+              </GroupSelectListItem>
             ))}
-          </ClassSelectList>
-        </ClassTimeWrap>
-      </ClassDayTimeWrap>
+          </GroupSelectList>
+        </GroupTimeWrap>
+      </GroupDayTimeWrap>
 
       <ItemDescription>몇명과 함께 할까요?</ItemDescription>
-      <ClassPeopleNumber
+      <GroupPeopleNumber
         type='text'
-        onChange={classChangeStateObj.changeClassPeopleNumber}
-        value={classStateObj.classPeopleNumber}
+        onChange={groupChangeStateObj.changeGroupPeopleNumber}
+        value={groupStateObj.groupPeopleNumber}
         placeholder='인원'
       />
 
       <ItemDescription>오픈채팅 URL을 입력해주세요</ItemDescription>
-      <ClassKakaoLinkWrap>
-        <ClassKakaoLinkInput
+      <GroupKakaoLinkWrap>
+        <GroupKakaoLinkInput
           type='text'
-          onChange={classChangeStateObj.changeClassKakaoLink}
-          value={classStateObj.classKakaoLink}
+          onChange={groupChangeStateObj.changeGroupKakaoLink}
+          value={groupStateObj.groupKakaoLink}
           placeholder='링크 정보'
         />
-        <ClassKakaoLinkIcon
+        <GroupKakaoLinkIcon
           src='/images/group/link.svg'
           width={24}
           height={24}
           alt='링크 아이콘'
         />
-      </ClassKakaoLinkWrap>
+      </GroupKakaoLinkWrap>
     </Container>
   );
 };
@@ -238,7 +238,7 @@ const CommonInputStyle = tw.input`
 
   ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
 
-  placeholder:text-[#707070]
+  placeholder:text-textGray
 `;
 
 const SelectArrowIconImage = tw(Image)<{ value: string }>`
@@ -249,9 +249,9 @@ const SelectArrowIconImage = tw(Image)<{ value: string }>`
   ${(props) => props.value === 'view' && '-rotate-180'}
 `;
 
-const ClassName = tw(CommonInputStyle)``;
+const GroupName = tw(CommonInputStyle)``;
 
-const ClassDescription = tw.textarea`
+const GroupDescription = tw.textarea`
   w-full 
   border
   border-black
@@ -266,20 +266,20 @@ const ClassDescription = tw.textarea`
 
   ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
 
-  placeholder:text-[#707070]
+  placeholder:text-textGray
 `;
 
-const ClassType = tw.div`
+const GroupType = tw.div`
   flex
   justify-between
   mb-[20px]
 `;
 
-const ClassTypeButton = tw.button<{ classtype: string; currenttype: string }>`
+const GroupTypeButton = tw.button<{ grouptype: string; currenttype: string }>`
   ${(props) =>
-    props.classtype === props.currenttype
+    props.grouptype === props.currenttype
       ? 'border border-main text-main'
-      : 'bg-[#F3F3F3] text-[#707070]'}
+      : 'bg-[#F3F3F3] text-textGray'}
 
   font-semibold
   text-sm
@@ -288,12 +288,12 @@ const ClassTypeButton = tw.button<{ classtype: string; currenttype: string }>`
   rounded
 `;
 
-const ClassSelectButton = tw.button`
+const GroupSelectButton = tw.button`
   border
   w-full
   border 
   border-main
-  text-[#707070]
+  text-textGray
   rounded
   p-[10px]
   pr-[20px]
@@ -306,14 +306,14 @@ const ClassSelectButton = tw.button`
   ${(props) => !props.value && 'border-red-600 border-2 border-opacity-100'}
 `;
 
-const ClassSelectList = tw.ul<{ $islistdisplay: string }>`
+const GroupSelectList = tw.ul<{ $islistdisplay: string }>`
  ${(props) => (props.$islistdisplay === 'view' ? 'block' : 'hidden')}
 
   border
   w-full
   border 
   border-main
-  text-[#707070]
+  text-textGray
   rounded
   p-[10px]
   absolute
@@ -323,11 +323,11 @@ const ClassSelectList = tw.ul<{ $islistdisplay: string }>`
   overflow-scroll
 `;
 
-const ClassSelectListItem = tw.li`
+const GroupSelectListItem = tw.li`
   cursor-pointer
 `;
 
-const ClassRegionWrap = tw.div<{
+const GroupRegionWrap = tw.div<{
   $islistdisplay: string;
   $isbuttondisplay: string;
 }>`
@@ -336,34 +336,34 @@ const ClassRegionWrap = tw.div<{
   relative
 `;
 
-const ClassDayTimeWrap = tw.div<{ $islistdisplay: string }>`
+const GroupDayTimeWrap = tw.div<{ $islistdisplay: string }>`
   ${(props) => (props.$islistdisplay === 'view' ? 'mb-40' : 'mb-8')}
 
   flex
   justify-between	
 `;
 
-const ClassDayWrap = tw.div`
+const GroupDayWrap = tw.div`
   relative
   w-[48.5%]
 `;
 
-const ClassTimeWrap = tw.div`
+const GroupTimeWrap = tw.div`
   relative
   w-[48.5%]
 `;
 
-const ClassPeopleNumber = tw(CommonInputStyle)``;
+const GroupPeopleNumber = tw(CommonInputStyle)``;
 
-const ClassKakaoLinkWrap = tw.div`
+const GroupKakaoLinkWrap = tw.div`
   relative
 `;
 
-const ClassKakaoLinkInput = tw(CommonInputStyle)`
+const GroupKakaoLinkInput = tw(CommonInputStyle)`
   pl-11
 `;
 
-const ClassKakaoLinkIcon = tw(Image)`
+const GroupKakaoLinkIcon = tw(Image)`
   absolute
   top-2.5
   left-4
