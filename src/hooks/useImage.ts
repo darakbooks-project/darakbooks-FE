@@ -1,8 +1,6 @@
 import { UseMutationResult } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 
-import { MAX_FILE_SIZE } from '@/constants/file';
-
 interface postImageProps {
   name?: string;
   url?: string;
@@ -23,29 +21,22 @@ const useImage = (
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { files } = event.currentTarget;
       const formData = new FormData();
-      const limit = MAX_FILE_SIZE / (1204 * 1204);
-
       if (!files || !files[0]) {
         return;
       }
-      if (files[0]?.size > MAX_FILE_SIZE) {
-        alert(`업로드 가능한 최대 용량은 ${limit}MB 입니다.`);
-        return;
-      } else {
-        formData.append('file', files[0]);
-        mutation.mutate(formData, {
-          onSuccess: ({ photoId, photoUrl }) => {
-            const newImage = {
-              name: photoId,
-              url: photoUrl,
-            };
-            setImage(newImage);
-          },
-          onError: (error) => {
-            alert(error);
-          },
-        });
-      }
+      formData.append('file', files[0]);
+      mutation.mutate(formData, {
+        onSuccess: ({ photoId, photoUrl }) => {
+          const newImage = {
+            name: photoId,
+            url: photoUrl,
+          };
+          setImage(newImage);
+        },
+        onError: (error) => {
+          alert(error);
+        },
+      });
     },
     [mutation],
   );
