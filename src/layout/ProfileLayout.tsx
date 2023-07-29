@@ -72,23 +72,23 @@ function ProfileLayout({ children }: { children: ReactNode }) {
               <Image
                 src={data.photoUrl}
                 alt={data.nickname}
-                width='0'
-                height='0'
-                sizes='100vw'
-                className='w-[4.5rem] h-[4.5rem]  rounded-[50%] '
+                width='72'
+                height='72'
+                className='w-[4.5rem] h-[4.5rem] rounded-[50%]'
+                priority
               />
               <div>
-                <h1 className='text-2xl text-[#333333] font-[bold] mb-[5px]'>
+                <h1 className='text-2xl text-textBlack font-[bold] mb-[5px]'>
                   {data.nickname}
                 </h1>
-                <p className='text-[13px] text-[#707070] flex gap-4'>
+                <p className='text-[13px] text-textGray flex gap-4'>
                   {data.userInfo ?? '좋아하는 것을 일고 기록해요 :)'}
                 </p>
               </div>
             </article>
             {data.isMine && (
               <button
-                className='flex justify-center items-center h-11 border rounded text-[13px] text-[#333333] border-solid border-[#dfdfdf]'
+                className='flex justify-center items-center h-11 border rounded text-[13px] text-textBlack border-solid border-[#dfdfdf]'
                 onClick={() => push('/profile/edit')}
               >
                 <Image

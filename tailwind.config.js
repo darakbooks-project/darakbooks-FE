@@ -36,6 +36,7 @@ module.exports = {
         main: '#60B28D',
         background: '#FFFEF8',
         textBlack: '#333333',
+        textGray: '#707070',
       },
       boxShadow: {
         round: '4px 4px 8px rgba(0, 0, 0, 0.15)',

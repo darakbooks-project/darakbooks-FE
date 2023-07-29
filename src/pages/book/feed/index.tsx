@@ -1,5 +1,6 @@
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useMemo } from 'react';
@@ -11,11 +12,12 @@ import {
   getCertainBookRecordsApi,
 } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
-import BottomNav from '@/components/common/BottomNav';
-import Header from '@/components/common/Header';
 import Seo from '@/components/common/Seo';
 import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
 import { suitableDescriptionHandler } from '@/utils/helpers/suitableDescriptionHandler';
+
+const Header = dynamic(() => import('@/components/common/Header'));
+const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 
 const BookDetailFeed = () => {
   const {
@@ -265,6 +267,10 @@ const BookDetailFeed = () => {
     }
   };
 
+  if (!currentData) {
+    return null;
+  }
+
   const {
     book: { title },
     text,
@@ -326,10 +332,10 @@ const BookDetailFeed = () => {
             <Image
               src={currentData.recordImgUrl}
               alt={currentData.recordImgUrl}
-              width='0'
-              height='0'
-              sizes='100vw'
-              className='w-full h-[22rem]'
+              width='352'
+              height='352'
+              className='w-full'
+              priority
             />
             <article className='w-full leading-[160%] text-[15px] rounded-md px-6 font-prettyNight'>
               {currentData.text}
@@ -337,7 +343,7 @@ const BookDetailFeed = () => {
             <ul className='inline-flex flex-wrap w-full px-6'>
               {currentData.tags.map((tag) => (
                 <li
-                  className='flex justify-center items-center border font-normal text-[13px] text-[#333333] mr-2 px-3 py-[5px] rounded-[50px] border-solid border-[#ebeaea] font-prettyNight'
+                  className='flex justify-center items-center border font-normal text-[13px] text-textBlack mr-2 px-3 py-[5px] rounded-[50px] border-solid border-[#ebeaea] font-prettyNight'
                   key={tag.id}
                 >
                   #{tag.data}
@@ -365,6 +371,7 @@ const BookDetailFeed = () => {
                     height='0'
                     sizes='100vw'
                     className='w-full h-auto'
+                    loading='lazy'
                   />
                 </div>
                 <div className='flex flex-col w-4/5 justify-evenly'>

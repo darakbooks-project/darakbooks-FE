@@ -5,72 +5,72 @@ import {
   GroupFormStateObjProps,
 } from '@/types/recruit';
 
-export const useGroupForm = (classData: GroupFormStateObjProps) => {
+export const useGroupForm = (groupData: GroupFormStateObjProps) => {
   const {
-    className: relayedClassName,
-    classType: relayedClassType,
-    classRegion: relayedClassRegion,
-    classDescription: relayedClassDescription,
-    classDay: relayedClassDay,
-    classTime: relayedClassTime,
-    classPeopleNumber: relayedClassPeopleNumber,
-    classKakaoLink: relayedClassKakaoLink,
-  } = classData;
+    groupName: relayedGroupName,
+    groupType: relayedGroupType,
+    groupRegion: relayedGroupRegion,
+    groupDescription: relayedGroupDescription,
+    groupDay: relayedGroupDay,
+    groupTime: relayedGroupTime,
+    groupPeopleNumber: relayedGroupPeopleNumber,
+    groupKakaoLink: relayedGroupKakaoLink,
+  } = groupData;
 
-  const [className, setClassName] = useState(relayedClassName);
-  const [classType, setClassType] = useState(relayedClassType);
-  const [classRegion, setClassRegion] = useState(relayedClassRegion);
-  const [classDescription, setClassDescription] = useState(
-    relayedClassDescription,
+  const [groupName, setGroupName] = useState(relayedGroupName);
+  const [groupType, setGroupType] = useState(relayedGroupType);
+  const [groupRegion, setGroupRegion] = useState(relayedGroupRegion);
+  const [groupDescription, setGroupDescription] = useState(
+    relayedGroupDescription,
   );
-  const [classDay, setClassDay] = useState(relayedClassDay);
-  const [classTime, setClassTime] = useState(relayedClassTime);
-  const [classPeopleNumber, setClassPeopleNumber] = useState(
-    relayedClassPeopleNumber,
+  const [groupDay, setGroupDay] = useState(relayedGroupDay);
+  const [groupTime, setGroupTime] = useState(relayedGroupTime);
+  const [groupPeopleNumber, setGroupPeopleNumber] = useState(
+    relayedGroupPeopleNumber,
   );
-  const [classKakaoLink, setClassKakaoLink] = useState(relayedClassKakaoLink);
+  const [groupKakaoLink, setGroupKakaoLink] = useState(relayedGroupKakaoLink);
 
-  const classStateObj: GroupFormStateObjProps = {
-    className,
-    classType,
-    classRegion: classType === 'offline' ? classRegion : 'not region data',
-    classDescription,
-    classDay,
-    classTime,
-    classPeopleNumber,
-    classKakaoLink,
+  const groupStateObj: GroupFormStateObjProps = {
+    groupName,
+    groupType,
+    groupRegion: groupType === 'offline' ? groupRegion : 'not region data',
+    groupDescription,
+    groupDay,
+    groupTime,
+    groupPeopleNumber,
+    groupKakaoLink,
   };
 
-  const classChangeStateObj: GroupFormChangeStateObjProps = {
-    changeClassName: (e) => {
-      setClassName(e.target.value);
+  const groupChangeStateObj: GroupFormChangeStateObjProps = {
+    changeGroupName: (e) => {
+      setGroupName(e.target.value);
     },
-    changeClassType: (type) => {
-      if (type === 'online') setClassType('online');
-      else setClassType('offline');
+    changeGroupType: (type) => {
+      if (type === 'online') setGroupType('online');
+      else setGroupType('offline');
     },
-    changeClassRegion: (e) => {
+    changeGroupRegion: (e) => {
       const selectedItem = e.target as HTMLUListElement;
-      selectedItem.textContent && setClassRegion(selectedItem.textContent);
+      selectedItem.textContent && setGroupRegion(selectedItem.textContent);
     },
-    changeClassDescription: (e) => {
-      setClassDescription(e.target.value);
+    changeGroupDescription: (e) => {
+      setGroupDescription(e.target.value);
     },
-    changeClassDay: (e) => {
+    changeGroupDay: (e) => {
       const selectedItem = e.target as HTMLUListElement;
-      selectedItem.textContent && setClassDay(selectedItem.textContent);
+      selectedItem.textContent && setGroupDay(selectedItem.textContent);
     },
-    changeClassTime: (e) => {
+    changeGroupTime: (e) => {
       const selectedItem = e.target as HTMLUListElement;
-      selectedItem.textContent && setClassTime(selectedItem.textContent);
+      selectedItem.textContent && setGroupTime(selectedItem.textContent);
     },
-    changeClassPeopleNumber: (e) => {
-      setClassPeopleNumber(e.target.value);
+    changeGroupPeopleNumber: (e) => {
+      setGroupPeopleNumber(e.target.value);
     },
-    changeClassKakaoLink: (e) => {
-      setClassKakaoLink(e.target.value);
+    changeGroupKakaoLink: (e) => {
+      setGroupKakaoLink(e.target.value);
     },
   };
 
-  return { classStateObj, classChangeStateObj } as const;
+  return { groupStateObj, groupChangeStateObj } as const;
 };

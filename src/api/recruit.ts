@@ -28,7 +28,7 @@ interface getAllMyGroupsProps {
   }[];
 }
 
-export const getReadingClassData = async (
+export const getReadingGroupData = async (
   page: number,
 ): Promise<GroupLists> => {
   try {
@@ -48,19 +48,26 @@ export const getReadingClassData = async (
 };
 
 //독서모임 개설
-export const postReadingClassOpen = async (
-  openReadingClassData: GroupFormStateObjProps,
-) => {
+export const postReadingGroupOpen = async ({
+  groupName,
+  groupType,
+  groupDay,
+  groupTime,
+  groupRegion,
+  groupDescription,
+  groupPeopleNumber,
+  groupKakaoLink,
+}: GroupFormStateObjProps) => {
   const body = {
-    name: openReadingClassData.className,
+    name: groupName,
     recruitment_status: true,
-    meeting_type: openReadingClassData.classType,
-    day: openReadingClassData.classDay,
-    time: openReadingClassData.classTime,
-    region: openReadingClassData.classRegion,
-    description: openReadingClassData.classDescription,
-    participant_limit: parseInt(openReadingClassData.classPeopleNumber),
-    open_chat_link: openReadingClassData.classKakaoLink,
+    meeting_type: groupType,
+    day: groupDay,
+    time: groupTime,
+    region: groupRegion,
+    description: groupDescription,
+    participant_limit: parseInt(groupPeopleNumber),
+    open_chat_link: groupKakaoLink,
   };
 
   try {
@@ -128,16 +135,16 @@ export const postGroupLeaveUser = async (groupId: number) => {
   }
 };
 
-interface patchReadingClassChangeType {
+interface patchReadingGroupChangeType {
   groupId: number;
   groupData: Partial<GroupList> | GroupFormStateObjProps;
 }
 
 //독서모임 수정 patch api
-export const patchReadingClassChange = async ({
+export const patchReadingGroupChange = async ({
   groupId,
   groupData,
-}: patchReadingClassChangeType) => {
+}: patchReadingGroupChangeType) => {
   try {
     await axiosInstance.request({
       method: 'PATCH',

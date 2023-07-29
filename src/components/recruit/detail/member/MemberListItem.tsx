@@ -60,7 +60,7 @@ const MemberListItem = ({
       <div className='flex w-full'>
         <button
           onClick={() => setModal({ type: 'HIDDEN' })}
-          className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333] text-clampSm'
+          className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-textBlack text-clampSm'
         >
           취소
         </button>
