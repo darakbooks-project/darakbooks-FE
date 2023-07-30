@@ -6,6 +6,7 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useState } from 'react';
@@ -14,12 +15,13 @@ import { useRecoilState } from 'recoil';
 
 import { getProfileApi } from '@/api/profile';
 import { deleteRecordApi, getAllRecordsApi } from '@/api/record';
-import BottomNav from '@/components/common/BottomNav';
-import Modal from '@/components/common/Modal';
 import Seo from '@/components/common/Seo';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
+
+const Modal = dynamic(() => import('@/components/common/Modal'));
+const BottomNav = dynamic(() => import('@/components/common/BottomNav'));
 
 const MyFeed: NextPageWithLayout = () => {
   const {
@@ -135,10 +137,10 @@ const MyFeed: NextPageWithLayout = () => {
         <>
           {!userData?.isMine && userData?.bookshelfIsHidden ? (
             <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
-              <h5 className='text-base font-medium text-[#333333]'>
+              <h5 className='text-base font-medium text-textBlack'>
                 비공개 계정입니다.
               </h5>
-              <p className='text-[13px] text-[#707070]'>
+              <p className='text-[13px] text-textGray'>
                 이 계정은 확인할 수 없습니다.
               </p>
             </div>
@@ -146,14 +148,14 @@ const MyFeed: NextPageWithLayout = () => {
             <>
               {allRecords.length < 1 ? (
                 <div className='h-[calc(100%_-_8.5rem)] flex flex-col justify-center items-center'>
-                  <h5 className='text-base font-medium text-[#333333]'>
+                  <h5 className='text-base font-medium text-textBlack'>
                     기록이 없어요
                   </h5>
                 </div>
               ) : (
                 <>
                   <div className='flex items-center justify-between px-6 py-0 h-14'>
-                    <span className='text-[15px] text-[#707070]'>
+                    <span className='text-[15px] text-textGray'>
                       전체{' '}
                       <span className='text-[15px] text-main'>
                         {allRecords.length}
@@ -194,6 +196,7 @@ const MyFeed: NextPageWithLayout = () => {
                           sizes='100vw'
                           className='h-32 w-full s:h-[12rem]'
                           onClick={() => onRecordClick(item.recordId + '')}
+                          loading='lazy'
                         />
                       </div>
                     ))}
@@ -218,7 +221,7 @@ const MyFeed: NextPageWithLayout = () => {
                         <div className='flex w-full'>
                           <button
                             onClick={() => setModal({ type: 'HIDDEN' })}
-                            className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-[#333333]'
+                            className='w-3/4 h-12 bg-[#F3F3F3] rounded-lg mr-3 text-textBlack'
                           >
                             취소
                           </button>

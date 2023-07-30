@@ -103,7 +103,7 @@ const Title = tw.h1`
   font-medium	
 `;
 
-const InfinityScrollListsWrap = tw.div`
+const InfinityScrollListsWrap = tw.main`
   pt-10
   pb-28
   bg-white

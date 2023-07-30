@@ -58,7 +58,7 @@ const FeedItem = ({ text, book, user, recordId }: RecordType) => {
       <div className='max-w-[65%] py-4 '>
         <h1 className='h-6 font-bold truncate text-clampBase'>#{title}</h1>
         <p className='pt-2 pb-3 text-xs truncate'>{text}</p>
-        <p className='text-xs text-[#707070] truncate'>@{nickname}</p>
+        <p className='text-xs text-textGray truncate'>@{nickname}</p>
       </div>
       <div className='flex-none mt-4 xxs:mt-5'>
         <Image

@@ -62,11 +62,11 @@ function DatePickerComponent({
       />
       <label htmlFor='calendar'>
         {startDate ? (
-          <div className='w-[12rem] flex justify-end h-8 text-[14px] text-[#333333] cursor-pointer font-prettyNight'>
+          <div className='w-[12rem] flex justify-end h-8 text-[14px] text-textBlack cursor-pointer font-prettyNight'>
             읽은 날짜 {startDate.toLocaleDateString('ko')}
           </div>
         ) : (
-          <div className='w-[6.5rem] text-[14px] text-[#333333] flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] cursor-pointer font-prettyNight'>
+          <div className='w-[6.5rem] text-[14px] text-textBlack flex justify-center items-center h-8 border rounded-[50px] border-solid border-[#c1c1c1] cursor-pointer font-prettyNight'>
             읽은 날짜 기록
           </div>
         )}

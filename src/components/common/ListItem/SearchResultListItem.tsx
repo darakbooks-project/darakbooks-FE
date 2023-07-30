@@ -78,7 +78,7 @@ const SearchResultListItem = ({
 
 export default SearchResultListItem;
 
-const Container = tw.div`
+const Container = tw.article`
   w-full
   flex
   items-center
@@ -106,7 +106,7 @@ const Title = tw.span`
 const AuthorPublisher = tw.div`
   flex
   text-xs
-  text-[#707070]
+  text-textGray
 `;
 
 const Divider = tw.div`

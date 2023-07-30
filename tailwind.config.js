@@ -36,6 +36,7 @@ module.exports = {
         main: '#60B28D',
         background: '#FFFEF8',
         textBlack: '#333333',
+        textGray: '#707070',
       },
       boxShadow: {
         round: '4px 4px 8px rgba(0, 0, 0, 0.15)',
@@ -47,6 +48,7 @@ module.exports = {
       },
       fontSize: {
         clampSm: 'clamp(0.75rem, 4vw, 0.875rem)' /**14px */,
+        clampMedium: 'clamp(13px, 4vw, 0.9375rem)' /**15px */,
         clampBase: 'clamp(0.875rem, 4vw, 1rem)' /**16px */,
         clampLg: 'clamp(0.875rem, 5vw, 1.125rem)' /**18px */,
         clampXl: 'clamp(1.125rem, 6vw, 1.25rem)' /**20px */,

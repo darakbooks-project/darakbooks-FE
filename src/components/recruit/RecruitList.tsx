@@ -1,6 +1,6 @@
 import { GroupList } from '@/types/recruit';
 
-import ReadingGroupRecruitment from '../common/ListItem/ReadingGroupRecruitment ';
+import ReadingGroupRecruitment from '../common/ListItem/ReadingGroupRecruitment';
 
 interface RecruitListProps {
   listData: GroupList[];

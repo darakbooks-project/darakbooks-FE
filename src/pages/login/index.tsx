@@ -70,7 +70,7 @@ const LoginPage = () => {
 export default LoginPage;
 
 const Container = tw.div`
-  bg-[#FFFEF8]
+  bg-background
   h-full
 `;
 
@@ -105,7 +105,7 @@ const ButtonItem = tw.div`
 
 const LinkStyles = tw.button`
   text-sm	
-  text-[#707070]
+  text-textGray
   border-b	
-  border-[#707070]
+  border-textGray
 `;

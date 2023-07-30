@@ -61,7 +61,7 @@ const ReadingGroupRecruitment = ({
 
 export default ReadingGroupRecruitment;
 
-const Container = tw.div`
+const Container = tw.article`
   w-[100%]
   p-4
   relative
@@ -80,7 +80,7 @@ const GroupName = tw.span`
 
 const GroupInformation = tw.div`
   text-[0.765rem]
-  text-[#707070]
+  text-textGray
   space-x-1.5
   my-1.5
   flex
