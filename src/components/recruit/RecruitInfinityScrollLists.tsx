@@ -1,11 +1,10 @@
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import { getReadingGroupData } from '@/api/recruit';
-import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
+import useRememberScroll from '@/hooks/useRememberScroll';
 
 import RecruitList from './RecruitList';
 
@@ -17,9 +16,7 @@ const RecruitInfinityScrollLists = ({
   listchangetype,
 }: RecruitInfinityScrollListsProps) => {
   const { ref, inView } = useInView();
-  const infinityScrollPosition = useRecoilValue(
-    readingGroupInfinityScrollPositionAtom,
-  );
+  const { currentScroll, resetScroll } = useRememberScroll('groupList');
 
   const queryClient = useQueryClient();
   const readingGroupQueryData = useRef(
@@ -54,10 +51,10 @@ const RecruitInfinityScrollLists = ({
   }, [fetchNextPage, inView, hasNextPage]);
 
   useEffect(() => {
-    if (infinityScrollPosition === 0 || (listchangetype && isRefetching))
-      return;
+    if (currentScroll === 0 || (listchangetype && isRefetching)) return;
 
-    window.scrollTo(0, infinityScrollPosition);
+    window.scrollTo(0, Number(currentScroll));
+    resetScroll();
   }, [isRefetching]);
 
   if (isRefetching) {

@@ -1,21 +1,19 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import tw from 'tailwind-styled-components';
 
 import BottomNav from '@/components/common/BottomNav';
 import Seo from '@/components/common/Seo';
 import RecruitInfinityScrollLists from '@/components/recruit/RecruitInfinityScrollLists';
 import { useAuth } from '@/hooks/useAuth';
+import useRememberScroll from '@/hooks/useRememberScroll';
 import { isAuthorizedSelector } from '@/recoil/auth';
-import { readingGroupInfinityScrollPositionAtom } from '@/recoil/recruit';
 
 const RecruitPage = () => {
   const { openAuthRequiredModal } = useAuth();
   const isAuthorized = useRecoilValue(isAuthorizedSelector);
-  const setInfinityScrollPosition = useSetRecoilState(
-    readingGroupInfinityScrollPositionAtom,
-  );
+  const { setScroll } = useRememberScroll('groupList');
   const {
     push,
     query: { listchangetype },
@@ -27,7 +25,8 @@ const RecruitPage = () => {
       return;
     }
 
-    setInfinityScrollPosition(window.scrollY);
+    setScroll();
+
     push('/recruit/write');
   };
 
