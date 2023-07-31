@@ -60,7 +60,6 @@
     <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=ffffff"/>&nbsp  
     <img src="https://img.shields.io/badge/Axios-6028e0?style=for-the-badge&logo=Axios&logoColor=ffffff"/>&nbsp
     <img src="https://img.shields.io/badge/@tanstack/react query-FF4154?style=for-the-badge&logo=ReactQuery&logoColor=ffffff"/>&nbsp
-    <img src="https://img.shields.io/badge/@next/font-60B28D?style=for-the-badge&logoColor=ffffff"/>&nbsp
   </td>
 </tr>
 
