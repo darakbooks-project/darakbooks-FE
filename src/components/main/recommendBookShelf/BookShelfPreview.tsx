@@ -41,7 +41,10 @@ const BookShelfPreview = () => {
     });
   };
 
-  if (isBookshelfError || !currentBookshelfData?.userId)
+  if (
+    isBookshelfError ||
+    (!isBookshelfLoading && !currentBookshelfData?.userId)
+  )
     return (
       <BookshelfContainer>
         <BookshelfCommend>추천 책장을 찾지 못했어요.</BookshelfCommend>
