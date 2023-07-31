@@ -2,7 +2,7 @@
 
 # **다락책방**
 
-![image](https://frontend-book-platform.vercel.app/images/login-logo.svg)
+![image](https://darakbooks.vercel.app/images/login-logo.svg)
 
 ```
 도서 검색 및 추천, 독서 기록, 독서 모임 운영을 한 곳에서 할 수 있는 독서인들의 맞춤형 서비스
@@ -30,7 +30,7 @@
 
 다락책방은 독서를 즐기는 사람들을 위한 온라인 및 오프라인 도서 소모임을 운영합니다. 온라인 도서 소모임에서는 독서 관련 토론, 작가와의 만남, 독서 이벤트 등 다양한 활동을 즐길 수 있습니다. 또한, 오프라인 도서 소모임에서는 현실에서 사람들과 함께 독서를 즐길 수 있는 기회를 제공합니다. 독서 소모임을 통해 새로운 친구들을 만나고 독서에 대한 다양한 경험을 공유할 수 있습니다.
 
-[다락책방 서비스 바로가기](https://frontend-book-platform.vercel.app/)
+[다락책방 서비스 바로가기](https://darakbooks.vercel.app/)
 
 </div>
 
@@ -60,7 +60,6 @@
     <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=ffffff"/>&nbsp  
     <img src="https://img.shields.io/badge/Axios-6028e0?style=for-the-badge&logo=Axios&logoColor=ffffff"/>&nbsp
     <img src="https://img.shields.io/badge/@tanstack/react query-FF4154?style=for-the-badge&logo=ReactQuery&logoColor=ffffff"/>&nbsp
-    <img src="https://img.shields.io/badge/@next/font-60B28D?style=for-the-badge&logoColor=ffffff"/>&nbsp
   </td>
 </tr>
 
