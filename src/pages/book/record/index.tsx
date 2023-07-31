@@ -82,8 +82,8 @@ const BookRecordPage = () => {
   };
 
   const submitRecord = () => {
-    if (!postImage || !description || !startDate || !getBookDataByIsbn) {
-      alert('도서, 이미지, 본문, 완독일을 지정해주세요');
+    if (!description || !startDate || !getBookDataByIsbn) {
+      alert('도서, 본문, 완독일을 지정해주세요');
       return;
     }
 
@@ -104,8 +104,9 @@ const BookRecordPage = () => {
       },
       record: {
         text: description,
-        recordImg: postImage.name as string,
-        recordImgUrl: postImage.url as string,
+        recordImg: (postImage.name as string) || (router.query.isbn as string),
+        recordImgUrl:
+          (postImage.url as string) || getBookDataByIsbn.documents[0].thumbnail,
         tags: tagList,
         readAt: formattedDate,
       },
@@ -130,13 +131,7 @@ const BookRecordPage = () => {
     });
   };
 
-  const isValid = !(
-    postImage.url &&
-    postImage.name &&
-    description &&
-    startDate &&
-    getBookDataByIsbn
-  );
+  const isValid = !(description && startDate && getBookDataByIsbn);
 
   return (
     <AuthRequiredPage>
