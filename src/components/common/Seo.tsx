@@ -24,13 +24,7 @@ function Seo({ title, description, image }: SeoProps) {
       <meta property='og:title' content={title || '다락책방'} />
       <meta property='og:type' content='website' />
       <meta property='og:url' content='darakbooks.vercel.app/' />
-      <meta
-        property='og:image'
-        content={
-          image ||
-          '로컬 이미지를 웹 페이지에 추가하려면 이미지를 웹 서버에 업로드하고 해당 이미지의 URL을 meta 태그의 content 속성에 지정해야 합니다.'
-        }
-      />
+      <meta property='og:image' content={image || '/images/seo/og-image.png'} />
       <meta
         property='og:description'
         content={description || '반갑습니다. 다락책방입니다.'}
