@@ -21,11 +21,20 @@ module.exports = {
           from: { opacity: '1', transform: 'translateY(-8rem)' },
           to: { opacity: '1', transform: 'translateY(-50%)' },
         },
+        move: {
+          from: {
+            marginBottom: '40px',
+          },
+          to: {
+            marginBottom: '0',
+          },
+        },
       },
       animation: {
         slideDown: 'slideDown 300ms ease-out forwards',
         slideUp: 'slideUp 300ms ease-out forwards',
         slideUpModal: 'slideUpModal 300ms ease-out forwards',
+        move: 'move 0.4s ease-out forwards',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -42,6 +51,7 @@ module.exports = {
         round: '4px 4px 8px rgba(0, 0, 0, 0.15)',
         roundY: '0px -4px 12px rgba(0, 0, 0, 0.12)',
         around: '0px 0px 9px 0px rgba(0, 0, 0, 0.10)',
+        toast: '0 1px 3px rgba(0, 0, 0, 0.2)',
       },
       dropShadow: {
         around: '0 0 7px rgba(0, 0, 0, 0.25)',
