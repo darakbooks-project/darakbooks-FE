@@ -17,6 +17,7 @@ import { getProfileApi } from '@/api/profile';
 import { getCertainBookRecordsApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Seo from '@/components/common/Seo';
+import Toast from '@/components/common/Toast/Toast';
 import ProfileLayout from '@/layout/ProfileLayout';
 import { modalStateAtom } from '@/recoil/modal';
 import { NextPageWithLayout } from '@/types/layout';
@@ -102,9 +103,15 @@ const ProfilePage: NextPageWithLayout = () => {
       onError: (error) => {
         const { status } = error as AxiosError;
         if (status === 403) {
-          alert('책의 독서기록이 작성 돼 있기 때문에 삭제가 안됩니다.');
+          Toast.show({
+            message: '해당 책의 독서기록이 존재하여 삭제할 수 없어요!',
+            type: 'warning',
+          });
         } else if (status === 404) {
-          alert('사용자의 책장에 저장 돼 있지 않은 책입니다.');
+          Toast.show({
+            message: '책장에 존재하지 않는 책이에요.',
+            type: 'error',
+          });
         }
       },
     });
@@ -224,7 +231,7 @@ const ProfilePage: NextPageWithLayout = () => {
                     {modal.type === 'BOOKSHELF' && (
                       <Modal>
                         <div
-                          className='flex text-lg justify-end'
+                          className='flex justify-end text-lg'
                           onClick={() => setModal({ type: 'HIDDEN' })}
                         >
                           X

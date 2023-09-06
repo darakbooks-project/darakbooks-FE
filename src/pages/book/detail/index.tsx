@@ -17,6 +17,7 @@ import { getBookDataByIsbnApi } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
 import { fetchRecord } from '@/api/record';
 import Seo from '@/components/common/Seo';
+import Toast from '@/components/common/Toast/Toast';
 import { useAuth } from '@/hooks/useAuth';
 import useRememberScroll from '@/hooks/useRememberScroll';
 import { isAuthorizedSelector } from '@/recoil/auth';
@@ -124,12 +125,15 @@ const BookDetailPage = () => {
 
     postBookshelf.mutate(data, {
       onSuccess: () => {
-        alert('책 담기 성공');
+        Toast.show({ message: '책 담기에 성공했어요!', type: 'success' });
       },
       onError: (error) => {
         const { status } = error as AxiosError;
         if (status === 403) {
-          alert('이미 책장에 저장된 책입니다.');
+          Toast.show({
+            message: '이미 책장에 저장된 책이에요.',
+            type: 'warning',
+          });
         }
       },
     });

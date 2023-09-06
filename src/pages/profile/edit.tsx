@@ -7,6 +7,7 @@ import { changeProfileApi, getProfileApi } from '@/api/profile';
 import { registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Seo from '@/components/common/Seo';
+import Toast from '@/components/common/Toast/Toast';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 
@@ -46,8 +47,8 @@ const Edit = () => {
 
     changeProfile.mutate(editData, {
       onSuccess: () => {
-        alert('프로필 수정을 완료하였습니다.');
         router.push('/profile');
+        Toast.show({ message: '프로필 수정에 성공했어요!', type: 'success' });
       },
       onError: (error) => console.error(error),
     });
@@ -171,7 +172,7 @@ const Edit = () => {
                         defaultChecked={secretMode === 'PUBLIC'}
                         onClick={() => setSecretMode('PUBLIC')}
                       />
-                      <span className='font-medium text-sm text-textGray'>
+                      <span className='text-sm font-medium text-textGray'>
                         공개
                       </span>
                     </div>
@@ -194,7 +195,7 @@ const Edit = () => {
                         defaultChecked={secretMode === 'PRIVATE'}
                         onClick={() => setSecretMode('PRIVATE')}
                       />
-                      <span className='font-medium text-sm text-textGray'>
+                      <span className='text-sm font-medium text-textGray'>
                         비공개
                       </span>
                     </div>
