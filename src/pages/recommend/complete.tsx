@@ -7,6 +7,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { getBookDataByTitle } from '@/api/book';
 import { postBookshelfApi } from '@/api/bookshelf';
 import Header from '@/components/common/Header';
+import Toast from '@/components/common/Toast/Toast';
 import { isAuthorizedSelector } from '@/recoil/auth';
 import { isRendedOnboardingAtom } from '@/recoil/onboarding';
 import { RecommendBookResult } from '@/recoil/recommend';
@@ -52,13 +53,16 @@ const RecommendCompletePage = () => {
     };
     postMyBookshelf(bookData, {
       onSuccess: () => {
-        alert('내 책장에 책을 담았습니다.');
+        Toast.show({ message: '책 담기에 성공했어요!', type: 'success' });
         router.push('/profile');
       },
       onError: (error) => {
         const { status } = error as AxiosError;
         if (status === 403) {
-          alert('이미 책장에 저장된 책입니다.');
+          Toast.show({
+            message: '이미 책장에 저장된 책이에요.',
+            type: 'warning',
+          });
         }
       },
     });
@@ -127,7 +131,7 @@ const RecommendCompletePage = () => {
         <div className='flex flex-col items-center pt-8 bg-white rounded-t-[1.875rem] px-11 pb-14'>
           <h2 className='pb-1 font-bold text-clamp2xl text-main'>{title}</h2>
           <h3 className='text-textGray text-clampBase'>{authors}</h3>
-          <div className='h-1 w-7 bg-main my-6 ' />
+          <div className='h-1 my-6 w-7 bg-main ' />
           <p>{reason}</p>
         </div>
         <div className='w-full px-5 pb-10 bg-white'>

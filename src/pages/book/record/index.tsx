@@ -16,6 +16,7 @@ import { getBookDataByIsbnApi } from '@/api/book';
 import { registerBookRecordApi, registerImageApi } from '@/api/record';
 import AuthRequiredPage from '@/components/auth/AuthRequiredPage';
 import Seo from '@/components/common/Seo';
+import Toast from '@/components/common/Toast/Toast';
 import useImage from '@/hooks/useImage';
 import useInput from '@/hooks/useInput';
 import PrettyNightFontLayout from '@/layout/PrettyNightFontLayout';
@@ -83,7 +84,10 @@ const BookRecordPage = () => {
 
   const submitRecord = () => {
     if (!description || !startDate || !getBookDataByIsbn) {
-      alert('도서, 본문, 완독일을 지정해주세요');
+      Toast.show({
+        message: '도서, 본문, 완독일을 모두 지정해주세요.',
+        type: 'warning',
+      });
       return;
     }
 
@@ -114,7 +118,7 @@ const BookRecordPage = () => {
 
     registerBookRecord.mutate(data, {
       onSuccess: ({ recordId }) => {
-        alert('독서 기록 성공');
+        Toast.show({ message: '독서 기록에 성공했어요!', type: 'success' });
         queryClient.invalidateQueries(['feed']);
         router.push({
           pathname: '/book/feed',
@@ -126,7 +130,7 @@ const BookRecordPage = () => {
         });
       },
       onError: (error) => {
-        alert(error);
+        console.error(error);
       },
     });
   };
@@ -211,7 +215,7 @@ const BookRecordPage = () => {
             value={tag}
             onKeyDown={keyPress}
           />
-          <h2 className='font-bold text-sm text-textBlack'>추가한 태그</h2>
+          <h2 className='text-sm font-bold text-textBlack'>추가한 태그</h2>
           <div className='flex flex-wrap w-full gap-2'>
             {tagList.map((tag) => (
               <span

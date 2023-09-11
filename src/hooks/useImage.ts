@@ -1,6 +1,7 @@
 import { UseMutationResult } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 
+import Toast from '@/components/common/Toast/Toast';
 import { MAX_FILE_SIZE } from '@/constants/file';
 
 interface postImageProps {
@@ -29,7 +30,10 @@ const useImage = (
         return;
       }
       if (files[0]?.size > MAX_FILE_SIZE) {
-        alert(`업로드 가능한 최대 용량은 ${limit}MB 입니다.`);
+        Toast.show({
+          message: `업로드 가능한 최대 용량은 ${limit}MB 입니다.`,
+          type: 'error',
+        });
         return;
       } else {
         formData.append('file', files[0]);
@@ -42,7 +46,7 @@ const useImage = (
             setImage(newImage);
           },
           onError: (error) => {
-            alert(error);
+            console.error(error);
           },
         });
       }
