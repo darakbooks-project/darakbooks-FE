@@ -56,8 +56,10 @@ const SearchResultListItem = ({
         <Image
           src={src}
           width={72}
-          height={96}
+          height={104}
           alt='책 선택 리스트 아이템의 사진 입니다.'
+          placeholder='blur'
+          blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkkAQAAB8AG7jymN8AAAAASUVORK5CYII='
         />
       </BookImageWrap>
       <Introduce>
